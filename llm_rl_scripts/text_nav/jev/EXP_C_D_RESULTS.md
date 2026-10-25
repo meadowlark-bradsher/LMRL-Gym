@@ -99,15 +99,41 @@ yields control.
 
 ---
 
-## Live probe for Experiment C's pairwise core (built, GATED)
+## Experiment C (live layer) — pairwise transitivity & order effects
 
-[`probe_exp_c.py`](probe_exp_c.py) freezes a logged reactive state (reconstructing
-the exact context + observation + admissible set, environment never advanced) and
-collects repeated **pairwise-in-isolation** choices (both presentation orders) plus
-a matched **full-menu** choice, writing `snapshots.jsonl` / `pairwise.jsonl`. It
-computes pairwise win-probabilities, presentation-order effects, and 3-cycles;
-Bradley-Terry / harmonic-residual fitting is the remaining analysis hook. Offline
-self-test passes (a "always pick first-shown" mock yields order-effect 1.0).
+[`probe_exp_c.py`](probe_exp_c.py) froze 6 three-option triads each from the A1
+(bare reactive) and A2 (goal-disclosed reactive) framings — 12 triads, ~1,008 Jev
+calls, the environment never advanced. (A4 is not probeable as a fixed state: its
+history makes states unique and unrepeatable, and A4-minus-history *is* A2, so A2
+carries the explicit-goal framing.) Each triad: full-menu ×12, and each of its 3
+pairs ×12 with presentation order balanced. Logs:
+[`results/expc_pairwise_20261025/`](results/expc_pairwise_20261025/).
 
-Cost (bounded): ≈ snapshots × [full_menu_reps + 3·2·pair_reps] Jev calls — e.g. 6
-snapshots × (12 + 72) ≈ 500 calls. **Not yet run — awaiting go-ahead.**
+| Finding | Value |
+|---|---|
+| 3-cycles (A≻B≻C≻A) detected | **0 / 12 triads** |
+| Pairs with strong position bias (\|order effect\| ≥ 0.5) | **5 / 36** |
+| …of which the symmetric-movement pair `go south`/`go west` | 4 / 5 (order effect 1.0) |
+
+**Transitive within a fixed context.** No cycles in any triad: Jev's
+pairwise preferences admit a scalar ranking. Where an option is clearly better or
+worse (take/drop an object, open a chest vs. move), the preference is strong and
+order-independent (win-probs pinned at 0 or 1, order effect ≈ 0). *The harmonic
+residual instrument has nothing to certify here — there is no cyclic structure.*
+
+**Ties are broken by position, not preference.** The only large order effects fall
+on pairs Jev is indifferent between — above all two interchangeable movement
+directions (`go south` vs `go west`), where order effect = 1.0: whichever is shown
+first is chosen 100% of the time. This is presentation/position bias on indifferent
+options, **not** non-transitivity — exactly the confound the design (§7.3) warned
+not to mistake for harmonic preference structure. It also explains the ~4% of
+near-tie argmax flips the free layer saw: those are indifferent pairs resolved by
+position.
+
+**Context (A1 vs A2) comparison is inconclusive here.** The most-resampled
+3-option states are low-stakes navigation/distractor triads (bowl, chest, movement)
+far from the goal object, and A1 and A2 look alike on them. The decisive
+milk-vs-distractor state was not among them. A targeted follow-up probing
+hand-picked snapshots (e.g. the living-room `take milk` vs `take fresh food` vs
+`go` triad) under A1 vs A2 framing would test goal-driven context sensitivity
+directly — `probe_exp_c.py` supports it via explicit snapshot selection.

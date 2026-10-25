@@ -1,0 +1,10 @@
+{
+  "experiment": "C",
+  "condition": "A1",
+  "snapshots": 6,
+  "full_menu_reps": 12,
+  "pair_reps": 12,
+  "model": "jev-latest",
+  "created": "2026-10-25T16:09:14-0700",
+  "git_commit": "622119d7d65f90ab385f062125ab99a3e05157d3"
+}
