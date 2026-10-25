@@ -1,0 +1,90 @@
+{
+  "pipeline_leak": false,
+  "distinct_dicts_per_role_per_arm": {
+    "bayes/buyer": 1,
+    "bayes/seller": 1,
+    "prior_only/buyer": 1,
+    "prior_only/seller": 1
+  },
+  "identical_across_arms": {
+    "buyer": true,
+    "seller": true
+  },
+  "starter_first_deal_distribution": {
+    "bayes": [
+      [
+        "P2-W2-D0",
+        101
+      ],
+      [
+        "P0-W0-D0",
+        80
+      ],
+      [
+        "P0-W0-D2",
+        78
+      ],
+      [
+        "P1-W0-D2",
+        69
+      ],
+      [
+        "P2-W2-D2",
+        67
+      ],
+      [
+        "P0-W2-D0",
+        38
+      ],
+      [
+        "P1-W2-D0",
+        33
+      ],
+      [
+        "P2-W0-D2",
+        14
+      ]
+    ],
+    "prior_only": [
+      [
+        "P2-W2-D0",
+        94
+      ],
+      [
+        "P0-W0-D0",
+        80
+      ],
+      [
+        "P0-W0-D2",
+        76
+      ],
+      [
+        "P2-W2-D2",
+        75
+      ],
+      [
+        "P1-W0-D2",
+        66
+      ],
+      [
+        "P0-W2-D0",
+        40
+      ],
+      [
+        "P1-W2-D0",
+        30
+      ],
+      [
+        "P2-W0-D2",
+        19
+      ]
+    ]
+  },
+  "mean_shown_pacc_of_chosen": {
+    "bayes": 0.5825,
+    "prior_only": 0.5894
+  },
+  "placebo_tests_so_far": 12,
+  "exclusions_so_far": 1,
+  "false_fail_rate_per_run_under_null_4_tests": 0.1855
+}

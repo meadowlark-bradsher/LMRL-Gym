@@ -1,0 +1,10 @@
+{
+  "B1_proposals_fewer": "CONFIRMED",
+  "B2_walk_more": "UNDERPOWERED/NULL (CI includes 0)",
+  "B3_invalid_zero": true,
+  "B4_verdict_falls": "CONFIRMED",
+  "B5_correct_no_deal": [
+    1.0,
+    1.0
+  ]
+}

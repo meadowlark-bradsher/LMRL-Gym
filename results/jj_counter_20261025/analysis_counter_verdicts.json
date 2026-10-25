@@ -1,0 +1,8 @@
+{
+  "C1_verdict": "NOT SUPPORTED (CI includes 0) \u2014 adequately powered: a null is informative",
+  "C1_delta": -0.0625,
+  "C1_ci95": [
+    -0.175,
+    0.0319
+  ]
+}

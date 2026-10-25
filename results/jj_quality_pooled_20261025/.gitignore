@@ -1,0 +1,3 @@
+# Derived data: pure concatenations of two committed logs. Regenerate with ./REGENERATE.sh
+bayes/runs.jsonl
+prior_only/runs.jsonl

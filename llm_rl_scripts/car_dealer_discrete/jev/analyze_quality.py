@@ -139,9 +139,15 @@ def main(argv=None) -> int:
     ap.add_argument("--boot", type=int, default=5000)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--feasible-only", action="store_true",
+                   help="Restrict to type pairs with a feasible deal (required in the hard "
+                        "regime; infeasible pairs are scored by analyze_infeasible).")
     args = ap.parse_args(argv)
 
     recs_a, recs_b = load(args.cond_a), load(args.cond_b)
+    if args.feasible_only:
+        recs_a = [r for r in recs_a if r["score"]["feasible"]]
+        recs_b = [r for r in recs_b if r["score"]["feasible"]]
     stubs = {"a": _count_stubs(args.cond_a), "b": _count_stubs(args.cond_b)}
     ga, gb = by_pair(recs_a), by_pair(recs_b)
     pairs = sorted(set(ga) & set(gb))
@@ -156,6 +162,7 @@ def main(argv=None) -> int:
     name_a, name_b = os.path.basename(os.path.normpath(args.cond_a)), os.path.basename(os.path.normpath(args.cond_b))
     report = {
         "a": name_a, "b": name_b,
+        "feasible_only": args.feasible_only,
         "episodes": {"a": len(recs_a), "b": len(recs_b)},
         "failed_episodes_excluded": stubs,
         "pairs_compared": len(pairs), "pairs_only_in_a": len(only_a), "pairs_only_in_b": len(only_b),

@@ -1,0 +1,14 @@
+{
+  "contexts": 480,
+  "decisions_attempted": 1440,
+  "decisions_failed": 0,
+  "aid_mode": "prior_only",
+  "acceptable_rate_by_cell": {
+    "seller_responds": 0.7083333333333334,
+    "buyer_responds": 0.7708333333333334
+  },
+  "n_by_cell": {
+    "seller_responds": 720,
+    "buyer_responds": 720
+  }
+}
