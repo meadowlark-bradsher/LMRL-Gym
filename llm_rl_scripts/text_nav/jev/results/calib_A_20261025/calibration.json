@@ -1,0 +1,211 @@
+{
+  "rows": [
+    {
+      "condition": "A1",
+      "seed": 0,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 0.133,
+      "se_ordered": 0.091
+    },
+    {
+      "condition": "A1",
+      "seed": 1,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A1",
+      "seed": 3,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A1",
+      "seed": 4,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A1",
+      "seed": 5,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 0.133,
+      "se_ordered": 0.091
+    },
+    {
+      "condition": "A3",
+      "seed": 0,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 0.133,
+      "se_ordered": 0.091
+    },
+    {
+      "condition": "A3",
+      "seed": 1,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A3",
+      "seed": 3,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A3",
+      "seed": 4,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A3",
+      "seed": 5,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 0.867,
+      "se_ordered": 0.091
+    },
+    {
+      "condition": "A4",
+      "seed": 0,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 0.0,
+      "se_ordered": 0.0
+    },
+    {
+      "condition": "A4",
+      "seed": 1,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 1.267,
+      "se_ordered": 0.182
+    },
+    {
+      "condition": "A4",
+      "seed": 3,
+      "K": 15,
+      "wins": 5,
+      "success_rate": 0.3333,
+      "wilson_lo": 0.1518,
+      "wilson_hi": 0.5829,
+      "mean_ordered": 2.8,
+      "se_ordered": 0.46
+    },
+    {
+      "condition": "A4",
+      "seed": 4,
+      "K": 15,
+      "wins": 12,
+      "success_rate": 0.8,
+      "wilson_lo": 0.5481,
+      "wilson_hi": 0.9295,
+      "mean_ordered": 4.467,
+      "se_ordered": 0.307
+    },
+    {
+      "condition": "A4",
+      "seed": 5,
+      "K": 15,
+      "wins": 0,
+      "success_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.2039,
+      "mean_ordered": 0.0,
+      "se_ordered": 0.0
+    }
+  ],
+  "pooled": {
+    "A1": {
+      "n_rollouts": 75,
+      "wins": 0,
+      "pooled_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.0487,
+      "per_seed_rate_min": 0.0,
+      "per_seed_rate_max": 0.0
+    },
+    "A3": {
+      "n_rollouts": 75,
+      "wins": 0,
+      "pooled_rate": 0.0,
+      "wilson_lo": 0.0,
+      "wilson_hi": 0.0487,
+      "per_seed_rate_min": 0.0,
+      "per_seed_rate_max": 0.0
+    },
+    "A4": {
+      "n_rollouts": 75,
+      "wins": 17,
+      "pooled_rate": 0.2267,
+      "wilson_lo": 0.1466,
+      "wilson_hi": 0.3334,
+      "per_seed_rate_min": 0.0,
+      "per_seed_rate_max": 0.8
+    }
+  },
+  "conditions": [
+    "A1",
+    "A3",
+    "A4"
+  ],
+  "seeds": [
+    0,
+    1,
+    3,
+    4,
+    5
+  ],
+  "run_dir": "/private/tmp/claude-501/-Users-meadowlarkbradsher-workspace-repos-genai-LMRL-Gym--claude-worktrees-text-nav-jev-experiments-34d7f8/203824f8-6b54-4268-a7b0-4fff2509621f/scratchpad/results_calib/20261025_120514_mix"
+}
