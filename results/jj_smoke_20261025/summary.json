@@ -1,0 +1,17 @@
+{
+  "easy": {
+    "episodes": 3,
+    "feasible_episodes": 3,
+    "infeasible_episodes": 0,
+    "agreement_rate": 0.0,
+    "invalid_acceptances": 0,
+    "valid_agreement_rate_feasible": 0.0,
+    "correct_no_deal_rate_infeasible": null,
+    "mean_buyer_gain_feasible": 0.0,
+    "mean_seller_gain_feasible": 0.0,
+    "mean_min_gain_feasible": 0.0,
+    "pareto_frontier_rate_valid": null,
+    "mean_nash_ratio_feasible": 0.0,
+    "mean_proposals_to_agreement": null
+  }
+}
