@@ -1,0 +1,27 @@
+{
+  "experiment": "A",
+  "conditions": [
+    "A1",
+    "A2",
+    "A3",
+    "A4"
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "max_steps": 20,
+  "fully_observed": false,
+  "model": "jev-latest",
+  "env": "real",
+  "created": "2026-10-25T11:48:15-0700",
+  "git_commit": "7d6692b84b1c2e58cc8ee6fcb821d8032bff436e"
+}
