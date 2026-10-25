@@ -10,6 +10,11 @@
 > - **Primary study:** [`results/primary_20261025/PRIMARY_RESULTS.md`](results/primary_20261025/PRIMARY_RESULTS.md) —
 >   on 200 fixed positions Jev beats a random mover (match@1 20.5% vs 3.0%) but
 >   does **not** beat a cheap no-model heuristic and blunders more than it.
+> - **P2 — is it Jev-specific?** [`results/p2_20261025/P2_RESULTS.md`](results/p2_20261025/P2_RESULTS.md):
+>   no. On the same 200 positions Jev is statistically **indistinguishable from
+>   `gpt-4o` constrained to the legal menu** and far below **`claude-opus-5-5`**
+>   (best-move match 45% vs 20%). Legality is a wrapper property any model gets
+>   (free generation is 18% illegal for gpt-4o, ~0% once constrained).
 > - The Elo estimate below remains speculative; it rested on the artifact draw
 >   rates and on non-calibrated weak opponents.
 

@@ -19,6 +19,13 @@ All cited numbers are regenerated and verified from the frozen
 `position_scores.jsonl` by `evidence/generate.py --verify`; see
 [`evidence/PROVENANCE.md`](evidence/PROVENANCE.md).
 
+> **Follow-up (P2):** [`../p2_20261025/P2_RESULTS.md`](../p2_20261025/P2_RESULTS.md)
+> runs two general LLMs over these same positions. Jev turns out to be
+> statistically indistinguishable from `gpt-4o` constrained to the legal menu,
+> and far below frontier `claude-opus-5-5` — so the move quality below is
+> GPT-4-class, not Jev-specific; the legality guarantee is the wrapper's, not
+> Jev's.
+
 ## Headline
 
 Jev **clearly beats random** on positive move quality but **does not beat ~30

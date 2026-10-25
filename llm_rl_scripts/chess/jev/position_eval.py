@@ -55,8 +55,19 @@ def stable_seed(*parts) -> int:
 import chess
 
 from LLM_RL.jev.client import HttpJevBackend, JevClient, JevError, MockJevBackend
+from llm_rl_scripts.chess.jev import llm_arms
 from llm_rl_scripts.chess.jev.evaluator import MoveEvaluator
 from llm_rl_scripts.chess.jev.selectors import SELECTORS
+
+
+def resolve_uci(board: chess.Board, san: Optional[str]) -> Optional[str]:
+    """SAN -> UCI via python-chess (tolerant of spelling); None if illegal."""
+    if not san:
+        return None
+    try:
+        return board.parse_san(san).uci()
+    except (ValueError, AssertionError):
+        return None
 
 BLUNDER_CP = 300
 
@@ -205,7 +216,6 @@ def main() -> int:
             rng = random.Random(stable_seed(args.seed, pos["position_id"]))
             presented = sans[:]
             rng.shuffle(presented)
-            san_to_uci = {board.san(m): m.uci() for m in board.legal_moves}
 
             pe = evaluator.evaluate(pos["fen"])
 
@@ -215,11 +225,12 @@ def main() -> int:
                 confidence, exc = None, None
                 if arm == "jev":
                     selected_san, confidence, exc = choose_jev(jev_client, board, presented, side)
+                elif arm in llm_arms.ARM_SPECS:
+                    selected_san, exc = llm_arms.choose(arm, board, side, presented)
                 else:
                     sel_rng = random.Random(stable_seed(args.seed, arm, pos["position_id"]))
-                    selected_uci_direct = SELECTORS[arm](board, sel_rng)
-                    selected_san = board.san(chess.Move.from_uci(selected_uci_direct))
-                selected_uci = san_to_uci.get(selected_san) if selected_san else None
+                    selected_san = board.san(chess.Move.from_uci(SELECTORS[arm](board, sel_rng)))
+                selected_uci = resolve_uci(board, selected_san)
                 rec = score_record(run_id, arm, pos, board, selected_uci, selected_san,
                                    presented, pe, confidence, exc)
                 out_f.write(json.dumps(rec) + "\n")
