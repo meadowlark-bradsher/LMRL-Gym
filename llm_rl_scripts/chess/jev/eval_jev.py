@@ -75,6 +75,19 @@ def run_game(env, policy: JevChessPolicy, max_moves: int, verbose: bool = False)
         if done:
             break
     result = "win" if reward > 0 else ("loss" if reward < 0 else "draw")
+    b = env.board
+    if b.is_checkmate():
+        term = "checkmate"
+    elif b.is_stalemate():
+        term = "stalemate"
+    elif b.is_insufficient_material():
+        term = "insufficient"
+    elif b.is_repetition(3):
+        term = "repetition"
+    elif b.is_fifty_moves():
+        term = "fifty_move"
+    else:
+        term = "move_cap"
     return {
         "reward": float(reward),
         "win": float(reward > 0),
@@ -83,6 +96,7 @@ def run_game(env, policy: JevChessPolicy, max_moves: int, verbose: bool = False)
         "moves": float(moves),
         "illegal": float(illegal),
         "result": result,
+        "term": term,
     }
 
 
@@ -120,6 +134,9 @@ def main():
     p.add_argument("--max-moves", type=int, default=60, help="agent plies before declaring a draw")
     p.add_argument("--opponent", choices=["random", "stockfish"], default="random")
     p.add_argument("--from-position", default=None, help="starting FEN (e.g. an endgame)")
+    p.add_argument("--endgame-pieces", default=None,
+                   help="sample a fresh endgame per game from this piece string, e.g. 'kQK' "
+                   "(black king, white queen, white king); agent (White) must convert the mate")
     p.add_argument("--engine-path", default=None, help="path to a Stockfish binary")
     p.add_argument("--engine-elo", type=int, default=1200)
     p.add_argument("--engine-skill", type=int, default=None, help="Stockfish Skill Level 0-20 (weakening knob below the 1320 UCI_Elo floor)")
@@ -142,14 +159,21 @@ def main():
     policy = JevChessPolicy(JevClient(backend=backend, model=args.model))
 
     mode = ["mock-jev" if use_mock else "jev:{}".format(args.model), "opp={}".format(opponent)]
-    if args.from_position:
+    if args.endgame_pieces:
+        mode.append("endgame={}".format(args.endgame_pieces))
+    elif args.from_position:
         mode.append("from_fen")
     print("Chess x Jev  [{}]  episodes={} max_moves={}".format(
         " ".join(mode), args.episodes, args.max_moves))
 
     results = []
     for i in range(args.episodes):
-        env = build_env(opponent, args.from_position, args.seed + i, args.engine_path,
+        from_position = args.from_position
+        if args.endgame_pieces:
+            from llm_rl_scripts.chess.jev.endgames import random_endgame_fen
+
+            from_position = random_endgame_fen(args.endgame_pieces, random.Random(args.seed + i))
+        env = build_env(opponent, from_position, args.seed + i, args.engine_path,
                         args.engine_elo, args.engine_skill, args.engine_depth, args.engine_nodes)
         if verbose:
             print("game {}".format(i + 1))
@@ -173,6 +197,10 @@ def main():
     print("avg moves    : {:.2f}".format(agg.get("moves", 0.0)))
     print("illegal moves: {:.3f}%  (0 by construction: Jev only picks legal SAN)".format(
         agg.get("illegal_pct", 0.0)))
+    terms = {}
+    for r in results:
+        terms[r["term"]] = terms.get(r["term"], 0) + 1
+    print("terminations : {}".format(dict(sorted(terms.items(), key=lambda kv: -kv[1]))))
 
 
 if __name__ == "__main__":

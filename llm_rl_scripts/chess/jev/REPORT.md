@@ -63,6 +63,30 @@ no endgame technique. It fits the overall thesis — Choice-from-legal removes t
 illegal-move failure entirely, but a per-move selector with no search does not
 play *strong* chess.
 
+## Endgames: K+Q vs K — can Jev convert a won position?
+
+10 games, a fresh random KQK position each game, randomly-defending lone king,
+White (Jev) to convert:
+
+| W / D / L | Score | Avg moves | Illegal |
+|-----------|-------|-----------|---------|
+| 0.10 / 0.90 / 0.00 | 0.55 | 3.5 | 0% |
+
+Instrumented terminations show the draws are **insufficient material** — i.e. the
+**queen is captured**, leaving K-vs-K. Mechanism, verbatim: Jev's move is a queen
+check delivered from a square *adjacent to the bare king with the queen
+undefended* (e.g. `1. Qe2+`, `1. Qg8+`, at low confidence 0.15–0.22); the king
+simply captures it, ending the game as a draw — often on **move 1**.
+
+For comparison, the paper's Table 7 endgame victory rates are BC 26%, ILQL 57%,
+MC 69%, PPO-online 88% — all against a *Stockfish-1200* defender. Jev converts
+only ~10% against an *easier* random defender, below even BC.
+
+**Takeaway:** in a trivially won position, a lookahead-free selector throws away
+the decisive piece because it cannot see the recapture. Legality is guaranteed;
+capture-awareness and endgame technique are absent. Endgames does not rescue Jev
+— it exposes the no-search limitation in its starkest form.
+
 ## Reproducibility
 
 ```bash
@@ -80,6 +104,10 @@ conda run --no-capture-output -n LLM_RL python -u -m llm_rl_scripts.chess.jev.ev
   --opponent stockfish --engine-path $EP --engine-depth 1 --episodes 6 --max-moves 30
 conda run --no-capture-output -n LLM_RL python -u -m llm_rl_scripts.chess.jev.eval_jev \
   --opponent random --episodes 6 --max-moves 30
+
+# Endgames: K+Q vs K conversion (fresh random position per game):
+conda run --no-capture-output -n LLM_RL python -u -m llm_rl_scripts.chess.jev.eval_jev \
+  --endgame-pieces kQK --opponent random --episodes 10 --max-moves 40
 ```
 
 Stockfish's `UCI_Elo` floors at 1320; weaker opponents use Skill Level / depth
