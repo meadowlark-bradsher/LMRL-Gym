@@ -1,13 +1,17 @@
 # Chess × Jev — mini-report
 
-> **Status (2026-10-25):** superseded in part by follow-up work. The P0
-> validation gates ([`VALIDATION.md`](VALIDATION.md)) now flag that the
-> full-game draw rates below **conflate real draws with move-cap truncations**
-> and need re-running under the fixed termination accounting. The primary
-> move-quality study is [`results/primary_20261025/PRIMARY_RESULTS.md`](results/primary_20261025/PRIMARY_RESULTS.md):
-> on 200 fixed positions, Jev beats a random legal mover (match@1 20.5% vs 3.0%)
-> but does **not** beat a cheap no-model heuristic and blunders more than it. The
-> Elo estimate below remains speculative pending calibrated weak opponents.
+> **Status (2026-10-25):** superseded in part by follow-up work.
+> - **The draw column below is an artifact.** Re-run under the P0 termination
+>   accounting ([`results/ladder_20261025/LADDER_RESULTS.md`](results/ladder_20261025/LADDER_RESULTS.md)),
+>   **all 28 games ended in checkmate or a move-cap truncation — zero genuine
+>   draws.** The old "draws" were unfinished games counted as ½. So the 0.75
+>   score vs random (3 wins + 3 *unfinished*) does not support a rating margin;
+>   Jev loses every finished game to every engine setting (incl. depth-1/Skill-0).
+> - **Primary study:** [`results/primary_20261025/PRIMARY_RESULTS.md`](results/primary_20261025/PRIMARY_RESULTS.md) —
+>   on 200 fixed positions Jev beats a random mover (match@1 20.5% vs 3.0%) but
+>   does **not** beat a cheap no-model heuristic and blunders more than it.
+> - The Elo estimate below remains speculative; it rested on the artifact draw
+>   rates and on non-calibrated weak opponents.
 
 **Question.** Can the TypeSafe **Jev** model (a "System One" structured-decision
 model: Choice / Score / Noul, no text generation) play LMRL-Gym's Chess task as a

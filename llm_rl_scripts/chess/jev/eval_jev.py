@@ -30,8 +30,10 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import json
 import random
 import sys
+import time
 from typing import Callable, Dict, List, Optional
 
 import chess
@@ -162,6 +164,8 @@ def main():
     p.add_argument("--backend", choices=["http", "mock"], default="http")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--quiet", action="store_true")
+    p.add_argument("--jsonl", default=None, help="append one record per game to this file")
+    p.add_argument("--opp-label", default=None, help="opponent label recorded in --jsonl rows")
     p.add_argument("--self-test", action="store_true", help="offline: mock Jev + random opponent, no key")
     args = p.parse_args()
 
@@ -180,10 +184,21 @@ def main():
     print("Chess x Jev  [{}]  episodes={} max_moves={}".format(
         " ".join(mode), args.episodes, args.max_moves))
 
+    jsonl_f = open(args.jsonl, "a") if args.jsonl else None
+    run_id = "ladder_{}".format(int(time.time()))
     results = []
     for i in range(args.episodes):
         env = build_env(opponent, args.from_position, args.seed + i, args.engine_path,
                         args.engine_elo, args.engine_skill, args.engine_depth, args.engine_nodes)
+        # Opponent label + effective engine settings for the record.
+        if opponent == "stockfish" and hasattr(env, "config"):
+            opp_label = args.opp_label or env.config.label
+            engine_opts = env.config.options_sent
+            engine_version = env.config.version
+            search_budget = env.config.search_limit
+        else:
+            opp_label = args.opp_label or opponent
+            engine_opts, engine_version, search_budget = None, None, None
         if verbose:
             print("game {}".format(i + 1))
         try:
@@ -194,6 +209,16 @@ def main():
             print("  -> {} (reward={}, moves={}, illegal={})".format(
                 res["result"], res["reward"], int(res["moves"]), int(res["illegal"])))
         results.append(res)
+        if jsonl_f:
+            jsonl_f.write(json.dumps({
+                "run_id": run_id, "opponent": opp_label, "episode": i,
+                "seed": args.seed + i, "max_moves": args.max_moves,
+                "engine_version": engine_version, "engine_options": engine_opts,
+                "search_budget": search_budget, **res,
+            }) + "\n")
+            jsonl_f.flush()
+    if jsonl_f:
+        jsonl_f.close()
 
     agg = summarize(results)
     # Score (W+D/2) is well-defined only over *finished* games; truncated games
