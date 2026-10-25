@@ -171,6 +171,12 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--vocab", default=DEFAULT_VOCAB)
     p.add_argument("--episodes", type=int, default=20)
+    p.add_argument("--census", action="store_true",
+                   help="use every word in the vocab as a target once "
+                        "(ignores --episodes); removes target-sampling error")
+    p.add_argument("--repeats", type=int, default=1,
+                   help="independent Jev rollouts per target; captures Jev's "
+                        "selection stochasticity so a solve RATE can be estimated")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--model", default="jev-latest")
     p.add_argument("--backend", choices=["http", "mock"], default="http")
@@ -184,6 +190,9 @@ def main():
     p.add_argument("--mock-strategy", choices=["first", "optimal", "random"],
                    default="optimal", help="offline chooser for the mock backend")
     p.add_argument("--out", default=None, help="write full per-episode JSON here")
+    p.add_argument("--jsonl", default=None,
+                   help="append one record per (target, repeat) here; the unit "
+                        "the cluster bootstrap (analyze_wordle.py) resamples")
     p.add_argument("--verbose", action="store_true")
     args = p.parse_args()
 
@@ -193,12 +202,17 @@ def main():
     vocab = load_vocab(args.vocab)
     pool = sorted(vocab.all_vocab)
     rng = random.Random(args.seed)
-    targets = [rng.choice(pool) for _ in range(args.episodes)]
+    if args.census:
+        targets = list(pool)
+    else:
+        targets = [rng.choice(pool) for _ in range(args.episodes)]
 
-    print("Wordle x Jev  vocab={} (|V|={})  episodes={}  seed={}  cap={}  "
+    print("Wordle x Jev  vocab={} (|V|={})  {}  repeats={}  seed={}  cap={}  "
           "max_guesses={}".format(
-              os.path.basename(args.vocab), len(pool), args.episodes, args.seed,
-              args.max_options, args.max_guesses))
+              os.path.basename(args.vocab), len(pool),
+              "census({} targets)".format(len(targets)) if args.census
+              else "episodes={}".format(args.episodes),
+              args.repeats, args.seed, args.max_options, args.max_guesses))
     if len(pool) > args.max_options:
         print("  note: |V| > cap, so early turns use a fixed model-free opener; "
               "whole-game numbers are Jev-from-shortlist end to end.")
@@ -217,19 +231,39 @@ def main():
     # Optimal arm gets its own rng so Jev's calls don't perturb its tie-breaks.
     opt_rng = random.Random(args.seed + 2)
 
+    jsonl_f = None
+    if args.jsonl:
+        jl = Path(args.jsonl)
+        jl.parent.mkdir(parents=True, exist_ok=True)
+        jsonl_f = open(jl, "a")
+
     jev_games, opt_games = [], []
     for i, target in enumerate(targets):
-        jg = play_jev(target, vocab, policy, args.max_guesses)
-        og = play_optimal(target, vocab, opt_rng, args.max_guesses)
-        jg["target"], og["target"] = target, target
-        jev_games.append(jg)
-        opt_games.append(og)
+        for rep in range(args.repeats):
+            jg = play_jev(target, vocab, policy, args.max_guesses)
+            og = play_optimal(target, vocab, opt_rng, args.max_guesses)
+            jg["target"], og["target"] = target, target
+            jg["rep"], og["rep"] = rep, rep
+            jev_games.append(jg)
+            opt_games.append(og)
+            if jsonl_f is not None:
+                # One (target, repeat) row: both arms, so the bootstrap can
+                # resample targets and read paired outcomes.
+                rec = {"target": target, "rep": rep,
+                       "max_guesses": args.max_guesses,
+                       "jev_solved": jg["solved"], "jev_guesses": jg["guesses"],
+                       "opt_solved": og["solved"], "opt_guesses": og["guesses"],
+                       "jev_turns": [t for t in jg["turns"] if "match" in t]}
+                jsonl_f.write(json.dumps(rec) + "\n")
+                jsonl_f.flush()
         if args.verbose:
-            jgc = jg["guesses"]
-            print("  [{:3d}] {}  jev={}({})  opt={}({})".format(
-                i, target,
-                "OK" if jg["solved"] else "XX", jgc if jgc else "-",
-                "OK" if og["solved"] else "XX", og["guesses"] or "-"))
+            js = sum(g["solved"] for g in jev_games[-args.repeats:])
+            os_ = sum(g["solved"] for g in opt_games[-args.repeats:])
+            print("  [{:4d}] {}  jev {}/{}  opt {}/{}".format(
+                i, target, js, args.repeats, os_, args.repeats))
+
+    if jsonl_f is not None:
+        jsonl_f.close()
 
     jev_sum = summarize(jev_games)
     opt_sum = summarize(opt_games)
