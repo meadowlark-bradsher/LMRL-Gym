@@ -1,0 +1,310 @@
+{
+  "blunder.claude_constrained": {
+    "asserts": "blunder rate for claude_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.155
+  },
+  "blunder.claude_free": {
+    "asserts": "blunder rate for claude_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.105
+  },
+  "blunder.gpt4o_constrained": {
+    "asserts": "blunder rate for gpt4o_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.54
+  },
+  "blunder.gpt4o_free": {
+    "asserts": "blunder rate for gpt4o_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.27
+  },
+  "blunder.heuristic_legal": {
+    "asserts": "blunder rate for heuristic_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.405
+  },
+  "blunder.jev": {
+    "asserts": "blunder rate for jev",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.555
+  },
+  "blunder.uniform_legal": {
+    "asserts": "blunder rate for uniform_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.51
+  },
+  "illegal.claude_constrained": {
+    "asserts": "illegal rate for claude_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.005
+  },
+  "illegal.claude_free": {
+    "asserts": "illegal rate for claude_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.035
+  },
+  "illegal.gpt4o_constrained": {
+    "asserts": "illegal rate for gpt4o_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.01
+  },
+  "illegal.gpt4o_free": {
+    "asserts": "illegal rate for gpt4o_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.18
+  },
+  "illegal.heuristic_legal": {
+    "asserts": "illegal rate for heuristic_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.0
+  },
+  "illegal.jev": {
+    "asserts": "illegal rate for jev",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.0
+  },
+  "illegal.uniform_legal": {
+    "asserts": "illegal rate for uniform_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.0
+  },
+  "match1.claude_constrained": {
+    "asserts": "best-move match for claude_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.45226130653266333
+  },
+  "match1.claude_free": {
+    "asserts": "best-move match for claude_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.43523316062176165
+  },
+  "match1.gpt4o_constrained": {
+    "asserts": "best-move match for gpt4o_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.1717171717171717
+  },
+  "match1.gpt4o_free": {
+    "asserts": "best-move match for gpt4o_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.3170731707317073
+  },
+  "match1.heuristic_legal": {
+    "asserts": "best-move match for heuristic_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.265
+  },
+  "match1.jev": {
+    "asserts": "best-move match for jev",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.205
+  },
+  "match1.uniform_legal": {
+    "asserts": "best-move match for uniform_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.03
+  },
+  "medcpl.claude_constrained": {
+    "asserts": "median non-mate cpL for claude_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 2.5
+  },
+  "medcpl.claude_free": {
+    "asserts": "median non-mate cpL for claude_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 3.0
+  },
+  "medcpl.gpt4o_constrained": {
+    "asserts": "median non-mate cpL for gpt4o_constrained",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 422.5
+  },
+  "medcpl.gpt4o_free": {
+    "asserts": "median non-mate cpL for gpt4o_free",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 39
+  },
+  "medcpl.heuristic_legal": {
+    "asserts": "median non-mate cpL for heuristic_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 105.5
+  },
+  "medcpl.jev": {
+    "asserts": "median non-mate cpL for jev",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 425.5
+  },
+  "medcpl.uniform_legal": {
+    "asserts": "median non-mate cpL for uniform_legal",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 266.0
+  },
+  "paired.jev_vs_claude_constrained.blunder": {
+    "asserts": "jev-claude_constrained paired blunder diff + CI",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": 0.4691358024691358,
+      "ci_lo": 0.32941176470588235,
+      "n": 200,
+      "point": 0.4
+    }
+  },
+  "paired.jev_vs_claude_constrained.match_best": {
+    "asserts": "jev-claude_constrained paired match_best diff + CI",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": -0.1782178217821782,
+      "ci_lo": -0.3888888888888889,
+      "n": 199,
+      "point": -0.24623115577889448
+    }
+  },
+  "paired.jev_vs_gpt4o_constrained.blunder": {
+    "asserts": "jev-gpt4o_constrained paired blunder diff + CI",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": 0.0779816513761468,
+      "ci_lo": -0.08227848101265822,
+      "n": 200,
+      "point": 0.015
+    }
+  },
+  "paired.jev_vs_gpt4o_constrained.match_best": {
+    "asserts": "jev-gpt4o_constrained paired match_best diff + CI",
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": 0.08860759493670886,
+      "ci_lo": -0.05263157894736842,
+      "n": 198,
+      "point": 0.03535353535353535
+    }
+  }
+}

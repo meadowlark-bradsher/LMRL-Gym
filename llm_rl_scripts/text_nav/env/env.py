@@ -16,8 +16,10 @@ class TextNavEnv(TextEnv):
 
     def __init__(self,
                  display_location: bool = False,
-                 display_inventory: bool = False):
-        
+                 display_inventory: bool = False,
+                 food_name: str = "stale food"):
+
+        self.food_name = food_name
         self.infos = EnvInfos(description=True,
                               admissible_commands=True,
                               location=display_location,
@@ -25,7 +27,7 @@ class TextNavEnv(TextEnv):
         self.reset()
 
     def _reset(self, seed: Optional[int] = None):
-        _, self.game_file = build_and_compile_game(not self.infos.location)
+        _, self.game_file = build_and_compile_game(not self.infos.location, food_name=self.food_name)
         self.env = textworld.start(self.game_file, self.infos)
         self.display_command_during_render = True
 

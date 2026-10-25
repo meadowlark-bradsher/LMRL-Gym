@@ -165,3 +165,6 @@ experiments/*
 wandb/*
 data/*
 JaxSEQ/*
+
+# TextWorld compiled-game artifacts (generated at runtime)
+tw_games/
