@@ -17,17 +17,29 @@ class TextNavEnv(TextEnv):
     def __init__(self,
                  display_location: bool = False,
                  display_inventory: bool = False,
-                 food_name: str = "stale food"):
+                 food_name: str = "stale food",
+                 seed: Optional[int] = None,
+                 request_facts: bool = False):
 
         self.food_name = food_name
+        # A fixed seed makes _reset reproduce the same game (same start room)
+        # across calls -- needed to run matched games across conditions. None
+        # keeps the previous unseeded behavior.
+        self.seed = seed
+        # ``facts`` is opt-in: it surfaces ground-truth world propositions for
+        # off-prompt instrumentation (milestone scoring). Default False so the
+        # benchmark's observation/reward surface is unchanged for other callers.
         self.infos = EnvInfos(description=True,
                               admissible_commands=True,
                               location=display_location,
-                              inventory=display_inventory)
+                              inventory=display_inventory,
+                              facts=request_facts)
         self.reset()
 
     def _reset(self, seed: Optional[int] = None):
-        _, self.game_file = build_and_compile_game(not self.infos.location, food_name=self.food_name)
+        seed = seed if seed is not None else self.seed
+        _, self.game_file = build_and_compile_game(
+            not self.infos.location, food_name=self.food_name, seed=seed)
         self.env = textworld.start(self.game_file, self.infos)
         self.display_command_during_render = True
 

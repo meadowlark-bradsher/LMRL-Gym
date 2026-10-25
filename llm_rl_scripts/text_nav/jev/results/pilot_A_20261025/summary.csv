@@ -1,0 +1,5 @@
+condition,n,wins,success_rate,mean_greatest_ordered,ever_M1,ever_M2,ever_M3,ever_M4,ever_M5,seeds_with_target_opportunity,take_target,take_distractor,p_target_given_both_offered,n_both_offered,eats,eat_opportunities,p_eat_given_offered
+A1,10,0,0.0,0.5,5,0,0,0,0,5,13,37,0.7143,7,0,80,0.0
+A2,10,0,0.0,0.4,4,0,0,0,0,4,5,17,1.0,4,0,83,0.0
+A3,10,0,0.0,0.8,8,0,0,0,0,9,18,39,0.3864,44,0,78,0.0
+A4,10,3,0.3,2.1,7,4,4,3,3,7,7,15,0.5,10,0,109,0.0

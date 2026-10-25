@@ -1,0 +1,216 @@
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.83, "drop bowl": 0.17}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.83, "drop bowl": 0.17}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.18, "go north": 0.82}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.18, "go north": 0.82}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.81, "drop bowl": 0.19}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.17, "go north": 0.83}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.81, "drop bowl": 0.19}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.19, "go north": 0.81}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.16, "go north": 0.84}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.78, "drop bowl": 0.22}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.84, "drop bowl": 0.16}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.81, "drop bowl": 0.19}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "drop bowl", "chosen": "go west", "probabilities": {"drop bowl": 0.21, "go west": 0.79}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.78, "drop bowl": 0.22}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.81, "drop bowl": 0.19}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "drop bowl", "chosen": "go west", "probabilities": {"drop bowl": 0.18, "go west": 0.82}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.8, "drop bowl": 0.2}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.78, "drop bowl": 0.22}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.83, "drop bowl": 0.17}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.83, "drop bowl": 0.17}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "drop bowl", "chosen": "go west", "probabilities": {"drop bowl": 0.16, "go west": 0.84}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.84, "drop bowl": 0.16}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.8, "drop bowl": 0.2}}
+{"snapshot_id": "A2-00", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.8, "drop bowl": 0.2}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.62, "go west": 0.38}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.61, "go west": 0.39}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.61, "go west": 0.39}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.42, "go north": 0.58}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.4, "go north": 0.6}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.43, "go north": 0.57}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.6, "go west": 0.4}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.41, "go north": 0.59}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.64, "go west": 0.36}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.41, "go north": 0.59}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.4, "go north": 0.6}}
+{"snapshot_id": "A2-00", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.59, "go west": 0.41}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.56, "go east": 0.44}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go east", "chosen": "go north", "probabilities": {"go east": 0.45, "go north": 0.55}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.58, "go east": 0.42}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.6, "go east": 0.4}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go east", "chosen": "go north", "probabilities": {"go east": 0.47, "go north": 0.53}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go east", "chosen": "go north", "probabilities": {"go east": 0.45, "go north": 0.55}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.58, "go east": 0.42}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go east", "chosen": "go north", "probabilities": {"go east": 0.46, "go north": 0.54}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go east", "chosen": "go north", "probabilities": {"go east": 0.45, "go north": 0.55}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.59, "go east": 0.41}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go east", "chosen": "go north", "probabilities": {"go east": 0.44, "go north": 0.56}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.58, "go east": 0.42}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.53, "open chest": 0.47}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "go east", "probabilities": {"open chest": 0.45, "go east": 0.55}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "go east", "probabilities": {"open chest": 0.41, "go east": 0.59}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.54, "open chest": 0.46}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.55, "open chest": 0.45}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.5, "open chest": 0.5}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.5, "go east": 0.5}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "go east", "probabilities": {"open chest": 0.41, "go east": 0.59}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.55, "open chest": 0.45}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.51, "go east": 0.49}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "go east", "probabilities": {"open chest": 0.49, "go east": 0.51}}
+{"snapshot_id": "A2-01", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "go east", "probabilities": {"open chest": 0.47, "go east": 0.53}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.45, "go north": 0.55}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.45, "go north": 0.55}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.45, "go north": 0.55}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.37, "go north": 0.63}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.41, "go north": 0.59}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.56, "open chest": 0.44}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.44, "go north": 0.56}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.58, "open chest": 0.42}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "go north", "probabilities": {"open chest": 0.44, "go north": 0.56}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.54, "open chest": 0.46}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.49, "open chest": 0.51}}
+{"snapshot_id": "A2-01", "a": "go north", "b": "open chest", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.55, "open chest": 0.45}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.83, "drop bowl": 0.17}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.85, "drop bowl": 0.15}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.15, "go north": 0.85}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.15, "go north": 0.85}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.85, "drop bowl": 0.15}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.86, "drop bowl": 0.14}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.87, "drop bowl": 0.13}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.85, "drop bowl": 0.15}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.85, "drop bowl": 0.15}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.84, "drop bowl": 0.16}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.83, "drop bowl": 0.17}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go north", "first": "drop bowl", "chosen": "go north", "probabilities": {"drop bowl": 0.13, "go north": 0.87}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.85, "drop bowl": 0.15}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "drop bowl", "chosen": "go west", "probabilities": {"drop bowl": 0.16, "go west": 0.84}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.87, "drop bowl": 0.13}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.87, "drop bowl": 0.13}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.86, "drop bowl": 0.14}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.82, "drop bowl": 0.18}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.84, "drop bowl": 0.16}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.84, "drop bowl": 0.16}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "drop bowl", "chosen": "go west", "probabilities": {"drop bowl": 0.19, "go west": 0.81}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.86, "drop bowl": 0.14}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.86, "drop bowl": 0.14}}
+{"snapshot_id": "A2-02", "a": "drop bowl", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.84, "drop bowl": 0.16}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.35, "go north": 0.65}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.63, "go west": 0.37}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.41, "go north": 0.59}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.6, "go west": 0.4}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.42, "go north": 0.58}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.39, "go north": 0.61}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.63, "go west": 0.37}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.37, "go north": 0.63}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.61, "go west": 0.39}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.6, "go west": 0.4}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go west", "chosen": "go north", "probabilities": {"go west": 0.42, "go north": 0.58}}
+{"snapshot_id": "A2-02", "a": "go north", "b": "go west", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.58, "go west": 0.42}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go east", "probabilities": {"go north": 0.49, "go east": 0.51}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.59, "go north": 0.41}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.56, "go north": 0.44}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.52, "go east": 0.48}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.56, "go north": 0.44}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go east", "probabilities": {"go north": 0.48, "go east": 0.52}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go east", "probabilities": {"go north": 0.47, "go east": 0.53}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go north", "probabilities": {"go north": 0.5, "go east": 0.5}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go east", "probabilities": {"go north": 0.46, "go east": 0.54}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go east", "chosen": "go east", "probabilities": {"go east": 0.56, "go north": 0.44}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go east", "probabilities": {"go north": 0.48, "go east": 0.52}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "go north", "first": "go north", "chosen": "go east", "probabilities": {"go north": 0.5, "go east": 0.5}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.8, "go east": 0.2}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.21, "open chest": 0.79}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.19, "open chest": 0.81}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.75, "go east": 0.25}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.15, "open chest": 0.85}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.19, "open chest": 0.81}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.78, "go east": 0.22}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.18, "open chest": 0.82}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.18, "open chest": 0.82}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "go east", "chosen": "open chest", "probabilities": {"go east": 0.21, "open chest": 0.79}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.83, "go east": 0.17}}
+{"snapshot_id": "A2-03", "a": "go east", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.78, "go east": 0.22}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.25, "open chest": 0.75}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.2, "open chest": 0.8}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.21, "open chest": 0.79}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.25, "open chest": 0.75}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.18, "open chest": 0.82}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.78, "go north": 0.22}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.24, "open chest": 0.76}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.21, "open chest": 0.79}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.77, "go north": 0.23}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.2, "open chest": 0.8}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "go north", "chosen": "open chest", "probabilities": {"go north": 0.22, "open chest": 0.78}}
+{"snapshot_id": "A2-03", "a": "go north", "b": "open chest", "first": "open chest", "chosen": "open chest", "probabilities": {"open chest": 0.79, "go north": 0.21}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.68, "go west": 0.32}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.64, "go west": 0.36}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.63, "go south": 0.37}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.63, "go south": 0.37}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.64, "go south": 0.36}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.63, "go west": 0.37}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.64, "go south": 0.36}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.64, "go south": 0.36}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.69, "go west": 0.31}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.64, "go south": 0.36}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.63, "go south": 0.37}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.63, "go west": 0.37}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.97, "go south": 0.03}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.05, "take bowl from table": 0.95}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.02, "take bowl from table": 0.98}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.97, "go south": 0.03}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.97, "go south": 0.03}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.03, "take bowl from table": 0.97}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.03, "take bowl from table": 0.97}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.97, "go south": 0.03}}
+{"snapshot_id": "A2-04", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.03, "take bowl from table": 0.97}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.95, "go west": 0.05}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.95, "go west": 0.05}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.05, "take bowl from table": 0.95}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.06, "take bowl from table": 0.94}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.96, "go west": 0.04}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.05, "take bowl from table": 0.95}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.04, "take bowl from table": 0.96}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.05, "take bowl from table": 0.95}}
+{"snapshot_id": "A2-04", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.93, "go west": 0.07}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.68, "go south": 0.32}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.67, "go south": 0.33}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.67, "go south": 0.33}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.66, "go west": 0.34}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.67, "go west": 0.33}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.68, "go south": 0.32}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.64, "go west": 0.36}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.6, "go west": 0.4}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.68, "go west": 0.32}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.64, "go west": 0.36}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go west", "chosen": "go west", "probabilities": {"go west": 0.67, "go south": 0.33}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "go west", "first": "go south", "chosen": "go south", "probabilities": {"go south": 0.63, "go west": 0.37}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.99, "go south": 0.01}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.99, "go south": 0.01}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.98, "go south": 0.02}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.99, "go south": 0.01}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "go south", "chosen": "take bowl from table", "probabilities": {"go south": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go south", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.99, "go south": 0.01}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.02, "take bowl from table": 0.98}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.97, "go west": 0.03}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.98, "go west": 0.02}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.98, "go west": 0.02}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.02, "take bowl from table": 0.98}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.02, "take bowl from table": 0.98}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.01, "take bowl from table": 0.99}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.97, "go west": 0.03}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.98, "go west": 0.02}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.98, "go west": 0.02}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "go west", "chosen": "take bowl from table", "probabilities": {"go west": 0.02, "take bowl from table": 0.98}}
+{"snapshot_id": "A2-05", "a": "go west", "b": "take bowl from table", "first": "take bowl from table", "chosen": "take bowl from table", "probabilities": {"take bowl from table": 0.98, "go west": 0.02}}

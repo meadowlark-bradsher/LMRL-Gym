@@ -1,5 +1,5 @@
 import random
-from typing import Tuple
+from typing import Optional, Tuple
 import numpy as np
 import networkx as nx
 import textworld
@@ -27,7 +27,15 @@ def compile_game(game, options: GameOptions, hide_location: bool = True) -> str:
     return game_file
 
 
-def build_game(options: GameOptions, food_name: str = "stale food") -> Game:
+def build_game(options: GameOptions, food_name: str = "stale food",
+               seed: Optional[int] = None) -> Game:
+    # The only per-episode nondeterminism in this builder is the player's start
+    # room (random.choice below). Seeding Python's global RNG here makes a given
+    # seed reproduce the same start room, which is what lets the experiment run
+    # the *same* game across all conditions (EXPERIMENT_DESIGN.md Appendix A.2).
+    # seed=None preserves the previous unseeded behavior for existing callers.
+    if seed is not None:
+        random.seed(seed)
     M = GameMaker(options)
 
     bedroom = M.new_room("bedroom")
@@ -124,15 +132,20 @@ def build_game(options: GameOptions, food_name: str = "stale food") -> Game:
     return M.build(), metadata
 
 
-def build_and_compile_game(hide_location: bool = True, food_name: str = "stale food") -> Tuple[Game, str]:
+def build_and_compile_game(hide_location: bool = True, food_name: str = "stale food",
+                           seed: Optional[int] = None) -> Tuple[Game, str]:
     options = GameOptions()
     options.grammar.include_adj = False
     options.grammar.only_last_action = True
     options.grammar.blend_instructions = True
     options.grammar.blend_descriptions = True
     options.grammar.hide_location = hide_location
+    # Also pin TextWorld's own RNG so compilation is reproducible for a seed.
+    # seed=None leaves options.seeds at its default (previous behavior).
+    if seed is not None:
+        options.seeds = seed
 
-    game, metadata = build_game(options, food_name=food_name)
+    game, metadata = build_game(options, food_name=food_name, seed=seed)
     objective = ("Your objective is to put the {} on the table in the living room"
                  " into the fridge in the kitchen.".format(food_name))
     game.objective = objective

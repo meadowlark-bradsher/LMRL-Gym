@@ -1,0 +1,50 @@
+{
+  "source": "/Users/meadowlarkbradsher/workspace/repos/genai/LMRL-Gym/.claude/worktrees/text-nav-jev-experiments-34d7f8/llm_rl_scripts/text_nav/jev/results/main_A_20261025/steps.jsonl.gz",
+  "localization": {
+    "distinct_observations": 1209,
+    "observations_mapping_to_multiple_rooms": 0,
+    "eig_note": "unique room descriptions => immediate localization => EIG(a)~0 after the opening; EIG yardstick vacuous, goal-directedness used instead"
+  },
+  "goal_directedness": [
+    {
+      "condition": "A1",
+      "steps": 8000,
+      "steps_with_defined_optimal": 7922,
+      "coverage": 0.9902,
+      "goal_optimal_argmax_rate": 0.255,
+      "chance_optimal_rate": 0.3015,
+      "argmax_lift_over_chance": -0.0465,
+      "mean_prob_mass_on_optimal": 0.2938
+    },
+    {
+      "condition": "A2",
+      "steps": 8000,
+      "steps_with_defined_optimal": 8000,
+      "coverage": 1.0,
+      "goal_optimal_argmax_rate": 0.2057,
+      "chance_optimal_rate": 0.2852,
+      "argmax_lift_over_chance": -0.0795,
+      "mean_prob_mass_on_optimal": 0.2979
+    },
+    {
+      "condition": "A3",
+      "steps": 8000,
+      "steps_with_defined_optimal": 7770,
+      "coverage": 0.9712,
+      "goal_optimal_argmax_rate": 0.2474,
+      "chance_optimal_rate": 0.2163,
+      "argmax_lift_over_chance": 0.0311,
+      "mean_prob_mass_on_optimal": 0.2192
+    },
+    {
+      "condition": "A4",
+      "steps": 7720,
+      "steps_with_defined_optimal": 7720,
+      "coverage": 1.0,
+      "goal_optimal_argmax_rate": 0.3425,
+      "chance_optimal_rate": 0.2109,
+      "argmax_lift_over_chance": 0.1316,
+      "mean_prob_mass_on_optimal": 0.3303
+    }
+  ]
+}

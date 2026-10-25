@@ -1,0 +1,86 @@
+[
+  {
+    "snapshot_id": "A1-00",
+    "pairwise_win_prob": {
+      "drop bowl|go north": 0.0,
+      "drop bowl|go west": 0.0,
+      "go north|go west": 1.0
+    },
+    "order_effect": {
+      "drop bowl|go north": 0.0,
+      "drop bowl|go west": 0.0,
+      "go north|go west": 0.0
+    },
+    "cycles_3": []
+  },
+  {
+    "snapshot_id": "A1-01",
+    "pairwise_win_prob": {
+      "drop bowl|go north": 0.0,
+      "drop bowl|go west": 0.0,
+      "go north|go west": 1.0
+    },
+    "order_effect": {
+      "drop bowl|go north": 0.0,
+      "drop bowl|go west": 0.0,
+      "go north|go west": 0.0
+    },
+    "cycles_3": []
+  },
+  {
+    "snapshot_id": "A1-02",
+    "pairwise_win_prob": {
+      "go south|go west": 0.25,
+      "go south|take bowl from table": 0.0,
+      "go west|take bowl from table": 0.0
+    },
+    "order_effect": {
+      "go south|go west": 1.0,
+      "go south|take bowl from table": 0.0,
+      "go west|take bowl from table": 0.0
+    },
+    "cycles_3": []
+  },
+  {
+    "snapshot_id": "A1-03",
+    "pairwise_win_prob": {
+      "go east|go north": 0.0,
+      "go east|open chest": 1.0,
+      "go north|open chest": 1.0
+    },
+    "order_effect": {
+      "go east|go north": 0.0,
+      "go east|open chest": 0.0,
+      "go north|open chest": 0.0
+    },
+    "cycles_3": []
+  },
+  {
+    "snapshot_id": "A1-04",
+    "pairwise_win_prob": {
+      "go east|go north": 0.6667,
+      "go east|open chest": 0.0,
+      "go north|open chest": 0.0
+    },
+    "order_effect": {
+      "go east|go north": 0.5714,
+      "go east|open chest": 0.0,
+      "go north|open chest": 0.0
+    },
+    "cycles_3": []
+  },
+  {
+    "snapshot_id": "A1-05",
+    "pairwise_win_prob": {
+      "go south|go west": 0.5833,
+      "go south|take bowl from table": 0.0,
+      "go west|take bowl from table": 0.0
+    },
+    "order_effect": {
+      "go south|go west": 1.0,
+      "go south|take bowl from table": 0.0,
+      "go west|take bowl from table": 0.0
+    },
+    "cycles_3": []
+  }
+]

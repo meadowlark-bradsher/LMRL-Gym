@@ -1,0 +1,178 @@
+{
+  "run_dir": "/private/tmp/claude-501/-Users-meadowlarkbradsher-workspace-repos-genai-LMRL-Gym--claude-worktrees-text-nav-jev-experiments-34d7f8/203824f8-6b54-4268-a7b0-4fff2509621f/scratchpad/results_B/20261025_161405_B",
+  "per_condition": {
+    "B1": {
+      "episodes": 50,
+      "take_target": 64,
+      "take_distractor": 274,
+      "opp_target_offered": 219,
+      "opp_target_vs_distractor": 77,
+      "opp_eat_offered": 163,
+      "open_fridge": 85,
+      "insert": 0,
+      "rates": {
+        "take_target|offered": {
+          "k": 64,
+          "n": 219,
+          "wilson": [
+            0.2922,
+            0.236,
+            0.3556
+          ]
+        },
+        "target|both_offered": {
+          "k": 0,
+          "n": 77,
+          "wilson": [
+            0.0,
+            0.0,
+            0.0475
+          ]
+        },
+        "eat|offered": {
+          "k": 34,
+          "n": 163,
+          "wilson": [
+            0.2086,
+            0.1533,
+            0.2773
+          ]
+        }
+      }
+    },
+    "B2": {
+      "episodes": 50,
+      "take_target": 15,
+      "take_distractor": 250,
+      "opp_target_offered": 51,
+      "opp_target_vs_distractor": 19,
+      "opp_eat_offered": 108,
+      "open_fridge": 85,
+      "insert": 0,
+      "rates": {
+        "take_target|offered": {
+          "k": 15,
+          "n": 51,
+          "wilson": [
+            0.2941,
+            0.1871,
+            0.43
+          ]
+        },
+        "target|both_offered": {
+          "k": 0,
+          "n": 19,
+          "wilson": [
+            0.0,
+            0.0,
+            0.1682
+          ]
+        },
+        "eat|offered": {
+          "k": 38,
+          "n": 108,
+          "wilson": [
+            0.3519,
+            0.2683,
+            0.4456
+          ]
+        }
+      }
+    },
+    "B3": {
+      "episodes": 50,
+      "take_target": 38,
+      "take_distractor": 182,
+      "opp_target_offered": 80,
+      "opp_target_vs_distractor": 21,
+      "opp_eat_offered": 363,
+      "open_fridge": 68,
+      "insert": 62,
+      "rates": {
+        "take_target|offered": {
+          "k": 38,
+          "n": 80,
+          "wilson": [
+            0.475,
+            0.3692,
+            0.583
+          ]
+        },
+        "target|both_offered": {
+          "k": 0,
+          "n": 21,
+          "wilson": [
+            0.0,
+            0.0,
+            0.1546
+          ]
+        },
+        "eat|offered": {
+          "k": 0,
+          "n": 363,
+          "wilson": [
+            0.0,
+            0.0,
+            0.0105
+          ]
+        }
+      }
+    },
+    "B4": {
+      "episodes": 50,
+      "take_target": 52,
+      "take_distractor": 169,
+      "opp_target_offered": 60,
+      "opp_target_vs_distractor": 30,
+      "opp_eat_offered": 390,
+      "open_fridge": 63,
+      "insert": 58,
+      "rates": {
+        "take_target|offered": {
+          "k": 52,
+          "n": 60,
+          "wilson": [
+            0.8667,
+            0.7583,
+            0.9309
+          ]
+        },
+        "target|both_offered": {
+          "k": 25,
+          "n": 30,
+          "wilson": [
+            0.8333,
+            0.6644,
+            0.9266
+          ]
+        },
+        "eat|offered": {
+          "k": 0,
+          "n": 390,
+          "wilson": [
+            0.0,
+            0.0,
+            0.0098
+          ]
+        }
+      }
+    }
+  },
+  "effects": {
+    "take_target|offered": {
+      "label_effect_milk_minus_generic": 0.2625,
+      "narrative_effect_N1_minus_N0": 0.3503,
+      "interaction": 0.3898
+    },
+    "target|both_offered": {
+      "label_effect_milk_minus_generic": 0.5102,
+      "narrative_effect_N1_minus_N0": 0.4902,
+      "interaction": 0.8333
+    },
+    "eat|offered": {
+      "label_effect_milk_minus_generic": 0.0117,
+      "narrative_effect_N1_minus_N0": -0.2657,
+      "interaction": -0.1433
+    }
+  }
+}

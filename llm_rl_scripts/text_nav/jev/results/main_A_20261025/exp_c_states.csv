@@ -1,0 +1,263 @@
+condition,n_options,n_samples,argmax_stability,top2_stability,mean_prob_sd,mean_confidence,obs_head
+A1,4,22,1.0,1.0,0.0021,0.9577,"You can make out a fridge.  There are unblocked exits to the east, nor"
+A1,5,484,1.0,1.0,0.0154,0.5432,"You open the fridge, revealing a fruit.   Admissible commands: close f"
+A1,7,472,1.0,0.9386,0.0144,0.5311,You take the fruit from the fridge.    Admissible commands: close frid
+A1,5,439,1.0,1.0,0.001,0.9895,You put the fruit into the fridge.   Admissible commands: close fridge
+A1,4,424,0.5024,0.4198,0.0174,0.0647,"You close the fridge.   Admissible commands: go east, go north, go wes"
+A1,3,8,1.0,1.0,0.0071,0.8712,You make out a closed chest.  There are unblocked exits to the east an
+A1,4,48,1.0,1.0,0.0137,0.6446,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A1,3,51,1.0,0.9608,0.0168,0.2188,"You close the chest.   Admissible commands: go east, go north, open ch"
+A1,5,8,1.0,1.0,0.0164,0.5,You see a table. The table is normal. On the table you can make out a 
+A1,7,96,0.7708,0.9271,0.0149,0.1182,"You take the milk from the table.    Admissible commands: drop milk, e"
+A1,7,81,1.0,0.7407,0.0156,0.1867,"You take the bowl from the table.    Admissible commands: drop bowl, d"
+A1,5,195,0.6667,0.7282,0.0202,0.187,There are unblocked exits to the north and west.    Admissible command
+A1,4,124,1.0,0.9677,0.0127,0.6965,"You drop the milk on the ground.   Admissible commands: drop bowl, go "
+A1,5,118,0.9915,0.9831,0.0181,0.2469,You pick up the milk from the ground.    Admissible commands: drop bow
+A1,7,11,1.0,1.0,0.0154,0.2736,You see a table. The table is usual. But oh no! there's nothing on thi
+A1,5,58,1.0,0.7586,0.0064,0.8653,"You put the milk on the table.   Admissible commands: drop bowl, go so"
+A1,7,57,0.8246,1.0,0.0165,0.207,"You take the milk from the table.    Admissible commands: drop bowl, d"
+A1,5,8,1.0,1.0,0.0042,0.8912,You make out a closed chest.  There are unblocked exits to the east an
+A1,7,22,0.8182,0.5,0.0171,0.2373,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A1,5,18,1.0,0.8889,0.0158,0.215,"You close the chest.   Admissible commands: drop milk, eat milk, go ea"
+A1,9,66,0.9848,0.5,0.0144,0.2092,You take the fresh food from the table.    Admissible commands: drop f
+A1,7,65,1.0,0.9231,0.0052,0.8977,You drop the fresh food on the ground.   Admissible commands: drop mil
+A1,9,53,1.0,1.0,0.0125,0.3951,You pick up the fresh food from the ground.    Admissible commands: dr
+A1,7,48,1.0,0.9792,0.0173,0.4352,"You put the fresh food on the table.   Admissible commands: drop milk,"
+A1,11,22,0.7727,0.6818,0.0131,0.125,You take the fresh food from the table.    Admissible commands: drop b
+A1,9,13,1.0,0.6154,0.0055,0.8438,You drop the fresh food on the ground.   Admissible commands: drop bow
+A1,11,12,1.0,0.5833,0.0146,0.3317,You pick up the fresh food from the ground.    Admissible commands: dr
+A1,9,10,1.0,1.0,0.0116,0.494,"You put the fresh food on the table.   Admissible commands: drop bowl,"
+A1,3,8,1.0,1.0,0.0065,0.82,You can make out a table. On the table you see a bowl. Wow! Just like 
+A1,4,209,1.0,1.0,0.016,0.3163,"You take the bowl from the table.    Admissible commands: drop bowl, g"
+A1,3,609,1.0,1.0,0.0155,0.387,There are unguarded exits to the north and west.    Admissible command
+A1,4,72,1.0,1.0,0.0136,0.3019,"You can make out a table. However, the table, like an empty table, has"
+A1,5,8,1.0,1.0,0.0134,0.4825,You make out a table. The table is typical. On the table you can make 
+A1,5,95,0.9895,0.5474,0.0198,0.2148,There are unguarded exits to the north and west.    Admissible command
+A1,7,28,0.7143,0.4286,0.0157,0.1411,You can make out a table. The table is standard. Looks like someone's 
+A1,5,8,1.0,1.0,0.0164,0.4163,"You see a table. Wow, isn't TextWorld just the best? The table is stan"
+A1,6,9,1.0,1.0,0.012,0.5922,You can make out a table. On the table you make out a bowl.  There are
+A1,7,34,0.8529,0.4412,0.0154,0.1374,You can make out a table. But the thing is empty.  There are unguarded
+A1,4,8,1.0,1.0,0.0065,0.9012,"You see a closed fridge.  There are unguarded exits to the east, north"
+A1,4,13,1.0,1.0,0.0096,0.8731,"You see a closed fridge.  There are unguarded exits to the east, north"
+A1,3,8,1.0,1.0,0.0057,0.9387,You see a table. The table is typical. On the table you can make out a
+A1,3,291,1.0,1.0,0.0169,0.3238,There are unblocked exits to the north and west.    Admissible command
+A1,4,46,0.5435,0.9783,0.0182,0.1511,You see a table. The table is typical. But the thing hasn't got anythi
+A1,3,103,1.0,1.0,0.012,0.758,"You put the bowl on the table.   Admissible commands: go south, go wes"
+A1,4,8,1.0,1.0,0.0182,0.3362,Oh wow! Is that what I think it is? It is! It's a table. You see a cof
+A1,5,85,1.0,1.0,0.0165,0.3113,"You take the plate from the table.    Admissible commands: drop plate,"
+A1,7,8,1.0,1.0,0.0079,0.4225,You can make out a table. On the table you make out a milk and a fresh
+A1,9,79,0.9367,1.0,0.0128,0.2004,"You take the milk from the table.    Admissible commands: drop milk, d"
+A1,9,199,0.9548,1.0,0.0114,0.3596,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A1,10,177,0.9435,1.0,0.0118,0.3167,You take the utensils from the chest.    Admissible commands: close ch
+A1,9,165,0.9394,1.0,0.0089,0.4145,You put the utensils into the chest.   Admissible commands: close ches
+A1,6,140,0.9357,0.9214,0.0165,0.1741,"You close the chest.   Admissible commands: drop milk, drop plate, eat"
+A1,8,10,1.0,0.6,0.0023,0.94,"You put the milk into the chest.   Admissible commands: close chest, d"
+A1,5,9,1.0,0.5556,0.0201,0.2322,"You close the chest.   Admissible commands: drop plate, drop utensils,"
+A1,10,9,0.6667,0.6667,0.0102,0.1667,You take the fresh food from the table.    Admissible commands: drop f
+A1,6,21,1.0,0.5238,0.0158,0.2724,There are unguarded exits to the north and west.    Admissible command
+A1,9,14,1.0,1.0,0.0105,0.3064,"You see a table. Unfortunately, there isn't a thing on it. Oh! Why cou"
+A1,7,8,1.0,0.625,0.0045,0.9038,"You put the milk into the chest.   Admissible commands: close chest, d"
+A1,4,8,0.75,0.625,0.0202,0.1062,"You close the chest.   Admissible commands: drop plate, go east, go no"
+A1,11,20,1.0,0.55,0.0142,0.185,You take the fresh food from the table.    Admissible commands: drop f
+A1,9,20,1.0,0.7,0.0041,0.893,You drop the fresh food on the ground.   Admissible commands: drop mil
+A1,11,12,1.0,0.9167,0.0087,0.4342,You pick up the fresh food from the ground.    Admissible commands: dr
+A1,9,12,1.0,0.8333,0.0104,0.5242,"You put the fresh food on the table.   Admissible commands: drop milk,"
+A1,5,8,1.0,1.0,0.0149,0.5075,"You rest your hand against a wall, but you miss the wall and fall onto"
+A1,7,11,0.4545,0.5455,0.0137,0.1145,You make out a table. The table is normal. But the thing is empty.  Th
+A1,6,9,0.8889,0.6667,0.015,0.1422,You take the fresh food from the table.    Admissible commands: drop f
+A1,4,22,1.0,1.0,0.0025,0.9541,A closed fridge is in the room.  There are unblocked exits to the east
+A1,3,8,1.0,1.0,0.0155,0.7338,You can see a table. On the table you see a bowl. Now that's what I ca
+A1,4,70,0.9714,0.9857,0.0181,0.1783,You can see a table. Looks like someone's already been here and taken 
+A1,4,18,1.0,1.0,0.003,0.9611,You can make out a closed fridge right there by you.  There are unbloc
+A1,4,18,1.0,1.0,0.0058,0.93,"You can see a closed fridge.  There are unguarded exits to the east, n"
+A1,4,8,1.0,1.0,0.0034,0.95,"You see a closed fridge.  There are unblocked exits to the east, north"
+A1,4,13,1.0,1.0,0.0031,0.9462,"You see a closed fridge.  There are unblocked exits to the east, north"
+A1,3,8,1.0,1.0,0.0075,0.85,"Hey, want to see a table? Look over there, a table. Make a note of thi"
+A1,4,40,0.675,1.0,0.0192,0.1565,"Hey, want to see a table? Look over there, a table. Make a note of thi"
+A1,5,8,1.0,1.0,0.0124,0.5212,"You smell an interesting smell, and follow it to a table. The table is"
+A1,7,13,0.6154,1.0,0.0151,0.1554,You can make out a table. The table is typical. But the thing is empty
+A1,4,8,1.0,1.0,0.0128,0.4688,"If you haven't noticed it already, there seems to be something there b"
+A1,7,8,1.0,1.0,0.009,0.4662,You can make out a table. On the table you can make out a milk and a f
+A1,6,8,1.0,0.875,0.0071,0.8488,"You can see a chest. Suddenly, you bump your head on the ceiling, but "
+A1,4,24,1.0,1.0,0.0043,0.9646,"You make out a fridge.  There are unblocked exits to the east, north a"
+A1,3,8,1.0,1.0,0.0049,0.9038,You can make out a closed chest.  There are unblocked exits to the eas
+A1,5,8,1.0,1.0,0.0104,0.4888,You see a table. The table is usual. On the table you see a milk and a
+A1,7,27,0.8889,1.0,0.0153,0.2848,"You can make out a table. However, the table, like an empty table, has"
+A1,3,8,1.0,1.0,0.0045,0.88,"You scan the room, seeing a table. You wonder idly who left that here."
+A1,4,72,1.0,0.9722,0.0173,0.2651,"You scan the room, seeing a table. You wonder idly who left that here."
+A1,3,8,1.0,1.0,0.0032,0.8675,You make out a closed chest.  There are unguarded exits to the east an
+A1,5,8,1.0,1.0,0.0196,0.4425,Oh wow! Is that what I think it is? It is! It's a table. Make a note o
+A1,6,8,1.0,0.625,0.0074,0.72,"Oh, great. Here's a table! On the table you can see a bowl.  There are"
+A1,7,13,1.0,0.9231,0.0167,0.2038,"Oh, great. Here's a table! But the thing is empty.  There are unblocke"
+A1,3,8,1.0,1.0,0.0123,0.4575,What's that over there? It looks like it's a chest. There's something 
+A1,5,8,1.0,1.0,0.0179,0.5262,"You see a table. I guess it's true what they say, if you're looking fo"
+A1,6,8,1.0,0.625,0.0099,0.7325,"Look out! It's a- oh, never mind, it's just a table. On the table you "
+A1,7,25,1.0,0.76,0.0151,0.286,"Look out! It's a- oh, never mind, it's just a table. However, the tabl"
+A1,3,8,1.0,1.0,0.0076,0.8425,You see a chest.  There are unblocked exits to the east and north.  Ad
+A1,5,8,1.0,1.0,0.0136,0.4825,You see a table. The table is typical. On the table you can see a milk
+A1,7,22,1.0,0.5455,0.0122,0.215,You can see a table. But there isn't a thing on it.  There are unblock
+A1,4,8,1.0,1.0,0.0056,0.8975,"You can make out a fridge. Hmmm... what else, what else?  There are un"
+A1,4,19,1.0,1.0,0.0027,0.9521,You can see a closed fridge nearby.  There are unblocked exits to the 
+A1,4,21,1.0,1.0,0.0098,0.8614,"You see a gleam over in a corner, where you can see a fridge.  There a"
+A1,5,8,1.0,1.0,0.0179,0.5025,You can make out a table. On the table you can see a milk and a fresh 
+A1,7,25,1.0,0.96,0.0152,0.17,You see a table. The table is standard. Looks like someone's already b
+A1,4,36,1.0,1.0,0.008,0.8992,You can make out a closed fridge.  There are unguarded exits to the ea
+A1,3,8,1.0,1.0,0.006,0.9025,You see a table. You wonder idly who left that here. On the table you 
+A1,4,64,1.0,1.0,0.0176,0.2703,"You see a table. You wonder idly who left that here. Unfortunately, th"
+A1,3,8,1.0,1.0,0.0057,0.9512,"Oh, great. Here's a table. You see a bowl on the table.  There are ung"
+A1,4,32,1.0,1.0,0.0163,0.2969,"Oh, great. Here's a table. But the thing hasn't got anything on it.  T"
+A1,4,8,1.0,1.0,0.0051,0.9437,"You bend down to tie your shoe. When you stand up, you notice a fridge"
+A1,4,15,1.0,1.0,0.0039,0.9487,"You bend down to tie your shoe. When you stand up, you notice a fridge"
+A1,3,8,1.0,1.0,0.0044,0.9113,You make out a table. On the table you can make out a bowl.  There are
+A1,4,72,1.0,0.5833,0.0196,0.1975,You make out a table. But the thing is empty.  There are unguarded exi
+A1,3,8,1.0,1.0,0.0088,0.7838,"You rest your hand against a wall, but you miss the wall and fall onto"
+A1,4,64,1.0,1.0,0.0143,0.2275,"You rest your hand against a wall, but you miss the wall and fall onto"
+A1,3,8,1.0,1.0,0.004,0.88,You can see a closed chest here.  There are unguarded exits to the eas
+A1,5,8,1.0,1.0,0.0145,0.5038,You make out a table. The table is standard. On the table you can make
+A1,7,30,1.0,1.0,0.014,0.2683,"You see a table. However, the table, like an empty table, has nothing "
+A1,4,8,1.0,1.0,0.0192,0.3912,"Were you looking for a table? Because look over there, it's a table. T"
+A1,7,8,1.0,1.0,0.0104,0.4,"You make out a table. You shudder, but continue examining the table. O"
+A1,4,8,1.0,1.0,0.0136,0.5863,You see a table. The table is normal. On the table you make out a coff
+A1,7,8,1.0,1.0,0.0114,0.4338,"You hear a noise behind you and spin around, but you can't see anythin"
+A1,6,8,1.0,0.875,0.0048,0.8738,"Look over there! a chest. Suddenly, you bump your head on the ceiling,"
+A1,7,8,1.0,0.625,0.0076,0.2812,There are unblocked exits to the north and west.    Admissible command
+A1,4,8,1.0,1.0,0.0116,0.6375,"You smell a fine smell, and follow it to a table. What a coincidence, "
+A1,7,8,1.0,1.0,0.0093,0.5463,"Were you looking for a table? Because look over there, it's a table. O"
+A1,6,8,1.0,1.0,0.0047,0.93,You make out a chest.  There are unblocked exits to the east and north
+A1,3,8,1.0,1.0,0.0064,0.9038,"Look out! It's a- oh, never mind, it's just a table. On the table you "
+A1,4,63,0.9841,1.0,0.0141,0.2213,"Look out! It's a- oh, never mind, it's just a table. The table appears"
+A1,4,22,1.0,1.0,0.0047,0.9382,You can make out a closed fridge.  There are unblocked exits to the ea
+A1,5,8,1.0,1.0,0.0103,0.4763,You see a table. The table is ordinary. On the table you make out a mi
+A1,7,10,0.6,0.7,0.015,0.121,You can see a table. The table is usual. But the thing is empty.  Ther
+A1,4,20,1.0,1.0,0.004,0.948,"You can see a closed fridge.  There are unblocked exits to the east, n"
+A1,4,17,1.0,1.0,0.0012,0.9606,You see a fridge. There's something strange about this thing being her
+A1,3,8,1.0,1.0,0.0053,0.8888,You can make out a table. The table is standard. On the table you can 
+A1,4,64,1.0,1.0,0.0175,0.2691,You can make out a table. The table is standard. But the thing is empt
+A1,3,8,1.0,1.0,0.0032,0.9625,Look over there! a table. You see a bowl on the table.  There are ungu
+A1,4,51,0.5882,1.0,0.0188,0.1065,Look over there! a table. Looks like someone's already been here and t
+A1,4,8,1.0,1.0,0.0017,0.9612,"You see a fridge.  There are unblocked exits to the east, north and we"
+A1,9,9,0.6667,1.0,0.013,0.3667,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A1,6,8,0.875,1.0,0.0133,0.155,"You close the chest.   Admissible commands: drop fresh food, drop plat"
+A1,4,10,1.0,1.0,0.0034,0.964,"You see a fridge.  There are unblocked exits to the east, north and we"
+A1,3,8,1.0,1.0,0.011,0.7688,"You hear a noise behind you and spin around, but you can't see anythin"
+A1,4,62,0.9839,1.0,0.0145,0.2227,"You hear a noise behind you and spin around, but you can't see anythin"
+A1,4,8,1.0,1.0,0.0168,0.4612,"You scan the room, seeing a table. The table is normal. On the table y"
+A1,7,8,1.0,1.0,0.0121,0.4863,"Hey, want to see a table? Look over there, a table. What a coincidence"
+A1,4,8,1.0,1.0,0.0195,0.2825,Oh wow! Is that what I think it is? It is! It's a table. You see a cof
+A1,7,8,0.75,1.0,0.0108,0.4075,"You scan the room for a table, and you find a table. The table is usua"
+A1,3,8,1.0,1.0,0.0057,0.9088,You make out a table. On the table you see a bowl.  There are unblocke
+A1,4,64,1.0,1.0,0.0161,0.3266,"You make out a table. Unfortunately, there isn't a thing on it. What, "
+A2,4,8,1.0,1.0,0.0079,0.845,"You can make out a fridge.  There are unblocked exits to the east, nor"
+A2,5,855,0.5357,1.0,0.0237,0.3163,"You open the fridge, revealing a fruit.   Admissible commands: close f"
+A2,4,774,1.0,1.0,0.0135,0.7668,"You close the fridge.   Admissible commands: go east, go north, go wes"
+A2,7,450,1.0,0.9933,0.0088,0.8197,You take the fruit from the fridge.    Admissible commands: close frid
+A2,5,409,1.0,1.0,0.0,1.0,You put the fruit into the fridge.   Admissible commands: close fridge
+A2,3,8,1.0,1.0,0.0166,0.685,You make out a closed chest.  There are unblocked exits to the east an
+A2,4,474,1.0,1.0,0.015,0.6086,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A2,3,427,0.9977,0.9953,0.0268,0.2134,"You close the chest.   Admissible commands: go east, go north, open ch"
+A2,3,8,1.0,1.0,0.0065,0.9238,You can make out a table. On the table you see a bowl. Wow! Just like 
+A2,4,112,1.0,1.0,0.0124,0.3761,"You take the bowl from the table.    Admissible commands: drop bowl, g"
+A2,3,556,1.0,1.0,0.0193,0.3458,There are unguarded exits to the north and west.    Admissible command
+A2,4,72,1.0,1.0,0.0117,0.4186,"You can make out a table. However, the table, like an empty table, has"
+A2,5,8,1.0,1.0,0.0112,0.5125,You make out a table. The table is typical. On the table you can make 
+A2,7,51,0.8627,1.0,0.0121,0.241,"You take the milk from the table.    Admissible commands: drop milk, e"
+A2,7,44,1.0,1.0,0.0093,0.3991,"You take the bowl from the table.    Admissible commands: drop bowl, d"
+A2,5,50,0.96,1.0,0.0146,0.2822,There are unguarded exits to the north and west.    Admissible command
+A2,9,38,1.0,1.0,0.0117,0.3211,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A2,6,38,0.8684,1.0,0.019,0.2908,"You close the chest.   Admissible commands: drop bowl, drop milk, eat "
+A2,11,24,0.9167,1.0,0.0119,0.2254,You take the fresh food from the table.    Admissible commands: drop b
+A2,7,17,0.9412,0.7059,0.0141,0.2353,There are unguarded exits to the north and west.    Admissible command
+A2,7,46,1.0,1.0,0.0122,0.342,You can make out a table. The table is standard. Looks like someone's 
+A2,7,55,1.0,0.8545,0.013,0.4575,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A2,5,49,0.9796,0.7347,0.0227,0.2394,"You close the chest.   Admissible commands: drop milk, eat milk, go ea"
+A2,5,8,1.0,1.0,0.0141,0.5262,"You see a table. Wow, isn't TextWorld just the best? The table is stan"
+A2,6,8,1.0,0.75,0.0039,0.8588,You can make out a table. On the table you make out a bowl.  There are
+A2,5,186,0.9892,1.0,0.0133,0.3352,There are unblocked exits to the north and west.    Admissible command
+A2,7,59,0.9661,1.0,0.0117,0.379,You can make out a table. But the thing is empty.  There are unguarded
+A2,7,79,1.0,1.0,0.0137,0.3571,There are unblocked exits to the north and west.    Admissible command
+A2,4,8,1.0,1.0,0.0119,0.7675,"You see a closed fridge.  There are unguarded exits to the east, north"
+A2,3,8,1.0,1.0,0.0059,0.9788,You see a table. The table is typical. On the table you can make out a
+A2,3,360,1.0,1.0,0.0174,0.3367,There are unblocked exits to the north and west.    Admissible command
+A2,4,64,1.0,1.0,0.0129,0.3997,You see a table. The table is typical. But the thing hasn't got anythi
+A2,4,8,1.0,1.0,0.0143,0.215,Oh wow! Is that what I think it is? It is! It's a table. You see a cof
+A2,5,54,1.0,1.0,0.0171,0.3313,"You take the plate from the table.    Admissible commands: drop plate,"
+A2,7,8,1.0,1.0,0.0116,0.6088,You can make out a table. On the table you make out a milk and a fresh
+A2,9,54,1.0,0.7407,0.0102,0.3009,"You take the milk from the table.    Admissible commands: drop milk, d"
+A2,6,8,1.0,1.0,0.0067,0.8175,"Look out! It's a- oh, never mind, it's just a chest.  There are unguar"
+A2,9,432,1.0,1.0,0.0114,0.3759,"You open the chest, revealing an utensils.   Admissible commands: clos"
+A2,6,378,1.0,0.9921,0.0178,0.3794,"You close the chest.   Admissible commands: drop milk, drop plate, eat"
+A2,5,8,1.0,1.0,0.0078,0.5575,"You rest your hand against a wall, but you miss the wall and fall onto"
+A2,7,11,0.5455,1.0,0.0135,0.3182,You make out a table. The table is normal. But the thing is empty.  Th
+A2,10,28,1.0,1.0,0.0081,0.4821,You make out a table. The table is normal. But the thing is empty.  Th
+A2,4,8,1.0,1.0,0.0172,0.7238,A closed fridge is in the room.  There are unblocked exits to the east
+A2,3,8,1.0,1.0,0.007,0.9012,You can see a table. On the table you see a bowl. Now that's what I ca
+A2,4,72,1.0,1.0,0.0169,0.3794,You can see a table. Looks like someone's already been here and taken 
+A2,4,8,1.0,1.0,0.0091,0.8712,You can make out a closed fridge right there by you.  There are unbloc
+A2,4,8,1.0,1.0,0.0166,0.79,"You can see a closed fridge.  There are unguarded exits to the east, n"
+A2,4,8,1.0,1.0,0.0106,0.8013,"You see a closed fridge.  There are unblocked exits to the east, north"
+A2,3,8,1.0,1.0,0.0044,0.9412,"Hey, want to see a table? Look over there, a table. Make a note of thi"
+A2,4,64,1.0,1.0,0.0143,0.3545,"Hey, want to see a table? Look over there, a table. Make a note of thi"
+A2,5,8,1.0,1.0,0.0141,0.5687,"You smell an interesting smell, and follow it to a table. The table is"
+A2,6,8,1.0,0.875,0.0078,0.7538,You can make out a table. The table is typical. On the table you can m
+A2,7,60,1.0,1.0,0.0138,0.3052,You can make out a table. The table is typical. But the thing is empty
+A2,4,8,1.0,0.875,0.0223,0.5575,"If you haven't noticed it already, there seems to be something there b"
+A2,7,8,1.0,1.0,0.0062,0.6525,You can make out a table. On the table you can make out a milk and a f
+A2,6,8,1.0,1.0,0.0039,0.8888,"You can see a chest. Suddenly, you bump your head on the ceiling, but "
+A2,4,8,1.0,1.0,0.0054,0.9487,"You make out a fridge.  There are unblocked exits to the east, north a"
+A2,3,8,1.0,1.0,0.0149,0.5725,You can make out a closed chest.  There are unblocked exits to the eas
+A2,3,8,1.0,1.0,0.0032,0.9575,"You scan the room, seeing a table. You wonder idly who left that here."
+A2,4,72,1.0,1.0,0.0137,0.4694,"You scan the room, seeing a table. You wonder idly who left that here."
+A2,3,8,1.0,1.0,0.017,0.7712,You make out a closed chest.  There are unguarded exits to the east an
+A2,3,8,1.0,1.0,0.0214,0.6362,What's that over there? It looks like it's a chest. There's something 
+A2,3,8,1.0,1.0,0.0215,0.595,You see a chest.  There are unblocked exits to the east and north.  Ad
+A2,4,8,1.0,1.0,0.0208,0.4325,"You can make out a fridge. Hmmm... what else, what else?  There are un"
+A2,4,8,1.0,1.0,0.0141,0.7838,You can see a closed fridge nearby.  There are unblocked exits to the 
+A2,4,8,1.0,1.0,0.01,0.6838,"You see a gleam over in a corner, where you can see a fridge.  There a"
+A2,5,8,1.0,1.0,0.009,0.555,You can make out a table. On the table you can see a milk and a fresh 
+A2,7,19,0.7368,1.0,0.0145,0.3942,You see a table. The table is standard. Looks like someone's already b
+A2,10,21,1.0,1.0,0.0042,0.5257,You see a table. The table is standard. Looks like someone's already b
+A2,4,16,1.0,1.0,0.006,0.8538,You can make out a closed fridge.  There are unguarded exits to the ea
+A2,3,8,1.0,1.0,0.0033,0.975,You see a table. You wonder idly who left that here. On the table you 
+A2,4,64,1.0,1.0,0.0124,0.423,"You see a table. You wonder idly who left that here. Unfortunately, th"
+A2,3,8,1.0,1.0,0.0022,0.9825,"Oh, great. Here's a table. You see a bowl on the table.  There are ung"
+A2,4,64,1.0,1.0,0.0162,0.3292,"Oh, great. Here's a table. But the thing hasn't got anything on it.  T"
+A2,4,8,1.0,1.0,0.0063,0.8675,"You bend down to tie your shoe. When you stand up, you notice a fridge"
+A2,3,8,1.0,1.0,0.0032,0.9625,You make out a table. On the table you can make out a bowl.  There are
+A2,4,72,1.0,1.0,0.0145,0.4158,You make out a table. But the thing is empty.  There are unguarded exi
+A2,3,8,1.0,1.0,0.0073,0.8875,"You rest your hand against a wall, but you miss the wall and fall onto"
+A2,4,26,0.6923,1.0,0.0111,0.3069,"You rest your hand against a wall, but you miss the wall and fall onto"
+A2,7,8,1.0,1.0,0.0078,0.5425,"What's that over there? It looks like it's a table. Wow, isn't TextWor"
+A2,9,15,0.6667,0.5333,0.0107,0.2453,"You take the milk from the table.    Admissible commands: drop bowl, d"
+A2,10,13,1.0,1.0,0.006,0.4538,"You rest your hand against a wall, but you miss the wall and fall onto"
+A2,3,8,1.0,1.0,0.0178,0.6813,You can see a closed chest here.  There are unguarded exits to the eas
+A2,4,8,1.0,1.0,0.0211,0.45,"Were you looking for a table? Because look over there, it's a table. T"
+A2,7,8,1.0,1.0,0.0075,0.675,"You make out a table. You shudder, but continue examining the table. O"
+A2,6,8,1.0,1.0,0.0017,0.9375,"You see a closed chest, which looks normal, close by.  There are ungua"
+A2,4,8,1.0,1.0,0.0239,0.5925,You see a table. The table is normal. On the table you make out a coff
+A2,7,8,1.0,1.0,0.0093,0.6212,"You hear a noise behind you and spin around, but you can't see anythin"
+A2,6,8,1.0,1.0,0.0026,0.9313,"Look over there! a chest. Suddenly, you bump your head on the ceiling,"
+A2,4,8,1.0,0.875,0.0071,0.8538,"You smell a fine smell, and follow it to a table. What a coincidence, "
+A2,7,8,1.0,1.0,0.0069,0.5188,"Were you looking for a table? Because look over there, it's a table. O"
+A2,6,8,1.0,0.75,0.0054,0.9038,You make out a chest.  There are unblocked exits to the east and north
+A2,3,8,1.0,1.0,0.0029,0.9475,"Look out! It's a- oh, never mind, it's just a table. On the table you "
+A2,4,57,0.9825,1.0,0.0139,0.3491,"Look out! It's a- oh, never mind, it's just a table. The table appears"
+A2,4,8,1.0,1.0,0.0155,0.7875,You can make out a closed fridge.  There are unblocked exits to the ea
+A2,5,8,1.0,1.0,0.0135,0.5,You see a table. The table is ordinary. On the table you make out a mi
+A2,7,25,0.84,1.0,0.0103,0.3664,You can see a table. The table is usual. But the thing is empty.  Ther
+A2,10,21,1.0,1.0,0.0058,0.5086,You can see a table. The table is usual. But the thing is empty.  Ther
+A2,4,8,1.0,1.0,0.0121,0.765,"You can see a closed fridge.  There are unblocked exits to the east, n"
+A2,4,8,1.0,1.0,0.0097,0.9012,You see a fridge. There's something strange about this thing being her
+A2,3,8,1.0,1.0,0.0039,0.9688,You can make out a table. The table is standard. On the table you can 
+A2,4,64,1.0,1.0,0.011,0.4445,You can make out a table. The table is standard. But the thing is empt
+A2,3,8,1.0,1.0,0.0,0.97,Look over there! a table. You see a bowl on the table.  There are ungu
+A2,4,72,1.0,0.9028,0.0195,0.2596,Look over there! a table. Looks like someone's already been here and t
+A2,4,8,1.0,1.0,0.0036,0.9263,"You see a fridge.  There are unblocked exits to the east, north and we"
+A2,3,8,1.0,1.0,0.0051,0.9313,"You hear a noise behind you and spin around, but you can't see anythin"
+A2,4,33,0.7879,1.0,0.0139,0.3094,"You hear a noise behind you and spin around, but you can't see anythin"
+A2,4,8,1.0,1.0,0.0242,0.4313,"You scan the room, seeing a table. The table is normal. On the table y"
+A2,7,8,1.0,1.0,0.0056,0.6512,"Hey, want to see a table? Look over there, a table. What a coincidence"
+A2,6,8,1.0,0.75,0.0095,0.6675,"Were you looking for a chest? Because look over there, it's a chest.  "
+A2,4,8,0.75,1.0,0.0239,0.2025,Oh wow! Is that what I think it is? It is! It's a table. You see a cof
+A2,7,8,0.875,1.0,0.0136,0.3662,You can make out a table. The table is standard. But the thing is empt
+A2,3,8,1.0,1.0,0.0032,0.9575,You make out a table. On the table you see a bowl.  There are unblocke
+A2,4,64,1.0,1.0,0.0134,0.3822,"You make out a table. Unfortunately, there isn't a thing on it. What, "

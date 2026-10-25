@@ -1,0 +1,27 @@
+{
+  "source": "/Users/meadowlarkbradsher/workspace/repos/genai/LMRL-Gym/.claude/worktrees/text-nav-jev-experiments-34d7f8/llm_rl_scripts/text_nav/jev/results/main_A_20261025/steps.jsonl.gz",
+  "n_fixed_states": 262,
+  "min_samples": 8,
+  "min_options": 3,
+  "argmax_stability": [
+    0.9633,
+    0.4545,
+    1.0
+  ],
+  "unanimous_argmax_frac": 0.8053,
+  "top2_stability": [
+    0.9412,
+    0.4198,
+    1.0
+  ],
+  "mean_prob_sd": [
+    0.0115,
+    0.0,
+    0.0268
+  ],
+  "mean_confidence": [
+    0.5551,
+    0.0647,
+    1.0
+  ]
+}
