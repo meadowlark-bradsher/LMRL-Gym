@@ -72,3 +72,50 @@ cleanly (Car Dealer), Jev is the holdout.
 EIG ≈ 0, BED degenerate. Hidden-but-static latent (20Q, Wordle) → EIG is the
 objective. Hidden-and-dynamic or reward-coupled (Text-Nav, Car Dealer) → EIG is a
 *term*, traded against reward or used to drive exploration, never maximized alone.
+
+## Relation to RL formalisms
+
+A natural question is whether the triad is an **actor-critic** split. It rhymes with
+one but is not one, and the mismatch is the useful part.
+
+**The surface rhyme.** Actor-critic = an *actor* (policy that proposes/selects) and a
+*critic* (value estimate that evaluates and supplies the learning signal). The
+Propose → Score → Select pipeline lines up as: LLM = actor, Jev = evaluator,
+BED-LLM = selector.
+
+**Why it is not actor-critic:**
+
+1. **Nothing learns here.** The critic exists in AC to produce a TD-error / advantage
+   that *trains the actor* over episodes. Jev, the LLM, and BED-LLM are all zero-shot,
+   inference-time — no gradient loop, so the defining actor↔critic feedback is absent.
+   (The paper's *trained* RL columns are where real actor-critic structure lives; this
+   triad is the inference-time decomposition instead.)
+2. **The "critic" scores the wrong quantity.** A critic estimates *expected return*
+   (value). Jev's `Noul` is a **likelihood** p(answer | hypothesis); BED-LLM's EIG is
+   **expected information gain**. Neither is a reward-value — so Jev is a critic *of the
+   observation model*, and EIG is an *acquisition function*, not V(s).
+3. **Selector ≠ evaluator.** In AC the actor both proposes and selects; the critic never
+   picks. Here BED-LLM selects (argmax EIG) over Jev's scores — structurally closer to
+   **value-based / greedy control** (soft-Q with argmax) than policy-gradient AC.
+
+**Better-fitting vocabulary per component:**
+
+- **LLM proposer** → actor / behavior policy (or a proposal distribution).
+- **Jev scorer** → a **Q-like evaluator** (its option-probs act as a soft action-value
+  that BED takes greedily) — but a *likelihood* critic, not a reward critic, except in
+  Car Dealer.
+- **BED-LLM** → **model-based POMDP planning** (posterior = belief state) plus an
+  **intrinsic-motivation / exploration signal** — EIG is information-directed sampling /
+  curiosity, an exploration bonus, not a value function.
+
+**The one clean actor-critic instance: Car Dealer.** It is the only environment with
+extrinsic reward (sale price), so it is the only one where "critic = value" is literal:
+actor = LLM negotiator; critic = a value estimator of expected sale price (a role Jev
+*could* fill if scored on expected return rather than likelihood); EIG = an exploration
+bonus added to that value — i.e. the explore/exploit split already in the table.
+
+So the triad is a **propose/evaluate/select** decomposition, not actor-critic. It
+collapses *into* actor-critic only when the task carries extrinsic reward and Jev is
+repurposed from a likelihood model into a value critic; everywhere else the "critic"
+scores information or likelihood, placing it in Bayesian-OED / active-learning /
+value-based-control territory rather than policy-gradient AC.
