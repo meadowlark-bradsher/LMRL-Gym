@@ -27,7 +27,7 @@ def compile_game(game, options: GameOptions, hide_location: bool = True) -> str:
     return game_file
 
 
-def build_game(options: GameOptions) -> Game:
+def build_game(options: GameOptions, food_name: str = "stale food") -> Game:
     M = GameMaker(options)
 
     bedroom = M.new_room("bedroom")
@@ -63,7 +63,7 @@ def build_game(options: GameOptions) -> Game:
     diningroom.add(table3)
     kitchen.add(fridge)
 
-    food = M.new(type="f", name="stale food")
+    food = M.new(type="f", name=food_name)
     distractor1 = M.new(type="f", name="fresh food")
     distractor2 = M.new(type="o", name="bowl")
     distractor3 = M.new(type="o", name="coffee cup")
@@ -108,12 +108,12 @@ def build_game(options: GameOptions) -> Game:
     walkthrough += move(M, G, current_room, livingroom)
     current_room = livingroom
 
-    walkthrough.append("take stale food from table")
+    walkthrough.append("take {} from table".format(food_name))
 
     walkthrough += move(M, G, current_room, kitchen)
-    
+
     walkthrough.append("open fridge")
-    walkthrough.append("insert stale food into fridge")
+    walkthrough.append("insert {} into fridge".format(food_name))
     walkthrough.append("close fridge")
 
     M.set_walkthrough(walkthrough)
@@ -124,7 +124,7 @@ def build_game(options: GameOptions) -> Game:
     return M.build(), metadata
 
 
-def build_and_compile_game(hide_location: bool = True) -> Tuple[Game, str]:
+def build_and_compile_game(hide_location: bool = True, food_name: str = "stale food") -> Tuple[Game, str]:
     options = GameOptions()
     options.grammar.include_adj = False
     options.grammar.only_last_action = True
@@ -132,9 +132,9 @@ def build_and_compile_game(hide_location: bool = True) -> Tuple[Game, str]:
     options.grammar.blend_descriptions = True
     options.grammar.hide_location = hide_location
 
-    game, metadata = build_game(options)
-    objective = ("Your objective is to put the stale food on the table in the living room"
-                 " into the fridge in the kitchen.")
+    game, metadata = build_game(options, food_name=food_name)
+    objective = ("Your objective is to put the {} on the table in the living room"
+                 " into the fridge in the kitchen.".format(food_name))
     game.objective = objective
 
     metadata["partial_information"] = hide_location
