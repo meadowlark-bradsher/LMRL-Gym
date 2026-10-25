@@ -1,5 +1,14 @@
 # Chess × Jev — mini-report
 
+> **Status (2026-10-25):** superseded in part by follow-up work. The P0
+> validation gates ([`VALIDATION.md`](VALIDATION.md)) now flag that the
+> full-game draw rates below **conflate real draws with move-cap truncations**
+> and need re-running under the fixed termination accounting. The primary
+> move-quality study is [`results/primary_20261025/PRIMARY_RESULTS.md`](results/primary_20261025/PRIMARY_RESULTS.md):
+> on 200 fixed positions, Jev beats a random legal mover (match@1 20.5% vs 3.0%)
+> but does **not** beat a cheap no-model heuristic and blunders more than it. The
+> Elo estimate below remains speculative pending calibrated weak opponents.
+
 **Question.** Can the TypeSafe **Jev** model (a "System One" structured-decision
 model: Choice / Score / Noul, no text generation) play LMRL-Gym's Chess task as a
 zero-shot policy, and what playing strength (Elo) does it reach?

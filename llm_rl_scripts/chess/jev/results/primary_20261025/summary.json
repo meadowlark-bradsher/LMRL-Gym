@@ -1,0 +1,41 @@
+{
+  "heuristic_legal": {
+    "n": 200,
+    "n_legal": 200,
+    "illegal_rate": 0.0,
+    "mean_cp_loss_nonmate": 1989.6011235955057,
+    "median_cp_loss": 89.0,
+    "median_cp_loss_nonmate": 105.5,
+    "match_best": 0.265,
+    "match_top3": 0.4,
+    "blunder_rate": 0.405,
+    "missed_mate_rate": 0.4090909090909091,
+    "n_mate_positions": 22
+  },
+  "jev": {
+    "n": 200,
+    "n_legal": 200,
+    "illegal_rate": 0.0,
+    "mean_cp_loss_nonmate": 1067.0955056179776,
+    "median_cp_loss": 425.5,
+    "median_cp_loss_nonmate": 425.5,
+    "match_best": 0.205,
+    "match_top3": 0.33,
+    "blunder_rate": 0.555,
+    "missed_mate_rate": 0.5454545454545454,
+    "n_mate_positions": 22
+  },
+  "uniform_legal": {
+    "n": 200,
+    "n_legal": 200,
+    "illegal_rate": 0.0,
+    "mean_cp_loss_nonmate": 2134.6348314606744,
+    "median_cp_loss": 314.5,
+    "median_cp_loss_nonmate": 266.0,
+    "match_best": 0.03,
+    "match_top3": 0.13,
+    "blunder_rate": 0.51,
+    "missed_mate_rate": 0.7272727272727273,
+    "n_mate_positions": 22
+  }
+}

@@ -36,7 +36,8 @@ from typing import Callable, Dict, List, Optional
 
 import chess
 
-from LLM_RL.jev.client import HttpJevBackend, JevClient, MockJevBackend
+from LLM_RL.jev.client import HttpJevBackend, JevClient, JevError, MockJevBackend
+from llm_rl_scripts.chess.jev import outcomes
 from llm_rl_scripts.chess.jev.policy import JevChessPolicy, legal_san_moves
 from llm_rl_scripts.chess.jev.simple_env import SimpleChessEnv
 
@@ -53,36 +54,63 @@ def san_history(start_fen: Optional[str], move_stack: List[chess.Move]) -> str:
 
 
 def run_game(env, policy: JevChessPolicy, max_moves: int, verbose: bool = False) -> Dict[str, float]:
+    """Play one full game and return a fully-accounted result.
+
+    Gate D (fail closed): the move Jev returns is asserted to be one of the
+    legal SANs before it is applied; a provider failure or a malformed response
+    is recorded as ``api_error`` (a truncated, non-draw outcome) rather than
+    being silently mapped to a legal move or to a draw.
+    Gate B/C: termination is classified explicitly via :mod:`outcomes`, so a hit
+    move-cap is reported as truncated, never as a chess draw.
+    """
     env.reset()
     illegal = 0
     moves = 0
-    reward = 0.0
-    for _ in range(max_moves):
+    move_cap_hit = False
+    term = None
+    for ply in range(max_moves):
         board = env.board
         if board.is_game_over():
             break
         legal = set(legal_san_moves(board))
         history = san_history(env.from_position, list(board.move_stack))
-        san = policy.choose(board, history)
+        try:
+            san = policy.choose(board, history)
+        except JevError as e:
+            term = outcomes.classify(board, api_error="JevError: {}".format(e))
+            if verbose:
+                print("  !! provider error at ply {}: {}".format(moves + 1, e))
+            break
         moves += 1
+        # Fail closed: Jev must return a member of the presented legal menu.
         if san not in legal:
-            # Should never happen: Jev only ever picks from the legal list.
             illegal += 1
+            term = outcomes.classify(board, illegal=True)
+            if verbose:
+                print("  !! non-legal choice {!r} (not in {} legal SANs)".format(
+                    san, len(legal)))
+            break
         if verbose:
             conf = policy.last_answer.confidence if policy.last_answer else None
             print("  {:2d}. {} (conf={}, {} legal)".format(moves, san, conf, len(legal)))
-        _, reward, done = env.step(san)
+        _, _, done = env.step(san)
         if done:
             break
-    result = "win" if reward > 0 else ("loss" if reward < 0 else "draw")
+        if ply == max_moves - 1:
+            move_cap_hit = True
+
+    if term is None:
+        term = outcomes.classify(env.board, move_cap_hit=move_cap_hit)
     return {
-        "reward": float(reward),
-        "win": float(reward > 0),
-        "loss": float(reward < 0),
-        "draw": float(reward == 0),
+        "reward": term.reward,
+        "win": float(term.result == "win"),
+        "loss": float(term.result == "loss"),
+        "draw": float(term.result == "draw"),
+        "truncated": float(term.is_truncated),
         "moves": float(moves),
         "illegal": float(illegal),
-        "result": result,
+        "result": term.result or "truncated",
+        "termination": term.reason.value,
     }
 
 
@@ -91,9 +119,14 @@ def summarize(results: List[Dict[str, float]]) -> Dict[str, float]:
     if not n:
         return {}
     total_moves = sum(r["moves"] for r in results) or 1.0
-    keys = ["reward", "win", "loss", "draw", "moves", "illegal"]
+    keys = ["reward", "win", "loss", "draw", "truncated", "moves", "illegal"]
     agg = {k: sum(r[k] for r in results) / n for k in keys}
     agg["illegal_pct"] = 100.0 * sum(r["illegal"] for r in results) / total_moves
+    # Count each distinct termination reason for the report.
+    agg["_terminations"] = {}
+    for r in results:
+        key = r.get("termination", "?")
+        agg["_terminations"][key] = agg["_terminations"].get(key, 0) + 1
     return agg
 
 
@@ -163,16 +196,26 @@ def main():
         results.append(res)
 
     agg = summarize(results)
-    print("\n=== summary over {} games ===".format(len(results)))
-    score = agg.get("win", 0.0) + 0.5 * agg.get("draw", 0.0)
-    print("win rate     : {:.3f}".format(agg.get("win", 0.0)))
-    print("draw rate    : {:.3f}".format(agg.get("draw", 0.0)))
-    print("loss rate    : {:.3f}".format(agg.get("loss", 0.0)))
-    print("score (W+D/2): {:.3f}".format(score))
+    # Score (W+D/2) is well-defined only over *finished* games; truncated games
+    # are excluded from it rather than silently counted as draws.
+    finished = [r for r in results if r.get("result") not in (None, "truncated")]
+    nf = len(finished) or 1
+    wins = sum(r["win"] for r in finished)
+    draws = sum(r["draw"] for r in finished)
+    score = (wins + 0.5 * draws) / nf
+    print("\n=== summary over {} games ({} finished, {} truncated) ===".format(
+        len(results), len(finished), int(sum(r["truncated"] for r in results))))
+    print("win rate     : {:.3f}  (of finished)".format(wins / nf))
+    print("draw rate    : {:.3f}  (of finished)".format(draws / nf))
+    print("loss rate    : {:.3f}  (of finished)".format(sum(r['loss'] for r in finished) / nf))
+    print("score (W+D/2): {:.3f}  (finished games only)".format(score))
     print("avg reward   : {:.3f}".format(agg.get("reward", 0.0)))
     print("avg moves    : {:.2f}".format(agg.get("moves", 0.0)))
     print("illegal moves: {:.3f}%  (0 by construction: Jev only picks legal SAN)".format(
         agg.get("illegal_pct", 0.0)))
+    print("terminations :")
+    for reason, count in sorted(agg.get("_terminations", {}).items(), key=lambda kv: -kv[1]):
+        print("    {:<24s} {}".format(reason, count))
 
 
 if __name__ == "__main__":

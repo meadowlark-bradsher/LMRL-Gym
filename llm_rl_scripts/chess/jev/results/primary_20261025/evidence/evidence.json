@@ -1,0 +1,353 @@
+{
+  "blunder.heuristic_legal": {
+    "asserts": "blunder (>=300cp loss) rate for heuristic_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.405
+  },
+  "blunder.jev": {
+    "asserts": "blunder (>=300cp loss) rate for jev",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.555
+  },
+  "blunder.uniform_legal": {
+    "asserts": "blunder (>=300cp loss) rate for uniform_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.51
+  },
+  "conf.high.match1": {
+    "asserts": "match@1 in high-confidence tertile",
+    "cited_in": [
+      "calibration para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.4090909090909091
+  },
+  "conf.high.medcpl": {
+    "asserts": "median non-mate cpL in high-confidence tertile",
+    "cited_in": [
+      "calibration para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 22.0
+  },
+  "conf.low.match1": {
+    "asserts": "match@1 in low-confidence tertile",
+    "cited_in": [
+      "calibration para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.12121212121212122
+  },
+  "conf.low.medcpl": {
+    "asserts": "median non-mate cpL in low-confidence tertile",
+    "cited_in": [
+      "calibration para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 522.0
+  },
+  "illegal.heuristic_legal": {
+    "asserts": "illegal-move rate for heuristic_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.0
+  },
+  "illegal.jev": {
+    "asserts": "illegal-move rate for jev",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.0
+  },
+  "illegal.uniform_legal": {
+    "asserts": "illegal-move rate for uniform_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.0
+  },
+  "match1.heuristic_legal": {
+    "asserts": "best-move match rate for heuristic_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.265
+  },
+  "match1.jev": {
+    "asserts": "best-move match rate for jev",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.205
+  },
+  "match1.uniform_legal": {
+    "asserts": "best-move match rate for uniform_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.03
+  },
+  "medcpl.heuristic_legal": {
+    "asserts": "median non-mate centipawn loss for heuristic_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 105.5
+  },
+  "medcpl.jev": {
+    "asserts": "median non-mate centipawn loss for jev",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 425.5
+  },
+  "medcpl.uniform_legal": {
+    "asserts": "median non-mate centipawn loss for uniform_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 266.0
+  },
+  "missedmate.heuristic_legal": {
+    "asserts": "missed-forced-mate rate for heuristic_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.4090909090909091
+  },
+  "missedmate.jev": {
+    "asserts": "missed-forced-mate rate for jev",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.5454545454545454
+  },
+  "missedmate.uniform_legal": {
+    "asserts": "missed-forced-mate rate for uniform_legal",
+    "cited_in": [
+      "results table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.7272727272727273
+  },
+  "paired.jev_vs_heuristic.blunder": {
+    "asserts": "jev-heuristic paired blunder diff + 95% CI",
+    "cited_in": [
+      "paired table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": 0.2976190476190476,
+      "ci_lo": 0.09663865546218488,
+      "n": 200,
+      "point": 0.15
+    }
+  },
+  "paired.jev_vs_heuristic.match1": {
+    "asserts": "jev-heuristic paired match@1 diff + 95% CI",
+    "cited_in": [
+      "paired table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": 0.0,
+      "ci_lo": -0.20588235294117646,
+      "n": 200,
+      "point": -0.06
+    }
+  },
+  "paired.jev_vs_uniform.match1": {
+    "asserts": "jev-uniform paired match@1 diff + 95% CI",
+    "cited_in": [
+      "paired table"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": {
+      "ci_hi": 0.25949367088607594,
+      "ci_lo": 0.11363636363636363,
+      "n": 200,
+      "point": 0.175
+    }
+  },
+  "tac.blunder.heuristic_legal": {
+    "asserts": "tactical blunder rate for heuristic_legal",
+    "cited_in": [
+      "tactical para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.26666666666666666
+  },
+  "tac.blunder.jev": {
+    "asserts": "tactical blunder rate for jev",
+    "cited_in": [
+      "tactical para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.6333333333333333
+  },
+  "tac.blunder.uniform_legal": {
+    "asserts": "tactical blunder rate for uniform_legal",
+    "cited_in": [
+      "tactical para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.7833333333333333
+  },
+  "tac.match1.heuristic_legal": {
+    "asserts": "tactical best-move match rate for heuristic_legal",
+    "cited_in": [
+      "tactical para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.5333333333333333
+  },
+  "tac.match1.jev": {
+    "asserts": "tactical best-move match rate for jev",
+    "cited_in": [
+      "tactical para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.25
+  },
+  "tac.match1.uniform_legal": {
+    "asserts": "tactical best-move match rate for uniform_legal",
+    "cited_in": [
+      "tactical para"
+    ],
+    "kind": "exact",
+    "tol": {
+      "kind": "abs",
+      "value": 1e-09
+    },
+    "value": 0.03333333333333333
+  }
+}
