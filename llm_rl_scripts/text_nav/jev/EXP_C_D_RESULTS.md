@@ -99,6 +99,35 @@ yields control.
 
 ---
 
+## Experiment D, Mode A — belief-space explorer baseline (no API)
+
+The principled baseline (design D.3): a scripted agent
+([`explorer_policy.py`](explorer_policy.py)) that does what Jev structurally
+cannot — build a map, explore unexplored exits (information-greedy reduces to
+frontier exploration when observations are deterministic and room-unique), then
+plan to the goal (fetch → fridge → open → insert → close) along shortest known
+paths. It uses only observation-derived information (room identity + admissible
+set) plus the stated goal/target; facts score milestones only. Run on the **same
+50 matched seeds**, real PO env, 20-step limit.
+
+| Policy | Success | Mean greatest-ordered | Mean steps (wins) |
+|---|---|---|---|
+| Jev A4 (explicit goal + history) | 0.19 | 1.56 | — |
+| Jev A1/A2/A3 | 0.00 | ≤ 0.83 | — |
+| **Belief-space explorer (Mode A)** | **1.000 (50/50)** | **5.00** | 16.9 (15–19) |
+
+**The task is fully solvable zero-RL by a belief-space planner** — 50/50, every
+seed to M5, all within the 20-step budget. So Jev's 0→0.19 is **not** about task
+difficulty or an unfair benchmark: it is precisely the absence of exploration,
+belief/map-tracking, and planning. Supplying those takes success from 0.19 to 1.0.
+
+**But the budget bites.** Wins take 15–19 steps (mean 16.9) of the 20 allowed —
+exploration overhead consumes most of the budget. The task is solvable, not
+trivially so; a less efficient explorer, a larger map, or a worse start would
+begin to time out. This quantifies how much of Jev's failure the 20-step cap could
+mask: even an optimal-planning agent has little slack. Logs:
+[`results/dmodeA_20261025/`](results/dmodeA_20261025/).
+
 ## Experiment C (live layer) — pairwise transitivity & order effects
 
 [`probe_exp_c.py`](probe_exp_c.py) froze 6 three-option triads each from the A1
