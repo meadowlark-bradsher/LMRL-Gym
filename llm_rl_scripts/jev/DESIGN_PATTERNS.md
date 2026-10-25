@@ -6,11 +6,16 @@ A role map for the Jev × LMRL-Gym study: for each benchmark environment, what
 job each of the three approaches does, and the reusable patterns that fall out.
 
 > **Status caveat.** The **Jev** cells for Text-Nav, Chess, and Chess Endgames
-> are measured results from live runs (see the per-environment `jev/` dirs and
-> their reports). The **BED-LLM** cells are mostly architectural *predictions* —
-> only Exp D (Text-Nav goal-POMDP + EIG) is drafted, and no BED loop has yet been
-> closed on any of these environments. Treat BED-LLM entries as hypotheses until a
-> loop is actually run.
+> are measured from live runs (see each `jev/` dir's reports). The **BED-LLM**
+> cells are architectural *predictions* — **except Wordle**, which is now a
+> measured closed loop (`wordle/jev/bed.py` maintains the posterior + exact-EIG
+> optimum in pure code; Jev selects each guess). Treat the other BED-LLM entries
+> as hypotheses until a loop is run.
+>
+> The chess figures below reflect a **correction**: the original strength ladder
+> (~700–900 Elo, a draw column) was retracted after a measurement-artifact re-run
+> (move-cap truncations had been miscounted as draws). See `chess/jev/VALIDATION.md`
+> and `.../results/ladder_20261025/LADDER_RESULTS.md`.
 
 ## The three roles
 
@@ -33,8 +38,8 @@ job each of the three approaches does, and the reusable patterns that fall out.
 | **Fully Observed Maze** | Redundant | **Primary, sweet spot.** Greedy `Choice` over ≤4 legal moves from visible state; no uncertainty to resolve. | Overkill text planner; adds nothing over known state, risks invalid moves. | **Degenerate.** No latent → EIG ≈ 0. Don't instantiate a belief loop where nothing is hidden. |
 | **Partially Observed Maze** | Essential | **Mismatched.** Reactive one-step selector with no belief/memory; can't maintain the location posterior the task demands (same failure mode as Text-Nav). | Carries an *implicit* belief in context ("walls seen here"); uncalibrated. | **Canonical.** Explicit posterior over position/map; active localization by max-EIG moves. Jev's option-probs can serve as the observation likelihood. |
 | **Text-Nav** | Strongly useful | **Empirical holdout.** 0/50 baseline; only ~0.23 with explicit goal + full history (A4). Evokes salience, not multi-step plan composition — can't discover the hidden quest. | Text-native: reads feedback, infers latent quest, composes the plan. Strongest standalone here. | **Wrap the selector.** Goal-POMDP + EIG supplies the missing exploration drive (Exp D). Jev's logged option-probs scored by EIG as a yardstick. |
-| **Wordle** | Canonical | **Scorer over a shortlist.** 255 cap means it can't hold the full word list; scores a BED-pruned candidate set. | Proposes plausible guesses from knowledge; suboptimal without explicit entropy accounting. | **Textbook EIG solver.** Posterior over secret word; pick guess maximizing expected feedback entropy reduction. Pipeline: LLM shortlist → Jev/BED score → BED picks. |
-| **Chess** | Diagnostic | **Legality win.** `Choice` over legal SAN = 0% illegal by construction; ≈700–900 Elo novice, no search/tactics. State observable → no belief. | Knows chess in prose but emits illegal moves (GPT-4 scores 0 from illegality); unreliable search. | **Mostly idle.** Fully observable → little latent. Residual use: belief over *opponent policy/type*. Diagnostic, not core. |
+| **Wordle** | Canonical | **Scorer over a shortlist (measured).** On official-200 (≤255, so Jev picks every turn) it solves ~1.0 under a generous budget but is suboptimal: exact-EIG-optimal only ~27–30% of turns, ~0.57 bits left on the table, 2.84–2.98 guesses vs optimal 2.70, and drops to 0.78 solve under a 3-guess budget. | Proposes plausible guesses from knowledge; suboptimal without explicit entropy accounting. | **Textbook EIG solver — realized.** `bed.py` maintains the posterior over the secret word + the exact-EIG optimum in pure code; Jev selects. Pipeline: (LLM shortlist →) BED-pruned candidate set → Jev picks → near-optimal solve, modest regret. |
+| **Chess** | Diagnostic | **Legality is the whole win — and only that.** `Choice` over legal SAN = 0% illegal, but Jev loses every *finished* game to every engine setting (incl. depth-1/Skill-0); the ~700–900 Elo / draw column was a move-cap artifact (only firm claim: ≤1 non-loss in 10 vs SF-1320). Move quality is **not Jev-specific** — indistinguishable from constrained gpt-4o, far below claude-opus-5-5 (45% vs 20% best-move), and beaten by a ~30-line heuristic. Confidence is calibrated (high-conf ≈3.4× more likely best → abstain/escalate lever). State observable → no belief. | Knows chess in prose but emits illegal moves (GPT-4 scores 0 from illegality); unreliable search. | **Mostly idle.** Fully observable → little latent. Residual use: belief over *opponent policy/type*. Diagnostic, not core. |
 | **Chess Endgames** | Strong | **Legal but no technique.** Converts ~10% (hangs the queen, 0 losses); missing capability is lookahead, not belief. | Knows endgame principles; illegal-move risk, no exact calculation. | **Partial.** Latent is *continuation success / evaluation* — belief over "does this line mate within N," score continuations by info about winability. More scope than full chess because outcomes are uncertain-but-studiable. |
 | **20 Questions** | Core objective | **The likelihood model.** Supplies yes/no answer-probability (`Noul`) = p(answer\|hypothesis, question) — exactly what BED's EIG + hypothesis filter consume. Not a standalone questioner. | Proposes the hypothesis space (candidate entities) and phrases NL questions; can also play answerer. | **The controller.** Posterior over hidden entity, max-EIG question, filter on each answer. Canonical fit. Pipeline: LLM proposes → Jev answers (likelihood) → BED selects + updates. |
 | **Guess My City** | Core, but noisy | Same likelihood role, but the channel is **noisy/ambiguous** → calibrated `Noul` matters more and is harder to get right. | Proposes city hypotheses + questions; richer world knowledge helps disambiguate unreliable semantic evidence. | Same EIG loop as 20Q **under a noisy observation model** — must down-weight/robustify unreliable likelihoods. |
@@ -63,7 +68,9 @@ is inferring it the objective:**
   EIG.
 
 **3. Jev has two distinct jobs.** It shows up either as a *legal-action selector*
-(Maze-FO, Chess, Endgames — the value is 0% invalid output) or as a
+(Maze-FO, Chess, Endgames — the value is 0% invalid output, and *only* that: the
+chess P2 arm shows move quality is the underlying model's, GPT-4o-class, not
+Jev-specific, so the wrapper guarantees legality, not better decisions) or as a
 *likelihood/answer model* (20Q, Guess-My-City, Wordle — the value is the calibrated
 `Noul`). The second composes into BED; the first stands alone. Where neither applies
 cleanly (Car Dealer), Jev is the holdout.
