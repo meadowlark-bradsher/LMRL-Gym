@@ -340,6 +340,156 @@ made from binary subsets. This tests whether adding a third admissible action
 changes the relative preference between the original two. Menu-dependent choices
 are distinct from cyclic pairwise preferences and should be reported separately.
 
+## Experiment D — POMDP formulation and EIG comparison (proposed extension)
+
+**Status:** Proposed (added 2026-10-25). Text-Nav is a partially observed Markov
+decision process; this experiment makes that explicit and uses expected
+information gain (EIG) both as a *baseline policy* and as a *normative yardstick*
+for Jev's choices. It reuses the BED-LLM machinery already in the workspace.
+
+### D.1 POMDP formalization
+
+Text-Nav is a goal-POMDP ⟨S, A, O, T, Ω, R, γ⟩:
+
+- **S** — world configurations. In this game family the map (8 rooms, their
+  connections) and object placements are **fixed** by [`make_game.py`](../env/make_game.py);
+  the only per-episode latent is the player's **start room** (hence current
+  position) and, derived from it, which rooms and objects the agent has yet to
+  observe.
+- **A** — the admissible commands at the current state.
+- **O** — the observation: feedback text + admissible set (PO mode hides
+  location/inventory).
+- **T, Ω** — both **deterministic** (a command yields a fixed next state and a
+  fixed observation).
+- **R** — sparse terminal: +1 on `in(food, fridge) ∧ closed(fridge)`, fail on
+  `eaten(food)`, 0 elsewhere.
+- **b_t** — the belief: a posterior over S given the observation-action history
+  h_t. Because Ω is deterministic, information arrives by **disambiguation** —
+  each candidate state predicts a specific observation after an action, so an
+  action is informative exactly insofar as candidate states disagree about its
+  outcome.
+
+**Two belief regimes, both reported** (the choice is a modeling decision and must
+be stated, per Appendix-style validity):
+
+- **Generative-prior belief b0** — uses the true `make_game` distribution. The
+  latent is tiny (start room ∈ 8 rooms; everything else fixed), so EIG is almost
+  entirely about localizing the player early, resolved in 1–2 moves. This matches
+  the memo's framing that the task is credit-assignment, not inference, *relative
+  to someone who knows the generator*.
+- **Uninformed belief b_unif** — a prior that does **not** assume the map or
+  object locations (adjacencies and goal-object rooms unknown). This is closer to
+  Jev's actual epistemic position (zero-shot, no generator knowledge), so it is
+  the belief to score Jev against. EIG here is large and genuinely about mapping
+  the house.
+
+### D.2 EIG definition
+
+For a query variable **Y** (the goal-relevant latent: the rooms of the food and
+the fridge, and the agent's position) and belief b,
+
+> EIG(a) = H[Y | b] − E_{o ∼ p(o | b, a)} H[Y | b, a, o]
+
+the expected entropy reduction in Y from taking a and seeing its observation —
+equivalently the mutual information between Y and the observation a induces. With
+deterministic Ω this is exact and cheap: enumerate the (small) hypothesis set,
+push each through the known simulator for action a, and measure how the induced
+observation partitions the posterior.
+
+### D.3 Mode A — EIG as a baseline policy ("compare with the models")
+
+Build a belief-space agent and drop it into the same harness beside Jev, GPT-4,
+and the RL baselines:
+
+- Maintain b_t; while the goal objects are **not yet localized**, act
+  **EIG-greedily** (explore the house efficiently); once localized, switch to
+  goal-directed shortest-path execution (open → insert → close). Equivalently, a
+  one-knob info-directed value `V(a) = R̂(a) + λ·EIG(a)` with λ swept.
+- This directly targets the failure we actually observe: Jev falls into a
+  fridge-fixation loop and never walks to the living room (pilot/calibration
+  seeds 0, 5). An EIG agent is the principled cure, so Mode A **isolates whether
+  Jev's deficit is missing exploration / belief-tracking** versus something else.
+- A generative-prior "oracle" variant (knows the map, only localizes the player)
+  gives a near-ceiling sanity bound.
+
+### D.4 Mode B — EIG as a yardstick for Jev (zero extra API cost)
+
+The runner already logs, per decision state, the admissible set, the observation,
+and **Jev's full option-probability vector** (`steps.jsonl`). So Mode B is a
+**re-analysis of existing logs** — no new Jev calls: for each logged state, compute
+EIG(a) for every admissible a under a fixed, pre-specified belief model, and
+compare Jev's distribution p_Jev(a) to the EIG ranking.
+
+- **Rank agreement:** Spearman / Kendall between p_Jev and EIG across options.
+- **Top-1 agreement:** does Jev's argmax equal the EIG-argmax?
+- **Information regret:** EIG(a\*) − EIG(a_Jev).
+- **Split by regime** (D.5) and by condition: does an explicit goal (G1) make Jev
+  *more* EIG-aligned during exploration?
+
+Reading: high alignment → Jev behaves like an information-greedy explorer; low
+alignment with task failure → Jev is not exploring informatively. If Jev
+systematically prefers low-EIG exploitation (heading to the fridge) over
+high-EIG exploration, that is a candidate mechanism for the M2 wall.
+
+### D.5 Handling the extrinsic reward
+
+The task pays for **completion, not information** — a pure-EIG agent explores
+forever and never executes. So EIG is normative only in the **exploration regime**:
+
+- Partition states by belief entropy over Y into **explore** (goal objects not yet
+  localized) and **exploit** (localized). In explore states the normative action
+  is EIG-greedy; in exploit states it is shortest-path-to-goal, and Jev should be
+  scored against *that*, not against EIG.
+- For Mode A, report λ-sensitivity (or the explicit explore-then-execute split);
+  pure EIG (λ → ∞) is included only as a non-terminating reference.
+
+### D.6 BED-LLM reuse and the role of Jev
+
+BED-LLM (`~/workspace/repos/genai/BED-LLM`, arXiv 2508.21184) already implements
+posterior maintenance + EIG scoring + hypothesis shortlisting. Experiment D reuses
+that scaffold, with one important difference in Jev's role:
+
+- In 20Q / Guess-My-City, **Jev supplies the likelihood** p(answer | hypothesis)
+  (its Noul) that EIG consumes. In Text-Nav the **environment is the simulator**
+  and Ω is deterministic, so the likelihood for EIG comes from the known generative
+  model, **not** from Jev. Here Jev is instead the *policy under evaluation* whose
+  choices we compare to EIG.
+- Optional Jev-driven-belief variant: use Jev's **Score** to rate candidate
+  hypotheses (maps / goal-object locations) against the observation history, giving
+  an approximate, Jev-sourced posterior — the closest analogue to the BED role,
+  reported separately from the ground-truth-simulator belief.
+
+### D.7 Connection to Experiment C
+
+EIG assigns each admissible action a **scalar** (its information value). At Experiment
+C's frozen snapshots, if Jev's pairwise / full-menu preferences are well-ordered by
+EIG(a), then "Jev is (noisily) information-greedy" becomes the concrete
+**scalar-utility hypothesis** for the Bradley–Terry fit, and the harmonic residual
+measures deviation from EIG-rationality. Experiment D thus *supplies a candidate
+utility* for Experiment C instead of leaving the latent ranking unspecified.
+
+### D.8 Measurements and validity
+
+- **Mode A:** success rate (seed-clustered, as in the main run), milestone
+  progression, steps-to-localize, λ-sensitivity.
+- **Mode B:** distribution of rank-agreement and information-regret; top-1
+  agreement rate; all split by explore/exploit regime and by condition.
+- **Validity:** the belief model (b0 and b_unif) and the query Y are pre-specified
+  and reported; EIG uses only the agent's **observation history**, never the
+  ground-truth `facts` (those remain scoring-only, Appendix A.3); observation
+  determinism (EIG = disambiguation) is stated; non-alignment is not read as
+  inability (Jev may be exploiting a wrong belief).
+
+### D.9 Implementation sketch
+
+- **Mode B needs no new runs** — it consumes `steps.jsonl` from the main run plus
+  an EIG computation over the enumerable latent (start room ∈ 8 rooms; rest fixed
+  under b0, or a parameterized unknown-map hypothesis set under b_unif), so EIG is
+  exact.
+- **Mode A** adds a belief-space policy module and a Text-Nav simulator wrapper
+  around `make_game`, wired into `run_experiment` as an alternative policy; it does
+  make environment steps but needs no Jev calls for the EIG agent itself.
+
 ## 8. Optional diagnostic: Supplied plan
 
 If the explicit-goal/history-aware condition (A4) fails to complete any episodes,
