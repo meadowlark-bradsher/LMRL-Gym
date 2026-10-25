@@ -44,18 +44,21 @@ def _open(path):
     return gzip.open(path, "rt") if path.endswith(".gz") else open(path)
 
 
-def select_snapshots(steps_path: str, condition: str, n: int, min_options: int = 3
-                     ) -> List[dict]:
+def select_snapshots(steps_path: str, condition: str, n: int, min_options: int = 3,
+                     max_options: Optional[int] = None) -> List[dict]:
     """Pick the most-resampled reactive fixed states for a condition.
 
     A snapshot carries everything needed to rebuild the exact frozen policy input:
     the condition (=> context + goal), the observation, and the admissible set.
+    ``max_options`` caps the menu size (use 3 for clean A/B/C transitivity triads
+    and bounded cost).
     """
     rows = [json.loads(l) for l in _open(steps_path) if l.strip()]
     rows = [r for r in rows if r["condition"] == condition and not r["history_present"]]
     counts = collections.Counter(
         (r["observation"], tuple(r["admissible"])) for r in rows
-        if len(r["admissible"]) >= min_options)
+        if len(r["admissible"]) >= min_options
+        and (max_options is None or len(r["admissible"]) <= max_options))
     snaps = []
     for i, ((obs, adm), ct) in enumerate(counts.most_common(n)):
         snaps.append({"snapshot_id": "{}-{:02d}".format(condition, i),
@@ -169,6 +172,8 @@ def main(argv: List[str] = None) -> int:
     p.add_argument("--steps", default=None)
     p.add_argument("--condition", default="A1")
     p.add_argument("--snapshots", type=int, default=6)
+    p.add_argument("--max-options", type=int, default=None,
+                   help="cap menu size (use 3 for clean transitivity triads)")
     p.add_argument("--full-menu-reps", type=int, default=12)
     p.add_argument("--pair-reps", type=int, default=12)
     p.add_argument("--backend", choices=["http", "mock"], default="http")
@@ -188,7 +193,8 @@ def main(argv: List[str] = None) -> int:
                  else HttpJevBackend()),
         model=("mock" if args.backend == "mock" else "jev-latest"))
 
-    snaps = select_snapshots(args.steps, args.condition, args.snapshots)
+    snaps = select_snapshots(args.steps, args.condition, args.snapshots,
+                             max_options=args.max_options)
     rec = None
     if args.out:
         rec = Recorder(default_run_dir(args.out, "expc_" + args.condition),
