@@ -155,6 +155,9 @@ def main():
     p.add_argument("--max-moves", type=int, default=60, help="agent plies before declaring a draw")
     p.add_argument("--opponent", choices=["random", "stockfish"], default="random")
     p.add_argument("--from-position", default=None, help="starting FEN (e.g. an endgame)")
+    p.add_argument("--endgame-pieces", default=None,
+                   help="sample a fresh endgame per game from this piece string, e.g. 'kQK' "
+                   "(black king, white queen, white king); agent (White) must convert the mate")
     p.add_argument("--engine-path", default=None, help="path to a Stockfish binary")
     p.add_argument("--engine-elo", type=int, default=1200)
     p.add_argument("--engine-skill", type=int, default=None, help="Stockfish Skill Level 0-20 (weakening knob below the 1320 UCI_Elo floor)")
@@ -179,7 +182,9 @@ def main():
     policy = JevChessPolicy(JevClient(backend=backend, model=args.model))
 
     mode = ["mock-jev" if use_mock else "jev:{}".format(args.model), "opp={}".format(opponent)]
-    if args.from_position:
+    if args.endgame_pieces:
+        mode.append("endgame={}".format(args.endgame_pieces))
+    elif args.from_position:
         mode.append("from_fen")
     print("Chess x Jev  [{}]  episodes={} max_moves={}".format(
         " ".join(mode), args.episodes, args.max_moves))
@@ -188,7 +193,12 @@ def main():
     run_id = "ladder_{}".format(int(time.time()))
     results = []
     for i in range(args.episodes):
-        env = build_env(opponent, args.from_position, args.seed + i, args.engine_path,
+        from_position = args.from_position
+        if args.endgame_pieces:
+            from llm_rl_scripts.chess.jev.endgames import random_endgame_fen
+
+            from_position = random_endgame_fen(args.endgame_pieces, random.Random(args.seed + i))
+        env = build_env(opponent, from_position, args.seed + i, args.engine_path,
                         args.engine_elo, args.engine_skill, args.engine_depth, args.engine_nodes)
         # Opponent label + effective engine settings for the record.
         if opponent == "stockfish" and hasattr(env, "config"):
