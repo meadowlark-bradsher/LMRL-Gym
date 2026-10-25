@@ -1,0 +1,1920 @@
+{
+  "args": {
+    "vocab": "llm_rl_scripts/wordle/vocab/wordle_official_200.txt",
+    "episodes": 50,
+    "seed": 0,
+    "model": "jev-latest",
+    "backend": "http",
+    "max_options": 255,
+    "max_guesses": 3,
+    "self_test": false,
+    "mock_strategy": "optimal",
+    "out": "llm_rl_scripts/wordle/jev/results/live_200_t3_20261025/results.json",
+    "verbose": true
+  },
+  "jev": {
+    "episodes": 50,
+    "solve_rate": 0.78,
+    "avg_guesses_solved": 2.6666666666666665,
+    "jev_decisions_scored": 116,
+    "match_at_1": 0.2672413793103448,
+    "mean_regret_bits": 0.6014386693015292,
+    "max_regret_bits": 1.2614518683875087
+  },
+  "optimal": {
+    "episodes": 50,
+    "solve_rate": 0.94,
+    "avg_guesses_solved": 2.617021276595745,
+    "jev_decisions_scored": 0
+  },
+  "jev_games": [
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 4,
+          "word": "tulle",
+          "confidence": 0.23,
+          "match": true,
+          "eig_jev": 1.5,
+          "eig_opt": 1.5,
+          "regret": 0.0
+        }
+      ],
+      "target": "tulle"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 26,
+          "word": "group",
+          "confidence": 0.05,
+          "match": false,
+          "eig_jev": 3.4250066620360853,
+          "eig_opt": 3.840265565194927,
+          "regret": 0.4152589031588416
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 7,
+          "word": "rowdy",
+          "confidence": 0.14,
+          "match": true,
+          "eig_jev": 2.5216406363433186,
+          "eig_opt": 2.5216406363433186,
+          "regret": 0.0
+        }
+      ],
+      "target": "labor"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 26,
+          "word": "group",
+          "confidence": 0.05,
+          "match": false,
+          "eig_jev": 3.4250066620360853,
+          "eig_opt": 3.840265565194927,
+          "regret": 0.4152589031588416
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "sugar",
+          "confidence": 1.0
+        }
+      ],
+      "target": "sugar"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "audio",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.371038203227679,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.2614518683875087
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "elder",
+          "confidence": 0.16,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "wedge",
+          "confidence": 1.0
+        }
+      ],
+      "target": "wedge"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 10,
+          "word": "pecan",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 2.9219280948873623,
+          "eig_opt": 3.321928094887362,
+          "regret": 0.3999999999999999
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "media",
+          "confidence": 1.0
+        }
+      ],
+      "target": "media"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 16,
+          "word": "point",
+          "confidence": 0.1,
+          "match": false,
+          "eig_jev": 3.452819531114783,
+          "eig_opt": 3.875,
+          "regret": 0.4221804688852169
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "attic",
+          "confidence": 0.1,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "attic"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 4,
+          "word": "bushy",
+          "confidence": 0.32,
+          "match": true,
+          "eig_jev": 2.0,
+          "eig_opt": 2.0,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "fishy",
+          "confidence": 1.0
+        }
+      ],
+      "target": "fishy"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 5,
+          "word": "pearl",
+          "confidence": 0.05,
+          "match": true,
+          "eig_jev": 1.9219280948873623,
+          "eig_opt": 1.9219280948873623,
+          "regret": 0.0
+        }
+      ],
+      "target": "pearl"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "nadir",
+          "confidence": 0.1,
+          "match": true,
+          "eig_jev": 2.94770277922009,
+          "eig_opt": 2.94770277922009,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "panic",
+          "confidence": 1.0
+        }
+      ],
+      "target": "panic"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "light",
+          "confidence": 0.15,
+          "match": false,
+          "eig_jev": 1.7527152789797045,
+          "eig_opt": 2.2810361125534233,
+          "regret": 0.5283208335737188
+        }
+      ],
+      "target": "light"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 26,
+          "word": "wring",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 3.2577560641285173,
+          "eig_opt": 3.840265565194927,
+          "regret": 0.5825095010664096
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "wrung",
+          "confidence": 1.0
+        }
+      ],
+      "target": "wrung"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 3,
+          "word": "tipsy",
+          "confidence": 0.28,
+          "match": true,
+          "eig_jev": 1.584962500721156,
+          "eig_opt": 1.584962500721156,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "tacit",
+          "confidence": 1.0
+        }
+      ],
+      "target": "tacit"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 3,
+          "word": "leant",
+          "confidence": 0.35,
+          "match": true,
+          "eig_jev": 1.584962500721156,
+          "eig_opt": 1.584962500721156,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "treat",
+          "confidence": 1.0
+        }
+      ],
+      "target": "treat"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "audio",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 3.9479477450440315,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.7721651962487575
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 6,
+          "word": "smoky",
+          "confidence": 0.09,
+          "match": false,
+          "eig_jev": 2.2516291673878226,
+          "eig_opt": 2.584962500721156,
+          "regret": 0.3333333333333335
+        }
+      ],
+      "target": "gloom"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 8,
+          "word": "overt",
+          "confidence": 0.1,
+          "match": true,
+          "eig_jev": 2.75,
+          "eig_opt": 2.75,
+          "regret": 0.0
+        }
+      ],
+      "target": "overt"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "audio",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 3.9479477450440315,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.7721651962487575
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 3,
+          "word": "comic",
+          "confidence": 0.16,
+          "match": false,
+          "eig_jev": 0.9182958340544894,
+          "eig_opt": 1.584962500721156,
+          "regret": 0.6666666666666666
+        }
+      ],
+      "target": "ionic"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 26,
+          "word": "group",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 3.4250066620360853,
+          "eig_opt": 3.840265565194927,
+          "regret": 0.4152589031588416
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 7,
+          "word": "rowdy",
+          "confidence": 0.09,
+          "match": true,
+          "eig_jev": 2.5216406363433186,
+          "eig_opt": 2.5216406363433186,
+          "regret": 0.0
+        }
+      ],
+      "target": "robin"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 10,
+          "word": "pecan",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 2.9219280948873623,
+          "eig_opt": 3.321928094887362,
+          "regret": 0.3999999999999999
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "belly",
+          "confidence": 0.12,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "weedy"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 28,
+          "word": "snake",
+          "confidence": 0.06,
+          "match": false,
+          "eig_jev": 3.2353544780931927,
+          "eig_opt": 3.797902689682946,
+          "regret": 0.5625482115897533
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "wince",
+          "confidence": 0.6,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "wince"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "ruler",
+          "confidence": 0.06,
+          "match": true,
+          "eig_jev": 2.4193819456463714,
+          "eig_opt": 2.4193819456463714,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "elder",
+          "confidence": 1.0
+        }
+      ],
+      "target": "elder"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "pause",
+          "confidence": 0.3,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "pause"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 14,
+          "word": "quark",
+          "confidence": 0.06,
+          "match": false,
+          "eig_jev": 2.807354922057604,
+          "eig_opt": 3.6644977792004614,
+          "regret": 0.8571428571428572
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "clank",
+          "confidence": 0.2,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "clank"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 5,
+          "word": "pearl",
+          "confidence": 0.07,
+          "match": true,
+          "eig_jev": 1.9219280948873623,
+          "eig_opt": 1.9219280948873623,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "freak",
+          "confidence": 0.12,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "freak"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "audio",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 3.9479477450440315,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.7721651962487575
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 7,
+          "word": "clank",
+          "confidence": 0.11,
+          "match": true,
+          "eig_jev": 2.807354922057604,
+          "eig_opt": 2.807354922057604,
+          "regret": 0.0
+        }
+      ],
+      "target": "clank"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 7,
+          "word": "tryst",
+          "confidence": 0.12,
+          "match": true,
+          "eig_jev": 2.807354922057604,
+          "eig_opt": 2.807354922057604,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "strip",
+          "confidence": 1.0
+        }
+      ],
+      "target": "strip"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "audio",
+          "confidence": 0.05,
+          "match": false,
+          "eig_jev": 3.9479477450440315,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.7721651962487575
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "build",
+          "confidence": 1.0
+        }
+      ],
+      "target": "build"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 3,
+          "word": "sedan",
+          "confidence": 0.02,
+          "match": true,
+          "eig_jev": 1.584962500721156,
+          "eig_opt": 1.584962500721156,
+          "regret": 0.0
+        }
+      ],
+      "target": "sedan"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "thorn",
+          "confidence": 1.0
+        }
+      ],
+      "target": "thorn"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "audio",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 3.9479477450440315,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.7721651962487575
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "iliac",
+          "confidence": 0.38,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "final"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 28,
+          "word": "snake",
+          "confidence": 0.07,
+          "match": false,
+          "eig_jev": 3.2353544780931927,
+          "eig_opt": 3.797902689682946,
+          "regret": 0.5625482115897533
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "wince",
+          "confidence": 0.56,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "wince"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 16,
+          "word": "point",
+          "confidence": 0.1,
+          "match": false,
+          "eig_jev": 3.452819531114783,
+          "eig_opt": 3.875,
+          "regret": 0.4221804688852169
+        }
+      ],
+      "target": "point"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "light",
+          "confidence": 0.1,
+          "match": false,
+          "eig_jev": 1.7527152789797045,
+          "eig_opt": 2.2810361125534233,
+          "regret": 0.5283208335737188
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 4,
+          "word": "patch",
+          "confidence": 0.11,
+          "match": false,
+          "eig_jev": 1.5,
+          "eig_opt": 2.0,
+          "regret": 0.5
+        }
+      ],
+      "target": "sooth"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 4,
+          "word": "tryst",
+          "confidence": 0.16,
+          "match": false,
+          "eig_jev": 1.5,
+          "eig_opt": 2.0,
+          "regret": 0.5
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "tiara",
+          "confidence": 1.0
+        }
+      ],
+      "target": "tiara"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "wager",
+          "confidence": 0.06,
+          "match": false,
+          "eig_jev": 1.879964948727111,
+          "eig_opt": 2.4193819456463714,
+          "regret": 0.5394169969192604
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 5,
+          "word": "elder",
+          "confidence": 0.09,
+          "match": false,
+          "eig_jev": 1.9219280948873623,
+          "eig_opt": 2.321928094887362,
+          "regret": 0.3999999999999999
+        }
+      ],
+      "target": "ruler"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "where",
+          "confidence": 0.52,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "where"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "audio",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 3.9479477450440315,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.7721651962487575
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 3,
+          "word": "comic",
+          "confidence": 0.18,
+          "match": false,
+          "eig_jev": 0.9182958340544894,
+          "eig_opt": 1.584962500721156,
+          "regret": 0.6666666666666666
+        }
+      ],
+      "target": "comic"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "wager",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 1.879964948727111,
+          "eig_opt": 2.4193819456463714,
+          "regret": 0.5394169969192604
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "grief",
+          "confidence": 1.0
+        }
+      ],
+      "target": "grief"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 28,
+          "word": "snake",
+          "confidence": 0.06,
+          "match": false,
+          "eig_jev": 3.2353544780931927,
+          "eig_opt": 3.797902689682946,
+          "regret": 0.5625482115897533
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 7,
+          "word": "dodge",
+          "confidence": 0.09,
+          "match": true,
+          "eig_jev": 2.5216406363433186,
+          "eig_opt": 2.5216406363433186,
+          "regret": 0.0
+        }
+      ],
+      "target": "bulge"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 43,
+          "word": "clank",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 4.600456033671239,
+          "eig_opt": 4.720112941292789,
+          "regret": 0.11965690762155035
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 3,
+          "word": "squad",
+          "confidence": 0.34,
+          "match": true,
+          "eig_jev": 1.584962500721156,
+          "eig_opt": 1.584962500721156,
+          "regret": 0.0
+        }
+      ],
+      "target": "squad"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "waste",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 5.140840265636727,
+          "eig_opt": 5.632490071615187,
+          "regret": 0.49164980597846064
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 8,
+          "word": "hotel",
+          "confidence": 0.11,
+          "match": false,
+          "eig_jev": 2.5,
+          "eig_opt": 2.75,
+          "regret": 0.25
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "eject",
+          "confidence": 0.3,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "befit"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "where",
+          "confidence": 0.46,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        }
+      ],
+      "target": "where"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "tweet",
+          "confidence": 1.0
+        }
+      ],
+      "target": "tweet"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 5,
+          "word": "arose",
+          "confidence": 0.15,
+          "match": true,
+          "eig_jev": 2.321928094887362,
+          "eig_opt": 2.321928094887362,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "snare",
+          "confidence": 1.0
+        }
+      ],
+      "target": "snare"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 2,
+          "word": "haven",
+          "confidence": 0.06,
+          "match": true,
+          "eig_jev": 1.0,
+          "eig_opt": 1.0,
+          "regret": 0.0
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "hazel",
+          "confidence": 1.0
+        }
+      ],
+      "target": "hazel"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 9,
+          "word": "light",
+          "confidence": 0.12,
+          "match": false,
+          "eig_jev": 1.7527152789797045,
+          "eig_opt": 2.2810361125534233,
+          "regret": 0.5283208335737188
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "ought",
+          "confidence": 1.0
+        }
+      ],
+      "target": "ought"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 26,
+          "word": "group",
+          "confidence": 0.04,
+          "match": false,
+          "eig_jev": 3.4250066620360853,
+          "eig_opt": 3.840265565194927,
+          "regret": 0.4152589031588416
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "raspy",
+          "confidence": 1.0
+        }
+      ],
+      "target": "raspy"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 28,
+          "word": "snake",
+          "confidence": 0.06,
+          "match": false,
+          "eig_jev": 3.2353544780931927,
+          "eig_opt": 3.797902689682946,
+          "regret": 0.5625482115897533
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 7,
+          "word": "dodge",
+          "confidence": 0.1,
+          "match": true,
+          "eig_jev": 2.5216406363433186,
+          "eig_opt": 2.5216406363433186,
+          "regret": 0.0
+        }
+      ],
+      "target": "bulge"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "inter",
+          "confidence": 1.0
+        }
+      ],
+      "target": "inter"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 16,
+          "word": "point",
+          "confidence": 0.09,
+          "match": false,
+          "eig_jev": 3.452819531114783,
+          "eig_opt": 3.875,
+          "regret": 0.4221804688852169
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 1,
+          "word": "moist",
+          "confidence": 1.0
+        }
+      ],
+      "target": "moist"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "turns": [
+        {
+          "source": "jev",
+          "shortlist_size": 236,
+          "word": "three",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 4.4946202430295585,
+          "eig_opt": 5.632490071615187,
+          "regret": 1.1378698285856288
+        },
+        {
+          "source": "jev",
+          "shortlist_size": 26,
+          "word": "group",
+          "confidence": 0.03,
+          "match": false,
+          "eig_jev": 3.4250066620360853,
+          "eig_opt": 3.840265565194927,
+          "regret": 0.4152589031588416
+        }
+      ],
+      "target": "group"
+    }
+  ],
+  "optimal_games": [
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "tulle"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "labor"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "sugar"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "target": "wedge"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "media"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "attic"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "fishy"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "pearl"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "panic"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "light"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "wrung"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "tacit"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "treat"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "gloom"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "overt"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "ionic"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "robin"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "weedy"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "wince"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "elder"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "pause"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "clank"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "freak"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "clank"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "strip"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "build"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "sedan"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "thorn"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "final"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "wince"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "point"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "sooth"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "tiara"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "ruler"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "where"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "comic"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "target": "grief"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "bulge"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "squad"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "befit"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "where"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "tweet"
+    },
+    {
+      "solved": true,
+      "guesses": 1,
+      "target": "snare"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "hazel"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "ought"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "raspy"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "bulge"
+    },
+    {
+      "solved": true,
+      "guesses": 2,
+      "target": "inter"
+    },
+    {
+      "solved": true,
+      "guesses": 3,
+      "target": "moist"
+    },
+    {
+      "solved": false,
+      "guesses": null,
+      "target": "group"
+    }
+  ]
+}
