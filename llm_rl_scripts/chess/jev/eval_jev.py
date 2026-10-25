@@ -97,12 +97,15 @@ def summarize(results: List[Dict[str, float]]) -> Dict[str, float]:
     return agg
 
 
-def build_env(opponent: str, from_position: Optional[str], seed: int, engine_path, engine_elo):
+def build_env(opponent, from_position, seed, engine_path, engine_elo, skill, depth, nodes):
     if opponent == "stockfish":
         # Lazy import so the default path needs no engine/stockfish package.
         from llm_rl_scripts.chess.jev.stockfish_env import StockfishChessEnv
 
-        return StockfishChessEnv(from_position=from_position, engine_path=engine_path, engine_elo=engine_elo)
+        return StockfishChessEnv(
+            from_position=from_position, engine_path=engine_path, engine_elo=engine_elo,
+            skill_level=skill, depth=depth, nodes=nodes, seed=seed,
+        )
     return SimpleChessEnv(from_position=from_position, seed=seed)
 
 
@@ -119,6 +122,9 @@ def main():
     p.add_argument("--from-position", default=None, help="starting FEN (e.g. an endgame)")
     p.add_argument("--engine-path", default=None, help="path to a Stockfish binary")
     p.add_argument("--engine-elo", type=int, default=1200)
+    p.add_argument("--engine-skill", type=int, default=None, help="Stockfish Skill Level 0-20 (weakening knob below the 1320 UCI_Elo floor)")
+    p.add_argument("--engine-depth", type=int, default=None, help="cap opponent search to this depth (very weak at 1-2)")
+    p.add_argument("--engine-nodes", type=int, default=None, help="cap opponent search to this many nodes")
     p.add_argument("--model", default="jev-latest")
     p.add_argument("--backend", choices=["http", "mock"], default="http")
     p.add_argument("--seed", type=int, default=0)
@@ -143,10 +149,14 @@ def main():
 
     results = []
     for i in range(args.episodes):
-        env = build_env(opponent, args.from_position, args.seed + i, args.engine_path, args.engine_elo)
+        env = build_env(opponent, args.from_position, args.seed + i, args.engine_path,
+                        args.engine_elo, args.engine_skill, args.engine_depth, args.engine_nodes)
         if verbose:
             print("game {}".format(i + 1))
-        res = run_game(env, policy, args.max_moves, verbose=verbose)
+        try:
+            res = run_game(env, policy, args.max_moves, verbose=verbose)
+        finally:
+            env.close()
         if verbose:
             print("  -> {} (reward={}, moves={}, illegal={})".format(
                 res["result"], res["reward"], int(res["moves"]), int(res["illegal"])))
@@ -154,9 +164,11 @@ def main():
 
     agg = summarize(results)
     print("\n=== summary over {} games ===".format(len(results)))
+    score = agg.get("win", 0.0) + 0.5 * agg.get("draw", 0.0)
     print("win rate     : {:.3f}".format(agg.get("win", 0.0)))
     print("draw rate    : {:.3f}".format(agg.get("draw", 0.0)))
     print("loss rate    : {:.3f}".format(agg.get("loss", 0.0)))
+    print("score (W+D/2): {:.3f}".format(score))
     print("avg reward   : {:.3f}".format(agg.get("reward", 0.0)))
     print("avg moves    : {:.2f}".format(agg.get("moves", 0.0)))
     print("illegal moves: {:.3f}%  (0 by construction: Jev only picks legal SAN)".format(

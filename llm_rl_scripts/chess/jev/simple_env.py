@@ -62,3 +62,7 @@ class SimpleChessEnv:
             return self.board.fen(), reward, True
 
         return self.board.fen(), 0.0, False
+
+    def close(self):
+        """No external resources; present so callers can close uniformly."""
+        pass
