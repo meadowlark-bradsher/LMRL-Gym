@@ -100,8 +100,10 @@ class MockJevBackend(JevBackend):
     def __init__(
         self,
         chooser: Optional[Callable[[str, str, List[str]], str]] = None,
+        noul_fn: Optional[Callable[[str, str, str], float]] = None,
     ):
         self.chooser = chooser or (lambda state, qid, options: options[0])
+        self.noul_fn = noul_fn or (lambda state, qid, instructions: 0.5)
         self.calls: List[dict] = []
 
     def system_one(self, body: dict) -> dict:
@@ -109,23 +111,24 @@ class MockJevBackend(JevBackend):
         answers = {}
         state = body.get("state", "")
         for qid, q in body.get("questions", {}).items():
-            if q.get("type") != "choice":
-                raise JevError("MockJevBackend only handles choice questions")
-            options = list(q.get("criteria", {}).keys())
-            if not options:
-                raise JevError("choice question {!r} has no options".format(qid))
-            chosen = self.chooser(state, qid, options)
-            if chosen not in options:
-                raise JevError(
-                    "chooser returned {!r}, not one of the options".format(chosen)
-                )
-            probs = {opt: (1.0 if opt == chosen else 0.0) for opt in options}
-            answers[qid] = {
-                "type": "choice",
-                "choice": chosen,
-                "confidence": 1.0,
-                "probabilities": probs,
-            }
+            qtype = q.get("type")
+            if qtype == "choice":
+                options = list(q.get("criteria", {}).keys())
+                if not options:
+                    raise JevError("choice question {!r} has no options".format(qid))
+                chosen = self.chooser(state, qid, options)
+                if chosen not in options:
+                    raise JevError(
+                        "chooser returned {!r}, not one of the options".format(chosen)
+                    )
+                probs = {opt: (1.0 if opt == chosen else 0.0) for opt in options}
+                answers[qid] = {"type": "choice", "choice": chosen,
+                                "confidence": 1.0, "probabilities": probs}
+            elif qtype == "noul":
+                v = float(self.noul_fn(state, qid, q.get("instructions", "")))
+                answers[qid] = {"type": "noul", "noul": v}
+            else:
+                raise JevError("MockJevBackend handles only choice/noul, got {!r}".format(qtype))
         return {"model": "mock", "answers": answers}
 
 
@@ -183,3 +186,25 @@ class JevClient:
             confidence=answer.get("confidence"),
             raw=answer,
         )
+
+    def nouls(self, state: str, questions: Mapping[str, str]) -> Dict[str, float]:
+        """Ask several Noul (truth-value 0..1) questions about one state in a
+        single call. ``questions`` maps a question id to its instruction string;
+        returns {id: value}. Used for per-candidate judgments like information
+        gain, where each option gets its own 0..1 score (unlike Choice, whose
+        probabilities are forced to sum to 1)."""
+        if not questions:
+            raise JevError("nouls requires at least one question")
+        body = {
+            "model": self.model,
+            "state": state,
+            "questions": {
+                qid: {"type": "noul", "instructions": instr}
+                for qid, instr in questions.items()
+            },
+        }
+        resp = self.backend.system_one(body)
+        try:
+            return {qid: float(resp["answers"][qid]["noul"]) for qid in questions}
+        except (KeyError, TypeError) as e:
+            raise JevError("unexpected Jev response: {!r}".format(resp)) from e
