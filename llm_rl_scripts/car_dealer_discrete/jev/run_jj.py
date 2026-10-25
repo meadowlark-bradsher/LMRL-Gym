@@ -115,6 +115,7 @@ def make_seat_policy(
     live_client: Optional[JevClient],
     self_test: bool,
     reveal: bool,
+    salience: bool,
     shuffle_rng: Optional[random.Random],
 ) -> RecordingPolicy:
     ranking = buyer_rank if role == "buyer" else seller_rank
@@ -124,7 +125,9 @@ def make_seat_policy(
     else:
         assert live_client is not None
         client = live_client
-    inner = JevNegotiationPolicy(client, reveal_own_utility=reveal, shuffle_rng=shuffle_rng)
+    inner = JevNegotiationPolicy(
+        client, reveal_own_utility=reveal, salience=salience, shuffle_rng=shuffle_rng
+    )
     return RecordingPolicy(inner)
 
 
@@ -140,6 +143,7 @@ def run_episode(
     live_client: Optional[JevClient],
     self_test: bool,
     reveal: bool,
+    salience: bool,
     shuffle: bool,
     max_proposals: int,
 ) -> dict:
@@ -147,11 +151,13 @@ def run_episode(
     srng = random.Random(seed) if shuffle else None
     buyer_policy = make_seat_policy(
         "buyer", buyer_rank, seller_rank, r,
-        live_client=live_client, self_test=self_test, reveal=reveal, shuffle_rng=srng,
+        live_client=live_client, self_test=self_test, reveal=reveal,
+        salience=salience, shuffle_rng=srng,
     )
     seller_policy = make_seat_policy(
         "seller", buyer_rank, seller_rank, r,
-        live_client=live_client, self_test=self_test, reveal=reveal, shuffle_rng=srng,
+        live_client=live_client, self_test=self_test, reveal=reveal,
+        salience=salience, shuffle_rng=srng,
     )
     game = NegotiationGame(
         buyer_rank, seller_rank, r, buyer_policy, seller_policy,
@@ -160,8 +166,9 @@ def run_episode(
     result = game.play()
     analysis = analyze_type_pair(buyer_rank, seller_rank, r)
     score = score_episode(result, analysis)
+    condition = {"salience": salience, "reveal_utility": reveal, "shuffle_options": shuffle}
     return _episode_record(
-        result, score, regime, seed, starting_side, buyer_policy, seller_policy
+        result, score, regime, seed, starting_side, buyer_policy, seller_policy, condition
     )
 
 
@@ -169,11 +176,12 @@ def _frac(x) -> Optional[float]:
     return float(x) if x is not None else None
 
 
-def _episode_record(result, score, regime, seed, starting_side, bp, sp) -> dict:
+def _episode_record(result, score, regime, seed, starting_side, bp, sp, condition) -> dict:
     return {
         "game_version": GAME_VERSION,
         "seed": seed,
         "reservation_regime": regime,
+        "condition": condition,
         "private_truth_evaluator_only": {
             "buyer_rank": list(result.buyer_rank),
             "seller_rank": list(result.seller_rank),
@@ -270,6 +278,9 @@ def build_args(argv=None) -> argparse.Namespace:
     p.add_argument("--max-proposals", type=int, default=6)
     p.add_argument("--no-reveal-utility", action="store_true",
                    help="Ablation: hide the agent's own-utility numbers from option text.")
+    p.add_argument("--salience", action="store_true",
+                   help="Salience condition: state the deadline and standing/best-seen "
+                        "offer in value terms relative to the no-deal payoff.")
     p.add_argument("--shuffle-options", action="store_true",
                    help="Randomize candidate order (section 5.1.6).")
     p.add_argument("--seed", type=int, default=0, help="Base seed for pair sampling / shuffling.")
@@ -305,8 +316,8 @@ def main(argv=None) -> int:
                     rec = run_episode(
                         buyer_rank, seller_rank, regime, starting_side, seed,
                         live_client=live_client, self_test=args.self_test,
-                        reveal=not args.no_reveal_utility, shuffle=args.shuffle_options,
-                        max_proposals=args.max_proposals,
+                        reveal=not args.no_reveal_utility, salience=args.salience,
+                        shuffle=args.shuffle_options, max_proposals=args.max_proposals,
                     )
                     records.append(rec)
                     episode_index += 1

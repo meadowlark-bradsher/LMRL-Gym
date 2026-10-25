@@ -54,10 +54,16 @@ class JevNegotiationPolicy:
         client: JevClient,
         *,
         reveal_own_utility: bool = True,
+        salience: bool = False,
         shuffle_rng: Optional[random.Random] = None,
     ) -> None:
         self.client = client
         self.reveal_own_utility = reveal_own_utility
+        # Salience condition: restate the deadline and the standing/best-seen
+        # offer in *value* terms relative to the no-deal payoff. Pure framing of
+        # outcomes — no strategic advice — so it isolates "does Jev pivot once
+        # the opportunity cost is visible?" from the policy-aid condition.
+        self.salience = salience
         self.shuffle_rng = shuffle_rng
         self.last_answer: Optional[ChoiceAnswer] = None
 
@@ -94,6 +100,8 @@ class JevNegotiationPolicy:
             )
         else:
             lines.append("There is no offer currently on the table.")
+        if self.salience:
+            lines.extend(self._salience_lines(obs))
         if obs.history:
             lines.append("Negotiation so far:")
             for turn in obs.history:
@@ -109,6 +117,39 @@ class JevNegotiationPolicy:
         else:
             lines.append("No actions have been taken yet; it is your move.")
         return "\n".join(lines)
+
+    def _salience_lines(self, obs: Observation) -> List[str]:
+        """Outcome values made explicit (salience condition). No advice."""
+        r = float(obs.reservation)
+        remaining = obs.max_proposals - obs.proposals_used
+        other = "seller" if obs.role == "buyer" else "buyer"
+        lines = [
+            f"Proposals remaining for both sides combined: {remaining}. If they run "
+            f"out with no accepted deal, the negotiation ends and you receive exactly "
+            f"{r:.3f} — your no-deal payoff."
+        ]
+        # Best offer the other party has actually put on the table so far.
+        their_offers = [
+            t.action.deal_id
+            for t in obs.history
+            if t.actor == other and t.action.kind == OFFER
+        ]
+        if their_offers:
+            best_id = max(their_offers, key=lambda d: obs.utility_of(d))
+            best_u = float(obs.utility_of(best_id))
+            rel = "above" if best_u >= r else "below"
+            lines.append(
+                f"The best offer the {other} has made to you so far is "
+                f"{Deal.from_id(best_id).label()} [{best_id}], worth {best_u:.3f} to you "
+                f"— {rel} your no-deal payoff of {r:.3f}."
+            )
+        if obs.outstanding_offer is not None:
+            own = float(obs.utility_of(obs.outstanding_offer))
+            lines.append(
+                f"Accepting the offer on the table now gives you {own:.3f}; walking "
+                f"away or running out of proposals gives you {r:.3f}."
+            )
+        return lines
 
     def _describe(self, action: Action, obs: Observation) -> str:
         if action.kind == OFFER:
