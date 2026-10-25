@@ -112,6 +112,7 @@ def run_episode(
     recorder: Optional[Recorder] = None,
     episode_id: str = "",
     seed: Optional[int] = None,
+    rollout: int = 0,
     verbose: bool = False,
 ) -> Dict[str, object]:
     env._reset()
@@ -199,6 +200,7 @@ def run_episode(
         "experiment": cond.experiment,
         "factors": cond.factors,
         "seed": seed,
+        "rollout": rollout,
         "food_name": cond.food_name,
         "success": float(won),
         "won": won,
@@ -399,6 +401,11 @@ def main() -> int:
                         "overrides --experiment")
     p.add_argument("--seeds", default="0-9",
                    help="'0-9', '0,1,2', or a count 'n' => 0..n-1")
+    p.add_argument("--repeats", type=int, default=1,
+                   help="independent Jev rollouts per (seed, condition). The game "
+                        "is identical across rollouts (same seed); only Jev's "
+                        "stochastic choices differ, so >1 estimates a success "
+                        "rate rather than a single-pass coin flip.")
     p.add_argument("--max-steps", type=int, default=20)
     p.add_argument("--fully-observed", action="store_true")
     p.add_argument("--model", default="jev-latest")
@@ -433,6 +440,7 @@ def main() -> int:
             "experiment": args.experiment,
             "conditions": [c.name for c in conditions],
             "seeds": seeds,
+            "repeats": args.repeats,
             "max_steps": args.max_steps,
             "fully_observed": args.fully_observed,
             "model": ("mock" if use_mock else args.model),
@@ -446,14 +454,17 @@ def main() -> int:
         agg: Dict[str, List[Dict]] = {c.name: [] for c in conditions}
         for cond in conditions:
             for seed in seeds:
-                env = build_env(use_fake, args.fully_observed, cond.food_name, seed)
-                eid = "{}-s{}".format(cond.name, seed)
-                if verbose:
-                    print("  {}  [{}]".format(eid, cond.describe()))
-                res = run_episode(env, build_policy(cond, client), cond,
-                                  max_steps=args.max_steps, recorder=recorder,
-                                  episode_id=eid, seed=seed, verbose=verbose)
-                agg[cond.name].append(res)
+                for r in range(args.repeats):
+                    env = build_env(use_fake, args.fully_observed, cond.food_name,
+                                    seed)
+                    eid = "{}-s{}-r{}".format(cond.name, seed, r)
+                    if verbose:
+                        print("  {}  [{}]".format(eid, cond.describe()))
+                    res = run_episode(env, build_policy(cond, client), cond,
+                                      max_steps=args.max_steps, recorder=recorder,
+                                      episode_id=eid, seed=seed, rollout=r,
+                                      verbose=verbose)
+                    agg[cond.name].append(res)
     finally:
         if recorder is not None:
             recorder.close()

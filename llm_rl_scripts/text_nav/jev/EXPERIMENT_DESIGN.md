@@ -581,13 +581,20 @@ Phase-3 gates exist specifically so we confirm correctness and see pilot signal
 before committing to the full main run. API errors and truncated episodes are
 logged and counted separately from genuine task failures (§10).
 
-## E. Open choices to confirm with the researcher
+## E. Open choices — resolved (2026-10-25)
 
-- **Stochasticity / repeats per seed (§3.3).** Is `jev-latest` deterministic for a
-  fixed state? If not, how many repeats per seed can the API budget absorb? This
-  sets whether the unit of analysis needs a variance component.
-- **Pilot scale.** Proceed at the specified 10 seeds × 4, or smaller first (e.g. 3
-  seeds × 4 = 12) to shake out logging before the 40-episode pilot?
-- **G1 goal wording.** Confirm the exact authored string for the explicit-goal
-  conditions (default: the design's "locate the perishable food, put it inside the
-  refrigerator, and close the refrigerator").
+- **Stochasticity / repeats per seed (§3.3) — RESOLVED: repeats are mandatory.**
+  A 12-call probe first suggested the argmax was deterministic, but it only
+  sampled wide-margin states. The pilot determinism audit (the full 10×4 re-run)
+  settled it: only 8/40 realized trajectories were identical across two runs, and
+  all three of the pilot's A4 wins vanished on re-run (A4 3/10 → 0/10). So
+  `jev-latest`'s per-episode behavior is substantially stochastic at near-tie
+  decisions; single-pass binary success is a coin flip, not a measurement. The
+  unit of analysis is the **per-(seed, condition) success rate over K independent
+  rollouts** (runner `--repeats K`), reported with cluster-bootstrap CIs. K and
+  scale to be set from a repeats-calibration run. See
+  [`PILOT_A_RESULTS.md`](PILOT_A_RESULTS.md).
+- **Pilot scale — RESOLVED.** Ran 1-seed smoke then the full 10 seeds × 4.
+- **G1 goal wording — RESOLVED.** Using the authored default in
+  [`conditions.py`](conditions.py): "Your goal is to locate the perishable food,
+  put it inside the refrigerator, and close the refrigerator."
