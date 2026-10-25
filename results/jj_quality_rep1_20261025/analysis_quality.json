@@ -1,0 +1,545 @@
+{
+  "a": "bayes",
+  "b": "prior_only",
+  "episodes": {
+    "a": 576,
+    "b": 576
+  },
+  "failed_episodes_excluded": {
+    "a": 0,
+    "b": 0
+  },
+  "pairs_compared": 36,
+  "pairs_only_in_a": 0,
+  "pairs_only_in_b": 0,
+  "bootstrap": {
+    "B": 5000,
+    "seed": 1,
+    "unit": "ordered type pair (paired resampling)"
+  },
+  "primary": "nash_ratio",
+  "metrics": {
+    "nash_ratio": {
+      "mean_a": 0.7526,
+      "mean_b": 0.5987,
+      "delta": 0.1539,
+      "ci95_a": [
+        0.679,
+        0.8203
+      ],
+      "ci95_b": [
+        0.517,
+        0.6787
+      ],
+      "ci95_delta": [
+        0.0529,
+        0.2581
+      ],
+      "n_boot": 5000
+    },
+    "min_gain": {
+      "mean_a": 0.5531,
+      "mean_b": 0.4451,
+      "delta": 0.108,
+      "ci95_a": [
+        0.4861,
+        0.6193
+      ],
+      "ci95_b": [
+        0.3907,
+        0.4992
+      ],
+      "ci95_delta": [
+        0.0329,
+        0.187
+      ],
+      "n_boot": 5000
+    },
+    "buyer_gain": {
+      "mean_a": 0.6759,
+      "mean_b": 0.5965,
+      "delta": 0.0794,
+      "ci95_a": [
+        0.6087,
+        0.7365
+      ],
+      "ci95_b": [
+        0.5423,
+        0.6515
+      ],
+      "ci95_delta": [
+        0.001,
+        0.156
+      ],
+      "n_boot": 5000
+    },
+    "seller_gain": {
+      "mean_a": 0.7011,
+      "mean_b": 0.6219,
+      "delta": 0.0792,
+      "ci95_a": [
+        0.6348,
+        0.7601
+      ],
+      "ci95_b": [
+        0.5618,
+        0.6791
+      ],
+      "ci95_delta": [
+        0.0037,
+        0.1577
+      ],
+      "n_boot": 5000
+    },
+    "pareto": {
+      "mean_a": 0.9252,
+      "mean_b": 0.8183,
+      "delta": 0.1069,
+      "ci95_a": [
+        0.8659,
+        0.9722
+      ],
+      "ci95_b": [
+        0.7284,
+        0.899
+      ],
+      "ci95_delta": [
+        0.0251,
+        0.1944
+      ],
+      "n_boot": 5000
+    },
+    "proposals": {
+      "mean_a": 2.2574,
+      "mean_b": 1.6473,
+      "delta": 0.6101,
+      "ci95_a": [
+        1.993,
+        2.5617
+      ],
+      "ci95_b": [
+        1.3822,
+        1.9541
+      ],
+      "ci95_delta": [
+        0.2649,
+        0.9568
+      ],
+      "n_boot": 5000
+    },
+    "agreement": {
+      "mean_a": 0.9983,
+      "mean_b": 0.9844,
+      "delta": 0.0139,
+      "ci95_a": [
+        0.9948,
+        1.0
+      ],
+      "ci95_b": [
+        0.967,
+        0.9965
+      ],
+      "ci95_delta": [
+        0.0017,
+        0.033
+      ],
+      "n_boot": 5000
+    }
+  },
+  "per_pair_primary_delta": [
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "delivery>price>warranty",
+      "a": 0.695,
+      "b": 0.898,
+      "delta": -0.203,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "delivery>warranty>price",
+      "a": 1.0,
+      "b": 0.423,
+      "delta": 0.577,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "price>delivery>warranty",
+      "a": 0.764,
+      "b": 0.198,
+      "delta": 0.566,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "price>warranty>delivery",
+      "a": 0.89,
+      "b": 0.677,
+      "delta": 0.213,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "warranty>delivery>price",
+      "a": 0.882,
+      "b": 0.677,
+      "delta": 0.205,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "warranty>price>delivery",
+      "a": 0.96,
+      "b": 0.798,
+      "delta": 0.162,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "delivery>price>warranty",
+      "a": 0.745,
+      "b": 0.447,
+      "delta": 0.298,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "delivery>warranty>price",
+      "a": 0.704,
+      "b": 0.917,
+      "delta": -0.213,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "price>delivery>warranty",
+      "a": 0.743,
+      "b": 0.338,
+      "delta": 0.405,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "price>warranty>delivery",
+      "a": 0.96,
+      "b": 0.676,
+      "delta": 0.284,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "warranty>delivery>price",
+      "a": 0.993,
+      "b": 0.543,
+      "delta": 0.45,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "warranty>price>delivery",
+      "a": 0.743,
+      "b": 0.779,
+      "delta": -0.036,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "delivery>price>warranty",
+      "a": 0.194,
+      "b": 0.427,
+      "delta": -0.234,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "delivery>warranty>price",
+      "a": 0.472,
+      "b": 0.677,
+      "delta": -0.205,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "price>delivery>warranty",
+      "a": 0.464,
+      "b": 0.799,
+      "delta": -0.335,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "price>warranty>delivery",
+      "a": 1.0,
+      "b": 0.417,
+      "delta": 0.583,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "warranty>delivery>price",
+      "a": 1.0,
+      "b": 0.948,
+      "delta": 0.052,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "warranty>price>delivery",
+      "a": 0.497,
+      "b": 0.692,
+      "delta": -0.194,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "delivery>price>warranty",
+      "a": 0.677,
+      "b": 0.619,
+      "delta": 0.058,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "delivery>warranty>price",
+      "a": 1.0,
+      "b": 1.0,
+      "delta": 0.0,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "price>delivery>warranty",
+      "a": 0.856,
+      "b": 0.371,
+      "delta": 0.485,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "price>warranty>delivery",
+      "a": 0.743,
+      "b": 0.845,
+      "delta": -0.102,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "warranty>delivery>price",
+      "a": 0.53,
+      "b": 0.651,
+      "delta": -0.121,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "warranty>price>delivery",
+      "a": 0.142,
+      "b": 0.084,
+      "delta": 0.058,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "delivery>price>warranty",
+      "a": 0.684,
+      "b": 0.842,
+      "delta": -0.158,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "delivery>warranty>price",
+      "a": 0.993,
+      "b": 0.543,
+      "delta": 0.45,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "price>delivery>warranty",
+      "a": 0.924,
+      "b": 0.433,
+      "delta": 0.491,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "price>warranty>delivery",
+      "a": 0.695,
+      "b": 0.261,
+      "delta": 0.434,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "warranty>delivery>price",
+      "a": 0.445,
+      "b": 0.982,
+      "delta": -0.536,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "warranty>price>delivery",
+      "a": 0.915,
+      "b": 0.49,
+      "delta": 0.425,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "delivery>price>warranty",
+      "a": 0.793,
+      "b": 0.899,
+      "delta": -0.106,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "delivery>warranty>price",
+      "a": 0.941,
+      "b": 0.677,
+      "delta": 0.264,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "price>delivery>warranty",
+      "a": 0.669,
+      "b": 0.521,
+      "delta": 0.148,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "price>warranty>delivery",
+      "a": 0.704,
+      "b": 0.086,
+      "delta": 0.618,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "warranty>delivery>price",
+      "a": 1.0,
+      "b": 0.266,
+      "delta": 0.734,
+      "n_a": 16,
+      "n_b": 16
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "warranty>price>delivery",
+      "a": 0.676,
+      "b": 0.653,
+      "delta": 0.023,
+      "n_a": 16,
+      "n_b": 16
+    }
+  ],
+  "primary_sign_count": {
+    "pos": 23,
+    "neg": 12,
+    "zero": 1
+  },
+  "sanity": {
+    "ideal_offers_a": "0/1299",
+    "ideal_offers_b": "0/988",
+    "agreement_a": 0.9983,
+    "agreement_b": 0.9844
+  },
+  "epistemic_a": {
+    "belief_reports_scored": 1152,
+    "final_logloss_true_type_bits": {
+      "mean": 1.754,
+      "min": 0.30619506565586224,
+      "max": 7.5233649526310735,
+      "n": 1152
+    },
+    "logscore_improvement_over_uniform_bits": {
+      "mean": 0.831,
+      "min": -4.9384024519099174,
+      "max": 2.278767435065294,
+      "n": 1152
+    },
+    "final_entropy_bits": {
+      "mean": 1.787,
+      "min": 1.0657588330671706,
+      "max": 2.584962500721156,
+      "n": 1152
+    },
+    "uniform_prior_entropy_bits": 2.585,
+    "argmax_is_true_type_rate": 0.462,
+    "belief_steps_per_seat": {
+      "mean": 1.628,
+      "min": 1,
+      "max": 4,
+      "n": 1152
+    }
+  },
+  "epistemic_b": {
+    "belief_reports_scored": 1152,
+    "final_logloss_true_type_bits": {
+      "mean": 2.585,
+      "min": 2.584962500721156,
+      "max": 2.584962500721156,
+      "n": 1152
+    },
+    "logscore_improvement_over_uniform_bits": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 1152
+    },
+    "final_entropy_bits": {
+      "mean": 2.585,
+      "min": 2.584962500721156,
+      "max": 2.584962500721156,
+      "n": 1152
+    },
+    "uniform_prior_entropy_bits": 2.585,
+    "argmax_is_true_type_rate": 0.167,
+    "belief_steps_per_seat": {
+      "mean": 1.358,
+      "min": 1,
+      "max": 4,
+      "n": 1152
+    }
+  },
+  "decision": "learning improves quality (primary CI excludes 0, positive)"
+}

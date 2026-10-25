@@ -22,6 +22,7 @@ from typing import Dict, List, Optional, Tuple
 
 from LLM_RL.jev.client import ChoiceAnswer, JevClient
 from llm_rl_scripts.car_dealer_discrete.game import Deal
+from llm_rl_scripts.car_dealer_discrete.jev.aid import AcceptanceAid, ranking_key
 from llm_rl_scripts.car_dealer_discrete.protocol import (
     ACCEPT,
     OFFER,
@@ -55,6 +56,7 @@ class JevNegotiationPolicy:
         *,
         reveal_own_utility: bool = True,
         salience: bool = False,
+        aid: Optional[AcceptanceAid] = None,
         shuffle_rng: Optional[random.Random] = None,
     ) -> None:
         self.client = client
@@ -64,15 +66,22 @@ class JevNegotiationPolicy:
         # outcomes — no strategic advice — so it isolates "does Jev pivot once
         # the opportunity cost is visible?" from the policy-aid condition.
         self.salience = salience
+        # Policy-aid condition: an external forward model annotates each OFFER
+        # with P(opponent accepts). The aid never ranks, scores, or prunes
+        # options; Jev integrates the number with its own utility itself.
+        self.aid = aid
         self.shuffle_rng = shuffle_rng
         self.last_answer: Optional[ChoiceAnswer] = None
+        # Evaluator-facing belief report (section 4.3); NOT shown to Jev.
+        self.last_belief: Optional[Dict[str, float]] = None
+        self.last_acceptance: Optional[Dict[str, float]] = None
 
     # -- prompt construction -------------------------------------------------
 
     def build_instructions(self, obs: Observation) -> str:
         ranking = " > ".join(obs.own_ranking)
         r = float(obs.reservation)
-        return (
+        text = (
             f"You are the {obs.role} negotiating the sale of one car. A deal sets "
             f"three attributes — price, warranty, delivery — each at one of three "
             f"levels. As the {obs.role} you prefer {_DIRECTIONS[obs.role]}. Your "
@@ -84,6 +93,12 @@ class JevNegotiationPolicy:
             f"number of proposals. Choose the single action giving the best outcome "
             f"for YOU — you do not know the other party's private ranking."
         )
+        if self.aid is not None:
+            text += (
+                " Each proposal also shows an estimate of how likely the other party "
+                "is to accept it, based on their behaviour so far."
+            )
+        return text
 
     def build_state(self, obs: Observation) -> str:
         lines: List[str] = []
@@ -154,10 +169,14 @@ class JevNegotiationPolicy:
     def _describe(self, action: Action, obs: Observation) -> str:
         if action.kind == OFFER:
             d = Deal.from_id(action.deal_id)
+            acc = ""
+            if self.last_acceptance is not None:
+                p = self.last_acceptance[action.deal_id]
+                acc = f"; estimated chance the other party accepts: {p:.2f}"
             if self.reveal_own_utility:
                 own = float(obs.utility_of(action.deal_id))
-                return f"Propose {d.label()} [{d.id}]; this deal is worth {own:.3f} to you."
-            return f"Propose {d.label()} [{d.id}]."
+                return f"Propose {d.label()} [{d.id}]; this deal is worth {own:.3f} to you{acc}."
+            return f"Propose {d.label()} [{d.id}]{acc}."
         if action.kind == ACCEPT:
             d = Deal.from_id(obs.outstanding_offer)
             if self.reveal_own_utility:
@@ -187,6 +206,13 @@ class JevNegotiationPolicy:
         actions = list(obs.legal_actions)
         if self.shuffle_rng is not None:
             self.shuffle_rng.shuffle(actions)
+        if self.aid is not None:
+            q, pacc = self.aid.acceptance_probabilities(obs)
+            self.last_belief = {ranking_key(th): p for th, p in q.items()}
+            self.last_acceptance = pacc
+        else:
+            self.last_belief = None
+            self.last_acceptance = None
         descriptions: Dict[str, Optional[str]] = {}
         back: Dict[str, Action] = {}
         for action in actions:

@@ -1,0 +1,171 @@
+{
+  "_pre_registration": "PREREGISTRATION_COUNTER.md",
+  "decisions": {
+    "analyzed": 1440,
+    "failed_excluded": 0,
+    "seller_responds": 720,
+    "buyer_responds": 720
+  },
+  "bootstrap": {
+    "B": 5000,
+    "seed": 4,
+    "unit": "feasible type pair, paired",
+    "pairs": 30
+  },
+  "sanity": {
+    "prior_pacc_dicts_mirror_symmetric": true,
+    "all_decisions_are_offers": true
+  },
+  "C1_primary_delta_acceptable_seller_minus_buyer": {
+    "A": 0.7083,
+    "B": 0.7708,
+    "delta": -0.0625,
+    "ci95_A": [
+      0.55,
+      0.8583
+    ],
+    "ci95_B": [
+      0.6194,
+      0.9
+    ],
+    "ci95_delta": [
+      -0.175,
+      0.0319
+    ],
+    "n_A": 720,
+    "n_B": 720
+  },
+  "C1_verdict": "NOT SUPPORTED (CI includes 0) \u2014 adequately powered: a null is informative",
+  "secondaries_seller_minus_buyer": {
+    "u_to_starter": {
+      "A": 0.642,
+      "B": 0.6559,
+      "delta": -0.0139,
+      "ci95_A": [
+        0.5479,
+        0.7304
+      ],
+      "ci95_B": [
+        0.5808,
+        0.7253
+      ],
+      "ci95_delta": [
+        -0.0929,
+        0.0569
+      ],
+      "n_A": 720,
+      "n_B": 720
+    },
+    "own_u": {
+      "A": 0.767,
+      "B": 0.7771,
+      "delta": -0.0101,
+      "ci95_A": [
+        0.7366,
+        0.8
+      ],
+      "ci95_B": [
+        0.7498,
+        0.8061
+      ],
+      "ci95_delta": [
+        -0.0607,
+        0.0424
+      ],
+      "n_A": 720,
+      "n_B": 720
+    },
+    "shown_pacc": {
+      "A": 0.5454,
+      "B": 0.5135,
+      "delta": 0.0319,
+      "ci95_A": [
+        0.5025,
+        0.5863
+      ],
+      "ci95_B": [
+        0.4754,
+        0.5521
+      ],
+      "ci95_delta": [
+        -0.0394,
+        0.1008
+      ],
+      "n_A": 720,
+      "n_B": 720
+    }
+  },
+  "C5_selection_check_acceptable_by_cell_x_opening_ok": {
+    "seller_responds | opening acceptable to responder=True": {
+      "acceptable": 0.8698,
+      "n": 507
+    },
+    "seller_responds | opening acceptable to responder=False": {
+      "acceptable": 0.3239,
+      "n": 213
+    },
+    "buyer_responds | opening acceptable to responder=True": {
+      "acceptable": 0.9649,
+      "n": 513
+    },
+    "buyer_responds | opening acceptable to responder=False": {
+      "acceptable": 0.2899,
+      "n": 207
+    }
+  },
+  "descriptive": {
+    "top_counters_seller_responds": [
+      [
+        "P0-W0-D2",
+        213
+      ],
+      [
+        "P2-W2-D2",
+        176
+      ],
+      [
+        "P2-W2-D0",
+        152
+      ],
+      [
+        "P2-W0-D2",
+        85
+      ],
+      [
+        "P0-W2-D0",
+        80
+      ],
+      [
+        "P0-W0-D0",
+        14
+      ]
+    ],
+    "top_counters_buyer_responds": [
+      [
+        "P0-W0-D0",
+        188
+      ],
+      [
+        "P1-W0-D2",
+        161
+      ],
+      [
+        "P2-W2-D2",
+        142
+      ],
+      [
+        "P2-W2-D0",
+        64
+      ],
+      [
+        "P1-W2-D0",
+        59
+      ],
+      [
+        "P0-W2-D0",
+        36
+      ]
+    ],
+    "tvd_seller_mirrored_vs_buyer": 0.5097
+  }
+}

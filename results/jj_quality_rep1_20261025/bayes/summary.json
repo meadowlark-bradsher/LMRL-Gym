@@ -1,0 +1,21 @@
+{
+  "easy": {
+    "episodes": 576,
+    "feasible_episodes": 576,
+    "infeasible_episodes": 0,
+    "agreement_rate": 0.9982638888888888,
+    "invalid_acceptances": 0,
+    "valid_agreement_rate_feasible": 0.9982638888888888,
+    "correct_no_deal_rate_infeasible": null,
+    "mean_buyer_gain_feasible": 0.6759488475721114,
+    "mean_seller_gain_feasible": 0.701125512417375,
+    "mean_min_gain_feasible": 0.5530675329286099,
+    "pareto_frontier_rate_valid": 0.9252173913043479,
+    "mean_nash_ratio_feasible": 0.7525986763048227,
+    "mean_proposals_to_agreement": 2.257391304347826
+  },
+  "_run": {
+    "episodes_attempted": 576,
+    "episodes_failed": 0
+  }
+}

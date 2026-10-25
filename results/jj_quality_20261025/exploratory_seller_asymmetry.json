@@ -1,0 +1,951 @@
+{
+  "_status": "EXPLORATORY / POST HOC \u2014 not pre-registered; hypothesis-generating only",
+  "bootstrap": {
+    "B": 5000,
+    "seed": 0,
+    "unit": "ordered type pair, paired",
+    "pairs": 36
+  },
+  "episodes": {
+    "bayes": 576,
+    "prior_only": 576
+  },
+  "lens1_starting_side": {
+    "G_B | start=buyer": {
+      "bayes": 0.6478,
+      "prior_only": 0.7096,
+      "delta": -0.0619,
+      "ci95_bayes": [
+        0.5726,
+        0.714
+      ],
+      "ci95_prior_only": [
+        0.6401,
+        0.774
+      ],
+      "ci95_delta": [
+        -0.164,
+        0.0424
+      ],
+      "n_bayes": 288,
+      "n_prior_only": 288
+    },
+    "G_B | start=seller": {
+      "bayes": 0.7006,
+      "prior_only": 0.5028,
+      "delta": 0.1978,
+      "ci95_bayes": [
+        0.628,
+        0.766
+      ],
+      "ci95_prior_only": [
+        0.4248,
+        0.5797
+      ],
+      "ci95_delta": [
+        0.0961,
+        0.3
+      ],
+      "n_bayes": 288,
+      "n_prior_only": 288
+    },
+    "G_S | start=buyer": {
+      "bayes": 0.748,
+      "prior_only": 0.5305,
+      "delta": 0.2175,
+      "ci95_bayes": [
+        0.675,
+        0.8094
+      ],
+      "ci95_prior_only": [
+        0.4426,
+        0.6186
+      ],
+      "ci95_delta": [
+        0.1125,
+        0.3241
+      ],
+      "n_bayes": 288,
+      "n_prior_only": 288
+    },
+    "G_S | start=seller": {
+      "bayes": 0.6795,
+      "prior_only": 0.6921,
+      "delta": -0.0125,
+      "ci95_bayes": [
+        0.6123,
+        0.7412
+      ],
+      "ci95_prior_only": [
+        0.624,
+        0.7591
+      ],
+      "ci95_delta": [
+        -0.0891,
+        0.068
+      ],
+      "n_bayes": 288,
+      "n_prior_only": 288
+    },
+    "G_starter (either role)": {
+      "bayes": 0.6637,
+      "prior_only": 0.7009,
+      "delta": -0.0372,
+      "ci95_bayes": [
+        0.6159,
+        0.7046
+      ],
+      "ci95_prior_only": [
+        0.657,
+        0.7456
+      ],
+      "ci95_delta": [
+        -0.0909,
+        0.0179
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "G_responder (either role)": {
+      "bayes": 0.7243,
+      "prior_only": 0.5166,
+      "delta": 0.2077,
+      "ci95_bayes": [
+        0.6824,
+        0.7642
+      ],
+      "ci95_prior_only": [
+        0.4622,
+        0.5697
+      ],
+      "ci95_delta": [
+        0.146,
+        0.2724
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "proposals | start=buyer": {
+      "bayes": 2.4688,
+      "prior_only": 1.75,
+      "delta": 0.7188,
+      "ci95_bayes": [
+        2.0903,
+        2.8889
+      ],
+      "ci95_prior_only": [
+        1.3646,
+        2.2083
+      ],
+      "ci95_delta": [
+        0.125,
+        1.2917
+      ],
+      "n_bayes": 288,
+      "n_prior_only": 288
+    },
+    "proposals | start=seller": {
+      "bayes": 1.9722,
+      "prior_only": 1.7118,
+      "delta": 0.2604,
+      "ci95_bayes": [
+        1.7465,
+        2.2188
+      ],
+      "ci95_prior_only": [
+        1.4271,
+        2.0
+      ],
+      "ci95_delta": [
+        -0.0104,
+        0.5104
+      ],
+      "n_bayes": 288,
+      "n_prior_only": 288
+    }
+  },
+  "lens2_who_concedes": {
+    "starter's proposal was the accepted one (rate)": {
+      "bayes": 0.3872,
+      "prior_only": 0.711,
+      "delta": -0.3238,
+      "ci95_bayes": [
+        0.2986,
+        0.4809
+      ],
+      "ci95_prior_only": [
+        0.5968,
+        0.8147
+      ],
+      "ci95_delta": [
+        -0.4077,
+        -0.2379
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 564
+    },
+    "seller's proposal was the accepted one (rate)": {
+      "bayes": 0.4601,
+      "prior_only": 0.4504,
+      "delta": 0.0097,
+      "ci95_bayes": [
+        0.3681,
+        0.5538
+      ],
+      "ci95_prior_only": [
+        0.3662,
+        0.5316
+      ],
+      "ci95_delta": [
+        -0.106,
+        0.1283
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 564
+    },
+    "buyer FIRST offer: own utility (lower = deeper concession)": {
+      "bayes": 0.737,
+      "prior_only": 0.7279,
+      "delta": 0.009,
+      "ci95_bayes": [
+        0.7118,
+        0.7628
+      ],
+      "ci95_prior_only": [
+        0.7082,
+        0.7496
+      ],
+      "ci95_delta": [
+        -0.0115,
+        0.0275
+      ],
+      "n_bayes": 496,
+      "n_prior_only": 409
+    },
+    "seller FIRST offer: own utility": {
+      "bayes": 0.75,
+      "prior_only": 0.7228,
+      "delta": 0.0272,
+      "ci95_bayes": [
+        0.7203,
+        0.7793
+      ],
+      "ci95_prior_only": [
+        0.6976,
+        0.7499
+      ],
+      "ci95_delta": [
+        0.0002,
+        0.0508
+      ],
+      "n_bayes": 511,
+      "n_prior_only": 389
+    },
+    "buyer FIRST offer: utility to seller": {
+      "bayes": 0.5425,
+      "prior_only": 0.4977,
+      "delta": 0.0448,
+      "ci95_bayes": [
+        0.489,
+        0.5983
+      ],
+      "ci95_prior_only": [
+        0.439,
+        0.5643
+      ],
+      "ci95_delta": [
+        0.0267,
+        0.0621
+      ],
+      "n_bayes": 496,
+      "n_prior_only": 409
+    },
+    "seller FIRST offer: utility to buyer": {
+      "bayes": 0.5394,
+      "prior_only": 0.4693,
+      "delta": 0.0701,
+      "ci95_bayes": [
+        0.4893,
+        0.5899
+      ],
+      "ci95_prior_only": [
+        0.4124,
+        0.5336
+      ],
+      "ci95_delta": [
+        0.0426,
+        0.0968
+      ],
+      "n_bayes": 511,
+      "n_prior_only": 389
+    },
+    "buyer FIRST offer: aid P(accept) shown": {
+      "bayes": 0.7528,
+      "prior_only": 0.705,
+      "delta": 0.0478,
+      "ci95_bayes": [
+        0.7397,
+        0.7645
+      ],
+      "ci95_prior_only": [
+        0.6849,
+        0.7241
+      ],
+      "ci95_delta": [
+        0.0292,
+        0.0666
+      ],
+      "n_bayes": 496,
+      "n_prior_only": 409
+    },
+    "seller FIRST offer: aid P(accept) shown": {
+      "bayes": 0.7339,
+      "prior_only": 0.6824,
+      "delta": 0.0515,
+      "ci95_bayes": [
+        0.7151,
+        0.7506
+      ],
+      "ci95_prior_only": [
+        0.6572,
+        0.7072
+      ],
+      "ci95_delta": [
+        0.0299,
+        0.0739
+      ],
+      "n_bayes": 511,
+      "n_prior_only": 389
+    },
+    "buyer FIRST offer acceptable to seller (rate)": {
+      "bayes": 0.7883,
+      "prior_only": 0.6944,
+      "delta": 0.0939,
+      "ci95_bayes": [
+        0.6936,
+        0.8833
+      ],
+      "ci95_prior_only": [
+        0.5752,
+        0.8228
+      ],
+      "ci95_delta": [
+        0.042,
+        0.1506
+      ],
+      "n_bayes": 496,
+      "n_prior_only": 409
+    },
+    "seller FIRST offer acceptable to buyer (rate)": {
+      "bayes": 0.8023,
+      "prior_only": 0.6427,
+      "delta": 0.1597,
+      "ci95_bayes": [
+        0.7274,
+        0.8761
+      ],
+      "ci95_prior_only": [
+        0.5153,
+        0.7721
+      ],
+      "ci95_delta": [
+        0.087,
+        0.2372
+      ],
+      "n_bayes": 511,
+      "n_prior_only": 389
+    },
+    "first acceptable offer came from seller (rate)": {
+      "bayes": 0.4913,
+      "prior_only": 0.4695,
+      "delta": 0.0219,
+      "ci95_bayes": [
+        0.434,
+        0.5434
+      ],
+      "ci95_prior_only": [
+        0.3873,
+        0.547
+      ],
+      "ci95_delta": [
+        -0.0399,
+        0.0883
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 573
+    },
+    "offers per episode: buyer": {
+      "bayes": 1.1302,
+      "prior_only": 0.8924,
+      "delta": 0.2378,
+      "ci95_bayes": [
+        0.9931,
+        1.2778
+      ],
+      "ci95_prior_only": [
+        0.7257,
+        1.0712
+      ],
+      "ci95_delta": [
+        0.0521,
+        0.434
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "offers per episode: seller": {
+      "bayes": 1.0903,
+      "prior_only": 0.8385,
+      "delta": 0.2517,
+      "ci95_bayes": [
+        0.9566,
+        1.2431
+      ],
+      "ci95_prior_only": [
+        0.6788,
+        1.0156
+      ],
+      "ci95_delta": [
+        0.059,
+        0.434
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "split at agreement U_S - U_B": {
+      "bayes": 0.0044,
+      "prior_only": -0.0075,
+      "delta": 0.0119,
+      "ci95_bayes": [
+        -0.0274,
+        0.0353
+      ],
+      "ci95_prior_only": [
+        -0.0393,
+        0.0245
+      ],
+      "ci95_delta": [
+        -0.0334,
+        0.0565
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 564
+    }
+  },
+  "lens2b_placebo_starter_vs_responder_first_offer": {
+    "STARTER first offer: own utility  (placebo: expect \u0394\u22480)": {
+      "bayes": 0.7768,
+      "prior_only": 0.7746,
+      "delta": 0.0022,
+      "ci95_bayes": [
+        0.7654,
+        0.7873
+      ],
+      "ci95_prior_only": [
+        0.763,
+        0.7863
+      ],
+      "ci95_delta": [
+        -0.0061,
+        0.0106
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "STARTER first offer: utility to recipient (placebo)": {
+      "bayes": 0.4929,
+      "prior_only": 0.4904,
+      "delta": 0.0025,
+      "ci95_bayes": [
+        0.4274,
+        0.5604
+      ],
+      "ci95_prior_only": [
+        0.4235,
+        0.5597
+      ],
+      "ci95_delta": [
+        -0.0037,
+        0.0086
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "STARTER first offer: aid P(accept) shown (placebo)": {
+      "bayes": 0.6385,
+      "prior_only": 0.6411,
+      "delta": -0.0026,
+      "ci95_bayes": [
+        0.6286,
+        0.6464
+      ],
+      "ci95_prior_only": [
+        0.6323,
+        0.6484
+      ],
+      "ci95_delta": [
+        -0.0104,
+        0.0042
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "STARTER first offer acceptable to recipient (placebo)": {
+      "bayes": 0.658,
+      "prior_only": 0.6493,
+      "delta": 0.0087,
+      "ci95_bayes": [
+        0.5174,
+        0.7969
+      ],
+      "ci95_prior_only": [
+        0.5052,
+        0.7917
+      ],
+      "ci95_delta": [
+        -0.0087,
+        0.0278
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "RESPONDER first offer: own utility": {
+      "bayes": 0.6992,
+      "prior_only": 0.5979,
+      "delta": 0.1013,
+      "ci95_bayes": [
+        0.6497,
+        0.752
+      ],
+      "ci95_prior_only": [
+        0.5656,
+        0.63
+      ],
+      "ci95_delta": [
+        0.0455,
+        0.1642
+      ],
+      "n_bayes": 431,
+      "n_prior_only": 222
+    },
+    "RESPONDER first offer: utility to recipient": {
+      "bayes": 0.6051,
+      "prior_only": 0.4669,
+      "delta": 0.1382,
+      "ci95_bayes": [
+        0.5735,
+        0.6359
+      ],
+      "ci95_prior_only": [
+        0.4245,
+        0.5199
+      ],
+      "ci95_delta": [
+        0.099,
+        0.1794
+      ],
+      "n_bayes": 431,
+      "n_prior_only": 222
+    },
+    "RESPONDER first offer: aid P(accept) shown": {
+      "bayes": 0.8831,
+      "prior_only": 0.8311,
+      "delta": 0.052,
+      "ci95_bayes": [
+        0.868,
+        0.8972
+      ],
+      "ci95_prior_only": [
+        0.7952,
+        0.8665
+      ],
+      "ci95_delta": [
+        0.0128,
+        0.0886
+      ],
+      "n_bayes": 431,
+      "n_prior_only": 222
+    },
+    "RESPONDER first offer acceptable to recipient": {
+      "bayes": 0.9791,
+      "prior_only": 0.7207,
+      "delta": 0.2584,
+      "ci95_bayes": [
+        0.9476,
+        1.0
+      ],
+      "ci95_prior_only": [
+        0.5988,
+        0.841
+      ],
+      "ci95_delta": [
+        0.1375,
+        0.3856
+      ],
+      "n_bayes": 431,
+      "n_prior_only": 222
+    }
+  },
+  "lens3_learning_by_direction_bayes_only": {
+    "seller learns buyer: bits": {
+      "bayes": 0.9047,
+      "prior_only": 0.0,
+      "delta": 0.9047,
+      "ci95_bayes": [
+        0.7398,
+        1.072
+      ],
+      "ci95_prior_only": [
+        0.0,
+        0.0
+      ],
+      "ci95_delta": [
+        0.7398,
+        1.072
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "buyer learns seller: bits": {
+      "bayes": 0.7972,
+      "prior_only": 0.0,
+      "delta": 0.7972,
+      "ci95_bayes": [
+        0.4954,
+        1.0552
+      ],
+      "ci95_prior_only": [
+        0.0,
+        0.0
+      ],
+      "ci95_delta": [
+        0.4954,
+        1.0552
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "asymmetry (seller-learns - buyer-learns) bits": {
+      "bayes": 0.1075,
+      "prior_only": 0.0,
+      "delta": 0.1075,
+      "ci95_bayes": [
+        -0.2042,
+        0.457
+      ],
+      "ci95_prior_only": [
+        0.0,
+        0.0
+      ],
+      "ci95_delta": [
+        -0.2042,
+        0.457
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "seller learns buyer: final entropy": {
+      "bayes": 1.7933,
+      "prior_only": 2.585,
+      "delta": -0.7917,
+      "ci95_bayes": [
+        1.7376,
+        1.8478
+      ],
+      "ci95_prior_only": [
+        2.585,
+        2.585
+      ],
+      "ci95_delta": [
+        -0.8473,
+        -0.7371
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "buyer learns seller: final entropy": {
+      "bayes": 1.7814,
+      "prior_only": 2.585,
+      "delta": -0.8035,
+      "ci95_bayes": [
+        1.7149,
+        1.8508
+      ],
+      "ci95_prior_only": [
+        2.585,
+        2.585
+      ],
+      "ci95_delta": [
+        -0.8701,
+        -0.7341
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "seller learns buyer: argmax correct": {
+      "bayes": 0.4323,
+      "prior_only": 0.1667,
+      "delta": 0.2656,
+      "ci95_bayes": [
+        0.3177,
+        0.5503
+      ],
+      "ci95_prior_only": [
+        0.0556,
+        0.3056
+      ],
+      "ci95_delta": [
+        0.1146,
+        0.4045
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    },
+    "buyer learns seller: argmax correct": {
+      "bayes": 0.5156,
+      "prior_only": 0.1667,
+      "delta": 0.349,
+      "ci95_bayes": [
+        0.408,
+        0.6181
+      ],
+      "ci95_prior_only": [
+        0.0556,
+        0.3056
+      ],
+      "ci95_delta": [
+        0.2118,
+        0.4722
+      ],
+      "n_bayes": 576,
+      "n_prior_only": 576
+    }
+  },
+  "pair_level": {
+    "classification_of_36_pairs": {
+      "joint_gain(S+,B+)": 12,
+      "transfer_to_seller(S+,B-)": 11,
+      "transfer_to_buyer(S-,B+)": 10,
+      "joint_loss(S-,B-)": 1,
+      "flat": 2
+    },
+    "per_pair": [
+      {
+        "buyer": "delivery>price>warranty",
+        "seller": "delivery>price>warranty",
+        "dG_S": 0.247,
+        "dG_B": -0.106
+      },
+      {
+        "buyer": "delivery>price>warranty",
+        "seller": "delivery>warranty>price",
+        "dG_S": 0.491,
+        "dG_B": -0.134
+      },
+      {
+        "buyer": "delivery>price>warranty",
+        "seller": "price>delivery>warranty",
+        "dG_S": 0.501,
+        "dG_B": -0.147
+      },
+      {
+        "buyer": "delivery>price>warranty",
+        "seller": "price>warranty>delivery",
+        "dG_S": 0.331,
+        "dG_B": -0.129
+      },
+      {
+        "buyer": "delivery>price>warranty",
+        "seller": "warranty>delivery>price",
+        "dG_S": -0.119,
+        "dG_B": 0.303
+      },
+      {
+        "buyer": "delivery>price>warranty",
+        "seller": "warranty>price>delivery",
+        "dG_S": 0.083,
+        "dG_B": 0.028
+      },
+      {
+        "buyer": "delivery>warranty>price",
+        "seller": "delivery>price>warranty",
+        "dG_S": 0.179,
+        "dG_B": 0.179
+      },
+      {
+        "buyer": "delivery>warranty>price",
+        "seller": "delivery>warranty>price",
+        "dG_S": 0.38,
+        "dG_B": -0.38
+      },
+      {
+        "buyer": "delivery>warranty>price",
+        "seller": "price>delivery>warranty",
+        "dG_S": 0.372,
+        "dG_B": 0.005
+      },
+      {
+        "buyer": "delivery>warranty>price",
+        "seller": "price>warranty>delivery",
+        "dG_S": 0.331,
+        "dG_B": -0.037
+      },
+      {
+        "buyer": "delivery>warranty>price",
+        "seller": "warranty>delivery>price",
+        "dG_S": -0.13,
+        "dG_B": 0.377
+      },
+      {
+        "buyer": "delivery>warranty>price",
+        "seller": "warranty>price>delivery",
+        "dG_S": 0.028,
+        "dG_B": -0.011
+      },
+      {
+        "buyer": "price>delivery>warranty",
+        "seller": "delivery>price>warranty",
+        "dG_S": -0.018,
+        "dG_B": -0.478
+      },
+      {
+        "buyer": "price>delivery>warranty",
+        "seller": "delivery>warranty>price",
+        "dG_S": -0.179,
+        "dG_B": 0.07
+      },
+      {
+        "buyer": "price>delivery>warranty",
+        "seller": "price>delivery>warranty",
+        "dG_S": -0.508,
+        "dG_B": 0.579
+      },
+      {
+        "buyer": "price>delivery>warranty",
+        "seller": "price>warranty>delivery",
+        "dG_S": -0.116,
+        "dG_B": 0.554
+      },
+      {
+        "buyer": "price>delivery>warranty",
+        "seller": "warranty>delivery>price",
+        "dG_S": 0.0,
+        "dG_B": 0.0
+      },
+      {
+        "buyer": "price>delivery>warranty",
+        "seller": "warranty>price>delivery",
+        "dG_S": 0.097,
+        "dG_B": -0.248
+      },
+      {
+        "buyer": "price>warranty>delivery",
+        "seller": "delivery>price>warranty",
+        "dG_S": 0.022,
+        "dG_B": 0.064
+      },
+      {
+        "buyer": "price>warranty>delivery",
+        "seller": "delivery>warranty>price",
+        "dG_S": 0.0,
+        "dG_B": 0.0
+      },
+      {
+        "buyer": "price>warranty>delivery",
+        "seller": "price>delivery>warranty",
+        "dG_S": 0.051,
+        "dG_B": 0.408
+      },
+      {
+        "buyer": "price>warranty>delivery",
+        "seller": "price>warranty>delivery",
+        "dG_S": -0.231,
+        "dG_B": 0.231
+      },
+      {
+        "buyer": "price>warranty>delivery",
+        "seller": "warranty>delivery>price",
+        "dG_S": -0.193,
+        "dG_B": 0.075
+      },
+      {
+        "buyer": "price>warranty>delivery",
+        "seller": "warranty>price>delivery",
+        "dG_S": 0.083,
+        "dG_B": -0.118
+      },
+      {
+        "buyer": "warranty>delivery>price",
+        "seller": "delivery>price>warranty",
+        "dG_S": -0.087,
+        "dG_B": 0.081
+      },
+      {
+        "buyer": "warranty>delivery>price",
+        "seller": "delivery>warranty>price",
+        "dG_S": -0.142,
+        "dG_B": 0.425
+      },
+      {
+        "buyer": "warranty>delivery>price",
+        "seller": "price>delivery>warranty",
+        "dG_S": 0.244,
+        "dG_B": 0.087
+      },
+      {
+        "buyer": "warranty>delivery>price",
+        "seller": "price>warranty>delivery",
+        "dG_S": 0.323,
+        "dG_B": 0.129
+      },
+      {
+        "buyer": "warranty>delivery>price",
+        "seller": "warranty>delivery>price",
+        "dG_S": 0.476,
+        "dG_B": -0.476
+      },
+      {
+        "buyer": "warranty>delivery>price",
+        "seller": "warranty>price>delivery",
+        "dG_S": 0.134,
+        "dG_B": 0.134
+      },
+      {
+        "buyer": "warranty>price>delivery",
+        "seller": "delivery>price>warranty",
+        "dG_S": 0.014,
+        "dG_B": 0.023
+      },
+      {
+        "buyer": "warranty>price>delivery",
+        "seller": "delivery>warranty>price",
+        "dG_S": -0.129,
+        "dG_B": 0.331
+      },
+      {
+        "buyer": "warranty>price>delivery",
+        "seller": "price>delivery>warranty",
+        "dG_S": 0.225,
+        "dG_B": 0.005
+      },
+      {
+        "buyer": "warranty>price>delivery",
+        "seller": "price>warranty>delivery",
+        "dG_S": 0.248,
+        "dG_B": 0.248
+      },
+      {
+        "buyer": "warranty>price>delivery",
+        "seller": "warranty>delivery>price",
+        "dG_S": 0.366,
+        "dG_B": 0.411
+      },
+      {
+        "buyer": "warranty>price>delivery",
+        "seller": "warranty>price>delivery",
+        "dG_S": 0.318,
+        "dG_B": -0.035
+      }
+    ]
+  }
+}

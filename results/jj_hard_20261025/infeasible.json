@@ -1,0 +1,161 @@
+{
+  "_scope": "INFEASIBLE type pairs only (F = \u2205); scored on correct-no-deal, never as G/Nash = 0",
+  "bootstrap": {
+    "B": 5000,
+    "seed": 3,
+    "unit": "ordered type pair, paired",
+    "pairs": 6
+  },
+  "power_note": "6 clusters: intervals are wide by construction; report, do not over-read",
+  "episodes": {
+    "bayes": 96,
+    "prior_only": 96
+  },
+  "infeasible_pairs": [
+    {
+      "buyer": "delivery>price>warranty",
+      "seller": "delivery>price>warranty"
+    },
+    {
+      "buyer": "delivery>warranty>price",
+      "seller": "delivery>warranty>price"
+    },
+    {
+      "buyer": "price>delivery>warranty",
+      "seller": "price>delivery>warranty"
+    },
+    {
+      "buyer": "price>warranty>delivery",
+      "seller": "price>warranty>delivery"
+    },
+    {
+      "buyer": "warranty>delivery>price",
+      "seller": "warranty>delivery>price"
+    },
+    {
+      "buyer": "warranty>price>delivery",
+      "seller": "warranty>price>delivery"
+    }
+  ],
+  "metrics": {
+    "correct_no_deal": {
+      "bayes": 1.0,
+      "prior_only": 1.0,
+      "delta": 0.0,
+      "ci95_bayes": [
+        1.0,
+        1.0
+      ],
+      "ci95_prior_only": [
+        1.0,
+        1.0
+      ],
+      "ci95_delta": [
+        0.0,
+        0.0
+      ]
+    },
+    "invalid_acceptance": {
+      "bayes": 0.0,
+      "prior_only": 0.0,
+      "delta": 0.0,
+      "ci95_bayes": [
+        0.0,
+        0.0
+      ],
+      "ci95_prior_only": [
+        0.0,
+        0.0
+      ],
+      "ci95_delta": [
+        0.0,
+        0.0
+      ]
+    },
+    "walk": {
+      "bayes": 1.0,
+      "prior_only": 1.0,
+      "delta": 0.0,
+      "ci95_bayes": [
+        1.0,
+        1.0
+      ],
+      "ci95_prior_only": [
+        1.0,
+        1.0
+      ],
+      "ci95_delta": [
+        0.0,
+        0.0
+      ]
+    },
+    "timeout": {
+      "bayes": 0.0,
+      "prior_only": 0.0,
+      "delta": 0.0,
+      "ci95_bayes": [
+        0.0,
+        0.0
+      ],
+      "ci95_prior_only": [
+        0.0,
+        0.0
+      ],
+      "ci95_delta": [
+        0.0,
+        0.0
+      ]
+    },
+    "proposals_used": {
+      "bayes": 1.0521,
+      "prior_only": 1.75,
+      "delta": -0.6979,
+      "ci95_bayes": [
+        1.0,
+        1.1146
+      ],
+      "ci95_prior_only": [
+        1.3542,
+        2.1458
+      ],
+      "ci95_delta": [
+        -1.1042,
+        -0.2917
+      ]
+    },
+    "decisions": {
+      "bayes": 2.0625,
+      "prior_only": 2.75,
+      "delta": -0.6875,
+      "ci95_bayes": [
+        2.0,
+        2.125
+      ],
+      "ci95_prior_only": [
+        2.3542,
+        3.1458
+      ],
+      "ci95_delta": [
+        -1.0833,
+        -0.2917
+      ]
+    },
+    "final_max_pacc_own_ir": {
+      "bayes": 0.5582,
+      "prior_only": 0.65,
+      "delta": -0.0918,
+      "ci95_bayes": [
+        0.5447,
+        0.5709
+      ],
+      "ci95_prior_only": [
+        0.65,
+        0.65
+      ],
+      "ci95_delta": [
+        -0.1053,
+        -0.0791
+      ]
+    }
+  }
+}

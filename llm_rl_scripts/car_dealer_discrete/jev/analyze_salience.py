@@ -35,7 +35,9 @@ from llm_rl_scripts.car_dealer_discrete.scoring import RESERVATIONS
 def load(path: str) -> List[dict]:
     runs = path if path.endswith(".jsonl") else os.path.join(path, "runs.jsonl")
     with open(runs) as f:
-        return [json.loads(line) for line in f if line.strip()]
+        recs = [json.loads(line) for line in f if line.strip()]
+    # Skip error stubs written by the hardened runner; they carry no result.
+    return [r for r in recs if "result" in r]
 
 
 def _mean(xs: List[float]) -> Optional[float]:
