@@ -1,0 +1,230 @@
+{
+  "panel_A_agreement_by_arm": [
+    {
+      "arm": "baseline",
+      "agreement": 0.0,
+      "n": 12
+    },
+    {
+      "arm": "salience",
+      "agreement": 0.0,
+      "n": 12
+    },
+    {
+      "arm": "placebo (0.50)",
+      "agreement": 0.0,
+      "n": 12
+    },
+    {
+      "arm": "prior-only",
+      "agreement": 1.0,
+      "n": 12
+    },
+    {
+      "arm": "aid (bayes)",
+      "agreement": 1.0,
+      "n": 12
+    },
+    {
+      "arm": "aid + salience",
+      "agreement": 1.0,
+      "n": 12
+    }
+  ],
+  "panel_B_deltas": [
+    {
+      "run": "Run 1 (easy)",
+      "metric": "Nash Q_N (primary)",
+      "delta": 0.1579,
+      "ci95": [
+        0.0544,
+        0.2626
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Run 1 (easy)",
+      "metric": "min(G_B, G_S)",
+      "delta": 0.1093,
+      "ci95": [
+        0.0327,
+        0.1897
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Run 1 (easy)",
+      "metric": "G_responder",
+      "delta": 0.2077,
+      "ci95": [
+        0.146,
+        0.2724
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Run 1 (easy)",
+      "metric": "G_starter",
+      "delta": -0.0372,
+      "ci95": [
+        -0.0909,
+        0.0179
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Run 1 (easy)",
+      "metric": "agreement",
+      "delta": 0.0208,
+      "ci95": [
+        0.0052,
+        0.0417
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Run 1 (easy)",
+      "metric": "proposals to agreement (caption only)",
+      "delta": 0.5804,
+      "ci95": [
+        0.2519,
+        0.9084
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Replication (easy)",
+      "metric": "Nash Q_N (primary)",
+      "delta": 0.1539,
+      "ci95": [
+        0.0529,
+        0.2581
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Replication (easy)",
+      "metric": "min(G_B, G_S)",
+      "delta": 0.108,
+      "ci95": [
+        0.0329,
+        0.187
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Replication (easy)",
+      "metric": "G_responder",
+      "delta": 0.2,
+      "ci95": [
+        0.1377,
+        0.2656
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Replication (easy)",
+      "metric": "G_starter",
+      "delta": -0.0413,
+      "ci95": [
+        -0.0972,
+        0.0185
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Replication (easy)",
+      "metric": "agreement",
+      "delta": 0.0139,
+      "ci95": [
+        0.0017,
+        0.033
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Replication (easy)",
+      "metric": "proposals to agreement (caption only)",
+      "delta": 0.6101,
+      "ci95": [
+        0.2649,
+        0.9568
+      ],
+      "pairs": 36
+    },
+    {
+      "run": "Hard regime (feasible)",
+      "metric": "Nash Q_N (primary)",
+      "delta": 0.1015,
+      "ci95": [
+        0.0295,
+        0.1828
+      ],
+      "pairs": 30
+    },
+    {
+      "run": "Hard regime (feasible)",
+      "metric": "min(G_B, G_S)",
+      "delta": 0.086,
+      "ci95": [
+        0.0273,
+        0.1555
+      ],
+      "pairs": 30
+    },
+    {
+      "run": "Hard regime (feasible)",
+      "metric": "G_responder",
+      "delta": 0.1191,
+      "ci95": [
+        0.0445,
+        0.1988
+      ],
+      "pairs": 30
+    },
+    {
+      "run": "Hard regime (feasible)",
+      "metric": "G_starter",
+      "delta": 0.0577,
+      "ci95": [
+        -0.0128,
+        0.138
+      ],
+      "pairs": 30
+    },
+    {
+      "run": "Hard regime (feasible)",
+      "metric": "agreement",
+      "delta": 0.0917,
+      "ci95": [
+        0.0208,
+        0.1771
+      ],
+      "pairs": 30
+    },
+    {
+      "run": "Hard regime (feasible)",
+      "metric": "proposals to agreement (caption only)",
+      "delta": 0.1985,
+      "ci95": [
+        0.0987,
+        0.3053
+      ],
+      "pairs": 30
+    }
+  ],
+  "palette": [
+    "#2a78d6",
+    "#eb6834",
+    "#1baf7a"
+  ],
+  "sources": [
+    "results/jj_aid_20261025/analysis_controls.json",
+    "results/jj_quality_20261025/analysis_quality.json",
+    "results/jj_quality_20261025/exploratory_seller_asymmetry.json",
+    "results/jj_quality_rep1_20261025/analysis_quality.json",
+    "results/jj_quality_rep1_20261025/confirmatory_responder.json",
+    "results/jj_hard_20261025/analysis_quality_feasible.json",
+    "results/jj_hard_20261025/responder_feasible.json"
+  ]
+}
