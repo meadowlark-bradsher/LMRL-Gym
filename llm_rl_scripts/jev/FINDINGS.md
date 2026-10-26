@@ -389,13 +389,55 @@ to "composable into BED."
 
 ## 5. Relation to RL / actor-critic
 
-The triad is a *propose/evaluate/select* decomposition, **not** actor-critic: nothing
-learns at inference time, the "critic" scores likelihood (Jev) or information (EIG)
-rather than expected return, and the selector is the BED component, not the actor. The
-one environment with genuine extrinsic reward (Car-Dealer) is the only clean
-actor-critic fit, and even there the belief filter behaves as a forward model /
-exploration signal, not a value critic. Full treatment in
-[`DESIGN_PATTERNS.md`](DESIGN_PATTERNS.md) § "Relation to RL formalisms".
+A natural question is whether the triad is an **actor-critic** split. It rhymes with
+one but is not one, and the mismatch is the instructive part.
+
+**The surface rhyme.** Actor-critic pairs an *actor* (a policy that proposes/selects
+actions) with a *critic* (a value estimate that evaluates them and supplies the
+learning signal). The Propose → Answer → Select pipeline (§4.1) lines up as: LLM =
+actor, Jev = evaluator, BED component = selector.
+
+**Why it is not actor-critic:**
+
+1. **Nothing learns here.** The critic exists in actor-critic to produce a TD-error /
+   advantage that *trains the actor* over episodes. Jev, the LLM, and the BED component
+   are all zero-shot and inference-time — there is no gradient loop, so the defining
+   actor↔critic feedback is absent. (The paper's *trained* RL columns are where real
+   actor-critic structure lives; this triad is the inference-time decomposition instead.)
+2. **The "critic" scores the wrong quantity.** A critic estimates *expected return*
+   (value). Jev's `Noul` is a **likelihood** (a calibrated p(option), or
+   p(answer | hypothesis)); EIG is **expected information gain**. Neither is a
+   reward-value — so Jev is a critic *of the observation model*, and EIG is an
+   *acquisition function*, not a value function V(s).
+3. **Selector ≠ evaluator.** In actor-critic the actor both proposes and selects; the
+   critic never picks. Here the BED component selects (argmax EIG, or the belief filter
+   steering which offer to make) over Jev's scores — structurally closer to
+   **value-based / greedy control** (a soft action-value taken greedily) than to
+   policy-gradient actor-critic.
+
+**Better-fitting vocabulary per component:** the **LLM proposer** is an actor /
+behaviour policy; **Jev** is a *Q-like evaluator* whose calibrated option-probs are
+taken greedily — but a likelihood critic, not a reward critic (except in Car-Dealer,
+below); the **BED component** is model-based / POMDP planning (the posterior is the
+belief state) plus an *intrinsic-motivation / exploration signal* — EIG is
+information-directed sampling, an exploration bonus, not a value function.
+
+**The one clean actor-critic instance: Car-Dealer.** It is the only environment here
+with an extrinsic reward (the negotiated deal's surplus — see §3.4), so it is the only
+one where "critic = value" is literal: the actor is the offer-proposing policy; the
+critic would be an estimator of expected negotiated surplus (a role Jev *could* fill if
+scored on expected return rather than likelihood); and the belief filter's information
+term sits alongside as an exploration / forward-model signal — the
+explore-(learn the opponent)-vs-exploit-(close the deal) split that §3.4 and §4.4 make
+concrete.
+
+So the triad is a **propose/evaluate/select** decomposition, not actor-critic. It
+collapses *into* actor-critic only when the task carries extrinsic reward and Jev is
+repurposed from a likelihood model into a value critic; everywhere else the "critic"
+scores information or likelihood, which places it in Bayesian-experimental-design /
+active-learning / value-based-control territory rather than policy-gradient
+actor-critic. (`DESIGN_PATTERNS.md` § "Relation to RL formalisms" carries the same
+argument in the companion role-table context.)
 
 ## 6. Methodology as a transferable pattern
 
