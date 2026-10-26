@@ -71,7 +71,9 @@ Named runs/docs used as shorthand below:
   The P0–P3 run sequence is defined under Experiment design below.
 - **Wordle:** `bed.py` (pure-code posterior + exact-EIG optimum), `eval_jev.py`; the
   **"Jev-vs-exact-EIG"** program compares Jev's selection to that optimum; the **census
-  run** scores every official-200 word as a target once (`results/live_200_t3_census_*`).
+  run** plays every word in `wordle_official_200.txt` as a target (the file holds 236
+  five-letter words; the "200" is nominal), 5 independent Jev rollouts each —
+  1,180 games (`results/live_200_t3_census_*`).
 - **Car-Dealer:** spec is `discretized_car_dealer_experiment.md` (its **§5** lists
   policy conditions incl. "**Jev + explicit belief filter**"; its **§5.1** is the
   Jev/LLM/BED 3×3 cross-play, specified but not run). Pipeline stages → docs:
@@ -327,7 +329,9 @@ measures what it unlocks.*
   recipient.** Each seat offers only its own ideal and never concedes. Salience
   (deadline/value framing) does **not** fix it (0/12) — the binding constraint is the
   **offer side**, not the accept side.
-- **An external acceptance-probability filter flips it: 0/24 → 24/24 agreements.** The
+- **An external acceptance-probability filter flips it: 0/24 → 24/24 agreements** —
+  baseline + salience (0/12 each) versus aid + aid+salience (12/12 each), on the same
+  three sampled type pairs. The
   "Jev + explicit belief filter" condition annotates each candidate offer with
   P(opponent accepts) from a finite Bayesian filter over the 6 rankings (β=8, ε=0.05);
   it never ranks, recommends, prunes, or shows the posterior. Jev used the number
@@ -346,14 +350,17 @@ measures what it unlocks.*
 - **Learning buys the quality margin, not the outcome** (pre-registered, 576
   episodes/arm, replicated): Δ Nash Q_N **+0.158 [0.054, 0.263]** (replication +0.154;
   hard regime +0.102 [0.029, 0.183]); Δ min(G) +0.109; Δ Pareto +0.103; at a cost of
-  +0.58 proposals. The gain **lands on whoever moves second** (Δ G_responder **+0.200
-  [0.138, 0.266]**, replicated) — not a buyer/seller role; the second mover is the one
-  with an observation to learn from. An apparent "seller asymmetry" was shown by a
+  +0.58 proposals. That is the easy regime, where agreement is already ≈1.0 under
+  prior-only (Δ agreement +0.02); in the hard regime learning also lifts agreement,
+  Δ +0.09 [+0.02, +0.18]. The gain **lands on whoever moves second** (Δ G_responder
+  **+0.208 [0.146, 0.272]**; replication +0.200 [0.138, 0.266]) — not a buyer/seller role:
+  Δ G_starter is flat (-0.037 [-0.091, +0.018]; replication -0.041), and the second
+  mover is the one with an observation to learn from. An apparent "seller asymmetry" was shown by a
   pre-registered forced-counter probe to be **selection + small-n noise** (C1 null,
   well powered), not a role effect.
 - **Honest failure mode:** the filter is probabilistic and sometimes confidently wrong
-  (worst seat −4.94 bits); and the whole design sits at a **precision ceiling** — 36
-  type pairs is the *entire* type space, so more rollouts cannot narrow the intervals.
+  (worst seat −4.94 bits); and the scaled 576-episode runs sit at a **precision ceiling** — their 36 type pairs
+  are the *entire* type space, so more rollouts cannot narrow the intervals.
 
 **Role lesson:** this is the pattern in its strongest form. Jev supplies the valid
 selection; the **BED-style external belief filter supplies the forward model**, and
