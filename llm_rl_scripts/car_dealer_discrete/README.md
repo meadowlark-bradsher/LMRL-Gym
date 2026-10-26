@@ -48,6 +48,7 @@ when no deal exists; every apparent role asymmetry along the way was sampling no
   `analyze_counter_probe.py`, `explore_seller_asymmetry.py`, `explore_hard_role_asymmetry.py`.
 - **Logs and frozen analyses:** `../../results/jj_*_20261025/` (each note names its JSON and its
   regeneration command; pooled logs are derived — `jj_quality_pooled_20261025/REGENERATE.sh`).
+- **Figures:** `figures/` (PNG, SVG, and a values sidecar per figure), produced by `jev/plot_*.py` from frozen JSON.
 - **Verifier:** `jev/verify_cited.py` regenerates every frozen analysis, re-applies every pre-registered
   rule and re-derives the gate diagnosis, then diffs. Run it after any analyzer change.
 
@@ -72,6 +73,9 @@ Live runs need `TYPESAFE_API_KEY`. `jev-latest` is stochastic server-side; `--se
   pair-clustered intervals have a precision ceiling that more repeats cannot lower.
 - A placebo gate stated as "all four CIs include 0" has an 18.5 % false-fail rate per run under the null
   (observed in step 8); future gates carry a multiplicity correction or magnitude bound.
+- **Figures are regenerable like numbers.** A plot reads frozen JSON only, writes a `<stem>.values.json`
+  sidecar of what it drew, and its caption names, per panel, the analyzer and result directory it came
+  from plus the plotting script. Figures live in `figures/`; scripts in `jev/plot_*.py`.
 
 ## The exact Jev interface
 
