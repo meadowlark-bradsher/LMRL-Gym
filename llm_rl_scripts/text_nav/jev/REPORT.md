@@ -1,5 +1,16 @@
 # Text-Nav × Jev — mini-report
 
+> **Status: pre-program exploratory report (superseded in part).** This is the
+> original mini-report from before the controlled experiment program. Its numbers
+> (the 0/50 baseline and the first "narrative" runs — e.g. "milk taken 54×") come
+> from early exploratory runs whose logs were **not committed** and that **predate
+> the matched-seed harness**, so unlike the later experiments they are **not
+> regenerable** from `results/`. Treat them as observations, not measurements.
+> The narrative/salience claims here are **superseded** by the controlled,
+> reproducible **Experiment B** ([EXP_B_RESULTS.md](EXP_B_RESULTS.md)), which
+> re-establishes them with opportunity-conditioned rates and a selectivity test.
+> For the full program and reproducible results, start at [SUMMARY.md](SUMMARY.md).
+
 **Question.** Can the TypeSafe **Jev** model (a "System One" structured-decision
 model: Choice / Score / Noul, no text generation) serve as a zero-shot policy on
 LMRL-Gym's Text-Nav task, and what does its behavior reveal about the task?
