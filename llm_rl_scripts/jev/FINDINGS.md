@@ -19,7 +19,155 @@ this is the narrative and the evidence.
   were pre-registered before the data were read. Where a headline was later
   corrected, the correction is reported, not hidden.
 - **Natural baseline** throughout is the paper's zero-shot GPT-4 column, not the
-  RL-trained columns.
+  RL-trained columns. ("The paper" = the LMRL-Gym paper; full citation in
+  Definitions below.)
+
+## Definitions, notation & sources
+
+This section makes the report self-contained. Terms are grouped; later sections use
+them without re-defining.
+
+### Methods and systems
+
+- **LMRL-Gym** — the benchmark suite these experiments run on: Abdulhai, White, Snell,
+  Sun, Hong, Zhai, Xu, Levine, *"LMRL Gym: Benchmarks for Multi-Turn Reinforcement
+  Learning with Language Models"* (arXiv:2311.18232, 2023; ICML 2025, PMLR 267). Eight
+  multi-turn tasks (3 dialogue + 5 RL-capability). "**The paper**" refers to this; its
+  baseline columns are a zero-shot **GPT-4** policy and RL-trained policies (BC =
+  behaviour cloning, ILQL, MC-returns, PPO, Online Filtered BC) — the "**RL-trained
+  columns**". Code: `github.com/abdulhaim/LMRL-Gym`.
+- **Jev** — the structured-decision model under test: TypeSafe's "System One" model
+  (API model `jev-latest`), which emits structured decisions, not text. It exposes
+  three primitives — **`Choice`** (pick one option from an enumerated set), **`Score`**,
+  and **`Noul`** (a calibrated probability/confidence over the options — the signal a
+  Bayesian loop can consume as a likelihood). `Choice` caps at **255 options** (hence
+  "≤255 visible options").
+- **LLM (baseline)** — a generative language model used as a text policy (the paper's
+  GPT-4, or `gpt-4o` / `claude-opus-5-5` here). Broad knowledge, plans in text, but
+  outputs are unconstrained (can be illegal) and its uncertainty is implicit.
+- **BED-LLM** — Bayesian Experimental Design with LLMs: Choudhury, Williamson,
+  Goliński, Miao, Bickford Smith, Kirchhof, Zhang, Rainforth, *"BED-LLM: Intelligent
+  Information Gathering with LLMs and Bayesian Experimental Design"* (arXiv:2508.21184;
+  ICLR 2026). Maintains an explicit posterior over a latent and picks the query/action
+  maximizing **expected information gain (EIG)**, with a sample-then-filter belief
+  update. Used here as the template for the "external belief/forward model" role.
+- **The thesis** — the study's central claim being tested: a structured `Choice` over
+  the *legal* option set makes invalid/illegal outputs impossible by construction,
+  removing the failure mode that zeroes a zero-shot LLM. "**The thesis win**" = a
+  result confirming it (e.g. Chess 0% illegal).
+- **The three roles** — LLM = proposer, Jev = validity-guaranteeing selector, BED-LLM =
+  external belief + acquisition; defined fully in §2 (forward-referenced in §1).
+
+### Environments
+
+All are LMRL-Gym tasks. **FO-Maze / PO-Maze** = fully / partially observed maze
+navigation. **Text-Nav** = a TextWorld kitchen task (put the perishable food in the
+fridge and close it). **Wordle**; **Chess** (+ **Chess endgames**); **20Q** = 20
+Questions; **Guess-My-City**; **Car-Dealer** = a buyer/seller negotiation (here a
+discretized redesign, §3.4). This report presents live results for Text-Nav, Chess,
+Wordle, and Car-Dealer; 20Q / Guess-My-City / FO-Maze appear only as predicted role
+placements.
+
+### Repo, branches, and where the numbers live
+
+Work is on the `meadowlark-bradsher/LMRL-Gym` fork; "**main**" is that fork's main
+branch, into which the per-environment branches ("**the merged branches**") are merged.
+"**Committed analyzers**" are the per-experiment analysis scripts that regenerate every
+number; "**the source docs**" are the result write-ups under `llm_rl_scripts/<env>/jev/`.
+Named runs/docs used as shorthand below:
+
+- **Chess:** `REPORT.md` (first mini-report, partly superseded); **P0 validation** =
+  `VALIDATION.md` (pre-eval gates); **primary** = `results/primary_*/PRIMARY_RESULTS.md`
+  (200 fixed positions); **ladder re-run** = `results/ladder_*/LADDER_RESULTS.md`
+  (strength ladder under fixed termination accounting); **P2** =
+  `results/p2_*/P2_RESULTS.md` (is move quality Jev-specific?).
+- **Wordle:** `bed.py` (pure-code posterior + exact-EIG optimum), `eval_jev.py`; the
+  **"Jev-vs-exact-EIG"** program compares Jev's selection to that optimum; the **census
+  run** scores every official-200 word as a target once (`results/live_200_t3_census_*`).
+- **Car-Dealer:** spec is `discretized_car_dealer_experiment.md` (its **§5** lists
+  policy conditions incl. "**Jev + explicit belief filter**"; its **§5.1** is the
+  Jev/LLM/BED 3×3 cross-play, specified but not run). Pipeline stages → docs:
+  **engine/smoke** (`SMOKE_RESULTS.md`), **salience** (`SALIENCE_RESULTS.md`), **aid** +
+  **controls** (`AID_RESULTS.md`), **quality** (`QUALITY_RESULTS.md`), **responder
+  replication** (`RESPONDER_RESULTS.md`), **hard regime** (`HARD_RESULTS.md`),
+  **forced-counter probe** (`COUNTER_RESULTS.md`). "Under aid" / "the aid's 12/12" refer
+  to the belief-filter condition.
+
+### Experiment design
+
+- **K** — independent rollouts per (instance, condition); repeats are needed because
+  `jev-latest` is stochastic at near-tie decisions. **seed** — a fixed game instance
+  (TextWorld layout, or sampled negotiation types); it is the unit of clustering for
+  CIs, so "**seed-dominated**" = variance driven by which instance, not by the
+  condition. **pilot / audit / calibration / main run** — successive Text-Nav runs: a
+  small pilot (K=1), an identical re-run that audited its reproducibility, a K=15
+  calibration that estimated the real rate, and the pre-registered 50-seed × K=8
+  confirmatory main run.
+- **Text-Nav experiments** (design `EXPERIMENT_DESIGN.md`):
+  - **Exp A** — 2×2 of goal disclosure (G0 implicit / G1 explicit objective) × history
+    (H0 reactive / H1 full episode history): **A1** implicit+reactive (closest to the
+    original benchmark), **A2** explicit+reactive, **A3** implicit+history, **A4**
+    explicit+history. Primary endpoint = task success; secondary = **milestone** = the
+    greatest correctly-ordered subgoal reached, **M1** Acquire → **M2** Transport →
+    **M3** Prepare (fridge open while carrying) → **M4** Store → **M5** Complete (so
+    "milestone 0.31 vs 0.45" is a mean over M0–M5).
+  - **Exp B** — 2×2 salience probe (narrative on/off × food label generic/"**milk**") of
+    *recognition*: does context make Jev take the **target** food over a fresh-food
+    **distractor**, and suppress the fail action (eating). "**Opportunity-conditioned
+    rate**" = denominator is only the logged steps where the action was admissible (so
+    "eating suppressed 0/363, 0/390" = 0 eats out of 363 / 390 steps where eating was a
+    legal move).
+  - **Exp C** — fixed-state preference consistency: freeze decision snapshots and
+    re-query (**triads** = the three pairwise orderings A-B / B-C / C-A; "12 live
+    triads"); **argmax stability** = how often the top choice repeats across repeats;
+    **position bias** = choice driven by option order not content; **cycles** =
+    intransitive preferences (A≻B≻C≻A).
+  - **Exp D** — goal-POMDP framing: score Jev against **EIG** and against a belief-space
+    planner. "EIG vacuous" = observations here already pin the state (unique rooms), so
+    there is nothing latent for information-gain to resolve.
+  - **Design Outcome E** — the pre-registered prediction that recognition, preference
+    coherence, and sequential control are *separable* capabilities (borne out).
+- **Car-Dealer game** (full spec in §3.4): **IR** = *individually rational* — a deal
+  both sides weakly prefer to their outside option **r** (an "IR deal" clears both
+  reservation values). Regimes: **easy** r=0.40 (36/36 type pairs have an IR deal),
+  **hard** r=0.55 (30/36 do). **J/J** = Jev-buyer vs Jev-seller self-play. The **belief
+  filter** is a finite Bayesian filter over the 6 opponent rankings with softmax
+  offer-likelihood inverse-temperature **β=8** and a non-acceptance noise floor
+  **ε=0.05**; **placebo** = the same filter emitting a constant 0.50 (isolates the
+  information from the extra sentence); **prior-only** = the filter that never updates
+  (isolates the prior from learning). **C1** = the forced-counter probe's primary
+  pre-registered contrast (null here).
+
+### Metrics
+
+- **match@1** — fraction of decisions where the chosen option equals the
+  reference-optimal one (top-1 agreement). **cp lost** (centipawns; 100 cp = one pawn) —
+  the eval drop vs the engine's best move (Stockfish grader). **regret (bits)** — EIG of
+  the optimal guess minus EIG of the chosen one (expected information left on the table).
+  **bits** = base-2 information; "**−4.94 bits**" is the worst seat's log-loss of the
+  true type, −log₂ q(θ_true), i.e. confidently wrong.
+- Negotiation outcome/quality: **G_i** = normalized attainable gain
+  (U_i − r_i)/(U_i\* − r_i) ∈ [0,1]; **min(G)** = the worse-off side's G; **G_responder**
+  = G of whoever moves second. **Nash / Q_N** = normalized Nash surplus ratio,
+  (U_B−r_B)(U_S−r_S) divided by its maximum over feasible deals. **Pareto** = fraction of
+  agreements on the Pareto frontier. "**+0.58 proposals**" = extra offers exchanged
+  before agreement.
+- **cluster-bootstrap** — resampling whole clusters (seeds, or Wordle target words)
+  rather than individual rollouts, because repeats within a cluster are correlated; CIs
+  are 95%. "**~18.5% per-run false-fail rate under the null**" = the chance a placebo
+  gate ("all four CIs include 0") spuriously trips in one run even when nothing is wrong.
+
+### Models and dates (as of October 2026)
+
+- **`gpt-4o`** (OpenAI) — treated as GPT-4-class, the paper's lineage;
+  **`claude-opus-5-5`** (Anthropic) — the current **frontier** model. "**Same-era LLM**"
+  and "**frontier**" are relative to late 2026. In §3.2, free-generation illegal-move
+  rates are **gpt-4o 18%**, **claude-opus-5-5 3.5%** ("Claude 3.5%" = that illegal rate).
+  The "**P2 token-budget bug**" was `claude-opus-5-5` run with thinking-always-on and a
+  64-token cap, so reasoning consumed the budget and left empty text (spurious ~86%
+  "illegal"); diagnosed, fixed, and re-run. **SF = Stockfish** (chess engine); **SF
+  depth-1**, **Skill-0**, and **UCI_Elo 1320** ("SF-1320") are engine strength settings
+  (the binary floors at Elo 1320).
 
 ## 1. Executive summary
 
