@@ -422,9 +422,13 @@ when evaluating structured-decision models:
   where Jev plays a fixed opening guess until the posterior shrinks under the 255-option
   cap — is untested.
 - **Chess:** no Elo-calibrated weak opponents below SF-1320, so the Elo question is
-  genuinely open (only an upper bound exists); the S0/S1/S2 prompt ablations (a planned
-  ladder of prompt framings of increasing scaffolding, not yet specified in a committed
-  doc) and option-order ablations (shuffling the legal-move list) are not done.
+  genuinely open (only an upper bound exists); the S0/S1/S2 prompt ablations (**S0**
+  minimal = FEN + the legal-move menu, no stated objective; **S1** = S0 plus an explicit
+  goal line; **S2** = S0 plus a factual natural-language board description — a planned
+  P3 study, defined in the continuation protocol rather than a committed repo doc; note
+  the current P1/P2 runs use a terse-objective prompt that sits closest to S1, not a
+  clean S0) crossed with option-order randomization (shuffling the legal-move display
+  order) are not done.
 - **Text-Nav:** Exp A is complete; the only un-run item is a targeted Exp C follow-up
   on hand-picked snapshots (milk-vs-distractor under A1 vs A2 framing).
 - **Not yet built:** a real BED-LLM loop on 20Q / Guess-My-City, where Jev's `Noul`
