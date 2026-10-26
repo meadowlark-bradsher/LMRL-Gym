@@ -79,6 +79,8 @@ Work is on the `meadowlark-bradsher/LMRL-Gym` fork; "**main**" is that fork's ma
 branch, into which the per-environment branches ("**the merged branches**") are merged.
 "**Committed analyzers**" are the per-experiment analysis scripts that regenerate every
 number; "**the source docs**" are the result write-ups under `llm_rl_scripts/<env>/jev/`.
+The companion role table this report defers to for the RL argument (§5) is
+`llm_rl_scripts/jev/DESIGN_PATTERNS.md`, in the same folder as this report.
 Named runs/docs used as shorthand below:
 
 - **Chess:** `REPORT.md` (first mini-report, partly superseded); **P0 validation** =
@@ -113,9 +115,9 @@ Named runs/docs used as shorthand below:
     (H0 reactive / H1 full episode history): **A1** implicit+reactive (closest to the
     original benchmark), **A2** explicit+reactive, **A3** implicit+history, **A4**
     explicit+history. Primary endpoint = task success; secondary = **milestone** = the
-    greatest correctly-ordered subgoal reached, **M1** Acquire → **M2** Transport →
-    **M3** Prepare (fridge open while carrying) → **M4** Store → **M5** Complete (so
-    "milestone 0.31 vs 0.45" is a mean over M0–M5).
+    greatest correctly-ordered subgoal reached, **M0** nothing achieved → **M1**
+    Acquire → **M2** Transport → **M3** Prepare (fridge open while carrying) → **M4**
+    Store → **M5** Complete (so "milestone 0.31 vs 0.45" is a mean over M0–M5).
   - **Exp B** — 2×2 salience probe (narrative on/off × food label generic/"**milk**") of
     *recognition*: does context make Jev take the **target** food over a fresh-food
     **distractor**, and suppress the fail action (eating). "**Opportunity-conditioned
@@ -130,8 +132,10 @@ Named runs/docs used as shorthand below:
   - **Exp D** — goal-POMDP framing: score Jev against **EIG** and against a belief-space
     planner. "EIG vacuous" = observations here already pin the state (unique rooms), so
     there is nothing latent for information-gain to resolve.
-  - **Design Outcome E** — the pre-registered prediction that recognition, preference
-    coherence, and sequential control are *separable* capabilities (borne out).
+  - **Design Outcome E** — the design pre-registered five expected outcomes, A–E (one
+    per experiment A–D, plus this cross-cutting fifth); only E is called out in this
+    report. E is the prediction that recognition, preference coherence, and sequential
+    control are *separable* capabilities (borne out).
 - **Car-Dealer game** (full spec in §3.4): **IR** = *individually rational* — a deal
   both sides weakly prefer to their outside option **r** (an "IR deal" clears both
   reservation values). Regimes: **easy** r=0.40 (36/36 type pairs have an IR deal),
@@ -249,8 +253,8 @@ supplied (A4), and even then only sometimes.
 - **But Jev loses every *finished* game.** The original ~700–900 Elo / draw column was
   a **measurement artifact** (move-cap truncations miscounted as draws); the re-run
   under fixed termination accounting shows zero genuine draws — vs random 3 wins (of 3
-  finished, 3 more truncated), vs SF depth-1 0/0/2, Skill-0 0/0/5, SF-1320 **1W/9L**.
-  Only firm claim: ≤1 non-loss in 10 vs SF-1320.
+  finished, 3 more truncated), vs SF depth-1 0/0/2, Skill-0 0/0/5, SF-1320 **1W/9L**
+  (triples are wins/draws/losses). Only firm claim: ≤1 non-loss in 10 vs SF-1320.
 - **Move quality is not Jev-specific.** On 200 fixed positions Jev beats random
   (match@1 20.5% vs 3.0%) but is **beaten by a ~30-line heuristic** (26.5%, and Jev
   blunders more: 55.5% vs 40.5%), and is **statistically indistinguishable from
@@ -409,14 +413,18 @@ when evaluating structured-decision models:
 ## 7. Open questions, limits, in-flight
 
 - **Car-Dealer:** single runs for hard regime and the forced-counter probe;
-  candidate-order randomization not run; β/ε unswept; the IR-threshold response model
-  is simple/optimistic; the −4.94-bit "confidently wrong" posterior is a live hazard.
-  The full §5.1 Jev/LLM/BED 3×3 cross-play is specified but not run.
+  candidate-order randomization (shuffling the order the deal options are presented to
+  Jev, to rule out position/order bias) not run; β/ε unswept; the IR-threshold response
+  model is simple/optimistic; the −4.94-bit "confidently wrong" posterior is a live
+  hazard. The full §5.1 Jev/LLM/BED 3×3 cross-play is specified but not run.
 - **Wordle:** only the ≤255-word vocab is tested (Jev picks every turn); larger vocab
-  is perf-gated (EIG is O(n²)) and the model-free-opener path is untested.
+  is perf-gated (EIG is O(n²)) and the model-free-opener path — the larger-vocab mode
+  where Jev plays a fixed opening guess until the posterior shrinks under the 255-option
+  cap — is untested.
 - **Chess:** no Elo-calibrated weak opponents below SF-1320, so the Elo question is
-  genuinely open (only an upper bound exists); S0/S1/S2 prompt and option-order
-  ablations not done.
+  genuinely open (only an upper bound exists); the S0/S1/S2 prompt ablations (a planned
+  ladder of prompt framings of increasing scaffolding, not yet specified in a committed
+  doc) and option-order ablations (shuffling the legal-move list) are not done.
 - **Text-Nav:** Exp A is complete; the only un-run item is a targeted Exp C follow-up
   on hand-picked snapshots (milk-vs-distractor under A1 vs A2 framing).
 - **Not yet built:** a real BED-LLM loop on 20Q / Guess-My-City, where Jev's `Noul`
