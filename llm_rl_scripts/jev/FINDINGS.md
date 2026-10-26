@@ -10,6 +10,11 @@ this is the narrative and the evidence.
 
 ## 0. Scope & provenance
 
+_The run and document shorthand in this section (Exp A–D, REPORT / P0 / primary /
+ladder / P2, the Car-Dealer pipeline stages, Jev-vs-exact-EIG, the census run) and the
+core terms (Jev, Noul, BED-LLM, …) are all defined in **Definitions, notation &
+sources** immediately below._
+
 - **Merged & complete:** Text-Nav (Exp A main run + B/C/D), Chess (REPORT + P0
   validation + primary + ladder re-run + P2), Wordle (Jev-vs-exact-EIG, incl. the
   rigorous census run), Car-Dealer (engine + smoke → salience → aid → controls →
