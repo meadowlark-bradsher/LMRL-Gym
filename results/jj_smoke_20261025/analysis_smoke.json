@@ -1,0 +1,41 @@
+{
+  "jj_smoke_20261025": {
+    "episodes": 3,
+    "outcomes": {
+      "walk": 3
+    },
+    "offered_by_buyer": {
+      "P0-W2-D2": 9
+    },
+    "offered_by_seller": {
+      "P2-W0-D0": 9
+    },
+    "offers_total": 18,
+    "offers_nonideal_own_lt_1": 0,
+    "offers_worth_ge_r_to_recipient": 0,
+    "who_walked": {
+      "start=buyer walker=buyer": 3
+    },
+    "walk_decision_indices": [
+      7
+    ],
+    "conf_first_offer": {
+      "mean": 0.723,
+      "min": 0.62,
+      "max": 0.87,
+      "n": 6
+    },
+    "conf_last_offer": {
+      "mean": 0.352,
+      "min": 0.32,
+      "max": 0.4,
+      "n": 6
+    },
+    "conf_walk": {
+      "mean": 0.747,
+      "min": 0.73,
+      "max": 0.77,
+      "n": 3
+    }
+  }
+}
