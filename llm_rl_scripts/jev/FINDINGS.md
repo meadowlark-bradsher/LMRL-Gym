@@ -125,8 +125,22 @@ Named runs/docs used as shorthand below:
   offer-likelihood inverse-temperature **β=8** and a non-acceptance noise floor
   **ε=0.05**; **placebo** = the same filter emitting a constant 0.50 (isolates the
   information from the extra sentence); **prior-only** = the filter that never updates
-  (isolates the prior from learning). **C1** = the forced-counter probe's primary
-  pre-registered contrast (null here).
+  (isolates the prior from learning). **C1** = the forced-counter probe's primary pre-registered contrast (null here).
+  **Move structure:** one seat is designated to open each episode and the opener is
+  counterbalanced across episodes (every type pair is played buyer-first and
+  seller-first), while turns alternate strictly within an episode; on its turn a seat
+  may accept the standing offer, reject it (clearing it), propose any of the 27 deals (a
+  counter replaces the standing offer), or walk. Six proposals are allowed per episode
+  across both sides — only proposals consume the budget — and at the deadline a standing
+  offer may still be accepted but no new one made; an unaccepted standing offer does not
+  count, and no-deal pays each side its outside option r. Each turn a seat sees its own
+  ranking, r, the budget used, the standing offer with its utility to itself, the full
+  public offer/response history, and its legal-action list; with the filter on, every
+  *proposal* candidate is annotated with P(opponent accepts), but the accept option is
+  never annotated — the estimate informs which deal to propose, not whether to accept
+  (on a receiving turn both appear on one menu, so the accept-vs-counter choice sees the
+  counters' P(accept) and no acceptance estimate for accepting). The filter's prior over
+  the 6 opponent rankings is uniform.
 - **Chess runs** — a P-numbered sequence: **P0** = pre-eval validation gates; **P1** =
   the primary fixed-position move-quality study (200 positions); **P2** = the
   constrained-LLM comparison (is move quality Jev-specific?); **P3** = a planned,
@@ -308,8 +322,8 @@ type pairs; easy r=0.40 → 36/36 have an IR deal). The program is the cleanest
 demonstration of the central pattern because it *builds the missing component and
 measures what it unlocks.*
 
-- **Jev alone cannot negotiate.** J/J play walks away every time — 0/12 agreements,
-  and the diagnosis is decisive: **0 of 130 offers were ever worth ≥ r to the
+- **Jev alone cannot negotiate.** J/J play walks away every time — 0/12 agreements (three sampled type pairs × both
+  starts × K = 2), and the diagnosis is decisive: **0 of 130 offers were ever worth ≥ r to the
   recipient.** Each seat offers only its own ideal and never concedes. Salience
   (deadline/value framing) does **not** fix it (0/12) — the binding constraint is the
   **offer side**, not the accept side.
@@ -317,7 +331,10 @@ measures what it unlocks.*
   "Jev + explicit belief filter" condition annotates each candidate offer with
   P(opponent accepts) from a finite Bayesian filter over the 6 rankings (β=8, ε=0.05);
   it never ranks, recommends, prunes, or shows the posterior. Jev used the number
-  (0/41 ideal offers under aid).
+  (0/41 ideal offers under aid). The filter uses only the *belief* half of BED — a
+  posterior over the opponent's ranking, updated from the public history — and no
+  acquisition term: no offer is ever chosen for its expected information gain; the
+  annotation reports P(accept) per candidate and Jev selects.
 - **Mechanism controls separate outcome from inference:**
   - **Placebo** (constant P=0.50) reproduces the baseline *exactly* (0/12) → the effect
     is the *differential information*, not the extra sentence. Confound closed.
@@ -471,7 +488,12 @@ when evaluating structured-decision models:
   candidate-order randomization (shuffling the order the deal options are presented to
   Jev, to rule out position/order bias) not run; β/ε unswept; the IR-threshold response
   model is simple/optimistic; the −4.94-bit "confidently wrong" posterior is a live
-  hazard. The full §5.1 Jev/LLM/BED 3×3 cross-play is specified but not run.
+  hazard. The full §5.1 Jev/LLM/BED 3×3 cross-play is specified but not run. The EIG
+  extension — an acquisition term over offers — is also unrun, and it is non-trivial: an
+  offer is both a query and a binding commitment, so an informative offer may simply be
+  accepted, ending the game on a deal the proposer did not want; any EIG term therefore
+  has to be weighted against expected surplus and P(accept) (the spec's §5 objective,
+  score(a) = E[surplus | a] + λ·EIG(a) − c(a)).
 - **Wordle:** only the ≤255-word vocab is tested (Jev picks every turn); larger vocab
   is perf-gated (EIG is O(n²)) and the model-free-opener path — the larger-vocab mode
   where Jev plays a fixed opening guess until the posterior shrinks under the 255-option
