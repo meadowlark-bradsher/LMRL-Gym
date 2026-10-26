@@ -265,13 +265,21 @@ supplied (A4), and even then only sometimes.
   gpt-4o constrained to the legal menu** (Δmatch@1 +0.035 [−0.053, +0.089]), far below
   frontier claude-opus-5-5 constrained (**45.2%**). So the structured `Choice` buys
   legality + GPT-4o-class moves — nothing beyond a same-era LLM on the same menu.
-- **Calibrated confidence is the real asset:** high-confidence moves are ~3.4× more
-  likely to be best (40.9% vs 12.1% match@1; 22 vs 522 median cp lost) → abstain /
-  escalate is a genuine lever. Endgames (K+Q-vs-K) convert only ~10% — Jev **hangs the
-  queen** to the bare king (no lookahead to see the recapture).
+- **Confidence (`Noul`) is informative about move quality, with the signal concentrated
+  in the top quintile:** splitting at the top vs bottom tercile of `Noul` (top third =
+  `Noul` ≥ 0.21, bottom third = `Noul` ≤ 0.14, n=66 each), top-third moves are ~3.4×
+  more likely to be best (40.9% vs 12.1% match@1; 22 vs 522 median cp lost). In finer
+  quintile bins (figure) the effect is a *threshold*, not a gradient — the bottom four
+  bins are flat (match@1 6.8–18.4%, ~500 cp lost) and only the top quintile (`Noul` ≥
+  0.23) jumps (47.8% / 12 cp). So `Noul` **discriminates** move quality rather than
+  tracking it smoothly → abstain / escalate is a genuine lever. (See
+  `chess/jev/results/primary_20261025/calibration.png`.) Endgames (K+Q-vs-K) convert
+  only ~10% — Jev **hangs the queen** to the bare king (no lookahead to see the
+  recapture).
 
 **Role lesson:** Jev's contribution is the validity guarantee (a *wrapper* property
-any model gets), plus calibration — not decision quality.
+any model gets), plus confidence that is informative about move quality — not decision
+quality.
 
 ### 3.3 Wordle — Jev's selection is chance-level; the BED loop does the work
 
@@ -370,9 +378,10 @@ When you externalize, distinguish two layers, because they have different cost/b
 
 This is the practical rule for *when BED-LLM's inference machinery is worth building*.
 
-### 4.5 Calibrated confidence is the one consumable intrinsic signal
-Across Chess (high-conf ≈3.4× more likely best) and Car-Dealer (confidence
-trajectories), Jev's `Noul` is calibrated. It is the signal worth consuming — as an
+### 4.5 Confidence (`Noul`) is the one consumable intrinsic signal
+Across Chess (top-tercile `Noul` moves ≈3.4× more likely best — informative about move
+quality, with the signal concentrated in the top quintile) and Car-Dealer (confidence
+trajectories), Jev's `Noul` is informative about outcome quality. It is the signal worth consuming — as an
 abstain/escalate gate, or as the likelihood a BED loop ingests (the `Noul` =
 p(answer|hypothesis) that 20Q / Guess-My-City need). It is the bridge from "selector"
 to "composable into BED."
