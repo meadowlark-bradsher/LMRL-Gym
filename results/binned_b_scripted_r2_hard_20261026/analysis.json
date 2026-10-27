@@ -1,0 +1,865 @@
+{
+  "source": "/Users/meadowlarkbradsher/workspace/repos/genai/LMRL-Gym/.claude/worktrees/car-dealer-modification-7f1b68/results/binned_b_scripted_r2_hard_20261026",
+  "episodes": 1656,
+  "arms": [
+    "exact",
+    "greedy_eig",
+    "myopic",
+    "random"
+  ],
+  "bootstrap": {
+    "B": 5000,
+    "seed": 0
+  },
+  "by_arm": {
+    "exact": {
+      "episodes": 72,
+      "decisions": 180,
+      "mean_learner_utility": 0.7583333333333333,
+      "mean_opponent_utility": 0.6301282051282051,
+      "mean_gain": 1.0,
+      "agreement_rate": 0.8333333333333334,
+      "mean_nash_ratio": 0.7769835258588208,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.0,
+      "mean_total_decision_regret": 0.0,
+      "zero_regret_decision_share": 1.0,
+      "mean_total_eig_regret_bits": 0.0,
+      "mean_eig_regret_per_decision_bits": 0.0,
+      "mean_questions_asked": 1.0,
+      "mean_offers_made": 1.5,
+      "mean_decisions": 2.5,
+      "mean_cumulative_entropy_bits": 4.836591668108978,
+      "mean_final_entropy_bits": 0.3333333333333333,
+      "chosen_kind_counts": {
+        "ASK": 72,
+        "OFFER": 108
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 54,
+        "SAFE": 54
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 6,
+        "P0-W0-D1": 4,
+        "P0-W0-D2": 6,
+        "P0-W1-D0": 4,
+        "P0-W2-D0": 6,
+        "P1-W0-D2": 4,
+        "P1-W2-D0": 4,
+        "P2-W0-D2": 6,
+        "P2-W1-D2": 4,
+        "P2-W2-D0": 6,
+        "P2-W2-D1": 4,
+        "P2-W2-D2": 6
+      }
+    },
+    "greedy_eig": {
+      "episodes": 72,
+      "decisions": 216,
+      "mean_learner_utility": 0.733974358974359,
+      "mean_opponent_utility": 0.6143162393162392,
+      "mean_gain": 0.8666666666666667,
+      "agreement_rate": 0.7222222222222222,
+      "mean_nash_ratio": 0.6496861062119217,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.024358974358974304,
+      "mean_total_decision_regret": 0.02435897435897436,
+      "zero_regret_decision_share": 0.7592592592592593,
+      "mean_total_eig_regret_bits": 0.0,
+      "mean_eig_regret_per_decision_bits": 0.0,
+      "mean_questions_asked": 2.0,
+      "mean_offers_made": 1.0,
+      "mean_decisions": 3.0,
+      "mean_cumulative_entropy_bits": 5.0588138903312005,
+      "mean_final_entropy_bits": 0.2222222222222222,
+      "chosen_kind_counts": {
+        "ASK": 144,
+        "OFFER": 72
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 16,
+        "SAFE": 56
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 4,
+        "P0-W0-D1": 4,
+        "P0-W0-D2": 4,
+        "P0-W1-D0": 4,
+        "P0-W2-D0": 6,
+        "P1-W0-D2": 4,
+        "P1-W2-D0": 4,
+        "P2-W0-D2": 6,
+        "P2-W1-D2": 4,
+        "P2-W2-D0": 4,
+        "P2-W2-D1": 4,
+        "P2-W2-D2": 4
+      }
+    },
+    "myopic": {
+      "episodes": 72,
+      "decisions": 144,
+      "mean_learner_utility": 0.7519230769230769,
+      "mean_opponent_utility": 0.6493589743589744,
+      "mean_gain": 0.9701492537313432,
+      "agreement_rate": 0.8333333333333334,
+      "mean_nash_ratio": 0.8683738852904173,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.00641025641025635,
+      "mean_total_decision_regret": 0.00641025641025641,
+      "zero_regret_decision_share": 0.16666666666666666,
+      "mean_total_eig_regret_bits": 0.08170416594551044,
+      "mean_eig_regret_per_decision_bits": 0.04085208297275522,
+      "mean_questions_asked": 0.0,
+      "mean_offers_made": 2.0,
+      "mean_decisions": 2.0,
+      "mean_cumulative_entropy_bits": 4.918295834054489,
+      "mean_final_entropy_bits": 0.6666666666666666,
+      "chosen_kind_counts": {
+        "OFFER": 144
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 72,
+        "SAFE": 72
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 8,
+        "P0-W0-D1": 2,
+        "P0-W0-D2": 8,
+        "P0-W1-D0": 2,
+        "P0-W2-D0": 8,
+        "P1-W0-D2": 2,
+        "P1-W2-D0": 2,
+        "P2-W0-D2": 8,
+        "P2-W1-D2": 2,
+        "P2-W2-D0": 8,
+        "P2-W2-D1": 2,
+        "P2-W2-D2": 8
+      }
+    },
+    "random": {
+      "episodes": 1440,
+      "decisions": 3339,
+      "mean_learner_utility": 0.7129273504273503,
+      "mean_opponent_utility": 0.6646901709401709,
+      "mean_gain": 0.807369712299418,
+      "agreement_rate": 0.7916666666666666,
+      "mean_nash_ratio": 0.7634222730545535,
+      "pareto_share_of_agreements": 0.9850877192982456,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.045405982905982856,
+      "mean_total_decision_regret": 0.044987535612535615,
+      "zero_regret_decision_share": 0.5681341719077568,
+      "mean_total_eig_regret_bits": 0.15971226316226697,
+      "mean_eig_regret_per_decision_bits": 0.0688786040591987,
+      "mean_questions_asked": 0.9159722222222222,
+      "mean_offers_made": 1.4027777777777777,
+      "mean_decisions": 2.31875,
+      "mean_cumulative_entropy_bits": 4.919849775458403,
+      "mean_final_entropy_bits": 0.7241123698342349,
+      "chosen_kind_counts": {
+        "ASK": 1319,
+        "OFFER": 2020
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 649,
+        "SAFE": 1371
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 118,
+        "P0-W0-D1": 69,
+        "P0-W0-D2": 148,
+        "P0-W1-D0": 67,
+        "P0-W2-D0": 112,
+        "P1-W0-D2": 54,
+        "P1-W2-D0": 51,
+        "P2-W0-D2": 116,
+        "P2-W1-D2": 75,
+        "P2-W2-D0": 132,
+        "P2-W2-D1": 76,
+        "P2-W2-D2": 122
+      }
+    }
+  },
+  "by_arm_role": {
+    "exact/buyer": {
+      "episodes": 36,
+      "decisions": 90,
+      "mean_learner_utility": 0.7583333333333333,
+      "mean_opponent_utility": 0.6301282051282051,
+      "mean_gain": 1.0,
+      "agreement_rate": 0.8333333333333334,
+      "mean_nash_ratio": 0.7769835258588208,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.0,
+      "mean_total_decision_regret": 0.0,
+      "zero_regret_decision_share": 1.0,
+      "mean_total_eig_regret_bits": 0.0,
+      "mean_eig_regret_per_decision_bits": 0.0,
+      "mean_questions_asked": 1.0,
+      "mean_offers_made": 1.5,
+      "mean_decisions": 2.5,
+      "mean_cumulative_entropy_bits": 4.836591668108978,
+      "mean_final_entropy_bits": 0.3333333333333333,
+      "chosen_kind_counts": {
+        "ASK": 36,
+        "OFFER": 54
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 27,
+        "SAFE": 27
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D1": 2,
+        "P0-W0-D2": 6,
+        "P0-W1-D0": 2,
+        "P0-W2-D0": 6,
+        "P1-W0-D2": 2,
+        "P1-W2-D0": 2,
+        "P2-W1-D2": 2,
+        "P2-W2-D1": 2,
+        "P2-W2-D2": 6
+      }
+    },
+    "exact/seller": {
+      "episodes": 36,
+      "decisions": 90,
+      "mean_learner_utility": 0.7583333333333333,
+      "mean_opponent_utility": 0.6301282051282051,
+      "mean_gain": 1.0,
+      "agreement_rate": 0.8333333333333334,
+      "mean_nash_ratio": 0.7769835258588208,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.0,
+      "mean_total_decision_regret": 0.0,
+      "zero_regret_decision_share": 1.0,
+      "mean_total_eig_regret_bits": 0.0,
+      "mean_eig_regret_per_decision_bits": 0.0,
+      "mean_questions_asked": 1.0,
+      "mean_offers_made": 1.5,
+      "mean_decisions": 2.5,
+      "mean_cumulative_entropy_bits": 4.836591668108978,
+      "mean_final_entropy_bits": 0.3333333333333333,
+      "chosen_kind_counts": {
+        "ASK": 36,
+        "OFFER": 54
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 27,
+        "SAFE": 27
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 6,
+        "P0-W0-D1": 2,
+        "P0-W1-D0": 2,
+        "P1-W0-D2": 2,
+        "P1-W2-D0": 2,
+        "P2-W0-D2": 6,
+        "P2-W1-D2": 2,
+        "P2-W2-D0": 6,
+        "P2-W2-D1": 2
+      }
+    },
+    "greedy_eig/buyer": {
+      "episodes": 36,
+      "decisions": 108,
+      "mean_learner_utility": 0.733974358974359,
+      "mean_opponent_utility": 0.6143162393162392,
+      "mean_gain": 0.8666666666666667,
+      "agreement_rate": 0.7222222222222222,
+      "mean_nash_ratio": 0.6496861062119217,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.024358974358974304,
+      "mean_total_decision_regret": 0.02435897435897436,
+      "zero_regret_decision_share": 0.7592592592592593,
+      "mean_total_eig_regret_bits": 0.0,
+      "mean_eig_regret_per_decision_bits": 0.0,
+      "mean_questions_asked": 2.0,
+      "mean_offers_made": 1.0,
+      "mean_decisions": 3.0,
+      "mean_cumulative_entropy_bits": 5.0588138903312005,
+      "mean_final_entropy_bits": 0.2222222222222222,
+      "chosen_kind_counts": {
+        "ASK": 72,
+        "OFFER": 36
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 8,
+        "SAFE": 28
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D1": 2,
+        "P0-W0-D2": 4,
+        "P0-W1-D0": 2,
+        "P0-W2-D0": 6,
+        "P1-W0-D2": 2,
+        "P1-W2-D0": 2,
+        "P2-W1-D2": 2,
+        "P2-W2-D1": 2,
+        "P2-W2-D2": 4
+      }
+    },
+    "greedy_eig/seller": {
+      "episodes": 36,
+      "decisions": 108,
+      "mean_learner_utility": 0.733974358974359,
+      "mean_opponent_utility": 0.6143162393162392,
+      "mean_gain": 0.8666666666666667,
+      "agreement_rate": 0.7222222222222222,
+      "mean_nash_ratio": 0.6496861062119217,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.024358974358974304,
+      "mean_total_decision_regret": 0.02435897435897436,
+      "zero_regret_decision_share": 0.7592592592592593,
+      "mean_total_eig_regret_bits": 0.0,
+      "mean_eig_regret_per_decision_bits": 0.0,
+      "mean_questions_asked": 2.0,
+      "mean_offers_made": 1.0,
+      "mean_decisions": 3.0,
+      "mean_cumulative_entropy_bits": 5.0588138903312005,
+      "mean_final_entropy_bits": 0.2222222222222222,
+      "chosen_kind_counts": {
+        "ASK": 72,
+        "OFFER": 36
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 8,
+        "SAFE": 28
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 4,
+        "P0-W0-D1": 2,
+        "P0-W1-D0": 2,
+        "P1-W0-D2": 2,
+        "P1-W2-D0": 2,
+        "P2-W0-D2": 6,
+        "P2-W1-D2": 2,
+        "P2-W2-D0": 4,
+        "P2-W2-D1": 2
+      }
+    },
+    "myopic/buyer": {
+      "episodes": 36,
+      "decisions": 72,
+      "mean_learner_utility": 0.7519230769230769,
+      "mean_opponent_utility": 0.6493589743589744,
+      "mean_gain": 0.9701492537313432,
+      "agreement_rate": 0.8333333333333334,
+      "mean_nash_ratio": 0.8683738852904173,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.00641025641025635,
+      "mean_total_decision_regret": 0.00641025641025641,
+      "zero_regret_decision_share": 0.16666666666666666,
+      "mean_total_eig_regret_bits": 0.08170416594551044,
+      "mean_eig_regret_per_decision_bits": 0.04085208297275522,
+      "mean_questions_asked": 0.0,
+      "mean_offers_made": 2.0,
+      "mean_decisions": 2.0,
+      "mean_cumulative_entropy_bits": 4.918295834054489,
+      "mean_final_entropy_bits": 0.6666666666666666,
+      "chosen_kind_counts": {
+        "OFFER": 72
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 36,
+        "SAFE": 36
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D1": 1,
+        "P0-W0-D2": 8,
+        "P0-W1-D0": 1,
+        "P0-W2-D0": 8,
+        "P1-W0-D2": 1,
+        "P1-W2-D0": 1,
+        "P2-W1-D2": 1,
+        "P2-W2-D1": 1,
+        "P2-W2-D2": 8
+      }
+    },
+    "myopic/seller": {
+      "episodes": 36,
+      "decisions": 72,
+      "mean_learner_utility": 0.7519230769230769,
+      "mean_opponent_utility": 0.6493589743589744,
+      "mean_gain": 0.9701492537313432,
+      "agreement_rate": 0.8333333333333334,
+      "mean_nash_ratio": 0.8683738852904173,
+      "pareto_share_of_agreements": 1.0,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.00641025641025635,
+      "mean_total_decision_regret": 0.00641025641025641,
+      "zero_regret_decision_share": 0.16666666666666666,
+      "mean_total_eig_regret_bits": 0.08170416594551044,
+      "mean_eig_regret_per_decision_bits": 0.04085208297275522,
+      "mean_questions_asked": 0.0,
+      "mean_offers_made": 2.0,
+      "mean_decisions": 2.0,
+      "mean_cumulative_entropy_bits": 4.918295834054489,
+      "mean_final_entropy_bits": 0.6666666666666666,
+      "chosen_kind_counts": {
+        "OFFER": 72
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 36,
+        "SAFE": 36
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 8,
+        "P0-W0-D1": 1,
+        "P0-W1-D0": 1,
+        "P1-W0-D2": 1,
+        "P1-W2-D0": 1,
+        "P2-W0-D2": 8,
+        "P2-W1-D2": 1,
+        "P2-W2-D0": 8,
+        "P2-W2-D1": 1
+      }
+    },
+    "random/buyer": {
+      "episodes": 720,
+      "decisions": 1669,
+      "mean_learner_utility": 0.715133547008547,
+      "mean_opponent_utility": 0.6648130341880342,
+      "mean_gain": 0.8113195417378652,
+      "agreement_rate": 0.7902777777777777,
+      "mean_nash_ratio": 0.7652451653372987,
+      "pareto_share_of_agreements": 0.9894551845342706,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.04319978632478628,
+      "mean_total_decision_regret": 0.04279513888888889,
+      "zero_regret_decision_share": 0.5775913720790893,
+      "mean_total_eig_regret_bits": 0.15603066377328628,
+      "mean_eig_regret_per_decision_bits": 0.0673110113341918,
+      "mean_questions_asked": 0.9,
+      "mean_offers_made": 1.4180555555555556,
+      "mean_decisions": 2.3180555555555555,
+      "mean_cumulative_entropy_bits": 4.919168907408858,
+      "mean_final_entropy_bits": 0.7124770312910659,
+      "chosen_kind_counts": {
+        "ASK": 648,
+        "OFFER": 1021
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 341,
+        "SAFE": 680
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 35,
+        "P0-W0-D1": 30,
+        "P0-W0-D2": 95,
+        "P0-W1-D0": 38,
+        "P0-W2-D0": 82,
+        "P1-W0-D2": 27,
+        "P1-W2-D0": 23,
+        "P2-W0-D2": 46,
+        "P2-W1-D2": 39,
+        "P2-W2-D0": 37,
+        "P2-W2-D1": 35,
+        "P2-W2-D2": 82
+      }
+    },
+    "random/seller": {
+      "episodes": 720,
+      "decisions": 1670,
+      "mean_learner_utility": 0.7107211538461539,
+      "mean_opponent_utility": 0.6645673076923077,
+      "mean_gain": 0.803419882860971,
+      "agreement_rate": 0.7930555555555555,
+      "mean_nash_ratio": 0.7615993807718083,
+      "pareto_share_of_agreements": 0.9807355516637478,
+      "mean_reference_prior_value": 0.7583333333333333,
+      "mean_optimality_gap": 0.04761217948717945,
+      "mean_total_decision_regret": 0.04717993233618234,
+      "zero_regret_decision_share": 0.5586826347305389,
+      "mean_total_eig_regret_bits": 0.1633938625512477,
+      "mean_eig_regret_per_decision_bits": 0.07044525810592714,
+      "mean_questions_asked": 0.9319444444444445,
+      "mean_offers_made": 1.3875,
+      "mean_decisions": 2.3194444444444446,
+      "mean_cumulative_entropy_bits": 4.920530643507949,
+      "mean_final_entropy_bits": 0.735747708377404,
+      "chosen_kind_counts": {
+        "ASK": 671,
+        "OFFER": 999
+      },
+      "chosen_tag_counts": {
+        "AMBITIOUS": 308,
+        "SAFE": 691
+      },
+      "accepted_deal_counts": {
+        "P0-W0-D0": 83,
+        "P0-W0-D1": 39,
+        "P0-W0-D2": 53,
+        "P0-W1-D0": 29,
+        "P0-W2-D0": 30,
+        "P1-W0-D2": 27,
+        "P1-W2-D0": 28,
+        "P2-W0-D2": 70,
+        "P2-W1-D2": 36,
+        "P2-W2-D0": 95,
+        "P2-W2-D1": 41,
+        "P2-W2-D2": 40
+      }
+    }
+  },
+  "vs_exact": {
+    "greedy_eig": {
+      "learner_utility": {
+        "delta": -0.02435897435897436,
+        "ci95": [
+          -0.04262820512820512,
+          -0.009134615384615385
+        ],
+        "clusters": 72
+      },
+      "gain": {
+        "delta": -0.13333333333333333,
+        "ci95": [
+          -0.21666666666666667,
+          -0.05
+        ],
+        "clusters": 60
+      },
+      "agreement": {
+        "delta": -0.1111111111111111,
+        "ci95": [
+          -0.19444444444444445,
+          -0.041666666666666664
+        ],
+        "clusters": 72
+      },
+      "total_eig_regret_bits": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "clusters": 72
+      },
+      "total_decision_regret": {
+        "delta": 0.02435897435897436,
+        "ci95": [
+          0.015313390313390315,
+          0.03385861823361823
+        ],
+        "clusters": 72
+      },
+      "questions_asked": {
+        "delta": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "clusters": 72
+      },
+      "cumulative_entropy_bits": {
+        "delta": 0.2222222222222222,
+        "ci95": [
+          0.05555555555555555,
+          0.3888888888888889
+        ],
+        "clusters": 72
+      }
+    },
+    "myopic": {
+      "learner_utility": {
+        "delta": -0.006410256410256406,
+        "ci95": [
+          -0.010149572649572643,
+          -0.003205128205128203
+        ],
+        "clusters": 72
+      },
+      "gain": {
+        "delta": -0.029850746268656712,
+        "ci95": [
+          -0.04477611940298507,
+          -0.014925373134328356
+        ],
+        "clusters": 60
+      },
+      "agreement": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "clusters": 72
+      },
+      "total_eig_regret_bits": {
+        "delta": 0.08170416594551044,
+        "ci95": [
+          0.08170416594551044,
+          0.08170416594551044
+        ],
+        "clusters": 72
+      },
+      "total_decision_regret": {
+        "delta": 0.00641025641025641,
+        "ci95": [
+          0.00608974358974359,
+          0.006730769230769231
+        ],
+        "clusters": 72
+      },
+      "questions_asked": {
+        "delta": -1.0,
+        "ci95": [
+          -1.0,
+          -1.0
+        ],
+        "clusters": 72
+      },
+      "cumulative_entropy_bits": {
+        "delta": 0.0817041659455106,
+        "ci95": [
+          -0.22385138961004497,
+          0.37337083261217724
+        ],
+        "clusters": 72
+      }
+    },
+    "random": {
+      "learner_utility": {
+        "delta": -0.04540598290598292,
+        "ci95": [
+          -0.0547061965811966,
+          -0.036669337606837625
+        ],
+        "clusters": 72
+      },
+      "gain": {
+        "delta": -0.1926302877005819,
+        "ci95": [
+          -0.21863114793189056,
+          -0.16688034101512692
+        ],
+        "clusters": 60
+      },
+      "agreement": {
+        "delta": -0.04166666666666667,
+        "ci95": [
+          -0.06180555555555556,
+          -0.025000000000000005
+        ],
+        "clusters": 72
+      },
+      "total_eig_regret_bits": {
+        "delta": 0.159712263162267,
+        "ci95": [
+          0.1356160847734699,
+          0.18686991434948597
+        ],
+        "clusters": 72
+      },
+      "total_decision_regret": {
+        "delta": 0.044987535612535615,
+        "ci95": [
+          0.041831374643874646,
+          0.048289930555555555
+        ],
+        "clusters": 72
+      },
+      "questions_asked": {
+        "delta": -0.08402777777777777,
+        "ci95": [
+          -0.12638888888888888,
+          -0.04027777777777777
+        ],
+        "clusters": 72
+      },
+      "cumulative_entropy_bits": {
+        "delta": 0.08325810734942482,
+        "ci95": [
+          -0.06750212702908077,
+          0.23958747367838454
+        ],
+        "clusters": 72
+      }
+    }
+  },
+  "vs_random": {
+    "exact": {
+      "learner_utility": {
+        "delta": 0.04540598290598292,
+        "ci95": [
+          0.03668002136752138,
+          0.054711538461538485
+        ],
+        "clusters": 72
+      },
+      "gain": {
+        "delta": 0.1926302877005819,
+        "ci95": [
+          0.16690169607739921,
+          0.21866514326540568
+        ],
+        "clusters": 60
+      },
+      "agreement": {
+        "delta": 0.04166666666666667,
+        "ci95": [
+          0.025000000000000005,
+          0.06180555555555556
+        ],
+        "clusters": 72
+      },
+      "total_eig_regret_bits": {
+        "delta": -0.159712263162267,
+        "ci95": [
+          -0.18676601028126855,
+          -0.1355673506790577
+        ],
+        "clusters": 72
+      },
+      "total_decision_regret": {
+        "delta": -0.044987535612535615,
+        "ci95": [
+          -0.04828681445868946,
+          -0.041830484330484335
+        ],
+        "clusters": 72
+      },
+      "questions_asked": {
+        "delta": 0.08402777777777777,
+        "ci95": [
+          0.04027777777777777,
+          0.12638888888888888
+        ],
+        "clusters": 72
+      },
+      "cumulative_entropy_bits": {
+        "delta": -0.08325810734942482,
+        "ci95": [
+          -0.23958747367838454,
+          0.0684325784199729
+        ],
+        "clusters": 72
+      }
+    },
+    "greedy_eig": {
+      "learner_utility": {
+        "delta": 0.021047008547008562,
+        "ci95": [
+          0.0036164529914530044,
+          0.03692574786324788
+        ],
+        "clusters": 72
+      },
+      "gain": {
+        "delta": 0.059296954367248585,
+        "ci95": [
+          -0.02343028482114656,
+          0.13552978460923812
+        ],
+        "clusters": 60
+      },
+      "agreement": {
+        "delta": -0.06944444444444445,
+        "ci95": [
+          -0.1326388888888889,
+          -0.015277777777777767
+        ],
+        "clusters": 72
+      },
+      "total_eig_regret_bits": {
+        "delta": -0.159712263162267,
+        "ci95": [
+          -0.18676601028126855,
+          -0.1355673506790577
+        ],
+        "clusters": 72
+      },
+      "total_decision_regret": {
+        "delta": -0.020628561253561255,
+        "ci95": [
+          -0.02941840277777778,
+          -0.011204816595441596
+        ],
+        "clusters": 72
+      },
+      "questions_asked": {
+        "delta": 1.0840277777777778,
+        "ci95": [
+          1.0402777777777779,
+          1.1263888888888889
+        ],
+        "clusters": 72
+      },
+      "cumulative_entropy_bits": {
+        "delta": 0.1389641148727974,
+        "ci95": [
+          -0.039063246246326594,
+          0.32293967911141247
+        ],
+        "clusters": 72
+      }
+    },
+    "myopic": {
+      "learner_utility": {
+        "delta": 0.03899572649572652,
+        "ci95": [
+          0.02951388888888891,
+          0.04893429487179489
+        ],
+        "clusters": 72
+      },
+      "gain": {
+        "delta": 0.1627795414319252,
+        "ci95": [
+          0.13209386689270236,
+          0.19386474212406946
+        ],
+        "clusters": 60
+      },
+      "agreement": {
+        "delta": 0.04166666666666667,
+        "ci95": [
+          0.025000000000000005,
+          0.06180555555555556
+        ],
+        "clusters": 72
+      },
+      "total_eig_regret_bits": {
+        "delta": -0.07800809721675654,
+        "ci95": [
+          -0.1050618443357581,
+          -0.05386318473354726
+        ],
+        "clusters": 72
+      },
+      "total_decision_regret": {
+        "delta": -0.0385772792022792,
+        "ci95": [
+          -0.041881899928774925,
+          -0.03542467948717949
+        ],
+        "clusters": 72
+      },
+      "questions_asked": {
+        "delta": -0.9159722222222223,
+        "ci95": [
+          -0.9597222222222221,
+          -0.8736111111111111
+        ],
+        "clusters": 72
+      },
+      "cumulative_entropy_bits": {
+        "delta": -0.0015539414039142324,
+        "ci95": [
+          -0.19455728342030712,
+          0.1908593832463595
+        ],
+        "clusters": 72
+      }
+    }
+  }
+}

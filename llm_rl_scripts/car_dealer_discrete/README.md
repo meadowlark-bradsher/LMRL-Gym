@@ -63,6 +63,14 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_discrete.jev.verify_cited    #
 
 Live runs need `TYPESAFE_API_KEY`. `jev-latest` is stochastic server-side; `--seed` is provenance only.
 
+## Follow-on: Binned Car Dealer, Condition B
+
+[`../car_dealer_binned/`](../car_dealer_binned/README.md) reuses this engine's deals, rankings and
+exact utilities in an information-acquisition game (ask a question about the opponent's priorities or
+propose a deal, against a frozen scripted opponent) with an exact dynamic-programming reference, so
+every decision carries an EIG regret and a decision regret. Scripted arms are frozen; the Jev run is
+pre-registered in `../car_dealer_binned/PREREGISTRATION_B.md` and has not been run.
+
 ## Conventions
 
 - Results notes are **rendered from frozen JSON** — no number is typed by hand. Claims are tagged

@@ -1,0 +1,499 @@
+{
+  "game": "binned-car-dealer-b-v0.1",
+  "seed": 0,
+  "elapsed_s": 115.3,
+  "rows": [
+    {
+      "regime": "easy",
+      "reservation": "2/5",
+      "rounds": 1,
+      "decisions_max": 2,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "401/585",
+          "float": 0.6854700854700855
+        },
+        "V_full": {
+          "exact": "19/26",
+          "float": 0.7307692307692307
+        },
+        "exact": {
+          "exact": "401/585",
+          "float": 0.6854700854700855
+        },
+        "greedy_eig": {
+          "exact": "97/156",
+          "float": 0.6217948717948718
+        },
+        "myopic": {
+          "exact": "253/390",
+          "float": 0.6487179487179487
+        }
+      },
+      "mean_random": 0.6064102564102566,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 1.0,
+        "exact_offers": 1.0,
+        "greedy_asked": 1.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 1.6666666666666667
+      },
+      "cells_greedy_below_exact": 32,
+      "greedy_equals_exact_everywhere": false,
+      "menu_rule_costless": false
+    },
+    {
+      "regime": "easy",
+      "reservation": "2/5",
+      "rounds": 2,
+      "decisions_max": 3,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        },
+        "V_full": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        },
+        "exact": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        },
+        "greedy_eig": {
+          "exact": "839/1170",
+          "float": 0.7170940170940171
+        },
+        "myopic": {
+          "exact": "43/60",
+          "float": 0.7166666666666667
+        }
+      },
+      "mean_random": 0.6621794871794875,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 1.25,
+        "exact_offers": 1.3333333333333333,
+        "greedy_asked": 2.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.1666666666666665
+      },
+      "cells_greedy_below_exact": 16,
+      "greedy_equals_exact_everywhere": false,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "easy",
+      "reservation": "2/5",
+      "rounds": 3,
+      "decisions_max": 4,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "V_full": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "exact": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "greedy_eig": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "myopic": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        }
+      },
+      "mean_random": 0.6848504273504274,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.6666666666666666,
+        "exact_offers": 2.0,
+        "greedy_asked": 3.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.5
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "easy",
+      "reservation": "2/5",
+      "rounds": 4,
+      "decisions_max": 5,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "V_full": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "exact": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "greedy_eig": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "myopic": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        }
+      },
+      "mean_random": 0.6863247863247864,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 2.6666666666666665,
+        "greedy_asked": 4.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.5
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "easy",
+      "reservation": "2/5",
+      "rounds": 5,
+      "decisions_max": 6,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "V_full": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "exact": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "greedy_eig": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "myopic": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        }
+      },
+      "mean_random": 0.6863247863247864,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 2.6666666666666665,
+        "greedy_asked": 5.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.5
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "easy",
+      "reservation": "2/5",
+      "rounds": 6,
+      "decisions_max": 7,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "V_full": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "exact": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "greedy_eig": {
+          "exact": "61/78",
+          "float": 0.782051282051282
+        },
+        "myopic": {
+          "exact": "121/156",
+          "float": 0.7756410256410257
+        }
+      },
+      "mean_random": 0.6863247863247864,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 2.6666666666666665,
+        "greedy_asked": 6.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.5
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "hard",
+      "reservation": "11/20",
+      "rounds": 1,
+      "decisions_max": 2,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "583/780",
+          "float": 0.7474358974358974
+        },
+        "V_full": {
+          "exact": "583/780",
+          "float": 0.7474358974358974
+        },
+        "exact": {
+          "exact": "583/780",
+          "float": 0.7474358974358974
+        },
+        "greedy_eig": {
+          "exact": "811/1170",
+          "float": 0.6931623931623931
+        },
+        "myopic": {
+          "exact": "583/780",
+          "float": 0.7474358974358974
+        }
+      },
+      "mean_random": 0.6828525641025642,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 1.6666666666666667,
+        "greedy_asked": 1.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 1.6666666666666667
+      },
+      "cells_greedy_below_exact": 16,
+      "greedy_equals_exact_everywhere": false,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "hard",
+      "reservation": "11/20",
+      "rounds": 2,
+      "decisions_max": 3,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "V_full": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "exact": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "greedy_eig": {
+          "exact": "229/312",
+          "float": 0.7339743589743589
+        },
+        "myopic": {
+          "exact": "391/520",
+          "float": 0.7519230769230769
+        }
+      },
+      "mean_random": 0.7194230769230766,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 1.0,
+        "exact_offers": 1.5,
+        "greedy_asked": 2.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.0
+      },
+      "cells_greedy_below_exact": 8,
+      "greedy_equals_exact_everywhere": false,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "hard",
+      "reservation": "11/20",
+      "rounds": 3,
+      "decisions_max": 4,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "V_full": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "exact": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "greedy_eig": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "myopic": {
+          "exact": "391/520",
+          "float": 0.7519230769230769
+        }
+      },
+      "mean_random": 0.7258547008547009,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 2.5,
+        "greedy_asked": 3.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.1666666666666665
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "hard",
+      "reservation": "11/20",
+      "rounds": 4,
+      "decisions_max": 5,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "V_full": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "exact": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "greedy_eig": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "myopic": {
+          "exact": "391/520",
+          "float": 0.7519230769230769
+        }
+      },
+      "mean_random": 0.7258547008547009,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 2.6666666666666665,
+        "greedy_asked": 4.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.3333333333333335
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "hard",
+      "reservation": "11/20",
+      "rounds": 5,
+      "decisions_max": 6,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "V_full": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "exact": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "greedy_eig": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "myopic": {
+          "exact": "391/520",
+          "float": 0.7519230769230769
+        }
+      },
+      "mean_random": 0.7258547008547009,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 2.8333333333333335,
+        "greedy_asked": 5.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.5
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    },
+    {
+      "regime": "hard",
+      "reservation": "11/20",
+      "rounds": 6,
+      "decisions_max": 7,
+      "cells": 72,
+      "mean": {
+        "V_menu": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "V_full": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "exact": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "greedy_eig": {
+          "exact": "91/120",
+          "float": 0.7583333333333333
+        },
+        "myopic": {
+          "exact": "391/520",
+          "float": 0.7519230769230769
+        }
+      },
+      "mean_random": 0.7258547008547009,
+      "random_repeats": 20,
+      "per_cell_counts": {
+        "exact_asked": 0.0,
+        "exact_offers": 3.0,
+        "greedy_asked": 6.0,
+        "greedy_offers": 1.0,
+        "myopic_offers": 2.6666666666666665
+      },
+      "cells_greedy_below_exact": 0,
+      "greedy_equals_exact_everywhere": true,
+      "menu_rule_costless": true
+    }
+  ]
+}
