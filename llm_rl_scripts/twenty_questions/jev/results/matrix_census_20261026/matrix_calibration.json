@@ -1,0 +1,183 @@
+{
+  "matrix": "llm_rl_scripts/twenty_questions/jev/matrix_jev.json",
+  "model": "jev-latest",
+  "n_attributes_checked": 14,
+  "mean_auc": 0.977,
+  "min_auc": 0.857,
+  "frac_auc_ge_0.9": 0.929,
+  "per_attribute": [
+    {
+      "attribute": "animal",
+      "categories": [
+        "Animals"
+      ],
+      "n_pos": 10,
+      "n_neg": 148,
+      "mean_in": 0.99,
+      "mean_out": 0.016,
+      "gap": 0.974,
+      "auc": 1.0
+    },
+    {
+      "attribute": "instrument",
+      "categories": [
+        "Musical Instruments"
+      ],
+      "n_pos": 10,
+      "n_neg": 148,
+      "mean_in": 0.99,
+      "mean_out": 0.015,
+      "gap": 0.975,
+      "auc": 1.0
+    },
+    {
+      "attribute": "furniture",
+      "categories": [
+        "Furniture"
+      ],
+      "n_pos": 10,
+      "n_neg": 148,
+      "mean_in": 0.975,
+      "mean_out": 0.022,
+      "gap": 0.953,
+      "auc": 1.0
+    },
+    {
+      "attribute": "transport",
+      "categories": [
+        "Vehicles"
+      ],
+      "n_pos": 10,
+      "n_neg": 148,
+      "mean_in": 0.979,
+      "mean_out": 0.09,
+      "gap": 0.889,
+      "auc": 1.0
+    },
+    {
+      "attribute": "food",
+      "categories": [
+        "Fruits",
+        "Vegetables"
+      ],
+      "n_pos": 20,
+      "n_neg": 138,
+      "mean_in": 0.984,
+      "mean_out": 0.025,
+      "gap": 0.959,
+      "auc": 1.0
+    },
+    {
+      "attribute": "edible",
+      "categories": [
+        "Fruits",
+        "Vegetables"
+      ],
+      "n_pos": 20,
+      "n_neg": 138,
+      "mean_in": 0.98,
+      "mean_out": 0.066,
+      "gap": 0.914,
+      "auc": 1.0
+    },
+    {
+      "attribute": "decoration",
+      "categories": [
+        "Jewelry"
+      ],
+      "n_pos": 9,
+      "n_neg": 149,
+      "mean_in": 0.967,
+      "mean_out": 0.058,
+      "gap": 0.908,
+      "auc": 1.0
+    },
+    {
+      "attribute": "wearable",
+      "categories": [
+        "Clothes",
+        "Jewelry"
+      ],
+      "n_pos": 20,
+      "n_neg": 138,
+      "mean_in": 0.98,
+      "mean_out": 0.046,
+      "gap": 0.934,
+      "auc": 0.999
+    },
+    {
+      "attribute": "toy_play",
+      "categories": [
+        "Toys"
+      ],
+      "n_pos": 5,
+      "n_neg": 153,
+      "mean_in": 0.966,
+      "mean_out": 0.143,
+      "gap": 0.823,
+      "auc": 0.998
+    },
+    {
+      "attribute": "electronic",
+      "categories": [
+        "Electronics"
+      ],
+      "n_pos": 10,
+      "n_neg": 148,
+      "mean_in": 0.953,
+      "mean_out": 0.049,
+      "gap": 0.904,
+      "auc": 0.997
+    },
+    {
+      "attribute": "garden",
+      "categories": [
+        "Garden Supplies"
+      ],
+      "n_pos": 5,
+      "n_neg": 153,
+      "mean_in": 0.942,
+      "mean_out": 0.308,
+      "gap": 0.634,
+      "auc": 0.983
+    },
+    {
+      "attribute": "office_class",
+      "categories": [
+        "Office Supplies"
+      ],
+      "n_pos": 14,
+      "n_neg": 144,
+      "mean_in": 0.849,
+      "mean_out": 0.351,
+      "gap": 0.499,
+      "auc": 0.921
+    },
+    {
+      "attribute": "sports_games",
+      "categories": [
+        "Sports",
+        "Toys"
+      ],
+      "n_pos": 15,
+      "n_neg": 143,
+      "mean_in": 0.817,
+      "mean_out": 0.236,
+      "gap": 0.582,
+      "auc": 0.921
+    },
+    {
+      "attribute": "write_draw",
+      "categories": [
+        "Art",
+        "Office Supplies"
+      ],
+      "n_pos": 21,
+      "n_neg": 137,
+      "mean_in": 0.451,
+      "mean_out": 0.074,
+      "gap": 0.378,
+      "auc": 0.857
+    }
+  ]
+}
