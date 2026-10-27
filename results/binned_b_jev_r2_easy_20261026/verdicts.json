@@ -1,0 +1,172 @@
+{
+  "source": "results/binned_b_jev_r2_easy_20261026/analysis.json",
+  "horizon": "primary",
+  "rules": {
+    "P1": {
+      "quantity": "\u0394 total decision regret, jev_plain \u2212 random",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -0.06563212250712251,
+        "ci95": [
+          -0.0774590455840456,
+          -0.05352564102564103
+        ],
+        "clusters": 72
+      },
+      "verdict": "confirmed"
+    },
+    "S1": {
+      "quantity": "\u0394 per-decision EIG regret, jev_eig \u2212 jev_plain",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -0.0055481269086463565,
+        "ci95": [
+          -0.013696620814478961,
+          0.0024202879133558416
+        ],
+        "clusters": 72
+      },
+      "verdict": "not supported"
+    },
+    "S2": {
+      "quantity": "\u0394 total decision regret, jev_eig \u2212 jev_plain",
+      "prediction": "not < 0",
+      "estimate": {
+        "delta": -0.0055769230769230765,
+        "ci95": [
+          -0.01075676638176638,
+          -0.00043981481481481497
+        ],
+        "clusters": 72
+      },
+      "verdict": "not supported (EIG shown lowered decision regret)"
+    },
+    "S3": {
+      "quantity": "\u0394 questions asked, jev_eig \u2212 jev_plain",
+      "prediction": "> 0",
+      "estimate": {
+        "delta": 0.13055555555555556,
+        "ci95": [
+          0.01666666666666667,
+          0.25833333333333336
+        ],
+        "clusters": 72
+      },
+      "verdict": "confirmed"
+    },
+    "S4": {
+      "quantity": "Spearman(choice entropy, decision regret) by Q-gap tercile",
+      "prediction": "large-gap CI > 0 and small-gap CI includes 0",
+      "per_arm": {
+        "jev_plain": {
+          "large_gap": {
+            "rho": 0.4489396089241758,
+            "ci95": [
+              0.257986388079121,
+              0.6141306596601471
+            ],
+            "n": 280,
+            "clusters": 49
+          },
+          "small_gap": {
+            "rho": -0.43365436396638457,
+            "ci95": [
+              -0.5354504021734836,
+              -0.3370832936877771
+            ],
+            "n": 279,
+            "clusters": 42
+          },
+          "overall": {
+            "rho": 0.01431299710078693,
+            "ci95": [
+              -0.10199457664648687,
+              0.13428752354021048
+            ],
+            "n": 838,
+            "clusters": 72
+          },
+          "pattern": "not supported"
+        },
+        "jev_eig": {
+          "large_gap": {
+            "rho": 0.5250792176752647,
+            "ci95": [
+              0.3820726917374093,
+              0.642743164251568
+            ],
+            "n": 283,
+            "clusters": 46
+          },
+          "small_gap": {
+            "rho": -0.5069693461180264,
+            "ci95": [
+              -0.6290037167850069,
+              -0.3939438751734984
+            ],
+            "n": 282,
+            "clusters": 42
+          },
+          "overall": {
+            "rho": -0.1087292595462389,
+            "ci95": [
+              -0.2112849869856238,
+              -0.002691272693398633
+            ],
+            "n": 847,
+            "clusters": 72
+          },
+          "pattern": "not supported"
+        }
+      }
+    },
+    "S5_jev_plain": {
+      "quantity": "\u0394 learner utility, jev_plain \u2212 exact",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -0.062029914529914514,
+        "ci95": [
+          -0.08358974358974357,
+          -0.04217948717948717
+        ],
+        "clusters": 72
+      },
+      "verdict": "confirmed"
+    },
+    "S5_jev_eig": {
+      "quantity": "\u0394 learner utility, jev_eig \u2212 exact",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -0.05087606837606837,
+        "ci95": [
+          -0.06997863247863247,
+          -0.033397435897435886
+        ],
+        "clusters": 72
+      },
+      "verdict": "confirmed"
+    }
+  },
+  "gates": {
+    "well_formed_jev_plain": {
+      "value": 1.0,
+      "pass": true
+    },
+    "positions_jev_plain": {
+      "0": 271,
+      "1": 205,
+      "2": 188,
+      "3": 174
+    },
+    "well_formed_jev_eig": {
+      "value": 1.0,
+      "pass": true
+    },
+    "positions_jev_eig": {
+      "0": 267,
+      "1": 220,
+      "2": 177,
+      "3": 183
+    }
+  }
+}

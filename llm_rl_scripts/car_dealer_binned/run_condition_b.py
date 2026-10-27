@@ -70,6 +70,22 @@ def _row_json(row: dict) -> dict:
     return out
 
 
+def _choose_with_retry(jev, state, rows, max_retries: int, backoff: float) -> str:
+    """Retry transient Jev failures; re-raise after ``max_retries`` so the
+    runner can write an error stub and continue with the next episode."""
+    from LLM_RL.jev.client import JevError
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            return jev.choose(state, rows)
+        except JevError as e:
+            if attempt == max_retries:
+                raise
+            print(f"  jev error (attempt {attempt}/{max_retries}): {e}; retrying", file=sys.stderr)
+            time.sleep(backoff * attempt)
+    raise RuntimeError("unreachable")
+
+
 def play_episode(
     cfg: Config,
     arm: str,
@@ -80,6 +96,8 @@ def play_episode(
     rng: random.Random,
     jev: Optional[JevConditionBPolicy],
     repeat: int,
+    max_retries: int = 3,
+    retry_backoff: float = 2.0,
 ) -> dict:
     state = initial_state(role, own)
     opponent = ScriptedOpponent(other_role(role), opp, cfg, random.Random(rng.random()))
@@ -98,7 +116,7 @@ def play_episode(
         info = None
         if arm in JEV_ARMS:
             assert jev is not None
-            key = jev.choose(state, rows)
+            key = _choose_with_retry(jev, state, rows, max_retries, retry_backoff)
             info = jev.last_info
         else:
             key = ARMS[arm](state, rows, qvals, rng)
@@ -201,6 +219,8 @@ def main(argv=None) -> int:
     p.add_argument("--out", required=True)
     p.add_argument("--jev-backend", default="mock", choices=("mock", "http"))
     p.add_argument("--no-shuffle", action="store_true", help="Present Jev options in menu order.")
+    p.add_argument("--max-retries", type=int, default=3)
+    p.add_argument("--retry-backoff", type=float, default=2.0, help="Seconds; multiplied by the attempt number.")
     p.add_argument("--cells", default="all", help="'all' or 'own_idx,opp_idx' pairs like '0:1;2:3' (indices into ALL_RANKINGS).")
     args = p.parse_args(argv)
 
@@ -239,6 +259,7 @@ def main(argv=None) -> int:
             }
 
     n = 0
+    errors = 0
     t0 = time.time()
     path = os.path.join(args.out, "runs.jsonl")
     with open(path, "w") as f:
@@ -255,8 +276,17 @@ def main(argv=None) -> int:
                     # deterministic arms under zero noise are played once per cell
                     deterministic = arm in ARMS and arm != "random" and cfg.answer_noise == 0 and cfg.accept_noise == 0
                     for k in range(1 if deterministic else args.repeats):
-                        rec = play_episode(cfg, arm, role, own, opp, refs[(role, own)], rng, jev, k)
+                        try:
+                            rec = play_episode(cfg, arm, role, own, opp, refs[(role, own)], rng, jev, k,
+                                               args.max_retries, args.retry_backoff)
+                        except Exception as e:  # error stub: carries no result, analyzers skip it
+                            rec = {"arm": arm, "role": role, "own_ranking": list(own), "repeat": k,
+                                   "private_truth_evaluator_only": {"opp_ranking": list(opp)},
+                                   "error": f"{type(e).__name__}: {e}"}
+                            errors += 1
+                            print(f"  episode failed after retries: {rec['error']}", file=sys.stderr)
                         f.write(json.dumps(rec) + "\n")
+                        f.flush()
                         n += 1
             print(f"[{time.time()-t0:6.1f}s] arm={arm} done ({n} episodes so far)", file=sys.stderr)
 
@@ -270,6 +300,7 @@ def main(argv=None) -> int:
         "jev_backend": args.jev_backend if jev_client else None,
         "jev_shuffle_options": not args.no_shuffle,
         "episodes": n,
+        "error_stubs": errors,
         "reference_values": full_values,
         "elapsed_s": round(time.time() - t0, 2),
     }

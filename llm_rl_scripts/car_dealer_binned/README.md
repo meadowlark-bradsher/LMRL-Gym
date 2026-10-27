@@ -10,8 +10,8 @@ yields an **EIG regret** (bits) and a **decision regret** (utility).
 - Design source: [`binned_car_dealer_experiment.md`](binned_car_dealer_experiment.md) (verbatim)
 - What was built and why it departs: [`DESIGN_B.md`](DESIGN_B.md)
 - Scripted-arm results (exact-on-logs, no model): [`SCRIPTED_RESULTS.md`](SCRIPTED_RESULTS.md)
-- Pre-registration for the Jev run: [`PREREGISTRATION_B.md`](PREREGISTRATION_B.md) — **no Jev
-  decision has been collected on this game**; the Jev arm has only been exercised with the mock backend.
+- Pre-registration for the Jev run: [`PREREGISTRATION_B.md`](PREREGISTRATION_B.md)
+- Jev results (pre-registered, verdicts applied by code): [`JEV_RESULTS.md`](JEV_RESULTS.md)
 
 ## Code
 
@@ -27,7 +27,9 @@ yields an **EIG regret** (bits) and a **decision regret** (utility).
 | `analyze_condition_b.py` | per-arm metrics, paired cluster bootstrap vs `exact`, H3 quantities |
 | `sweep_horizon.py` | horizon × regime sweep of the scripted arms (design evidence) |
 | `render_scripted_note.py` | renders `SCRIPTED_RESULTS.md` from the frozen JSON |
-| `verify_b.py` | re-derives every frozen `analysis.json` and the rendered note; `--sweep` recomputes the sweep too |
+| `verdicts_b.py` | applies the pre-registered rules to a frozen `analysis.json`, writes `verdicts.json` |
+| `render_jev_note.py` | renders `JEV_RESULTS.md` from the frozen Jev-run JSON |
+| `verify_b.py` | re-derives every frozen `analysis.json`, `verdicts.json` and both rendered notes; `--sweep` recomputes the sweep too |
 | `test_condition_b.py` | exactness identities (9 tests, ~7 s) |
 
 ```bash
@@ -45,6 +47,8 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_binned.analyze_condition_b res
 | `binned_b_scripted_r6_easy_20261026` | 6 rounds, easy (the document's horizon) |
 | `binned_b_scripted_r2_hard_20261026` | 2 rounds, hard |
 | `binned_b_sweep_20261026/sweep.json` | horizon 1–6 × regime sweep |
+| `binned_b_jev_r2_easy_20261026` | **primary Jev run**: 2 rounds, easy, `jev_plain` + `jev_eig` + `random` × 5 per cell (seed 11) with the deterministic arms; `analysis.json`, `verdicts.json`, `runs.jsonl.gz` |
+| `binned_b_jev_r6_easy_20261026` | **secondary Jev run**: 6 rounds, easy, × 3 per cell (seed 12) |
 
 ## Conventions
 

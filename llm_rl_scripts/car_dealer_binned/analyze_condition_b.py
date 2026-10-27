@@ -46,7 +46,9 @@ def load(path: str) -> List[dict]:
         runs = path
     opener = gzip.open if runs.endswith(".gz") else open
     with opener(runs, "rt") as f:
-        return [json.loads(l) for l in f if l.strip()]
+        recs = [json.loads(l) for l in f if l.strip()]
+    # error stubs written by the runner carry no result
+    return [r for r in recs if "decisions" in r]
 
 
 def mean(xs):
@@ -111,7 +113,32 @@ def spearman(x: List[float], y: List[float]) -> Optional[float]:
     return cov / (vx * vy)
 
 
-def summarise(recs: List[dict]) -> dict:
+def spearman_cluster_ci(x, y, clusters, B: int, seed: int):
+    """Spearman rho with a 95% CI from resampling clusters (cells) with replacement."""
+    rho = spearman(x, y)
+    if rho is None:
+        return None
+    by = defaultdict(list)
+    for xi, yi, c in zip(x, y, clusters):
+        by[c].append((xi, yi))
+    keys = sorted(by)
+    rng = random.Random(seed)
+    boots = []
+    for _ in range(B):
+        xs, ys = [], []
+        for _ in keys:
+            for xi, yi in by[keys[rng.randrange(len(keys))]]:
+                xs.append(xi); ys.append(yi)
+        r = spearman(xs, ys)
+        if r is not None:
+            boots.append(r)
+    boots.sort()
+    if len(boots) < 10:
+        return {"rho": rho, "ci95": None, "n": len(x), "clusters": len(keys)}
+    return {"rho": rho, "ci95": [boots[int(0.025 * len(boots))], boots[min(len(boots) - 1, int(0.975 * len(boots)))]], "n": len(x), "clusters": len(keys)}
+
+
+def summarise(recs: List[dict], B: int = 2000, seed: int = 0) -> dict:
     n = len(recs)
     decs = [d for r in recs for d in r["decisions"]]
     out = {
@@ -138,29 +165,31 @@ def summarise(recs: List[dict]) -> dict:
         "chosen_tag_counts": dict(_count(d["chosen_tag"] for d in decs if d["chosen_tag"])),
         "accepted_deal_counts": dict(_count(r["accepted_deal_id"] for r in recs if r["accepted_deal_id"])),
     }
-    jev = [d for d in decs if d.get("jev")]
+    jev = [(r, d) for r in recs for d in r["decisions"] if d.get("jev") and d["jev"]["choice_entropy_bits"] is not None]
     if jev:
-        ent = [d["jev"]["choice_entropy_bits"] for d in jev if d["jev"]["choice_entropy_bits"] is not None]
-        reg = [fl(d["decision_regret"]) for d in jev if d["jev"]["choice_entropy_bits"] is not None]
-        gaps = [fl(d["q_gap_best_second"]) for d in jev if d["jev"]["choice_entropy_bits"] is not None]
-        tert = _terciles(gaps)
+        ent = [d["jev"]["choice_entropy_bits"] for _, d in jev]
+        reg = [fl(d["decision_regret"]) for _, d in jev]
+        gaps = [fl(d["q_gap_best_second"]) for _, d in jev]
+        cl = [cluster_key(r) for r, _ in jev]
         by_t = {}
-        for name, (lo, hi) in tert.items():
-            idx = [i for i, g in enumerate(gaps) if lo <= g <= hi]
+        for name, idx in _tercile_indices(gaps).items():
+            lo, hi = (min(gaps[i] for i in idx), max(gaps[i] for i in idx)) if idx else (None, None)
             by_t[name] = {
                 "n": len(idx),
                 "gap_range": [lo, hi],
-                "spearman_entropy_vs_regret": spearman([ent[i] for i in idx], [reg[i] for i in idx]),
+                "spearman_entropy_vs_regret": spearman_cluster_ci([ent[i] for i in idx], [reg[i] for i in idx], [cl[i] for i in idx], B, seed),
                 "mean_entropy_bits": mean(ent[i] for i in idx),
                 "mean_regret": mean(reg[i] for i in idx),
             }
+        alljev = [d for _, d in jev]
         out["jev"] = {
-            "well_formed_share": mean(1.0 if d["jev"]["well_formed"] else 0.0 for d in jev),
+            "well_formed_share": mean(1.0 if d["jev"]["well_formed"] else 0.0 for d in alljev),
             "mean_choice_entropy_bits": mean(ent),
-            "mean_confidence": mean(d["jev"]["confidence"] for d in jev),
-            "spearman_entropy_vs_decision_regret": spearman(ent, reg),
+            "mean_confidence": mean(d["jev"]["confidence"] for d in alljev),
+            "spearman_entropy_vs_decision_regret": spearman_cluster_ci(ent, reg, cl, B, seed),
             "by_gap_tercile": by_t,
-            "chosen_position_counts": dict(_count(d["jev"]["chosen_position"] for d in jev)),
+            "chosen_position_counts": dict(_count(d["jev"]["chosen_position"] for d in alljev)),
+            "chosen_kind_by_t": {str(t): dict(_count(d["chosen_kind"] for d in alljev if d["t"] == t)) for t in sorted({d["t"] for d in alljev})},
         }
     return out
 
@@ -177,13 +206,17 @@ def _count(it):
     return dict(sorted(c.items()))
 
 
-def _terciles(xs: List[float]) -> Dict[str, Tuple[float, float]]:
-    if not xs:
-        return {}
-    s = sorted(xs)
-    n = len(s)
-    a, b = s[n // 3], s[(2 * n) // 3]
-    return {"small_gap": (s[0], a), "mid_gap": (a, b), "large_gap": (b, s[-1])}
+def _tercile_indices(xs: List[float]) -> Dict[str, List[int]]:
+    """Disjoint rank-based terciles (stable sort; ties are split by order so the
+    three groups partition the decisions). A first version used inclusive value
+    bounds, which double-counted tied gaps; see JEV_RESULTS.md."""
+    order = sorted(range(len(xs)), key=lambda i: xs[i])
+    n = len(order)
+    return {
+        "small_gap": order[: n // 3],
+        "mid_gap": order[n // 3 : (2 * n) // 3],
+        "large_gap": order[(2 * n) // 3 :],
+    }
 
 
 def main(argv=None) -> int:
@@ -199,26 +232,38 @@ def main(argv=None) -> int:
     roles = sorted({r["role"] for r in recs})
     report = {"source": os.path.abspath(args.path), "episodes": len(recs), "arms": arms, "bootstrap": {"B": args.B, "seed": args.seed}, "by_arm": {}, "by_arm_role": {}, "vs_exact": {}}
     for a in arms:
-        report["by_arm"][a] = summarise([r for r in recs if r["arm"] == a])
+        report["by_arm"][a] = summarise([r for r in recs if r["arm"] == a], args.B, args.seed)
         for ro in roles:
-            report["by_arm_role"][f"{a}/{ro}"] = summarise([r for r in recs if r["arm"] == a and r["role"] == ro])
+            report["by_arm_role"][f"{a}/{ro}"] = summarise([r for r in recs if r["arm"] == a and r["role"] == ro], 200, args.seed)
+
+    def by_cluster(arm, field):
+        d = defaultdict(list)
+        for r in recs:
+            if r["arm"] == arm:
+                d[cluster_key(r)].append(field(r))
+        return d
+
+    fields = {
+        "learner_utility": lambda r: fl(r["learner_utility"]),
+        "gain": lambda r: fl(r["gain"]),
+        "agreement": lambda r: 1.0 if r["agreement"] else 0.0,
+        "total_eig_regret_bits": lambda r: r["total_eig_regret_bits"],
+        "eig_regret_per_decision_bits": lambda r: r["total_eig_regret_bits"] / r["n_decisions"],
+        "total_decision_regret": lambda r: fl(r["total_decision_regret"]),
+        "questions_asked": lambda r: float(r["questions_asked"]),
+        "cumulative_entropy_bits": lambda r: r["cumulative_entropy_bits"],
+    }
+    # every ordered pair a - b, paired by cell
+    report["pairs"] = {}
+    for a in arms:
+        for b in arms:
+            if a != b:
+                report["pairs"][f"{a} - {b}"] = {
+                    name: paired_cluster_bootstrap(by_cluster(a, fn), by_cluster(b, fn), args.B, args.seed)
+                    for name, fn in fields.items()
+                }
 
     if "exact" in arms:
-        def by_cluster(arm, field):
-            d = defaultdict(list)
-            for r in recs:
-                if r["arm"] == arm:
-                    d[cluster_key(r)].append(field(r))
-            return d
-        fields = {
-            "learner_utility": lambda r: fl(r["learner_utility"]),
-            "gain": lambda r: fl(r["gain"]),
-            "agreement": lambda r: 1.0 if r["agreement"] else 0.0,
-            "total_eig_regret_bits": lambda r: r["total_eig_regret_bits"],
-            "total_decision_regret": lambda r: fl(r["total_decision_regret"]),
-            "questions_asked": lambda r: float(r["questions_asked"]),
-            "cumulative_entropy_bits": lambda r: r["cumulative_entropy_bits"],
-        }
         for a in arms:
             if a == "exact":
                 continue
