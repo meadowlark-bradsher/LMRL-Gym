@@ -292,6 +292,18 @@ supplied (A4), and even then only sometimes.
   `chess/jev/results/primary_20261025/calibration.png`.) Endgames (K+Q-vs-K) convert
   only ~10% — Jev **hangs the queen** to the bare king (no lookahead to see the
   recapture).
+- **…but `Noul` is not a *better* confidence signal than a free LLM's (pre-registered
+  head-to-head, H0):** on the same 200 positions and menu, `Noul`'s calibration error on
+  the "acceptable move" event (ECE 0.174) is indistinguishable from a menu-constrained
+  `gpt-4o`'s own logprob (0.177; paired ΔECE −0.003 [−0.011, +0.007]), and its
+  discrimination edge is not significant (AUROC 0.660 vs 0.588; ΔAUROC +0.072 [−0.025,
+  +0.167]). `Noul` *is* far better than a **verbalized** probability (`gpt-4o` verbal ECE
+  0.657, wildly overconfident), but `claude-opus-5-5`'s verbalized probability is about as
+  calibrated as `Noul` (ECE 0.162). So RLCD is **not shown to buy a calibration advantage**
+  here; Jev's distinctive edge is **latency** (`Noul` ≈0.13 s/call vs `gpt-4o` logprob
+  0.72 s). On the stricter exact-best event `Noul` is modestly but significantly
+  better-calibrated (ΔECE −0.026 [−0.031, −0.017]) — below the pre-registered 0.05 margin.
+  Details: [`confidence_h2h/`](../chess/jev/confidence_h2h/CONFIDENCE_HEAD_TO_HEAD.md).
 
 **Role lesson:** Jev's contribution is the validity guarantee (a *wrapper* property
 any model gets), plus confidence that is informative about move quality — not decision
@@ -402,13 +414,19 @@ When you externalize, distinguish two layers, because they have different cost/b
 
 This is the practical rule for *when BED-LLM's inference machinery is worth building*.
 
-### 4.5 Confidence (`Noul`) is the one consumable intrinsic signal
-Across Chess (top-tercile `Noul` moves ≈3.4× more likely best — informative about move
-quality, with the signal concentrated in the top quintile) and Car-Dealer (confidence
-trajectories), Jev's `Noul` is informative about outcome quality. It is the signal worth consuming — as an
-abstain/escalate gate, or as the likelihood a BED loop ingests (the `Noul` =
-p(answer|hypothesis) that 20Q / Guess-My-City need). It is the bridge from "selector"
-to "composable into BED."
+### 4.5 Confidence (`Noul`) is informative — but not better-calibrated than a free LLM's
+`Noul` is informative about outcome quality (Chess: top-tercile moves ≈3.4× more likely
+best; Car-Dealer: confidence trajectories), and it is the natural signal to consume — as
+an abstain/escalate gate, or as the likelihood a BED loop ingests (`Noul` =
+p(answer|hypothesis) for 20Q / Guess-My-City). **But a pre-registered head-to-head (§3.2,
+`chess/jev/confidence_h2h/`) found no RLCD calibration advantage on Chess:** `Noul`'s
+calibration error is indistinguishable from a menu-constrained `gpt-4o`'s own logprob
+(ΔECE −0.003, CI includes 0) and its discrimination edge is not significant (ΔAUROC
++0.072, CI includes 0). So the case for `Noul` over a free LLM menu-probability rests on
+**cost/latency** — now measured: `Noul` ≈0.13 s/call vs `gpt-4o` logprob 0.72 s (cost not
+priceable without a public Jev rate). The "composable into BED" bridge therefore stands on
+`Noul` being *available and cheap*, and on the (still-untested) claim that it is a
+calibrated *likelihood*, not on it being better-calibrated than logprobs at move choice.
 
 ### 4.6 When each component is primary (decision rule)
 - **Observable + discrete action, no latent → Jev alone.** FO-Maze, legal-move Chess.
@@ -520,6 +538,7 @@ when evaluating structured-decision models:
 |---|---|---|---|
 | Text-Nav | merged, complete | reactive selector; no planning | A1=0, A4=0.19 [0.11,0.27]; planner 100% |
 | Chess | merged, complete | validity wrapper; GPT-4o-class moves | 0% illegal, loses every finished game |
+| Chess confidence H2H | merged, complete | `Noul` vs LLM menu-probability | H0: ΔECE −0.003, ΔAUROC +0.07 vs gpt-4o logprob (both CIs incl 0); Jev edge is latency (0.13 vs 0.72 s/call) |
 | Wordle | merged, complete | chance-level selector in a code BED loop | solve 0.74 vs opt 0.94; match@1 0.275 |
 | Car-Dealer | merged, complete | selector + external belief filter | 0/12 alone → 24/24 with filter; ΔNash +0.158 |
 | 20Q / Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
