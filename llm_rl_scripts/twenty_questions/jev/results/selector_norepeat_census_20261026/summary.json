@@ -1,0 +1,111 @@
+{
+  "n_episodes": 158,
+  "oracle": "matrix",
+  "solve_rate": 0.0,
+  "avg_questions_all": 20,
+  "avg_questions_won": null,
+  "avg_reward": -20.0,
+  "per_category": {
+    "Animals": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Art": {
+      "n": 7,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Clothes": {
+      "n": 11,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Electronics": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Fruits": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Furniture": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Garden Supplies": {
+      "n": 5,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Jewelry": {
+      "n": 9,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Kitchen Tools": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Musical Instruments": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Nature": {
+      "n": 11,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Office Supplies": {
+      "n": 14,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Sports": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Tools": {
+      "n": 6,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Toys": {
+      "n": 5,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Vegetables": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    },
+    "Vehicles": {
+      "n": 10,
+      "solve_rate": 0.0,
+      "avg_questions": 20
+    }
+  },
+  "selector": {
+    "n_picks": 3160,
+    "match_at_1": 0.07689873417721518,
+    "mean_regret_bits": 0.6079424330874815
+  },
+  "config": {
+    "oracle": "matrix",
+    "selector": "jev",
+    "selector_history": false,
+    "selector_norepeat": true,
+    "confidence": 0.9,
+    "eps": 0.05,
+    "max_questions": 20,
+    "census": true,
+    "n_objects": 158
+  }
+}

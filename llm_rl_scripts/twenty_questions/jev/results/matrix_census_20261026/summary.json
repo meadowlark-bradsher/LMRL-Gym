@@ -1,0 +1,95 @@
+{
+  "n_episodes": 158,
+  "oracle": "matrix",
+  "solve_rate": 1.0,
+  "avg_questions_all": 10.208860759493671,
+  "avg_questions_won": 10.208860759493671,
+  "avg_reward": -9.208860759493671,
+  "per_category": {
+    "Animals": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 7.1
+    },
+    "Art": {
+      "n": 7,
+      "solve_rate": 1.0,
+      "avg_questions": 14
+    },
+    "Clothes": {
+      "n": 11,
+      "solve_rate": 1.0,
+      "avg_questions": 9
+    },
+    "Electronics": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 12.3
+    },
+    "Fruits": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 8.5
+    },
+    "Furniture": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 9.5
+    },
+    "Garden Supplies": {
+      "n": 5,
+      "solve_rate": 1.0,
+      "avg_questions": 14.2
+    },
+    "Jewelry": {
+      "n": 9,
+      "solve_rate": 1.0,
+      "avg_questions": 9
+    },
+    "Kitchen Tools": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 9.1
+    },
+    "Musical Instruments": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 10.8
+    },
+    "Nature": {
+      "n": 11,
+      "solve_rate": 1.0,
+      "avg_questions": 7.818181818181818
+    },
+    "Office Supplies": {
+      "n": 14,
+      "solve_rate": 1.0,
+      "avg_questions": 7.785714285714286
+    },
+    "Sports": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 12.4
+    },
+    "Tools": {
+      "n": 6,
+      "solve_rate": 1.0,
+      "avg_questions": 14.5
+    },
+    "Toys": {
+      "n": 5,
+      "solve_rate": 1.0,
+      "avg_questions": 15
+    },
+    "Vegetables": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 9.5
+    },
+    "Vehicles": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 11.5
+    }
+  }
+}

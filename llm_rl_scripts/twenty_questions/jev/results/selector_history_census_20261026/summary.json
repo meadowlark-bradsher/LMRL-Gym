@@ -1,0 +1,111 @@
+{
+  "n_episodes": 158,
+  "oracle": "matrix",
+  "solve_rate": 0.8670886075949367,
+  "avg_questions_all": 14.120253164556962,
+  "avg_questions_won": 13.218978102189782,
+  "avg_reward": -13.253164556962025,
+  "per_category": {
+    "Animals": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 10.8
+    },
+    "Art": {
+      "n": 7,
+      "solve_rate": 0.42857142857142855,
+      "avg_questions": 18.714285714285715
+    },
+    "Clothes": {
+      "n": 11,
+      "solve_rate": 0.5454545454545454,
+      "avg_questions": 17.09090909090909
+    },
+    "Electronics": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 10.6
+    },
+    "Fruits": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 12.7
+    },
+    "Furniture": {
+      "n": 10,
+      "solve_rate": 0.9,
+      "avg_questions": 12.7
+    },
+    "Garden Supplies": {
+      "n": 5,
+      "solve_rate": 0.8,
+      "avg_questions": 14.8
+    },
+    "Jewelry": {
+      "n": 9,
+      "solve_rate": 1.0,
+      "avg_questions": 14.666666666666666
+    },
+    "Kitchen Tools": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 13.6
+    },
+    "Musical Instruments": {
+      "n": 10,
+      "solve_rate": 0.7,
+      "avg_questions": 18.5
+    },
+    "Nature": {
+      "n": 11,
+      "solve_rate": 0.8181818181818182,
+      "avg_questions": 11.454545454545455
+    },
+    "Office Supplies": {
+      "n": 14,
+      "solve_rate": 0.8571428571428571,
+      "avg_questions": 16.214285714285715
+    },
+    "Sports": {
+      "n": 10,
+      "solve_rate": 0.8,
+      "avg_questions": 12.6
+    },
+    "Tools": {
+      "n": 6,
+      "solve_rate": 1.0,
+      "avg_questions": 17.166666666666668
+    },
+    "Toys": {
+      "n": 5,
+      "solve_rate": 0.8,
+      "avg_questions": 16
+    },
+    "Vegetables": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 14.3
+    },
+    "Vehicles": {
+      "n": 10,
+      "solve_rate": 1.0,
+      "avg_questions": 11.2
+    }
+  },
+  "selector": {
+    "n_picks": 2214,
+    "match_at_1": 0.2018970189701897,
+    "mean_regret_bits": 0.32294187747549924
+  },
+  "config": {
+    "oracle": "matrix",
+    "selector": "jev",
+    "selector_history": true,
+    "selector_norepeat": false,
+    "confidence": 0.9,
+    "eps": 0.05,
+    "max_questions": 20,
+    "census": true,
+    "n_objects": 158
+  }
+}
