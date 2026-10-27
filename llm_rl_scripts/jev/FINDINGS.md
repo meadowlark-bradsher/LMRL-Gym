@@ -3,7 +3,7 @@
 _Last updated: 2026-10-27. Synthesis report across the merged benchmark branches._
 
 This report synthesizes the completed experiment programs now on `main` (Text-Nav,
-Chess, Wordle, Car-Dealer, 20Q) into a single account of **what role Jev, an LLM, and a
+Chess, Wordle, Car-Dealer, 20Q, Binned Car-Dealer) into a single account of **what role Jev, an LLM, and a
 BED-style wrapper each play**, and the reusable design patterns that follow. The
 companion reference is [`DESIGN_PATTERNS.md`](DESIGN_PATTERNS.md) (the role table);
 this is the narrative and the evidence.
@@ -49,9 +49,11 @@ All are LMRL-Gym tasks. **FO-Maze** = the fully observed maze navigation task.
 **Text-Nav** = a TextWorld kitchen task (put the perishable food in the
 fridge and close it). **Wordle**; **Chess** (+ **Chess endgames**); **20Q** = 20
 Questions (158 objects / 17 categories, §3.5); **Guess-My-City**; **Car-Dealer** = a
-buyer/seller negotiation (here a discretized redesign, §3.4). This report presents live
-results for Text-Nav, Chess, Wordle, Car-Dealer, and 20Q; Guess-My-City / FO-Maze appear
-only as predicted role placements.
+buyer/seller negotiation (here a discretized redesign, §3.4); **Binned Car-Dealer** = a
+single-learner information-acquisition variant of it (ask about the opponent's priorities or
+propose; frozen scripted opponent; exact DP reference; §3.6). This report presents live
+results for Text-Nav, Chess, Wordle, Car-Dealer, 20Q, and Binned Car-Dealer; Guess-My-City /
+FO-Maze appear only as predicted role placements.
 
 ### Repo, branches, and where the numbers live
 
@@ -89,6 +91,14 @@ Named runs/docs used as shorthand below:
   replication** (`RESPONDER_RESULTS.md`), **hard regime** (`HARD_RESULTS.md`),
   **forced-counter probe** (`COUNTER_RESULTS.md`). "Under aid" / "the aid's 12/12" refer
   to the belief-filter condition.
+- **Binned Car-Dealer:** package `llm_rl_scripts/car_dealer_binned/` (`env.py` = menu rule +
+  frozen opponent; `reference.py` = exact Fraction DP; `arms.py`; `jev_policy.py`;
+  `analyze_condition_b.py`; `verdicts_b.py`; `verify_b.py` re-derives every analysis, verdict
+  and note). Docs `DESIGN_B.md` (every departure from the pasted design document),
+  `SCRIPTED_RESULTS.md`, `PREREGISTRATION_B.md`, `JEV_RESULTS.md` (both notes rendered from
+  JSON). Numbers in `results/binned_b_sweep_20261026/sweep.json`,
+  `results/binned_b_scripted_{r2_easy,r6_easy,r2_hard}_20261026/analysis.json`, and
+  `results/binned_b_jev_{r2,r6}_easy_20261026/{analysis,verdicts}.json`.
 
 ### Experiment design
 
@@ -150,6 +160,22 @@ Named runs/docs used as shorthand below:
   (on a receiving turn both appear on one menu, so the accept-vs-counter choice sees the
   counters' P(accept) and no acceptance estimate for accepting). The filter's prior over
   the 6 opponent rankings is uniform.
+- **Binned Car-Dealer game** (`binned-car-dealer-b-v0.1`, full account in
+  `car_dealer_binned/DESIGN_B.md`): one **learner** (buyer or seller, one of the 6
+  rankings) against a **frozen scripted opponent** (hidden ranking; answers truthfully;
+  accepts iff the deal is IR for it; never counters; holds no belief), so the learner's
+  problem is a single-agent POMDP with an exact reference. Each decision the learner picks
+  one option from a public menu: **ASK** one of the 2 highest-EIG unasked questions from a
+  bank of 9 binary questions about the opponent's ranking (TOP / ABOVE / BOTTOM of an
+  attribute; exact response matrices), or **OFFER** one of two rule-named deals worth ≥ r to
+  itself — **SAFE** (most likely accepted) or **AMBITIOUS** (best own utility among deals
+  some still-possible type accepts). **rounds** regular decisions are followed by one
+  offers-only final decision; a rejection consumes the turn and is itself informative.
+  **Q\*** = the exact dynamic-programming value of each option (Fractions; the identity
+  "mean realised utility of the exact arm = V(prior)" holds to equality). A horizon
+  **binds** when greedy-EIG underperforms the exact policy somewhere. Arms: `exact`,
+  `greedy_eig`, `myopic` (never asks), `random`, **`jev_plain`** (lettered options in random
+  order; offers show own utility), **`jev_eig`** (same plus each option's exact EIG in bits).
 - **Chess runs** — a P-numbered sequence: **P0** = pre-eval validation gates; **P1** =
   the primary fixed-position move-quality study (200 positions); **P2** = the
   constrained-LLM comparison (is move quality Jev-specific?); **P3** = a planned,
@@ -167,7 +193,11 @@ Named runs/docs used as shorthand below:
   the eval drop vs the engine's best move (Stockfish grader). **regret (bits)** — EIG of
   the optimal guess minus EIG of the chosen one (expected information left on the table).
   **bits** = base-2 information; "**−4.94 bits**" is the worst seat's log-loss of the
-  true type, −log₂ q(θ_true), i.e. confidently wrong.
+  true type, −log₂ q(θ_true), i.e. confidently wrong. Binned Car-Dealer (§3.6) uses two
+  regrets per decision: **EIG regret** = max EIG on the menu − EIG of the chosen option
+  (bits), and **decision regret** = max_a Q\*(b,a) − Q\*(b,a_t) (utility); **Q gap** =
+  best − second-best Q\* on the menu; **zero-regret share** = fraction of decisions with
+  decision regret exactly 0.
 - Negotiation outcome/quality: **G_i** = normalized attainable gain
   (U_i − r_i)/(U_i\* − r_i) ∈ [0,1]; **min(G)** = the worse-off side's G; **G_responder**
   = G of whoever moves second. **Nash / Q_N** = normalized Nash surplus ratio,
@@ -197,7 +227,9 @@ Named runs/docs used as shorthand below:
   validation + primary + ladder re-run + P2 + confidence H2H), Wordle (Jev-vs-exact-EIG,
   incl. the rigorous census run), Car-Dealer (engine + smoke → salience → aid → controls
   → quality → responder replication → hard regime → forced-counter probe), 20Q (Noul
-  matrix + likelihood/oracle census + selector arms with repeats + cluster-bootstrap CIs).
+  matrix + likelihood/oracle census + selector arms with repeats + cluster-bootstrap CIs),
+  Binned Car-Dealer (exact engine + scripted arms + horizon sweep → pre-registered Jev run at
+  two horizons).
 - **Discipline:** every number below is regenerated by committed analyzers; claims
   are tagged *exact-on-logs* vs *stochastic* in the source docs; confirmatory runs
   were pre-registered before the data were read. Where a headline was later
@@ -217,8 +249,12 @@ are **trivial or externalized**, and fails whenever success requires it to inter
 track a belief, compose a multi-step plan, model the future/opponent, or discover a
 latent goal. 20Q (§3.5) is the sharpest single-task demonstration: the *same* model on
 the *same* task solves **158/158** when its calibrated `Noul` is the likelihood a code
-BED loop plans with, and **0/158** when it must do the planning (pick the questions)
-itself.
+BED loop plans with, and **0/158** when it must do the planning (pick the questions) itself. Binned Car-Dealer
+(§3.6) is the complement: with the forward model already in the menu (two rule-named offer
+candidates, exact EIG available) Jev's selection is **optimal when no planning is needed**
+— zero decision regret in all 1,329 decisions at the slack 6-round horizon — and drops to
+the level of a one-line heuristic, ~0.06 utility below the exact policy, once the
+horizon binds and the ask-vs-act timing matters.
 
 **The sharp sub-pattern** (the most useful result of the study) is that a BED-style
 wrapper provides *two separable things*, and they unlock *different* outcomes:
@@ -438,6 +474,70 @@ the Text-Nav history effect (§3.1) and the Wordle "posterior does the work" eff
 (§3.3) into one experiment, and it is the first place the `Noul`-as-likelihood bridge
 (§4.5) is demonstrated rather than predicted.
 
+### 3.6 Binned Car-Dealer — the horizon, not the model, decides whether Jev is optimal
+
+A single-learner information-acquisition variant of §3.4 built as an exactly solvable
+POMDP (design definitions above; every departure from the pasted design document is in
+`car_dealer_binned/DESIGN_B.md`). The learner asks exactly-specified questions about a frozen
+opponent's priorities or proposes one of two rule-named deals; every option carries an exact
+EIG and an exact Q\*, so every decision yields an EIG regret and a decision regret. All 72
+cells (2 roles × 6 own × 6 opponent rankings) are enumerated; CIs are cell-clustered.
+
+- **Information is free at the design document's horizon (exact-on-logs, no model).** With
+  nine ≥0.9-bit questions and a 6-round horizon the ask-vs-act trade-off never binds:
+  greedy-EIG equals the exact policy in every cell at rounds ∈ [3, 4, 5, 6], and the exact
+  policy stops asking altogether at rounds ∈ [4, 5, 6] because an offer both probes a type
+  set and can close (a rejection eliminates every type that would have accepted; an
+  AMBITIOUS offer at the prior is worth H(1/3) ≈ 0.92 bits — the document's "offers = 0
+  bits" does not hold here). The trade-off binds only at ≤ 2 rounds: at 2 rounds the exact
+  policy averages **0.7756** vs greedy-EIG **0.7171** (loses in 16/72 cells),
+  never-ask **0.7167**, random **0.6622** (`sweep.json`). So the document's **H2** ("greedy EIG
+  can underperform the optimal policy") is settled without a model: true at 2 rounds, false
+  at 6 — and the primary pre-registered Jev horizon was moved to 2 rounds *before* any call.
+- **Binding horizon (primary, pre-registered; 2 rounds + final offer; 360 episodes/arm =
+  72 cells × K=5): Jev beats chance and plays at heuristic level.** P1 confirmed: Δ total
+  decision regret `jev_plain` − `random` **-0.066 [-0.077, -0.054]**. Utilities: `jev_plain`
+  0.7136, `jev_eig` 0.7248 vs `exact` 0.7756, `greedy_eig` 0.7171, `myopic` 0.7167,
+  `random` 0.6480; Δ vs exact -0.062 [-0.084, -0.042] (plain) and -0.051 [-0.070, -0.033] (eig),
+  both confirmed below optimal. Behaviourally Jev is a near-myopic prober: 671 of its
+  706 offers are the AMBITIOUS deal and it asks 0.37 questions per episode; it closes
+  fewer deals than random (0.678 vs 0.917) but better ones.
+- **Showing the EIG number nudges, it does not plan.** `jev_eig` asks more (S3 confirmed,
+  Δ questions +0.131 [+0.017, +0.258]) yet its EIG regret is not lower (S1 not supported,
+  -0.006 [-0.014, +0.002] bits/decision), and its decision regret is *slightly lower*
+  (-0.006 [-0.011, -0.000]) — the registered S2 prediction ("not lower") fails on the
+  good side. The same reading as the §3.4 aid: Jev integrates a number it is handed, but no
+  information-seeking policy follows from it.
+- **Slack horizon (secondary, pre-registered; 6 rounds; 216 episodes/arm, K=3): Jev is
+  exactly optimal.** Both Jev arms realise **0.7821 = the exact policy's utility** with zero
+  decision regret in **every** decision (699 and 630); random errs in 15.5% of its
+  decisions and scores 0.6702 (S6 confirmed, Δ regret -0.104 [-0.120, -0.088]). At this horizon
+  the only available mistake is closing early on the SAFE deal when the AMBITIOUS one
+  would be accepted; Jev chose SAFE 80 and 85 times and every one was optimal. The
+  registered S5 rule (Jev *below* exact) therefore reads "not supported", meaning *equal*.
+- **H3 — choice entropy predicts regret with a sign that flips on the Q gap.** The
+  registered pattern was ρ > 0 at large gaps and ρ ≈ 0 at small ones. Observed (disjoint
+  rank terciles, cell-bootstrap CIs): large-gap ρ **+0.449 [+0.258, +0.614]** (plain),
+  **+0.525 [+0.382, +0.643]** (eig); small-gap ρ **-0.434 [-0.535, -0.337]** and **-0.507 [-0.629, -0.394]**.
+  When one option is clearly best, a diffuse `Noul` vector goes with error; when the top
+  options tie, the diffuse vector is indifference among equals and the *confident* picks
+  are the mistakes. "Not supported" as registered; the document's underlying claim — the
+  relation changes with the gap — holds in a stronger form.
+- **Positional bias measured** (the §3.4 open item): with letters shuffled, `jev_plain`
+  chose the first-listed option 271 times vs 174 for the fourth at 2 rounds (`jev_eig` 267 vs
+  183); a first-position preference exists and coexists with above-chance decisions.
+- **Honest notes.** The opponent is frozen (a single-agent POMDP; the document's bilateral
+  entropy tracking is degenerate here); zero answer/acceptance noise; one question bank
+  and menu rule; the Q-gap tercile binning was corrected (overlapping value bounds →
+  disjoint ranks) before the note was written and is disclosed in `JEV_RESULTS.md`; the
+  deterministic arms were added to each live run so every pair sits in one file.
+
+**Role lesson:** this is §4.2 and §4.3 measured on one dial. With the forward model
+externalized into the menu, Jev's selection goes from chance-level (Wordle, §3.3) to
+*optimal* when the decision needs no planning, and to one-line-heuristic level when the
+timing of information versus action matters. What Jev lacks is still the planner; here the
+horizon is what decides whether a planner is needed at all.
+
 ## 4. The design patterns
 
 ### 4.1 Propose → Answer → Select
@@ -455,7 +555,10 @@ guarantees a *valid* decision — but:
   heuristic (the guarantee is a *wrapper* property);
 - in Wordle, selection inside the posterior is *chance-level*;
 - in 20Q, Jev-as-question-selector solves **0/158** (match@1 ≈ chance) and even with the
-  transcript stays well below the code planner (§3.5).
+  transcript stays well below the code planner (§3.5);
+- in Binned Car-Dealer, with the forward model in the menu, Jev is *exactly optimal* when
+  the horizon is slack and heuristic-level when it binds (§3.6) — quality tracks how much
+  planning the decision needs, not the model.
 
 So "use Jev" buys you legality/validity + calibration, and you should expect decision
 *quality* to come from the model class or the external loop, not from Jev.
@@ -492,8 +595,11 @@ priceable without a public Jev rate). The "composable into BED" bridge therefore
 latter **no longer untested: 20Q (§3.5) shows the `Noul` separates category membership at
 mean AUC 0.977 and, ingested as `p(answer | hypothesis)` by a code BED loop, drives it to
 solve 158/158 in ~10 questions.** What remains untested is a likelihood-side head-to-head
-against a free LLM's answer-probability (the 20Q oracle is J/J, not an LLM baseline), so
-the *relative* calibration claim is still open the way the Chess move-choice one was.
+against a free LLM's answer-probability (the 20Q oracle is J/J, not an LLM baseline), so the *relative* calibration claim is still open the way the Chess move-choice one was.
+Binned Car-Dealer (§3.6) adds a caution for the abstain-gate use: the choice entropy predicts
+decision regret with a **sign that flips on the Q gap** (+0.45…+0.53 when one option is
+clearly best, -0.51…-0.43 when the top options tie), so a diffuse `Noul` vector has to be
+read against whether the options actually differ before it is treated as uncertainty.
 
 ### 4.6 When each component is primary (decision rule)
 - **Observable + discrete action, no latent → Jev alone.** FO-Maze, legal-move Chess.
@@ -505,6 +611,9 @@ the *relative* calibration claim is still open the way the Chess move-choice one
   (planner or belief filter), Jev selects. Text-Nav, Car-Dealer.
 - **Reward-maximization with an instrumental latent → prior forward model for the
   outcome; add EIG only for the quality margin.** Car-Dealer.
+- **Information acquisition with the forward model already in the menu → Jev selects
+  well; the horizon decides whether a planner is needed.** Binned Car-Dealer: optimal when
+  information is free, heuristic-level when asking costs the deal (§3.6).
 
 ## 5. Relation to RL / actor-critic
 
@@ -574,12 +683,18 @@ when evaluating structured-decision models:
   opportunity-conditioned rates in Exp B; EIG-vacuity check in Exp D.
 - **Honest ceilings:** 36 type pairs = the whole type space → intervals can't be
   narrowed by more K; sharper estimates need a richer type space.
+- **Sweep the design knob before pre-registering:** the Binned Car-Dealer horizon sweep
+  showed the document's 6-round horizon made information free (greedy = exact everywhere),
+  so the primary horizon was moved to 2 rounds *before* any Jev call, and the document's H2
+  was settled exactly without a model (§3.6). Its S4 tercile binning bug was fixed before
+  the note and disclosed, with the verdict under both binnings reported.
 
 ## 7. Open questions, limits, in-flight
 
 - **Car-Dealer:** single runs for hard regime and the forced-counter probe;
   candidate-order randomization (shuffling the order the deal options are presented to
-  Jev, to rule out position/order bias) not run; β/ε unswept; the IR-threshold response
+  Jev, to rule out position/order bias) not run in the discretized game — done in the binned
+  variant (§3.6), where a first-position preference exists; β/ε unswept; the IR-threshold response
   model is simple/optimistic; the −4.94-bit "confidently wrong" posterior is a live
   hazard. The full §5.1 Jev/LLM/BED 3×3 cross-play is specified but not run. The EIG
   extension — an acquisition term over offers — is also unrun, and it is non-trivial: an
@@ -601,6 +716,10 @@ when evaluating structured-decision models:
   (and hence no likelihood-side calibration head-to-head); the selector's history rescue
   (0.911) is one prompt; the within-category attribute bank leaves a few fuzzy
   dimensions (e.g. "used for writing/drawing" AUC 0.857).
+- **Binned Car-Dealer:** frozen opponent only (no bilateral entropy, no self-play, no
+  equilibrium); zero noise; one question bank and menu rule; Conditions A/C/D of the design
+  document, the conventional-LLM and BED-LLM arms, and the hard-regime Jev run are not
+  built or run; the first-position bias is measured, not modelled.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (calibrated likelihood consumed by an external loop; Jev weak as the planner).
@@ -615,4 +734,5 @@ when evaluating structured-decision models:
 | Wordle | merged, complete | chance-level selector in a code BED loop | solve 0.74 vs opt 0.94; match@1 0.275 |
 | Car-Dealer | merged, complete | selector + external belief filter | 0/12 alone → 24/24 with filter; ΔNash +0.158 |
 | 20Q | merged, complete | `Noul` = BED likelihood (vs selector) | likelihood solves 158/158 ~10Q (AUC 0.977); selector 0/158, 0.911 with history |
+| Binned Car-Dealer | merged, complete | selector over an exact-EIG menu vs DP reference | 2 rounds: Δ decision regret vs random -0.066, utility 0.71 vs exact 0.78; 6 rounds: = exact, zero regret 1,329/1,329 |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
