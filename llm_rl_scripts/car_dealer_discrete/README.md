@@ -71,6 +71,14 @@ propose a deal, against a frozen scripted opponent) with an exact dynamic-progra
 every decision carries an EIG regret and a decision regret. Scripted arms are frozen; the pre-registered
 Jev run (`../car_dealer_binned/PREREGISTRATION_B.md`) is reported in `../car_dealer_binned/JEV_RESULTS.md`.
 
+## Follow-on: Live Car Dealer with ASK (Phase 0)
+
+[`../car_dealer_live/`](../car_dealer_live/README.md) puts a question action (ASK) back into the
+*bilateral* game: both sides propose, accept, reject and ask under a shared budget, against a
+history-responsive scripted kernel, with an exact oracle that can be solved with ASK allowed or
+forbidden. Phase 0 (`../car_dealer_live/PHASE0_RESULTS.md`) maps where asking is strictly optimal
+over kernel × horizon × question cost. No registration and no model calls yet.
+
 ## Conventions
 
 - Results notes are **rendered from frozen JSON** — no number is typed by hand. Claims are tagged
