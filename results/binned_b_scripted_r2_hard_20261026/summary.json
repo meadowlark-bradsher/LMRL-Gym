@@ -1,0 +1,163 @@
+{
+  "config": {
+    "game": "binned-car-dealer-b-v0.1",
+    "regime": "hard",
+    "reservation": "11/20",
+    "rounds": 2,
+    "final_decision_t": 3,
+    "n_questions": 2,
+    "n_offers": 2,
+    "answer_noise": "0",
+    "accept_noise": "0",
+    "bank": [
+      "top:price",
+      "top:warranty",
+      "top:delivery",
+      "above:price>warranty",
+      "above:price>delivery",
+      "above:warranty>delivery",
+      "bottom:price",
+      "bottom:warranty",
+      "bottom:delivery"
+    ]
+  },
+  "arms": [
+    "exact",
+    "greedy_eig",
+    "myopic",
+    "random"
+  ],
+  "roles": [
+    "buyer",
+    "seller"
+  ],
+  "cells": 36,
+  "repeats": 20,
+  "seed": 0,
+  "jev_backend": null,
+  "jev_shuffle_options": true,
+  "episodes": 1656,
+  "reference_values": {
+    "buyer/p/w/d": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "buyer/p/d/w": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "buyer/w/p/d": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "buyer/w/d/p": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "buyer/d/p/w": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "buyer/d/w/p": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "seller/p/w/d": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "seller/p/d/w": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "seller/w/p/d": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "seller/w/d/p": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "seller/d/p/w": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    },
+    "seller/d/w/p": {
+      "menu": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      },
+      "unconstrained": {
+        "exact": "91/120",
+        "float": 0.7583333333333333
+      }
+    }
+  },
+  "elapsed_s": 7.95
+}
