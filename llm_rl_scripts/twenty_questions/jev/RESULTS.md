@@ -11,9 +11,13 @@ numbers regenerate from the committed `results/*/summary.json` and
 |---|---|---|---:|---:|
 | **Likelihood** (Noul) + matrix oracle | BED (EIG argmax) | **158/158 = 1.000** | **10.21** | — |
 | **Likelihood** (Noul) + live J/J oracle | BED (EIG argmax) | **158/158 = 1.000** | **10.19** | — |
-| **Selector** (Choice), no history | Jev | **0/158 = 0.000** | 20.0 (cap) | **0.048** |
-| Selector (Choice) + no-repeat | Jev | 0/158 = 0.000 | 20.0 (cap) | 0.077 |
-| Selector (Choice) + history | Jev | **137/158 = 0.867** | 14.12 | 0.202 |
+| **Selector** (Choice), no history | Jev | **0.000** [0, 0] | 20.0 (cap) | **0.049** |
+| Selector (Choice) + no-repeat | Jev | 0.000 [0, 0] | 20.0 (cap) | 0.076 |
+| Selector (Choice) + history | Jev | **0.911** [0.871, 0.947] | 13.99 | 0.202 |
+
+Selector rows are the K=3 census with cluster-bootstrap 95% CIs (§5); the
+likelihood/oracle rows are deterministic (matrix) or near-deterministic (J/J) and
+solved every object.
 
 Census = every one of the 158 objects played once.
 
@@ -66,19 +70,41 @@ controls, echoing the Text-Nav goal/history decomposition, separate "it just
 repeats itself" from "it has no belief state":
 
 * **+no-repeat** — already-asked questions are dropped from the shortlist, so
-  repetition is mechanically impossible. **Still 0/158** (match@1 0.077). Blocking
-  the exact repeat does nothing: with no context, Jev just picks its
+  repetition is mechanically impossible. **Still solves 0** (match@1 0.076).
+  Blocking the exact repeat does nothing: with no context, Jev just picks its
   next-most-generic favorite (a near-duplicate), and the posterior still stalls.
 * **+history** — the running Q&A transcript is put in the Choice state. **Jumps to
-  137/158 = 0.867**, avg 14.1 questions, match@1 0.202, regret 0.323 bits.
+  0.911**, avg 14.0 questions, match@1 0.202, regret 0.315 bits.
 
 So the binding constraint is **the belief/history representation, not repetition**.
 Given the transcript, Jev becomes a competent selector; blocking repeats without
 context leaves it lost. And even with history it is far from optimal — match@1
-0.20 (≈10× the 1/48 chance rate) — so it succeeds the way it does in Wordle: the
-code-maintained posterior does the heavy lifting and a forgiving task tolerates
-sub-optimal questions, not because Jev selects well. This is the Text-Nav history
-effect and the Wordle "posterior does the work" effect in one experiment.
+0.20 (≈10× the 1/48 chance rate), solve 0.911 significantly below the BED
+planner's 1.000 — so it succeeds the way it does in Wordle: the code-maintained
+posterior does the heavy lifting and a forgiving task tolerates sub-optimal
+questions, not because Jev selects well. This is the Text-Nav history effect and
+the Wordle "posterior does the work" effect in one experiment.
+
+## 5. Selector arms with repeats + cluster-bootstrap CIs
+
+Jev's Choice is stochastic at near-ties, so each selector arm is a 158-object
+census with K=3 independent rollouts; the bootstrap resamples the **object** (the
+independent unit — rollouts within an object are not), B=10000, matching the
+Wordle census analyzer (`analyze_selector.py`, `results/selector_ci_20261027/`).
+0 API errors across all three arms (474 episodes each).
+
+| arm | solve [95% CI] | avg Q [CI] | match@1 [CI] | regret bits [CI] |
+|---|---|---|---|---|
+| no history | 0.000 [0, 0] | 20.0 [20, 20] | 0.049 [0.047, 0.051] | 0.677 [0.665, 0.689] |
+| no-repeat | 0.000 [0, 0] | 20.0 [20, 20] | 0.076 [0.072, 0.080] | 0.609 [0.596, 0.623] |
+| history | 0.911 [0.871, 0.947] | 13.99 [13.42, 14.58] | 0.202 [0.190, 0.215] | 0.315 [0.301, 0.329] |
+
+The K=1 census point estimates (§4) all fall inside these intervals (history's
+0.867 was a mild down-draw of the 0.911 process). The match@1 CIs are mutually
+non-overlapping — no-repeat ranks slightly better than no-history, and history
+clearly best — yet all three sit far below 1.0, and history's solve CI excludes
+1.0: **repeats confirm that Jev-as-selector, even with memory, does not reach the
+BED planner**, and the earlier arms were not down-draws.
 
 ## Reproduce
 

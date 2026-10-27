@@ -1,0 +1,113 @@
+{
+  "n_episodes": 474,
+  "oracle": "matrix",
+  "solve_rate": 0.9113924050632911,
+  "avg_questions_all": 13.98945147679325,
+  "avg_questions_won": 13.405092592592593,
+  "avg_reward": -13.078059071729959,
+  "per_category": {
+    "Animals": {
+      "n": 30,
+      "solve_rate": 1.0,
+      "avg_questions": 10.833333333333334
+    },
+    "Art": {
+      "n": 21,
+      "solve_rate": 0.42857142857142855,
+      "avg_questions": 18.095238095238095
+    },
+    "Clothes": {
+      "n": 33,
+      "solve_rate": 0.696969696969697,
+      "avg_questions": 17.03030303030303
+    },
+    "Electronics": {
+      "n": 30,
+      "solve_rate": 1.0,
+      "avg_questions": 12.466666666666667
+    },
+    "Fruits": {
+      "n": 30,
+      "solve_rate": 1.0,
+      "avg_questions": 12.066666666666666
+    },
+    "Furniture": {
+      "n": 30,
+      "solve_rate": 0.9666666666666667,
+      "avg_questions": 12.966666666666667
+    },
+    "Garden Supplies": {
+      "n": 15,
+      "solve_rate": 1.0,
+      "avg_questions": 13.733333333333333
+    },
+    "Jewelry": {
+      "n": 27,
+      "solve_rate": 0.9259259259259259,
+      "avg_questions": 14.88888888888889
+    },
+    "Kitchen Tools": {
+      "n": 30,
+      "solve_rate": 1.0,
+      "avg_questions": 13.8
+    },
+    "Musical Instruments": {
+      "n": 30,
+      "solve_rate": 0.8,
+      "avg_questions": 18.133333333333333
+    },
+    "Nature": {
+      "n": 33,
+      "solve_rate": 1.0,
+      "avg_questions": 9.848484848484848
+    },
+    "Office Supplies": {
+      "n": 42,
+      "solve_rate": 0.8571428571428571,
+      "avg_questions": 15.5
+    },
+    "Sports": {
+      "n": 30,
+      "solve_rate": 0.9333333333333333,
+      "avg_questions": 13.466666666666667
+    },
+    "Tools": {
+      "n": 18,
+      "solve_rate": 1.0,
+      "avg_questions": 16.5
+    },
+    "Toys": {
+      "n": 15,
+      "solve_rate": 0.8,
+      "avg_questions": 15.466666666666667
+    },
+    "Vegetables": {
+      "n": 30,
+      "solve_rate": 1.0,
+      "avg_questions": 14.833333333333334
+    },
+    "Vehicles": {
+      "n": 30,
+      "solve_rate": 1.0,
+      "avg_questions": 10.633333333333333
+    }
+  },
+  "selector": {
+    "n_picks": 6572,
+    "match_at_1": 0.202069385270846,
+    "mean_regret_bits": 0.3148767986973724
+  },
+  "errors": 0,
+  "config": {
+    "oracle": "matrix",
+    "selector": "jev",
+    "selector_history": true,
+    "selector_norepeat": false,
+    "confidence": 0.9,
+    "eps": 0.05,
+    "max_questions": 20,
+    "census": true,
+    "repeats": 3,
+    "n_objects": 158
+  }
+}

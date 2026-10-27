@@ -347,6 +347,8 @@ class Step:
     support_before: int
     entropy_before: float
     true_hyp_prob_before: float
+    sel_match_top: Optional[bool] = None   # selector picked the EIG argmax?
+    sel_regret_bits: Optional[float] = None  # EIG(argmax) - EIG(chosen)
 
 
 @dataclass
@@ -387,6 +389,7 @@ def run_episode(true_h: Hypothesis, hypotheses: Sequence[Hypothesis],
         top_p = post[top_name]
 
         # Commit to a guess when confident or when only one hypothesis remains.
+        used_selector = False
         if top_p >= confidence or support == 1:
             q = guess_by_name[top_name]
         else:
@@ -394,15 +397,25 @@ def run_episode(true_h: Hypothesis, hypotheses: Sequence[Hypothesis],
             if no_repeat:
                 cands = [c for c in cands if c.qid not in asked_qids] or cands
             ranked = rank_questions(cands, post, by_name, like)
-            q = ranked[0][0] if selector is None else selector(ranked, post, transcript)
+            if selector is None:
+                q = ranked[0][0]
+            else:
+                q = selector(ranked, post, transcript)
+                used_selector = True
 
         eig = expected_info_gain(q, post, by_name, like)
         p_yes = predictive_yes(q, post, by_name, like)
         ans = oracle(q, true_h)
+        sel_match = sel_regret = None
+        if used_selector and getattr(selector, "picks", None):
+            last = selector.picks[-1]
+            sel_match = last.get("match_top")
+            sel_regret = last.get("regret_bits")
         steps.append(Step(
             turn=turn, qid=q.qid, question=q.text, kind=q.kind, eig=eig,
             p_yes_pred=p_yes, answer_yes=ans, support_before=support,
             entropy_before=ent, true_hyp_prob_before=post[true_h.name],
+            sel_match_top=sel_match, sel_regret_bits=sel_regret,
         ))
 
         transcript.append((q.text, ans))

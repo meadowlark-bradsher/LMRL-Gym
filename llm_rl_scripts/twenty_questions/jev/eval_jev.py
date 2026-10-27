@@ -71,43 +71,63 @@ def run_episodes(hyps: Sequence[Hypothesis], attribute_matrix, oracle_kind: str,
                  episodes: int, max_questions: int, confidence: float, eps: float,
                  seed: int, client=None, selector=None,
                  jsonl_path: Optional[str] = None, census: bool = False,
-                 no_repeat: bool = False) -> dict:
+                 no_repeat: bool = False, repeats: int = 1) -> dict:
     bank = build_question_bank(hyps)
     like = make_likelihood(attribute_matrix)
     oracle = make_oracle(oracle_kind, attribute_matrix, client=client, threshold=0.5)
 
     if census:
-        targets = list(hyps)
+        targets = [h for h in hyps for _ in range(repeats)]
     else:
         rng = random.Random(seed)
-        targets = [rng.choice(hyps) for _ in range(episodes)]
+        base = [rng.choice(hyps) for _ in range(episodes)]
+        targets = [h for h in base for _ in range(repeats)]
 
     results: List[bed.EpisodeResult] = []
+    rollout_counts: Dict[str, int] = {}
     jfile = open(jsonl_path, "w") if jsonl_path else None
     try:
+        errors = 0
         for i, true_h in enumerate(targets):
-            res = run_episode(
-                true_h, hyps, bank, like, oracle, max_questions=max_questions,
-                confidence=confidence, eps=eps, selector=selector,
-                no_repeat=no_repeat,
-            )
+            res = None
+            for attempt in range(3):
+                try:
+                    res = run_episode(
+                        true_h, hyps, bank, like, oracle, max_questions=max_questions,
+                        confidence=confidence, eps=eps, selector=selector,
+                        no_repeat=no_repeat,
+                    )
+                    break
+                except Exception as e:  # transient API failure: retry, then skip
+                    print("  ep {} ({}) attempt {} failed: {}".format(
+                        i, true_h.name, attempt + 1, str(e)[:120]), flush=True)
+                    import time as _t
+                    _t.sleep(2.0 * (attempt + 1))
+            if res is None:
+                errors += 1
+                continue
             results.append(res)
+            rollout = rollout_counts.get(res.true_name, 0)
+            rollout_counts[res.true_name] = rollout + 1
             if jfile:
                 rec = {
-                    "episode": i, "true_name": res.true_name,
+                    "episode": i, "rollout": rollout, "true_name": res.true_name,
                     "true_category": res.true_category, "won": res.won,
                     "n_questions": res.n_questions, "reward": res.reward,
                     "final_top": res.final_top,
                     "steps": [asdict(s) for s in res.steps],
                 }
                 jfile.write(json.dumps(rec) + "\n")
-            if (i + 1) % 10 == 0:
-                print("  {}/{} episodes".format(i + 1, episodes), flush=True)
+            if (i + 1) % 25 == 0:
+                print("  {}/{} episodes ({} errors)".format(
+                    i + 1, len(targets), errors), flush=True)
     finally:
         if jfile:
             jfile.close()
 
-    return summarize(results, oracle_kind, oracle, selector)
+    summ = summarize(results, oracle_kind, oracle, selector)
+    summ["errors"] = errors
+    return summ
 
 
 def summarize(results: List[bed.EpisodeResult], oracle_kind: str, oracle,
@@ -239,6 +259,8 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=50)
     ap.add_argument("--census", action="store_true",
                     help="play every object once instead of sampling --episodes")
+    ap.add_argument("--repeats", type=int, default=1,
+                    help="independent rollouts per target (Jev Choice is stochastic)")
     ap.add_argument("--max-questions", type=int, default=20)
     ap.add_argument("--confidence", type=float, default=0.9)
     ap.add_argument("--eps", type=float, default=0.05)
@@ -299,7 +321,7 @@ def main() -> None:
         hyps, attribute_matrix, args.oracle, episodes=args.episodes,
         max_questions=args.max_questions, confidence=args.confidence, eps=args.eps,
         seed=args.seed, client=client, selector=selector, jsonl_path=args.jsonl,
-        census=args.census, no_repeat=args.selector_norepeat,
+        census=args.census, no_repeat=args.selector_norepeat, repeats=args.repeats,
     )
     summ["config"] = {
         "oracle": args.oracle, "selector": args.selector,
@@ -307,7 +329,7 @@ def main() -> None:
         "selector_norepeat": args.selector_norepeat,
         "confidence": args.confidence, "eps": args.eps,
         "max_questions": args.max_questions, "census": args.census,
-        "n_objects": len(hyps),
+        "repeats": args.repeats, "n_objects": len(hyps),
     }
     print(json.dumps(summ, indent=2))
     if args.summary:
