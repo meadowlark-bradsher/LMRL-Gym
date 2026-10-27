@@ -1,0 +1,111 @@
+{
+  "boot": 10000,
+  "seed": 0,
+  "arms": {
+    "none": {
+      "path": "llm_rl_scripts/twenty_questions/jev/results/selector_ci_20261027/none.jsonl",
+      "n_objects": 158,
+      "n_episodes": 474,
+      "n_selector_picks": 9479,
+      "rollouts_per_object": 3,
+      "solve_rate": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "avg_questions": {
+        "point": 20.0,
+        "ci95": [
+          20.0,
+          20.0
+        ]
+      },
+      "match_at_1": {
+        "point": 0.0492,
+        "ci95": [
+          0.0474,
+          0.0508
+        ]
+      },
+      "mean_regret_bits": {
+        "point": 0.6765,
+        "ci95": [
+          0.6649,
+          0.6888
+        ]
+      }
+    },
+    "norepeat": {
+      "path": "llm_rl_scripts/twenty_questions/jev/results/selector_ci_20261027/norepeat.jsonl",
+      "n_objects": 158,
+      "n_episodes": 474,
+      "n_selector_picks": 9480,
+      "rollouts_per_object": 3,
+      "solve_rate": {
+        "point": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "avg_questions": {
+        "point": 20.0,
+        "ci95": [
+          20.0,
+          20.0
+        ]
+      },
+      "match_at_1": {
+        "point": 0.0761,
+        "ci95": [
+          0.0724,
+          0.0797
+        ]
+      },
+      "mean_regret_bits": {
+        "point": 0.6093,
+        "ci95": [
+          0.5959,
+          0.6233
+        ]
+      }
+    },
+    "history": {
+      "path": "llm_rl_scripts/twenty_questions/jev/results/selector_ci_20261027/history.jsonl",
+      "n_objects": 158,
+      "n_episodes": 474,
+      "n_selector_picks": 6572,
+      "rollouts_per_object": 3,
+      "solve_rate": {
+        "point": 0.9114,
+        "ci95": [
+          0.8713,
+          0.9473
+        ]
+      },
+      "avg_questions": {
+        "point": 13.9895,
+        "ci95": [
+          13.4219,
+          14.5759
+        ]
+      },
+      "match_at_1": {
+        "point": 0.2021,
+        "ci95": [
+          0.1898,
+          0.2146
+        ]
+      },
+      "mean_regret_bits": {
+        "point": 0.3149,
+        "ci95": [
+          0.3009,
+          0.3287
+        ]
+      }
+    }
+  }
+}
