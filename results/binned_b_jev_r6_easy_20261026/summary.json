@@ -1,0 +1,166 @@
+{
+  "config": {
+    "game": "binned-car-dealer-b-v0.1",
+    "regime": "easy",
+    "reservation": "2/5",
+    "rounds": 6,
+    "final_decision_t": 7,
+    "n_questions": 2,
+    "n_offers": 2,
+    "answer_noise": "0",
+    "accept_noise": "0",
+    "bank": [
+      "top:price",
+      "top:warranty",
+      "top:delivery",
+      "above:price>warranty",
+      "above:price>delivery",
+      "above:warranty>delivery",
+      "bottom:price",
+      "bottom:warranty",
+      "bottom:delivery"
+    ]
+  },
+  "arms": [
+    "jev_plain",
+    "jev_eig",
+    "random",
+    "exact",
+    "greedy_eig",
+    "myopic"
+  ],
+  "roles": [
+    "buyer",
+    "seller"
+  ],
+  "cells": 36,
+  "repeats": 3,
+  "seed": 12,
+  "jev_backend": "http",
+  "jev_shuffle_options": true,
+  "episodes": 864,
+  "error_stubs": 0,
+  "reference_values": {
+    "buyer/p/w/d": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "buyer/p/d/w": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "buyer/w/p/d": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "buyer/w/d/p": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "buyer/d/p/w": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "buyer/d/w/p": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "seller/p/w/d": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "seller/p/d/w": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "seller/w/p/d": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "seller/w/d/p": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "seller/d/p/w": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    },
+    "seller/d/w/p": {
+      "menu": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      },
+      "unconstrained": {
+        "exact": "61/78",
+        "float": 0.782051282051282
+      }
+    }
+  },
+  "elapsed_s": 150.85
+}

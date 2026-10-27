@@ -68,8 +68,8 @@ Live runs need `TYPESAFE_API_KEY`. `jev-latest` is stochastic server-side; `--se
 [`../car_dealer_binned/`](../car_dealer_binned/README.md) reuses this engine's deals, rankings and
 exact utilities in an information-acquisition game (ask a question about the opponent's priorities or
 propose a deal, against a frozen scripted opponent) with an exact dynamic-programming reference, so
-every decision carries an EIG regret and a decision regret. Scripted arms are frozen; the Jev run is
-pre-registered in `../car_dealer_binned/PREREGISTRATION_B.md` and has not been run.
+every decision carries an EIG regret and a decision regret. Scripted arms are frozen; the pre-registered
+Jev run (`../car_dealer_binned/PREREGISTRATION_B.md`) is reported in `../car_dealer_binned/JEV_RESULTS.md`.
 
 ## Conventions
 

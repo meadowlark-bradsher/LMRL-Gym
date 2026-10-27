@@ -43,6 +43,31 @@ def main(argv=None) -> int:
             same = a == b
             ok &= same
             print(("PASS" if same else "FAIL"), d, "analysis.json regenerates" if same else "analysis.json DIFFERS")
+        # Jev runs: analysis + verdicts regenerate from the (gz) logs
+        jev_dirs = [("results/binned_b_jev_r2_easy_20261026", 11, "primary"), ("results/binned_b_jev_r6_easy_20261026", 12, "secondary")]
+        jev_present = all(os.path.exists(os.path.join(d, "analysis.json")) for d, _, _ in jev_dirs)
+        if jev_present:
+            for d, seed, hz in jev_dirs:
+                out = os.path.join(tmp, os.path.basename(d) + ".json")
+                run([sys.executable, "-m", "llm_rl_scripts.car_dealer_binned.analyze_condition_b", d, "--seed", str(seed), "--B", "5000", "--json", out])
+                a = json.load(open(out)); b = json.load(open(os.path.join(d, "analysis.json")))
+                a.pop("source", None); b.pop("source", None)
+                same = a == b; ok &= same
+                print(("PASS" if same else "FAIL"), d, "analysis.json regenerates" if same else "analysis.json DIFFERS")
+                # verdicts: re-apply to the committed analysis into a temp copy
+                vdir = os.path.join(tmp, "v_" + os.path.basename(d)); os.makedirs(vdir)
+                import shutil; shutil.copy(os.path.join(d, "analysis.json"), os.path.join(vdir, "analysis.json"))
+                run([sys.executable, "-m", "llm_rl_scripts.car_dealer_binned.verdicts_b", os.path.join(vdir, "analysis.json"), "--horizon", hz])
+                va = json.load(open(os.path.join(vdir, "verdicts.json"))); vb = json.load(open(os.path.join(d, "verdicts.json")))
+                va.pop("source", None); vb.pop("source", None)
+                same = va == vb; ok &= same
+                print(("PASS" if same else "FAIL"), d, "verdicts.json re-applies identically" if same else "verdicts.json DIFFERS")
+            jnote = os.path.join(tmp, "jev_note.md")
+            run([sys.executable, "-m", "llm_rl_scripts.car_dealer_binned.render_jev_note", "--primary", jev_dirs[0][0], "--secondary", jev_dirs[1][0], "--out", jnote])
+            same = open(jnote).read() == open("llm_rl_scripts/car_dealer_binned/JEV_RESULTS.md").read(); ok &= same
+            print(("PASS" if same else "FAIL"), "JEV_RESULTS.md", "renders identically" if same else "DIFFERS")
+        else:
+            print("SKIP Jev runs (not present)")
         note = os.path.join(tmp, "note.md")
         run([sys.executable, "-m", "llm_rl_scripts.car_dealer_binned.render_scripted_note", "--out", note])
         same = open(note).read() == open(NOTE).read()

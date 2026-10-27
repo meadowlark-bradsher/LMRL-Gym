@@ -1,0 +1,67 @@
+{
+  "source": "results/binned_b_jev_r6_easy_20261026/analysis.json",
+  "horizon": "secondary",
+  "rules": {
+    "S6": {
+      "quantity": "\u0394 total decision regret, jev_plain \u2212 random (6 rounds)",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -0.10372150997150997,
+        "ci95": [
+          -0.12031101614434947,
+          -0.08757716049382716
+        ],
+        "clusters": 72
+      },
+      "verdict": "confirmed"
+    },
+    "S5_jev_plain_6r": {
+      "quantity": "\u0394 learner utility, jev_plain \u2212 exact (6 rounds)",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -1.850371707708594e-17,
+        "ci95": [
+          -3.5465457731081387e-17,
+          0.0
+        ],
+        "clusters": 72
+      },
+      "verdict": "not supported"
+    },
+    "S5_jev_eig_6r": {
+      "quantity": "\u0394 learner utility, jev_eig \u2212 exact (6 rounds)",
+      "prediction": "< 0",
+      "estimate": {
+        "delta": -1.850371707708594e-17,
+        "ci95": [
+          -3.5465457731081387e-17,
+          0.0
+        ],
+        "clusters": 72
+      },
+      "verdict": "not supported"
+    }
+  },
+  "gates": {
+    "well_formed_jev_plain": {
+      "value": 1.0,
+      "pass": true
+    },
+    "positions_jev_plain": {
+      "0": 193,
+      "1": 153,
+      "2": 224,
+      "3": 129
+    },
+    "well_formed_jev_eig": {
+      "value": 1.0,
+      "pass": true
+    },
+    "positions_jev_eig": {
+      "0": 139,
+      "1": 147,
+      "2": 171,
+      "3": 173
+    }
+  }
+}
