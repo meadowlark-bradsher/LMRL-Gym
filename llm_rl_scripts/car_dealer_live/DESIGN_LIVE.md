@@ -1,9 +1,10 @@
-# Live Car-Dealer, Phase 0 — design decisions (`live-car-dealer-v0.1`)
+# Live Car-Dealer — design decisions (`live-car-dealer-v0.1`), Phases 0 and 1
 
 **Source:** [`car_dealer_live_voi_experiment_design.md`](car_dealer_live_voi_experiment_design.md)
 (`CD-VOI-1` / `CD-MIS-1`, copied verbatim from the author's document, 2026-10-27).
-**Scope of this note:** Phase 0 only — implementation and oracle readiness, no research claims,
-no registration, no Jev calls. Numbers live in [`PHASE0_RESULTS.md`](PHASE0_RESULTS.md),
+**Scope of this note:** Phase 0 (implementation and oracle readiness) and the Phase 1 build
+(menu rule, arms, runner, scripted baselines, costlessness check). No research claims, no
+registration, no Jev or LLM call has been made. Numbers live in [`PHASE0_RESULTS.md`](PHASE0_RESULTS.md),
 rendered from `results/live_phase0_sweep_20261027/sweep.json`.
 
 ## 1. Rules the document left to Phase 0 (section 3.2, "revise before preregistration")
@@ -48,8 +49,60 @@ exhaustive no-max policy evaluation of its own policy to < 1e-9 and a Monte Carl
 Cost: ~0.0 s at H = 2, ~0.3 s at H = 3, ~3 s at H = 4 per (kernel, type, opener) pair on this
 machine; H = 6 is left for approximate planning as the document anticipates.
 
-## 4. What Phase 0 does *not* do
+## 4. Phase 1 decisions received 2026-10-29 (recorded before registration)
 
-No registration, no Jev or LLM call, no `B_plan`/`C_plan` practical planners (at H ≤ 4 the exact
-oracle *is* the planner, so `C_plan − B_plan` collapses to Δ\*_active), no T2, no mismatch grid.
-Those are Phases 1–3 and CD-MIS-1.
+Taken by the study's reviewer after reading `PHASE0_RESULTS.md`; the registration will state that
+the kernel was chosen after Phase 0 and before any model call.
+
+| Item | Decision |
+|---|---|
+| Confirmatory cell | H = 4, c_q = 0, kernel α₀ = 0.8, β = 8, p_counter = 1, p_hold = 1, shortlist 3 (the aggregate with the largest Δ\*_active) |
+| Named secondary regimes | H = 2, c_q = 0 (negative control: ASK never optimal); H = 3, c_q = 0 (positive control across all eight kernels); H = 4, c_q = 3/100 (does the policy respect question cost). The rest of the grid is reported in full. |
+| Proposal menu | Shortlist primary (section 5); the full 27-deal menu is a named secondary arm. EIG-shown / EIG-hidden treatment carried over from Condition B unchanged. |
+| Costlessness | Must cover both restrictions (two offer candidates; two highest-EIG questions). Δ\* under the restricted menu is the ceiling; value the restricted menu loses against the full-menu oracle is reported separately and not counted against the model. |
+| Belief | The registration states which belief SAFE / AMBITIOUS are built from (the matched filter, updated on answers and on the opponent's moves) and scopes the claim to the ask-versus-offer decision with belief maintained outside the model. |
+| Primary estimand | Jev with ASK − Jev without ASK, paired by cell, role-balanced, **focal-opens cells** (the opponent-opens ceiling sits below δ = 0.02); all cells secondary. `C_plan − B_plan` = Δ\* reported as the exact ceiling with no CI, plus the fraction of it Jev captures. |
+| Selectivity | Jev's ask rate split by whether ASK is strictly optimal in that state (best ASK Q\* > best non-ASK Q\*), reported in the primary cell, the H = 2 cell and the c_q = 3/100 cell. |
+| Logging | Exact Q\* and EIG of every option at every decision (for the residual information-bias fit). |
+| Denominators | Each Phase 0 aggregate has **24** cells (2 roles × 2 openers × 6 focal types; the opponent type is marginalised by the prior), not 72; the means were already over 24 and the note header was corrected. |
+
+## 5. The Phase 1 menu rule (`menu_live.py`)
+
+At each focal decision the model sees: the legal free moves (ACCEPT / REJECT when facing the
+other side's offer, HOLD when its own offer stands, WALK always); the **two unasked questions with
+the highest exact EIG** under the current belief; and **two offer candidates** built from the
+current belief, SAFE = argmax P_b(accept) and AMBITIOUS = argmax own utility among deals with
+P_b(accept) > 0 (BALANCED = argmax P_b(accept)·(U − r) fills if they coincide), over the pool of
+own-IR deals minus the focal's own standing deal. P_b(accept) is the kernel's exact probability
+of ACCEPT at the opponent node after the proposal, marginalised over the belief, so it reflects the
+opponent's aspiration at that point in the budget and the deadline rule. EIG of an offer is the
+information in the opponent's response (accept / counter / reject); offers are informative. At the
+deadline the menu is {ACCEPT, WALK}. `restrict_offers` / `restrict_questions` switch each
+restriction off so the costlessness check attributes any loss to one of them
+(`costlessness_check.py`, also over menu sizes).
+
+## 6. Phase 1 arms and runner (`arms_live.py`, `jev_policy_live.py`, `run_phase1.py`)
+
+The oracle takes a `menu` hook, so `C_plan` = the exact oracle over the shortlist menu with ASK
+and `B_plan` = the same oracle with ASK forbidden; at H ≤ 4 these **are** the practical planners
+of design section 5 (no search budget to equalise). Scripted arms: `exact_ask` (C_plan),
+`exact_noask` (B_plan), `greedy_eig` (argmax EIG, offers included; ties by immediate value),
+`random` (uniform over the menu minus WALK). Jev arms: `jev_ask_plain`, `jev_ask_eig`,
+`jev_noask_plain`, `jev_noask_eig` (ASK in the menu or not × EIG shown or hidden), lettered and
+shuffled, mock backend offline. Cells = 2 roles × 2 openers × 6 focal types × 6 opponent types =
+144, × K repeats (the opponent is stochastic), seeds derived from (seed, cell, repeat). Every
+decision logs the menu with exact EIG / P(accept) / own utility, Q\* of every ask-menu option
+under C_plan and of every non-ASK option under B_plan, whether ASK is strictly optimal, the choice,
+its regrets, and the Jev probabilities and position. `ceilings.json` holds six exact root values
+per (role, opener, type): full / shortlist × ASK / no-ASK, offers-restricted-only,
+questions-restricted-only. Normalised net gain Y = net / (U_max − r) with U_max = 1 for every type.
+
+Gates (`test_phase1.py`): the menu is a legal, duplicate-free subset with ≤ 2 offers (own-IR,
+SAFE first) and ≤ 2 unasked questions, {ACCEPT, WALK} at the deadline; the restricted oracle is
+bounded by the full one and Δ\*_menu ≥ 0; the `exact_ask` / `exact_noask` arms attain their
+oracles' root values by Monte Carlo within 4 SE and `exact_noask` never asks; the runner's records
+are complete, normalised, stub-free, and Jev positions are logged.
+
+## 7. What is still not done
+
+No registration, no Jev or LLM call, no verdict code, no T2, no mismatch grid (CD-MIS-1).

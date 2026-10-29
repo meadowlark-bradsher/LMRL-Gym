@@ -2,7 +2,7 @@
 
 _Rendered by `render_phase0_note.py` from frozen JSON; do not edit numbers by hand._
 
-Source: `results/live_phase0_sweep_20261027/sweep.json` (`sweep_ask_value.py`, env `live-car-dealer-v0.1`, regime easy, opponent shortlist 3, 1728 cells = 72 (kernel, H, c_q) aggregates × 2 focal roles × 2 openers × 6 focal types; 6166.2 s). Every number is **exact-on-model**: the oracle is solved, nothing is sampled.
+Source: `results/live_phase0_sweep_20261027/sweep.json` (`sweep_ask_value.py`, env `live-car-dealer-v0.1`, regime easy, opponent shortlist 3, 1728 cells = 72 (kernel, H, c_q) aggregates × 24 cells each (2 focal roles × 2 openers × 6 focal types; the opponent's type is marginalised by the uniform prior, so it is not a cell dimension); 6166.2 s). Every number is **exact-on-model**: the oracle is solved, nothing is sampled. Every mean in this note is over the 24 cells of its aggregate unless it says otherwise.
 
 Quantities: V\*_ask / V\*_noask = the focal negotiator's optimal expected net gain from the opening state with ASK allowed / forbidden at every decision; Δ\*_active = V\*_ask − V\*_noask (≥ 0 by construction); `ask-opt nodes` = focal decision nodes (ASK legal) where ASK is *strictly* optimal, out of all such nodes solved; `root ASK` = cells whose optimal opening move (when the focal opens) is a question.
 
