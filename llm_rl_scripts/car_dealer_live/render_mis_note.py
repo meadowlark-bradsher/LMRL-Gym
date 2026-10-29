@@ -196,7 +196,11 @@ def main(argv=None) -> int:
     for p in procs:
         c = a["contrasts"].get(p, {}).get("O_true-B_naive", {}).get("all")
         if c:
-            w(f"- Cost of misspecification under `{p}`: O_true − B_naive = {ci(c)} — {'positive' if side(c) == 'above 0' else side(c)}.")
+            w(f"- O_true − B_naive under `{p}` (registered M8 quantity; it adds the value of asking to the misspecification cost): {ci(c)} — {'positive' if side(c) == 'above 0' else side(c)}.")
+    for p in procs:
+        c = a["contrasts"].get(p, {}).get("O_true-C_naive", {}).get("all")
+        if c:
+            w(f"- Misspecification cost for the ASK-allowed planner under `{p}`: O_true − C_naive = {ci(c)} — {'positive' if side(c) == 'above 0' else side(c)}.")
     w("")
     w("## Regenerate")
     w("")

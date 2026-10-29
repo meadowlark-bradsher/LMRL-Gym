@@ -55,10 +55,14 @@ def main(argv=None) -> int:
     out["gates"]["no_stubs"] = {"error_stubs": A["error_stubs"], "pass": A["error_stubs"] == 0}
     out["gates"]["balanced"] = {"episodes_per_process_arm": counts, "pass": len(flat) == 1}
     m = A["per_arm"].get("matched", {})
-    if "B_naive" in m and "O_true" in m:
-        # under the matched process the naive filter is correctly specified: O_true - B_naive must not be positive
-        c = C.get("matched", {}).get("O_true-B_naive", {}).get(CELLS)
-        out["gates"]["matched_sanity"] = {"O_true-B_naive": est(c), "pass": c is not None and c["ci95"][0] <= 0}
+    if "C_naive" in m and "O_true" in m:
+        # under the matched process the naive filter is correctly specified (up to the 1e-3 floor), so the
+        # ASK-allowed planner on it must equal O_true: O_true - C_naive not positive. (Corrected after the
+        # run from O_true - B_naive, which compares an ASK-allowed with an ASK-forbidden planner and is
+        # positive by the value of asking; disclosed in PREREGISTRATION_MIS.md and MIS_RESULTS.md.)
+        c = C.get("matched", {}).get("O_true-C_naive", {}).get(CELLS)
+        out["gates"]["matched_sanity"] = {"O_true-C_naive": est(c), "pass": c is not None and c["ci95"][0] <= 1e-9,
+                                          "note": "corrected post-run from O_true-B_naive (mis-specified: ASK-allowed vs ASK-forbidden)"}
     out["gates_pass"] = all(g["pass"] for g in out["gates"].values())
 
     def rule(key, process, pair, pred, note, outcome=None):

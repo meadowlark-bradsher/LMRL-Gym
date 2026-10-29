@@ -172,6 +172,10 @@ def arm_pairs(arms: List[str]) -> List[Tuple[str, str]]:
         pairs += [(a, "B_naive") for a in arms if a not in ("B_naive", "A_prior")]
     if "C_mix0.2" in arms and "C_naive" in arms:
         pairs.append(("C_mix0.2", "C_naive"))
+    # O_true against the ASK-allowed learners: the misspecification cost for a planner that may ask
+    # (added after the registered run for the matched-sanity gate and the decomposition; descriptive)
+    if "O_true" in arms:
+        pairs += [("O_true", c) for c in ("C_naive", "C_mix0.2") if c in arms]
     seen, out = set(), []
     for p in pairs:
         if p not in seen:

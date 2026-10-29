@@ -72,7 +72,10 @@ as it changes the decision. One confirmatory contrast; the rest secondary, no mu
 ## Sanity gates (fail → fix the pipeline, do not read results)
 
 - No error stubs; every (process, arm) has 720 episodes.
-- Under `matched`, `O_true − B_naive` is not positive (the naive filter is then correctly specified up to the 10⁻³ floor).
+- Under `matched`, `O_true − C_naive` is not positive (the naive filter is then correctly specified up to the 10⁻³ floor).
+  **Post-run correction (2026-10-29):** this gate was registered as `O_true − B_naive`, which compares an ASK-allowed planner with
+  an ASK-forbidden one and is positive by exactly the value of asking (it read +0.066 [+0.048, +0.086]); the intended check is the
+  ASK-allowed pair. The gate is a pipeline check, not a hypothesis; no decision rule (M1–M11, G_*) was changed after the run.
 - `test_mis.py`: every process is a valid kernel at every reachable node; filters stay normalised and survive impossible observations;
   under `matched` the naive filter tracks the exact filter and `O_true` equals the assumed ASK planner.
 

@@ -1,0 +1,901 @@
+{
+ "confirmatory_process": "history",
+ "cells": "all",
+ "gates": {
+  "no_stubs": {
+   "error_stubs": 0,
+   "pass": true
+  },
+  "balanced": {
+   "episodes_per_process_arm": {
+    "anchoring": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    },
+    "evasive": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    },
+    "history": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    },
+    "matched": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    },
+    "stochastic": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    },
+    "threshold": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    },
+    "withholding": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "B_temp0.5": 720,
+     "B_temp0.75": 720,
+     "B_mix0.05": 720,
+     "B_mix0.2": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "O_true": 720
+    }
+   },
+   "pass": true
+  },
+  "matched_sanity": {
+   "O_true-C_naive": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "pass": true,
+   "note": "corrected post-run from O_true-B_naive (mis-specified: ASK-allowed vs ASK-forbidden)"
+  }
+ },
+ "rules": {
+  "M1": {
+   "process": "history",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "PRIMARY: negative learning under history-contingent countering",
+   "estimate": {
+    "point": 0.12617521367521364,
+    "ci95": [
+     0.09809472934472933,
+     0.15455840455840456
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "M2": {
+   "process": "withholding",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "negative learning under strategic withholding",
+   "estimate": {
+    "point": -0.002172364672364672,
+    "ci95": [
+     -0.09237891737891739,
+     0.08306623931623931
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "M3": {
+   "process": "matched",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "> 0",
+   "note": "positive control: correctly specified learning helps",
+   "estimate": {
+    "point": 0.1293091168091168,
+    "ci95": [
+     0.1006588319088319,
+     0.15870726495726495
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "M4": {
+   "process": "matched",
+   "quantity": "\u0394 Y, B_mix0.2-B_naive, all cells",
+   "prediction": "<= 0",
+   "note": "matched-model cost of robustness (mixture)",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "M5": {
+   "process": "matched",
+   "quantity": "\u0394 Y, B_temp0.5-B_naive, all cells",
+   "prediction": "<= 0",
+   "note": "matched-model cost of robustness (tempering)",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "M6": {
+   "process": "history",
+   "quantity": "\u0394 Y, B_mix0.2-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "robust filtering recovers value under the confirmatory mismatch",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "M7": {
+   "process": "history",
+   "quantity": "\u0394 Y, B_temp0.5-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "tempering recovers value under the confirmatory mismatch",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "M8": {
+   "process": "history",
+   "quantity": "\u0394 Y, O_true-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "cost of misspecification (reference, never available to a deployed agent)",
+   "estimate": {
+    "point": 0.06720085470085471,
+    "ci95": [
+     0.05226139601139603,
+     0.0836360398860399
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "M9": {
+   "process": "history",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "does asking help under the confirmatory mismatch",
+   "estimate": {
+    "point": 0.06720085470085471,
+    "ci95": [
+     0.05226139601139603,
+     0.0836360398860399
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "M10": {
+   "process": "history",
+   "quantity": "\u0394 final_logloss_true_bits, B_naive-A_prior, all cells",
+   "prediction": "> 0",
+   "note": "belief error: naive posterior log-loss on the true type vs the prior (bits)",
+   "estimate": {
+    "point": -2.2065711337646197,
+    "ci95": [
+     -2.2591700849415854,
+     -2.1552584032164988
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "M11": {
+   "process": "history",
+   "quantity": "\u0394 total_decision_regret_true, B_naive-A_prior, all cells",
+   "prediction": "> 0",
+   "note": "decision loss: true-model decision regret, naive vs prior",
+   "estimate": {
+    "point": -0.07669337606837608,
+    "ci95": [
+     -0.09223290598290598,
+     -0.06197649572649574
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "G_anchoring": {
+   "process": "anchoring",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid, reported without selection",
+   "estimate": {
+    "point": 0.13543447293447292,
+    "ci95": [
+     0.10698005698005697,
+     0.16417378917378916
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "G_evasive": {
+   "process": "evasive",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid, reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "G_history": {
+   "process": "history",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid, reported without selection",
+   "estimate": {
+    "point": 0.12617521367521364,
+    "ci95": [
+     0.09809472934472933,
+     0.15455840455840456
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "G_stochastic": {
+   "process": "stochastic",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid, reported without selection",
+   "estimate": {
+    "point": 0.06369301994301994,
+    "ci95": [
+     0.030893874643874657,
+     0.09387464387464388
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "G_threshold": {
+   "process": "threshold",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid, reported without selection",
+   "estimate": {
+    "point": 0.08333333333333334,
+    "ci95": [
+     0.06294515669515671,
+     0.10220797720797721
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "opposite"
+  },
+  "G_withholding": {
+   "process": "withholding",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid, reported without selection",
+   "estimate": {
+    "point": -0.002172364672364672,
+    "ci95": [
+     -0.09237891737891739,
+     0.08306623931623931
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  }
+ },
+ "gates_pass": true,
+ "descriptive": {
+  "cross_process": {
+   "mean_normalized_net_gain": {
+    "A_prior": {
+     "anchoring": 0.4289529914529915,
+     "evasive": 0.43696581196581197,
+     "history": 0.43856837606837606,
+     "matched": 0.437232905982906,
+     "stochastic": 0.443019943019943,
+     "threshold": 0.3782051282051282,
+     "withholding": 0.4278846153846154
+    },
+    "B_naive": {
+     "anchoring": 0.5643874643874645,
+     "evasive": 0.5647613960113961,
+     "history": 0.5647435897435897,
+     "matched": 0.5665420227920228,
+     "stochastic": 0.506712962962963,
+     "threshold": 0.46153846153846156,
+     "withholding": 0.4257122507122507
+    },
+    "B_temp0.5": {
+     "anchoring": 0.5643874643874645,
+     "evasive": 0.5647613960113961,
+     "history": 0.5647435897435897,
+     "matched": 0.5665420227920228,
+     "stochastic": 0.507247150997151,
+     "threshold": 0.46153846153846156,
+     "withholding": 0.4257122507122507
+    },
+    "B_temp0.75": {
+     "anchoring": 0.5643874643874645,
+     "evasive": 0.5647613960113961,
+     "history": 0.5647435897435897,
+     "matched": 0.5665420227920228,
+     "stochastic": 0.506712962962963,
+     "threshold": 0.46153846153846156,
+     "withholding": 0.4257122507122507
+    },
+    "B_mix0.05": {
+     "anchoring": 0.5643874643874645,
+     "evasive": 0.5647613960113961,
+     "history": 0.5647435897435897,
+     "matched": 0.5665420227920228,
+     "stochastic": 0.506712962962963,
+     "threshold": 0.46153846153846156,
+     "withholding": 0.4257122507122507
+    },
+    "B_mix0.2": {
+     "anchoring": 0.5643874643874645,
+     "evasive": 0.5647613960113961,
+     "history": 0.5647435897435897,
+     "matched": 0.5665420227920228,
+     "stochastic": 0.506712962962963,
+     "threshold": 0.46153846153846156,
+     "withholding": 0.4257122507122507
+    },
+    "C_naive": {
+     "anchoring": 0.6307870370370371,
+     "evasive": 0.4710826210826211,
+     "history": 0.6319444444444444,
+     "matched": 0.6323005698005698,
+     "stochastic": 0.603258547008547,
+     "threshold": 0.6260683760683761,
+     "withholding": 0.6315883190883191
+    },
+    "C_mix0.2": {
+     "anchoring": 0.6265135327635328,
+     "evasive": 0.48561253561253565,
+     "history": 0.6274038461538461,
+     "matched": 0.6276709401709402,
+     "stochastic": 0.5916132478632479,
+     "threshold": 0.6167200854700855,
+     "withholding": 0.6275819088319089
+    },
+    "O_true": {
+     "anchoring": 0.6307870370370371,
+     "evasive": 0.5631232193732194,
+     "history": 0.6319444444444444,
+     "matched": 0.6323005698005698,
+     "stochastic": 0.6327457264957265,
+     "threshold": 0.6314102564102564,
+     "withholding": 0.6315883190883191
+    }
+   },
+   "vs_matched": {
+    "A_prior": {
+     "anchoring": {
+      "point": -0.008279914529914532,
+      "ci95": [
+       -0.015224358974358995,
+       -0.001869658119658116
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.0002670940170940223,
+      "ci95": [
+       -0.0050747863247863345,
+       0.0042735042735042705
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": 0.001335470085470093,
+      "ci95": [
+       -0.004006410256410254,
+       0.006677350427350441
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": 0.0057870370370370315,
+      "ci95": [
+       -0.0004451566951567028,
+       0.012464387464387458
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.05902777777777779,
+      "ci95": [
+       -0.08146367521367522,
+       -0.03863960113960115
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.009348290598290605,
+      "ci95": [
+       -0.02555199430199431,
+       0.006054131054131051
+      ],
+      "n_clusters": 36
+     }
+    },
+    "B_naive": {
+     "anchoring": {
+      "point": -0.0021545584045583937,
+      "ci95": [
+       -0.009722222222222222,
+       0.0050925925925926025
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.0017806267806267815,
+      "ci95": [
+       -0.008653846153846161,
+       0.005128205128205134
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.0017984330484330448,
+      "ci95": [
+       -0.008778490028490023,
+       0.004700854700854715
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.05982905982905981,
+      "ci95": [
+       -0.07756410256410257,
+       -0.04367877492877491
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.10500356125356124,
+      "ci95": [
+       -0.1294159544159544,
+       -0.0806801994301994
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.14082977207977207,
+      "ci95": [
+       -0.19374999999999998,
+       -0.0905982905982906
+      ],
+      "n_clusters": 36
+     }
+    },
+    "B_temp0.5": {
+     "anchoring": {
+      "point": -0.0021545584045583937,
+      "ci95": [
+       -0.009722222222222222,
+       0.0050925925925926025
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.0017806267806267815,
+      "ci95": [
+       -0.008653846153846161,
+       0.005128205128205134
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.0017984330484330448,
+      "ci95": [
+       -0.008778490028490023,
+       0.004700854700854715
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.05929487179487178,
+      "ci95": [
+       -0.07702991452991452,
+       -0.04314458689458687
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.10500356125356124,
+      "ci95": [
+       -0.1294159544159544,
+       -0.0806801994301994
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.14082977207977207,
+      "ci95": [
+       -0.19374999999999998,
+       -0.0905982905982906
+      ],
+      "n_clusters": 36
+     }
+    },
+    "B_temp0.75": {
+     "anchoring": {
+      "point": -0.0021545584045583937,
+      "ci95": [
+       -0.009722222222222222,
+       0.0050925925925926025
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.0017806267806267815,
+      "ci95": [
+       -0.008653846153846161,
+       0.005128205128205134
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.0017984330484330448,
+      "ci95": [
+       -0.008778490028490023,
+       0.004700854700854715
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.05982905982905981,
+      "ci95": [
+       -0.07756410256410257,
+       -0.04367877492877491
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.10500356125356124,
+      "ci95": [
+       -0.1294159544159544,
+       -0.0806801994301994
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.14082977207977207,
+      "ci95": [
+       -0.19374999999999998,
+       -0.0905982905982906
+      ],
+      "n_clusters": 36
+     }
+    },
+    "B_mix0.05": {
+     "anchoring": {
+      "point": -0.0021545584045583937,
+      "ci95": [
+       -0.009722222222222222,
+       0.0050925925925926025
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.0017806267806267815,
+      "ci95": [
+       -0.008653846153846161,
+       0.005128205128205134
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.0017984330484330448,
+      "ci95": [
+       -0.008778490028490023,
+       0.004700854700854715
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.05982905982905981,
+      "ci95": [
+       -0.07756410256410257,
+       -0.04367877492877491
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.10500356125356124,
+      "ci95": [
+       -0.1294159544159544,
+       -0.0806801994301994
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.14082977207977207,
+      "ci95": [
+       -0.19374999999999998,
+       -0.0905982905982906
+      ],
+      "n_clusters": 36
+     }
+    },
+    "B_mix0.2": {
+     "anchoring": {
+      "point": -0.0021545584045583937,
+      "ci95": [
+       -0.009722222222222222,
+       0.0050925925925926025
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.0017806267806267815,
+      "ci95": [
+       -0.008653846153846161,
+       0.005128205128205134
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.0017984330484330448,
+      "ci95": [
+       -0.008778490028490023,
+       0.004700854700854715
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.05982905982905981,
+      "ci95": [
+       -0.07756410256410257,
+       -0.04367877492877491
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.10500356125356124,
+      "ci95": [
+       -0.1294159544159544,
+       -0.0806801994301994
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.14082977207977207,
+      "ci95": [
+       -0.19374999999999998,
+       -0.0905982905982906
+      ],
+      "n_clusters": 36
+     }
+    },
+    "C_naive": {
+     "anchoring": {
+      "point": -0.0015135327635327643,
+      "ci95": [
+       -0.0031160968660968614,
+       -8.903133903134026e-05
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.16121794871794873,
+      "ci95": [
+       -0.18133903133903134,
+       -0.14200498575498577
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.00035612535612535484,
+      "ci95": [
+       -0.001958689458689456,
+       0.0011574074074074065
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.02904202279202279,
+      "ci95": [
+       -0.042503561253561244,
+       -0.0172542735042735
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.006232193732193737,
+      "ci95": [
+       -0.010238603988603996,
+       -0.0026709401709401753
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.0007122507122507128,
+      "ci95": [
+       -0.0025819088319088365,
+       0.0008903133903133964
+      ],
+      "n_clusters": 36
+     }
+    },
+    "C_mix0.2": {
+     "anchoring": {
+      "point": -0.0011574074074074095,
+      "ci95": [
+       -0.002314814814814808,
+       3.0839528461809902e-18
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.14205840455840457,
+      "ci95": [
+       -0.1590811965811966,
+       -0.12475071225071226
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.00026709401709401924,
+      "ci95": [
+       -0.0016915954415954526,
+       0.0011574074074074156
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": -0.03605769230769232,
+      "ci95": [
+       -0.054700854700854715,
+       -0.01940883190883191
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.010950854700854707,
+      "ci95": [
+       -0.015135327635327635,
+       -0.006944444444444446
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -8.903133903133871e-05,
+      "ci95": [
+       -0.0016025641025641,
+       0.0014245014245014209
+      ],
+      "n_clusters": 36
+     }
+    },
+    "O_true": {
+     "anchoring": {
+      "point": -0.0015135327635327643,
+      "ci95": [
+       -0.0031160968660968614,
+       -8.903133903134026e-05
+      ],
+      "n_clusters": 36
+     },
+     "evasive": {
+      "point": -0.06917735042735043,
+      "ci95": [
+       -0.08260327635327636,
+       -0.05674857549857551
+      ],
+      "n_clusters": 36
+     },
+     "history": {
+      "point": -0.00035612535612535484,
+      "ci95": [
+       -0.001958689458689456,
+       0.0011574074074074065
+      ],
+      "n_clusters": 36
+     },
+     "stochastic": {
+      "point": 0.0004451566951566967,
+      "ci95": [
+       -0.0018696581196581115,
+       0.002849002849002859
+      ],
+      "n_clusters": 36
+     },
+     "threshold": {
+      "point": -0.0008903133903133856,
+      "ci95": [
+       -0.002136752136752132,
+       0.00026709401709401924
+      ],
+      "n_clusters": 36
+     },
+     "withholding": {
+      "point": -0.0007122507122507128,
+      "ci95": [
+       -0.0025819088319088365,
+       0.0008903133903133964
+      ],
+      "n_clusters": 36
+     }
+    }
+   }
+  }
+ }
+}
