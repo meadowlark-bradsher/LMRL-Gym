@@ -19,7 +19,7 @@ optimal ASK (max_Q over ASK > max_Q over non-ASK) — Phase 0 gate 7.
 from __future__ import annotations
 
 from fractions import Fraction
-from typing import Dict, List, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 from llm_rl_scripts.car_dealer_discrete.game import DEALS_BY_ID, Ranking, utility
 
@@ -31,13 +31,18 @@ EPS = 1e-9
 
 
 class Oracle:
-    def __init__(self, cfg: LiveConfig, focal: str, focal_ranking: Ranking, kernel: T1Kernel, ask_allowed: bool = True):
+    def __init__(self, cfg: LiveConfig, focal: str, focal_ranking: Ranking, kernel: T1Kernel, ask_allowed: bool = True,
+                 menu: Optional[Callable[[PublicState, "bl.Belief"], List[Action]]] = None):
+        """``menu(state, belief)`` optionally restricts the focal's action set at every
+        decision (Phase 1 menu rule); ``None`` = every legal action. ``ask_allowed=False``
+        removes ASK on top of whatever the menu allows."""
         assert kernel.role == other(focal)
         self.cfg = cfg
         self.focal = focal
         self.focal_ranking = focal_ranking
         self.kernel = kernel
         self.ask_allowed = ask_allowed
+        self.menu = menu
         self._v: Dict[tuple, float] = {}
         self.focal_nodes = 0
         self.ask_legal_nodes = 0
@@ -54,8 +59,14 @@ class Oracle:
 
     # -- focal action set -----------------------------------------------------------
 
-    def focal_actions(self, state: PublicState) -> List[Action]:
-        acts = legal_actions(state, self.focal)
+    def focal_actions(self, state: PublicState, belief: Optional["bl.Belief"] = None) -> List[Action]:
+        if self.menu is not None:
+            assert belief is not None
+            acts = list(self.menu(state, belief))
+            legal = set(legal_actions(state, self.focal))
+            assert acts and all(a in legal for a in acts), "menu must be a non-empty subset of the legal actions"
+        else:
+            acts = legal_actions(state, self.focal)
         if not self.ask_allowed:
             acts = [a for a in acts if a.kind != ASK]
         return acts
@@ -73,7 +84,7 @@ class Oracle:
 
     def q_values(self, state: PublicState, belief: bl.Belief) -> Dict[Action, float]:
         assert state.turn == self.focal and state.terminal is None
-        return {a: self.q_value(state, belief, a) for a in self.focal_actions(state)}
+        return {a: self.q_value(state, belief, a) for a in self.focal_actions(state, belief)}
 
     def value(self, state: PublicState, belief: bl.Belief) -> float:
         if state.terminal is not None:
@@ -106,7 +117,7 @@ class Oracle:
 
     def best(self, state: PublicState, belief: bl.Belief) -> Tuple[Action, float]:
         qs = self.q_values(state, belief)
-        acts = self.focal_actions(state)
+        acts = self.focal_actions(state, belief)
         return max(((qs[a], -i, a) for i, a in enumerate(acts)))[2], max(qs.values())
 
     def stats(self) -> dict:

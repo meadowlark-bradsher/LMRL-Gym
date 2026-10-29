@@ -22,6 +22,12 @@ def main(argv=None) -> int:
     sw = json.load(open(args.sweep))
     agg = list(sw["aggregate"].values())
     cells = sw["cells"]
+    per_agg = sorted({a["cells"] for a in agg})
+    assert len(per_agg) == 1, per_agg
+    per_agg = per_agg[0]
+    n_roles = len({c["focal"] for c in cells})
+    n_openers = len({c["opener"] for c in cells})
+    assert per_agg == n_roles * n_openers * len(sw["grid"]["types"]), (per_agg, n_roles, n_openers)
     L = []
     w = L.append
     w("# Live Car-Dealer, Phase 0 — where is ASK optimal? (exact oracle, no model)")
@@ -29,8 +35,10 @@ def main(argv=None) -> int:
     w("_Rendered by `render_phase0_note.py` from frozen JSON; do not edit numbers by hand._")
     w("")
     w(f"Source: `{os.path.relpath(args.sweep)}` (`sweep_ask_value.py`, env `{sw['env']}`, regime {sw['regime']}, "
-      f"opponent shortlist {sw['shortlist']}, {len(cells)} cells = {len(agg)} (kernel, H, c_q) aggregates × 2 focal roles × 2 openers × "
-      f"{len(sw['grid']['types'])} focal types; {sw['elapsed_s']} s). Every number is **exact-on-model**: the oracle is solved, nothing is sampled.")
+      f"opponent shortlist {sw['shortlist']}, {len(cells)} cells = {len(agg)} (kernel, H, c_q) aggregates × {per_agg} cells each "
+      f"({n_roles} focal roles × {n_openers} openers × {len(sw['grid']['types'])} focal types; the opponent's type is marginalised by the "
+      f"uniform prior, so it is not a cell dimension); {sw['elapsed_s']} s). Every number is **exact-on-model**: the oracle is solved, nothing is sampled. "
+      f"Every mean in this note is over the {per_agg} cells of its aggregate unless it says otherwise.")
     w("")
     w("Quantities: V\\*_ask / V\\*_noask = the focal negotiator's optimal expected net gain from the opening state with ASK "
       "allowed / forbidden at every decision; Δ\\*_active = V\\*_ask − V\\*_noask (≥ 0 by construction); `ask-opt nodes` = focal "
