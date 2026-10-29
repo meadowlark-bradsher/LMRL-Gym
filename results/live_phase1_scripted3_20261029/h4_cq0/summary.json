@@ -1,0 +1,59 @@
+{
+  "env": "live-car-dealer-v0.1",
+  "config": {
+    "env": "live-car-dealer-v0.1",
+    "regime": "easy",
+    "reservation": "2/5",
+    "horizon": 4,
+    "ask_cost": "0",
+    "answer_noise": "0"
+  },
+  "kernel": {
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "accept_noise": 0.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+  },
+  "menu": "shortlist",
+  "n_offers": 3,
+  "n_questions": 2,
+  "arms": [
+    "exact_ask",
+    "exact_noask",
+    "greedy_eig",
+    "random"
+  ],
+  "roles": [
+    "buyer",
+    "seller"
+  ],
+  "openers": [
+    "buyer",
+    "seller"
+  ],
+  "focal_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "opp_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "repeats": 5,
+  "seed": 0,
+  "jev_backend": null,
+  "jev_shuffle_options": true,
+  "episodes": 2880,
+  "error_stubs": 0,
+  "elapsed_s": 178.79
+}

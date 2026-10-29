@@ -43,7 +43,7 @@ def section(d: str, a: dict, w) -> None:
     w(f"## H = {cfg['horizon']}, c_q = {cfg['ask_cost']} — `{d}`")
     w("")
     w(f"Config: env `{a['env']}`, regime {cfg['regime']} (r = {cfg['reservation']}), kernel {kernel_str(a['kernel'])}, "
-      f"menu `{a['menu']}`, arms {a['arms']}, {a['episodes']} episodes ({a['repeats']} repeats per cell, seed {a['seed']}), "
+      f"menu `{a['menu']}` ({a.get('n_offers', '?')} offer candidates × {a.get('n_questions', '?')} questions), arms {a['arms']}, {a['episodes']} episodes ({a['repeats']} repeats per cell, seed {a['seed']}), "
       f"{a['error_stubs']} error stubs, {a['elapsed_s']} s. Bootstrap B = {a['bootstrap']['B']}, clusters = {a['cluster_definition']}.")
     w("")
     # per-arm table
@@ -76,6 +76,16 @@ def section(d: str, a: dict, w) -> None:
         w(f"| {name} | {ci(c['all'])} | {c['all']['n_clusters']} | {ci(c['focal_opens'])} | {c['focal_opens']['n_clusters']} | "
           f"{ci(c['opponent_opens'])} | {c['opponent_opens']['n_clusters']} |")
     w("")
+    # questions-asked contrasts
+    cq = a.get("contrasts_questions", {})
+    if cq:
+        w("### Paired contrasts in questions asked per episode (cluster bootstrap, 95% percentile CI)")
+        w("")
+        w("| contrast | all cells | focal opens | opponent opens |")
+        w("|---|---|---|---|")
+        for name, c in cq.items():
+            w(f"| {name} | {ci(c['all'])} | {ci(c['focal_opens'])} | {ci(c['opponent_opens'])} |")
+        w("")
     # ceilings
     w("### Exact ceilings and the costlessness check")
     w("")
@@ -129,7 +139,10 @@ def section(d: str, a: dict, w) -> None:
         w("### Jev chosen position (0 = first lettered option)")
         w("")
         for arm, dist in a["position"].items():
-            w(f"- {arm}: {dist}")
+            if isinstance(dist, dict) and "counts" in dist:
+                w(f"- {arm}: {dist['counts']} over {dist['decisions']} decisions; well-formed share {f3(dist['well_formed_share'])}.")
+            else:
+                w(f"- {arm}: {dist}")
         w("")
     # computed read-out
     w("### Read-out (computed)")
@@ -179,6 +192,7 @@ def main(argv=None) -> int:
     ap.add_argument("--dirs", required=True, help="comma-separated result dirs, each holding analysis.json")
     ap.add_argument("--out", required=True)
     ap.add_argument("--costlessness", default=None, help="optional costlessness_check.py JSON to tabulate")
+    ap.add_argument("--verdicts", default=None, help="optional verdicts.json from verdicts_live.py")
     args = ap.parse_args(argv)
     dirs = [d.strip() for d in args.dirs.split(",") if d.strip()]
     analyses = {d: json.load(open(os.path.join(d, "analysis.json"))) for d in dirs}
@@ -203,10 +217,10 @@ def main(argv=None) -> int:
     w("")
     for d in dirs:
         section(d, analyses[d], w)
-    if args.costlessness:
-        cc = json.load(open(args.costlessness))
+    for cpath in ([x.strip() for x in args.costlessness.split(",") if x.strip()] if args.costlessness else []):
+        cc = json.load(open(cpath))
         cfg = cc["config"]
-        w(f"## Menu size and costlessness — `{args.costlessness}`")
+        w(f"## Menu size and costlessness — `{cpath}`")
         w("")
         w(f"`costlessness_check.py`, H = {cfg['horizon']}, c_q = {cfg['ask_cost']}, kernel {kernel_str(cc['kernel'])}, {cc['elapsed_s']} s. "
           "Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates "
@@ -221,13 +235,48 @@ def main(argv=None) -> int:
         lossy = sorted({(k.split("|")[0] == k.split("|")[1]) for k, v in cc["cells"].items() if any(x["loss_ask"] > 1e-9 or x["loss_noask"] > 1e-9 for x in v.values() if isinstance(x, dict))})
         where = ", ".join("focal opens" if f else "opponent opens" for f in lossy) or "none"
         w(f"- Cells with any loss under any menu size: {where}.")
+        st = cc.get("stopping_rule")
+        if st:
+            w(f"- Stopping rule on the registered menu `{st['registered']}` (threshold {st['threshold']} on |mean Δ\\*_menu − mean Δ\\*_full|): "
+              + "; ".join(f"{cs}: artefact {v['artefact']:+.4f}" for cs, v in st["cell_sets"].items()) + f" → **{st['verdict']}**.")
+        w("")
+    if args.verdicts:
+        V = json.load(open(args.verdicts))
+        w(f"## Pre-registered verdicts — `{args.verdicts}`")
+        w("")
+        w(f"Rules applied by `verdicts_live.py` (δ = {V['delta']}, primary cells = {V['primary_cells']}). Sanity gates pass: **{V['gates_pass']}**.")
+        w("")
+        w("| rule | quantity | prediction | estimate [95% CI] | verdict |")
+        w("|---|---|---|---|---|")
+        for k, v in V["rules"].items():
+            e = v.get("estimate")
+            if e and "point" in e:
+                etxt = f"{e['point']:+.4f} [{e['ci95'][0]:+.4f}, {e['ci95'][1]:+.4f}] (n = {e['n_clusters']})"
+            elif e and "cq0" in e:
+                r0 = [round(x, 3) for x in e['cq0']['ci95']] if e['cq0']['ci95'] else None
+                r3 = [round(x, 3) for x in e['cq3']['ci95']] if e['cq3']['ci95'] else None
+                etxt = f"c_q=0: {f3(e['cq0']['mean'])} {r0}; c_q=3/100: {f3(e['cq3']['mean'])} {r3}"
+            else:
+                etxt = "—"
+            w(f"| {k} | {v['quantity']} | {v['prediction']} | {etxt} | **{v['verdict']}** |")
+        w("")
+        p1 = V["rules"].get("P1", {})
+        cf = p1.get("captured_fraction_of_delta_menu") or {}
+        if cf.get("point") is not None:
+            cff = p1.get("captured_fraction_of_delta_full") or {}
+            w(f"- P1 captured fraction of the exact ceiling: {ci(cf)} of Δ\\*_menu ({f4(p1.get('ceiling_delta_menu_Y'))} in Y units)"
+              + (f"; {ci(cff)} of Δ\\*_full ({f4(p1.get('ceiling_delta_full_Y'))})." if cff.get("point") is not None else "."))
+        for gk, g in V["gates"].items():
+            detail = (f"error stubs {g['error_stubs']}, episodes per arm {g['episodes_per_arm']}, well-formed {g['well_formed']}" if "error_stubs" in g
+                      else json.dumps({k: v for k, v in g.items() if k != "pass"}))
+            w(f"- gate `{gk}`: pass = {g.get('pass')}; {detail}")
         w("")
     w("## Regenerate")
     w("")
     w("```bash")
     for d in dirs:
         w(f"PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.analyze_phase1 --dir {d}")
-    w(f"PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.render_phase1_note --dirs {','.join(dirs)} --out {args.out}" + (f" --costlessness {args.costlessness}" if args.costlessness else ""))
+    w(f"PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.render_phase1_note --dirs {','.join(dirs)} --out {args.out}" + (f" --costlessness {args.costlessness}" if args.costlessness else "") + (f" --verdicts {args.verdicts}" if args.verdicts else ""))
     w("```")
     with open(args.out, "w") as f:
         f.write("\n".join(L) + "\n")

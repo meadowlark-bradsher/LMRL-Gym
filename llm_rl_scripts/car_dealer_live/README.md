@@ -4,7 +4,7 @@ The bilateral discretized Car-Dealer game with a public **ASK** action, a histor
 **T1 opponent** whose kernel is known to the oracle, a matched finite filter, and an **exact
 finite-horizon oracle** that values every option in net gain. Phase 0 (implementation and oracle
 readiness) is complete; Phase 1's menu rule, arms, runner and scripted baselines are built and
-frozen; **no registration, no Jev or LLM call**.
+frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
 
 - Design source (verbatim): [`car_dealer_live_voi_experiment_design.md`](car_dealer_live_voi_experiment_design.md)
 - Phase 0 decisions and gates: [`DESIGN_LIVE.md`](DESIGN_LIVE.md)
@@ -12,7 +12,9 @@ frozen; **no registration, no Jev or LLM call**.
   `results/live_phase0_sweep_20261027/sweep.json`
 - Phase 1 decisions (cell, menu, estimand) and the menu rule: [`DESIGN_LIVE.md`](DESIGN_LIVE.md) §4–6
 - Phase 1 scripted baselines and costlessness check: [`PHASE1_SCRIPTED_RESULTS.md`](PHASE1_SCRIPTED_RESULTS.md),
-  rendered from `results/live_phase1_scripted_20261029/`
+  rendered from `results/live_phase1_scripted3_20261029/` (registered menu; `results/live_phase1_scripted_20261029/` holds the
+  two-candidate baselines that motivated the change)
+- Pre-registration of the Jev run: [`PREREGISTRATION_LIVE.md`](PREREGISTRATION_LIVE.md); results: [`JEV_RESULTS_LIVE.md`](JEV_RESULTS_LIVE.md)
 
 ## Code
 
@@ -30,9 +32,10 @@ frozen; **no registration, no Jev or LLM call**.
 | `arms_live.py` | `exact_ask` (C_plan), `exact_noask` (B_plan), `greedy_eig`, `random` |
 | `jev_policy_live.py` | Jev Choice over the lettered, shuffled menu; EIG shown / hidden |
 | `run_phase1.py` | Phase 1 runner: 144 cells × K, per-decision exact logs, `ceilings.json` |
-| `costlessness_check.py` | full vs shortlist oracle values over menu sizes |
+| `costlessness_check.py` | full vs shortlist oracle values over menu sizes; the reviewer's stopping rule |
+| `verdicts_live.py` | the pre-registered decision rules, applied by code |
 | `analyze_phase1.py`, `render_phase1_note.py` | analysis JSON and the rendered note |
-| `test_phase1.py` | the Phase 1 gates (4 tests) |
+| `test_phase1.py` | the Phase 1 gates (4 tests; incl. neither planner handicapped by the menu) |
 
 ```bash
 PYTHONPATH=. python3 -m pytest -q llm_rl_scripts/car_dealer_live
