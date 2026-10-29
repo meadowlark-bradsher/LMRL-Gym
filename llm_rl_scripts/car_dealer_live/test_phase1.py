@@ -52,9 +52,9 @@ def _walk_states(cfg, focal, ranking, kernel, menu, n=300, seed=1):
 def test_menu_is_legal_small_and_well_formed():
     focal, rk = "buyer", ALL_RANKINGS[0]
     kernel = T1Kernel(other(focal), CFG, PARAMS)
-    menu = Menu(CFG, focal, rk, kernel)
+    menu = Menu(CFG, focal, rk, kernel, plan_oracle=Oracle(CFG, focal, rk, kernel, False), plan_ask_oracle=Oracle(CFG, focal, rk, kernel, True))
     r = CFG.reservation
-    seen_deadline = seen_two_offers = False
+    seen_deadline = seen_two_offers = seen_plan = False
     for st, b in _walk_states(CFG, focal, rk, kernel, menu):
         rows = menu.rows(st, b)
         legal = set(legal_actions(st, focal))
@@ -62,9 +62,12 @@ def test_menu_is_legal_small_and_well_formed():
         assert len(set(acts)) == len(acts) and all(a in legal for a in acts)
         offers = [x for x in rows if x.action.kind == PROPOSE]
         qs = [x for x in rows if x.action.kind == ASK]
-        assert len(offers) <= 2 and len(qs) <= 2
+        assert len(offers) <= 4 and len(qs) <= 3
         assert all(x.own_utility >= r for x in offers)             # own-IR pool
-        assert all(x.tag in ("SAFE", "AMBITIOUS", "BALANCED") for x in offers)
+        assert all(x.tag in ("SAFE", "AMBITIOUS", "PLAN", "PLAN_ASK", "BALANCED") for x in offers)
+        assert all(x.tag in (None, "PLAN_Q") for x in qs)
+        if any(x.tag == "PLAN" for x in offers):
+            seen_plan = True
         assert all(0.0 <= x.p_accept <= 1.0 + 1e-12 for x in offers)
         assert all(x.eig_bits >= -1e-12 for x in rows)
         asked = st.asked_by(focal)
@@ -72,27 +75,33 @@ def test_menu_is_legal_small_and_well_formed():
         if st.at_deadline:
             seen_deadline = True
             assert [a.kind for a in acts] == ["ACCEPT", "WALK"]
-        if len(offers) == 2:
+        if len(offers) >= 2:
             seen_two_offers = True
             assert offers[0].tag == "SAFE"
         # no-question menu is the same minus the questions
         assert [x.key for x in menu.rows(st, b, include_questions=False)] == [x.key for x in rows if x.action.kind != ASK]
-    assert seen_deadline and seen_two_offers
+    assert seen_deadline and seen_two_offers and seen_plan
 
 
-def test_restricted_oracle_is_bounded_by_full_and_delta_nonnegative():
-    for focal in ("buyer", "seller"):
-        rk = ALL_RANKINGS[2]
-        kernel = T1Kernel(other(focal), CFG, PARAMS)
-        menu = Menu(CFG, focal, rk, kernel)
-        for opener in ("buyer", "seller"):
-            fa = Oracle(CFG, focal, rk, kernel, True).root_value(opener)
-            fn = Oracle(CFG, focal, rk, kernel, False).root_value(opener)
-            ma = Oracle(CFG, focal, rk, kernel, True, menu=menu.actions(True)).root_value(opener)
-            mn = Oracle(CFG, focal, rk, kernel, False, menu=menu.actions(False)).root_value(opener)
-            assert ma <= fa + 1e-9 and mn <= fn + 1e-9
-            assert ma >= mn - 1e-9                      # Delta_menu >= 0
-            assert fa >= fn - 1e-9
+def test_restricted_oracle_is_bounded_by_full_and_plan_makes_noask_costless():
+    for H in (3, 4):
+        cfg = LiveConfig(horizon=H)
+        for focal in ("buyer", "seller"):
+            rk = ALL_RANKINGS[2]
+            kernel = T1Kernel(other(focal), cfg, PARAMS)
+            full_noask = Oracle(cfg, focal, rk, kernel, False)
+            full_ask = Oracle(cfg, focal, rk, kernel, True)
+            menu = Menu(cfg, focal, rk, kernel, plan_oracle=full_noask, plan_ask_oracle=full_ask)
+            for opener in ("buyer", "seller"):
+                fa = full_ask.root_value(opener)
+                fn = full_noask.root_value(opener)
+                ma = Oracle(cfg, focal, rk, kernel, True, menu=menu.actions(True)).root_value(opener)
+                mn = Oracle(cfg, focal, rk, kernel, False, menu=menu.actions(False)).root_value(opener)
+                assert ma <= fa + 1e-9 and mn <= fn + 1e-9
+                assert abs(mn - fn) < 1e-9                  # PLAN: the no-ask planner is never handicapped
+                assert abs(ma - fa) < 1e-9                  # PLAN_ASK / PLAN_Q: nor is the ASK planner
+                assert ma >= mn - 1e-9                      # Delta_menu >= 0
+                assert fa >= fn - 1e-9
 
 
 def test_exact_ask_arm_attains_menu_ceiling_and_noask_never_asks():

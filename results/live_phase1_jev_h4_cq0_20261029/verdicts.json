@@ -1,0 +1,424 @@
+{
+ "delta": 0.02,
+ "primary_cells": "focal_opens",
+ "gates": {
+  "primary": {
+   "error_stubs": 0,
+   "episodes_per_arm": {
+    "exact_ask": 720,
+    "exact_noask": 720,
+    "greedy_eig": 720,
+    "random": 720,
+    "jev_ask_plain": 720,
+    "jev_ask_eig": 720,
+    "jev_noask_plain": 720,
+    "jev_noask_eig": 720
+   },
+   "well_formed": {
+    "jev_ask_plain": 1.0,
+    "jev_ask_eig": 1.0,
+    "jev_noask_plain": 1.0,
+    "jev_noask_eig": 1.0
+   },
+   "pass": true
+  },
+  "h2": {
+   "error_stubs": 0,
+   "episodes_per_arm": {
+    "exact_ask": 720,
+    "exact_noask": 720,
+    "greedy_eig": 720,
+    "random": 720,
+    "jev_ask_plain": 720,
+    "jev_noask_plain": 720
+   },
+   "well_formed": {
+    "jev_ask_plain": 1.0,
+    "jev_noask_plain": 1.0
+   },
+   "pass": true
+  },
+  "h3": {
+   "error_stubs": 0,
+   "episodes_per_arm": {
+    "exact_ask": 720,
+    "exact_noask": 720,
+    "greedy_eig": 720,
+    "random": 720,
+    "jev_ask_plain": 720,
+    "jev_noask_plain": 720
+   },
+   "well_formed": {
+    "jev_ask_plain": 1.0,
+    "jev_noask_plain": 1.0
+   },
+   "pass": true
+  },
+  "cq3": {
+   "error_stubs": 0,
+   "episodes_per_arm": {
+    "exact_ask": 720,
+    "exact_noask": 720,
+    "greedy_eig": 720,
+    "random": 720,
+    "jev_ask_plain": 720,
+    "jev_noask_plain": 720
+   },
+   "well_formed": {
+    "jev_ask_plain": 1.0,
+    "jev_noask_plain": 1.0
+   },
+   "pass": true
+  },
+  "full": {
+   "error_stubs": 0,
+   "episodes_per_arm": {
+    "exact_ask": 720,
+    "exact_noask": 720,
+    "greedy_eig": 720,
+    "random": 720,
+    "jev_ask_plain": 720,
+    "jev_noask_plain": 720
+   },
+   "well_formed": {
+    "jev_ask_plain": 1.0,
+    "jev_noask_plain": 1.0
+   },
+   "pass": true
+  },
+  "random_matches_frozen": {
+   "jev_run_random_mean_Y": -0.02067307692307691,
+   "frozen_random_ci95": [
+    -0.09834401709401708,
+    0.07282763532763534
+   ],
+   "pass": true
+  }
+ },
+ "rules": {
+  "P1": {
+   "quantity": "\u0394 Y, jev_ask_plain-jev_noask_plain, focal_opens, H=4 c_q=0 (PRIMARY)",
+   "prediction": "> 0; material if lower CI bound > 0.02",
+   "estimate": {
+    "point": -0.010434472934472938,
+    "ci95": [
+     -0.0206908831908832,
+     -0.00188746438746439
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "negative",
+   "captured_fraction_of_delta_menu": {
+    "ceiling": 0.10194272056883834,
+    "point": -0.10235623373840515,
+    "ci95": [
+     -0.20296577406830507,
+     -0.018514950130155212
+    ]
+   },
+   "captured_fraction_of_delta_full": {
+    "ceiling": 0.10194272056883835,
+    "point": -0.10235623373840513,
+    "ci95": [
+     -0.20296577406830504,
+     -0.018514950130155212
+    ]
+   },
+   "ceiling_delta_menu_Y": 0.10194272056883834,
+   "ceiling_delta_full_Y": 0.10194272056883835
+  },
+  "S1": {
+   "quantity": "\u0394 Y, jev_ask_plain-jev_noask_plain, all cells, H=4 c_q=0",
+   "prediction": "> 0",
+   "estimate": {
+    "point": -0.005324074074074071,
+    "ci95": [
+     -0.012019230769230758,
+     0.0006588319088319096
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved"
+  },
+  "S2": {
+   "quantity": "\u0394 Y, jev_ask_eig-jev_noask_eig, focal_opens, H=4 c_q=0",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.003490028490028486,
+    "ci95": [
+     -0.005626780626780631,
+     0.012678062678062676
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved"
+  },
+  "S3": {
+   "quantity": "\u0394 questions asked / episode, jev_ask_eig-jev_ask_plain, all cells (EIG shown -> more asking)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "S4": {
+   "quantity": "\u0394 Y, jev_ask_eig-jev_ask_plain, focal_opens (EIG shown does NOT raise net gain)",
+   "prediction": "not > 0",
+   "estimate": {
+    "point": 0.013247863247863248,
+    "ci95": [
+     0.00405982905982906,
+     0.023326210826210825
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "S5_jev_ask_plain": {
+   "quantity": "P(ask | ASK strictly optimal) \u2212 P(ask | ASK legal, not optimal), jev_ask_plain, H=4 c_q=0",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported",
+   "p_ask_given_optimal": 0.0,
+   "p_ask_given_not_optimal": 0.0
+  },
+  "S5_jev_ask_eig": {
+   "quantity": "P(ask | ASK strictly optimal) \u2212 P(ask | ASK legal, not optimal), jev_ask_eig, H=4 c_q=0",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported",
+   "p_ask_given_optimal": 0.0,
+   "p_ask_given_not_optimal": 0.0
+  },
+  "S6": {
+   "quantity": "\u0394 Y, jev_ask_plain-exact_ask, focal_opens, H=4 c_q=0 (gap to the planner)",
+   "prediction": "< 0",
+   "estimate": {
+    "point": -0.27653133903133903,
+    "ci95": [
+     -0.31552706552706555,
+     -0.23433048433048434
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "S7": {
+   "quantity": "\u0394 Y, jev_ask_plain-jev_noask_plain, all cells, H=2 c_q=0 (negative control: ASK never optimal)",
+   "prediction": "not > 0",
+   "estimate": {
+    "point": -0.001014957264957264,
+    "ci95": [
+     -0.006303418803418803,
+     0.004469373219373219
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "jev_ask_plain_questions_per_episode": 0.001388888888888889,
+   "note": "every question at H=2 is strictly suboptimal; the ask rate is the information-bias read-out"
+  },
+  "S8": {
+   "quantity": "\u0394 Y, jev_ask_plain-jev_noask_plain, all cells, H=3 c_q=0 (positive control across kernels)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": -0.0013710826210826229,
+    "ci95": [
+     -0.005804843304843312,
+     0.0027599715099715055
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved"
+  },
+  "S9": {
+   "quantity": "questions / episode, jev_ask_plain, H=4 c_q=3/100 vs c_q=0 (does the policy respect question cost)",
+   "prediction": "< at c_q=0 (CIs disjoint)",
+   "estimate": {
+    "cq0": {
+     "mean": 0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "cq3": {
+     "mean": 0.005555555555555556,
+     "ci95": [
+      0.0,
+      0.0125
+     ]
+    }
+   },
+   "verdict": "not supported"
+  },
+  "S10": {
+   "quantity": "\u0394 Y, jev_ask_plain-jev_noask_plain, focal_opens, H=4 c_q=3/100",
+   "prediction": "> 0",
+   "estimate": {
+    "point": -0.005042735042735043,
+    "ci95": [
+     -0.01240384615384616,
+     0.001680911680911681
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved"
+  },
+  "S11": {
+   "quantity": "\u0394 Y, jev_ask_plain-jev_noask_plain, focal_opens, H=4 c_q=0, FULL 27-deal menu (named secondary arm)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.004843304843304843,
+    "ci95": [
+     -0.006766381766381766,
+     0.018376068376068377
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved",
+   "captured_fraction_of_delta_full": {
+    "ceiling": 0.10194272056883841,
+    "point": 0.04751006071134158,
+    "ci95": [
+     -0.0663743495231978,
+     0.1802587597577372
+    ]
+   }
+  }
+ },
+ "gates_pass": true,
+ "descriptive": {
+  "position": {
+   "jev_ask_plain": {
+    "counts": {
+     "0": 249,
+     "1": 272,
+     "2": 193,
+     "3": 152,
+     "4": 182,
+     "5": 182,
+     "6": 149,
+     "7": 86,
+     "8": 20
+    },
+    "decisions": 1485,
+    "well_formed_share": 1.0
+   },
+   "jev_ask_eig": {
+    "counts": {
+     "0": 281,
+     "1": 287,
+     "2": 181,
+     "3": 159,
+     "4": 161,
+     "5": 161,
+     "6": 143,
+     "7": 81,
+     "8": 16
+    },
+    "decisions": 1470,
+    "well_formed_share": 1.0
+   },
+   "jev_noask_plain": {
+    "counts": {
+     "0": 376,
+     "1": 345,
+     "2": 259,
+     "3": 274,
+     "4": 197,
+     "5": 33
+    },
+    "decisions": 1484,
+    "well_formed_share": 1.0
+   },
+   "jev_noask_eig": {
+    "counts": {
+     "0": 378,
+     "1": 333,
+     "2": 272,
+     "3": 280,
+     "4": 186,
+     "5": 33
+    },
+    "decisions": 1482,
+    "well_formed_share": 1.0
+   }
+  },
+  "ceilings": {
+   "all": {
+    "n_cells": 24,
+    "mean_delta_full": 0.03828652648536495,
+    "mean_delta_menu": 0.038286526485364944,
+    "mean_loss_ask": 2.3129646346357427e-18,
+    "mean_loss_noask": 0.0,
+    "mean_loss_offers_restriction_ask": 0.0,
+    "mean_loss_questions_restriction_ask": 2.3129646346357427e-18,
+    "cells_with_any_loss": 0,
+    "cells_with_delta_menu_positive": 24,
+    "mean_full_ask": 0.37923429826330823,
+    "mean_full_noask": 0.3409477717779433,
+    "mean_menu_ask": 0.37923429826330823,
+    "mean_menu_noask": 0.3409477717779433,
+    "y_scale": 0.6,
+    "mean_delta_full_Y": 0.06381087747560825,
+    "mean_delta_menu_Y": 0.06381087747560825
+   },
+   "focal_opens": {
+    "n_cells": 12,
+    "mean_delta_full": 0.06116563234130301,
+    "mean_delta_menu": 0.061165632341303004,
+    "mean_loss_ask": 4.625929269271485e-18,
+    "mean_loss_noask": 0.0,
+    "mean_loss_offers_restriction_ask": 0.0,
+    "mean_loss_questions_restriction_ask": 4.625929269271485e-18,
+    "cells_with_any_loss": 0,
+    "cells_with_delta_menu_positive": 12,
+    "mean_full_ask": 0.37923429826330823,
+    "mean_full_noask": 0.3180686659220052,
+    "mean_menu_ask": 0.37923429826330823,
+    "mean_menu_noask": 0.3180686659220052,
+    "y_scale": 0.6,
+    "mean_delta_full_Y": 0.10194272056883835,
+    "mean_delta_menu_Y": 0.10194272056883834
+   },
+   "opponent_opens": {
+    "n_cells": 12,
+    "mean_delta_full": 0.015407420629426885,
+    "mean_delta_menu": 0.015407420629426885,
+    "mean_loss_ask": 0.0,
+    "mean_loss_noask": 0.0,
+    "mean_loss_offers_restriction_ask": 0.0,
+    "mean_loss_questions_restriction_ask": 0.0,
+    "cells_with_any_loss": 0,
+    "cells_with_delta_menu_positive": 12,
+    "mean_full_ask": 0.3792342982633082,
+    "mean_full_noask": 0.36382687763388133,
+    "mean_menu_ask": 0.3792342982633082,
+    "mean_menu_noask": 0.36382687763388133,
+    "y_scale": 0.6,
+    "mean_delta_full_Y": 0.025679034382378143,
+    "mean_delta_menu_Y": 0.025679034382378143
+   }
+  }
+ }
+}

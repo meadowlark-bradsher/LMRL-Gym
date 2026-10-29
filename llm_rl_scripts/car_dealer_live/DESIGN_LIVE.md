@@ -58,28 +58,53 @@ the kernel was chosen after Phase 0 and before any model call.
 |---|---|
 | Confirmatory cell | H = 4, c_q = 0, kernel α₀ = 0.8, β = 8, p_counter = 1, p_hold = 1, shortlist 3 (the aggregate with the largest Δ\*_active) |
 | Named secondary regimes | H = 2, c_q = 0 (negative control: ASK never optimal); H = 3, c_q = 0 (positive control across all eight kernels); H = 4, c_q = 3/100 (does the policy respect question cost). The rest of the grid is reported in full. |
-| Proposal menu | Shortlist primary (section 5); the full 27-deal menu is a named secondary arm. EIG-shown / EIG-hidden treatment carried over from Condition B unchanged. |
-| Costlessness | Must cover both restrictions (two offer candidates; two highest-EIG questions). Δ\* under the restricted menu is the ceiling; value the restricted menu loses against the full-menu oracle is reported separately and not counted against the model. |
+| Proposal menu | Shortlist primary (section 5: three offer candidates + planner completeness); the full 27-deal menu is a named secondary arm. EIG-shown / EIG-hidden treatment carried over from Condition B unchanged. |
+| Costlessness | Must cover both restrictions. Δ\*_menu is the ceiling; value the restricted menu loses against the full-menu oracle is reported separately and not counted against the model. **Amended 2026-10-29 (reviewer):** three offer candidates, each by a written rule, recorded as a deviation from Condition B's two; ceilings computed both ways with the difference reported as the menu artefact; the C_plan loss reported for both restrictions; stopping rule: a shift of Δ\* above 0.005 stops the registration. Section 5 records how the rule fired at H = 3 and was resolved by planner completeness. |
 | Belief | The registration states which belief SAFE / AMBITIOUS are built from (the matched filter, updated on answers and on the opponent's moves) and scopes the claim to the ask-versus-offer decision with belief maintained outside the model. |
 | Primary estimand | Jev with ASK − Jev without ASK, paired by cell, role-balanced, **focal-opens cells** (the opponent-opens ceiling sits below δ = 0.02); all cells secondary. `C_plan − B_plan` = Δ\* reported as the exact ceiling with no CI, plus the fraction of it Jev captures. |
 | Selectivity | Jev's ask rate split by whether ASK is strictly optimal in that state (best ASK Q\* > best non-ASK Q\*), reported in the primary cell, the H = 2 cell and the c_q = 3/100 cell. |
 | Logging | Exact Q\* and EIG of every option at every decision (for the residual information-bias fit). |
 | Denominators | Each Phase 0 aggregate has **24** cells (2 roles × 2 openers × 6 focal types; the opponent type is marginalised by the prior), not 72; the means were already over 24 and the note header was corrected. |
 
-## 5. The Phase 1 menu rule (`menu_live.py`)
+## 5. The Phase 1 menu rule (`menu_live.py`), as registered
 
-At each focal decision the model sees: the legal free moves (ACCEPT / REJECT when facing the
-other side's offer, HOLD when its own offer stands, WALK always); the **two unasked questions with
-the highest exact EIG** under the current belief; and **two offer candidates** built from the
-current belief, SAFE = argmax P_b(accept) and AMBITIOUS = argmax own utility among deals with
-P_b(accept) > 0 (BALANCED = argmax P_b(accept)·(U − r) fills if they coincide), over the pool of
-own-IR deals minus the focal's own standing deal. P_b(accept) is the kernel's exact probability
-of ACCEPT at the opponent node after the proposal, marginalised over the belief, so it reflects the
-opponent's aspiration at that point in the budget and the deadline rule. EIG of an offer is the
-information in the opponent's response (accept / counter / reject); offers are informative. At the
-deadline the menu is {ACCEPT, WALK}. `restrict_offers` / `restrict_questions` switch each
-restriction off so the costlessness check attributes any loss to one of them
-(`costlessness_check.py`, also over menu sizes).
+At each focal decision the model sees, in this order (then lettered and shuffled for Jev):
+
+1. the legal free moves: ACCEPT / REJECT when facing the other side's offer, HOLD when its own
+   offer stands, WALK always; at the deadline the menu is {ACCEPT, WALK};
+2. the **two unasked questions with the highest exact EIG** under the current belief (ties by bank
+   order), plus **PLAN_Q**: the ASK planner's best question if it is not already among them;
+3. **three offer candidates** built from the current belief over the own-IR pool minus the focal's
+   own standing deal — SAFE = argmax P_b(accept); AMBITIOUS = argmax own utility among deals with
+   P_b(accept) > 0; **PLAN** = the proposal with the highest exact no-ask value at this (state,
+   belief); BALANCED = argmax P_b(accept)·(U − r) fills only if the three coincide — plus
+   **PLAN_ASK**: the ASK planner's best proposal if it is not already present.
+
+P_b(accept) is the kernel's exact probability of ACCEPT at the opponent node after the proposal,
+marginalised over the belief (so it reflects the opponent's aspiration at that point in the budget
+and the deadline rule). EIG of an offer is the information in the opponent's response; offers are
+informative. The belief is the matched filter, updated on answers and on the opponent's moves, and
+is maintained outside the model. Tags are analyst quantities; Jev never sees them.
+
+**Why three candidates and planner completeness (2026-10-29).** The reviewer's costlessness
+condition was tested with the Condition B rule (two offers, two questions). It is costless for the
+ASK planner at H = 4 but costs the **no-ask** planner 0.0148 utility in every focal-opens cell
+(0.0045 with BALANCED as a third): the planner's best opening offer is neither SAFE nor AMBITIOUS,
+and no EIG / P(accept) / utility rule reproduces it — two deals tie on EIG and P(accept) and the
+planner prefers the one whose accepting types leave the more useful residual belief (a VOI-H3
+instance). The reviewer then set a stopping rule: if the registered menu shifts Δ\* by more than
+0.005 (a quarter of δ), stop and report before registering. With PLAN the no-ask side became
+lossless everywhere, but at H = 3 the **question** restriction cost the ASK planner 0.015–0.018 and
+removed the whole value of asking in the focal-opens cells, for the same reason on the question side,
+so the rule fired for the H = 3 secondary regime. The response is *planner completeness*: PLAN_ASK
+and PLAN_Q guarantee that both planners' preferred moves are always on the menu, so
+V\*_menu = V\*_full for both planners at every state **by construction** and the menu artefact on Δ\*
+is exactly zero (`test_phase1.py` asserts it; `costlessness_check.py` verifies it per cell). The
+heuristic candidates remain as the model's decoys. Numbers: `PHASE1_SCRIPTED_RESULTS.md` and
+`results/live_phase1_scripted3_20261029/costlessness_*.json` (sizes `2x2`, `3x2`, `3x2c`).
+
+Consequence for interpretation: the menu never favours asking over offering or the reverse; a
+model that fails to ask when the ASK planner would is choosing a visible, lower-value option.
 
 ## 6. Phase 1 arms and runner (`arms_live.py`, `jev_policy_live.py`, `run_phase1.py`)
 

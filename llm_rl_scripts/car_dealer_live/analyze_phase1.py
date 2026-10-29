@@ -54,7 +54,15 @@ def load_runs(path: str) -> Tuple[List[dict], int]:
 
 
 def cluster_of(r: dict) -> tuple:
-    return (r["focal"], r["opener"], "/".join(r["focal_ranking"]), "/".join(r["private_truth_evaluator_only"]["opp_ranking"]))
+    """Outer cluster = the private type pair (buyer ranking, seller ranking): the 36-pair finite
+    census of design section 8. Openers, focal seats and repeats within a pair are correlated and
+    are averaged inside the cluster (cell sets still filter records before clustering)."""
+    f, o = tuple(r["focal_ranking"]), tuple(r["private_truth_evaluator_only"]["opp_ranking"])
+    b, s_ = (f, o) if r["focal"] == "buyer" else (o, f)
+    return ("/".join(b), "/".join(s_))
+
+
+CLUSTER_DEFINITION = "(buyer ranking, seller ranking) type pair; 36 clusters"
 
 
 def in_set(r_or_key, cell_set: str) -> bool:
@@ -68,13 +76,30 @@ def y(r: dict) -> float:
     return r["normalized_net_gain"]["float"]
 
 
-def per_arm_stats(recs: List[dict]) -> dict:
+def _cluster_ci(recs: List[dict], fn, B: int, seed: int):
+    """Percentile cluster-bootstrap CI of a mean over clusters (type pairs)."""
+    by = defaultdict(list)
+    for r in recs:
+        by[cluster_of(r)].append(fn(r))
+    vals = [mean(v) for v in by.values()]
+    if len(vals) < 2:
+        return None
+    rng = random.Random(seed)
+    n = len(vals)
+    draws = sorted(sum(vals[rng.randrange(n)] for _ in range(n)) / n for _ in range(B))
+    return [draws[int(0.025 * B)], draws[min(B - 1, int(0.975 * B))]]
+
+
+def per_arm_stats(recs: List[dict], B: int = 0, seed: int = 0) -> dict:
     if not recs:
         return {"n": 0}
     n_dec = sum(r["n_decisions"] for r in recs)
     return {
         "n": len(recs),
+        "n_clusters": len({cluster_of(r) for r in recs}),
         "mean_normalized_net_gain": mean(y(r) for r in recs),
+        "ci95_normalized_net_gain": _cluster_ci(recs, y, B, seed) if B else None,
+        "ci95_questions_asked": _cluster_ci(recs, lambda r: r["questions_asked"], B, seed) if B else None,
         "mean_net_gain": mean(r["net_gain"]["float"] for r in recs),
         "mean_gross_gain": mean(r["gross_gain"]["float"] for r in recs),
         "agreement_rate": mean(1.0 if r["agreement"] else 0.0 for r in recs),
@@ -88,11 +113,11 @@ def per_arm_stats(recs: List[dict]) -> dict:
     }
 
 
-def cluster_means(recs: List[dict], cell_set: str) -> Dict[tuple, float]:
+def cluster_means(recs: List[dict], cell_set: str, fn=y) -> Dict[tuple, float]:
     by = defaultdict(list)
     for r in recs:
         if in_set(r, cell_set):
-            by[cluster_of(r)].append(y(r))
+            by[cluster_of(r)].append(fn(r))
     return {k: mean(v) for k, v in by.items()}
 
 
@@ -207,7 +232,7 @@ def selectivity(recs: List[dict], B: int, seed: int) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--dir", required=True)
-    ap.add_argument("--B", type=int, default=2000)
+    ap.add_argument("--B", type=int, default=5000)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args(argv)
 
@@ -220,7 +245,7 @@ def main(argv=None) -> int:
 
     per_arm = {}
     for a in arms:
-        per_arm[a] = {cs: per_arm_stats([r for r in by_arm[a] if in_set(r, cs)]) for cs in CELL_SETS}
+        per_arm[a] = {cs: per_arm_stats([r for r in by_arm[a] if in_set(r, cs)], args.B, args.seed) for cs in CELL_SETS}
 
     # every contrast is in Y units; the ceilings are in utility units -> convert with U_max - r
     r_res = float(Fraction(summary["config"]["reservation"]))
@@ -243,6 +268,13 @@ def main(argv=None) -> int:
             cm = ceilings.get(cs, {})
             ceil_for = {"delta_menu": cm.get("mean_delta_menu_Y"), "delta_full": cm.get("mean_delta_full_Y")} if is_ask_pair and cm.get("n_cells") else None
             contrasts[name][cs] = paired_bootstrap(cluster_means(by_arm[x], cs), cluster_means(by_arm[z], cs), args.B, args.seed, ceil_for)
+    # the same pairs on questions asked per episode (the EIG-shown treatment's predicted effect)
+    contrasts_questions = {}
+    for x, z in pairs:
+        name = f"{x}-{z}"
+        contrasts_questions[name] = {cs: paired_bootstrap(cluster_means(by_arm[x], cs, lambda r: r["questions_asked"]),
+                                                          cluster_means(by_arm[z], cs, lambda r: r["questions_asked"]), args.B, args.seed)
+                                     for cs in CELL_SETS}
 
     sel = {a: selectivity(by_arm[a], args.B, args.seed) for a in arms if a not in NOASK_ARMS}
 
@@ -250,18 +282,48 @@ def main(argv=None) -> int:
     for a in arms:
         if a.startswith("jev_"):
             cnt = defaultdict(int)
+            wf = tot = 0
             for r in by_arm[a]:
                 for d in r["decisions"]:
                     if d.get("jev"):
                         cnt[str(d["jev"]["chosen_position"])] += 1
-            position[a] = dict(sorted(cnt.items(), key=lambda kv: int(kv[0])))
+                        tot += 1
+                        wf += 1 if d["jev"].get("well_formed") else 0
+            position[a] = {"counts": dict(sorted(cnt.items(), key=lambda kv: int(kv[0]))), "decisions": tot,
+                           "well_formed_share": (wf / tot) if tot else None}
+
+    # descriptive: what each arm chose (kinds, offer tags, terminal reasons), and for Jev the probability
+    # mass placed on ASK options when present, confidence and choice entropy
+    choices = {}
+    for a in arms:
+        kinds = defaultdict(int); tags = defaultdict(int); term = defaultdict(int)
+        pmass = []; conf = []; ent = []
+        for r in by_arm[a]:
+            term[r["terminal"]["reason"]] += 1
+            for d in r["decisions"]:
+                kinds[d["chosen_kind"]] += 1
+                if d["chosen_kind"] == "PROPOSE":
+                    tags[str(d.get("chosen_tag"))] += 1
+                j = d.get("jev")
+                if j:
+                    if j.get("confidence") is not None:
+                        conf.append(j["confidence"])
+                    if j.get("choice_entropy_bits") is not None:
+                        ent.append(j["choice_entropy_bits"])
+                    if any(m["kind"] == "ASK" for m in d["menu"]):
+                        pmass.append(sum(pr for k, pr in j["probabilities"].items() if k.startswith("ASK")))
+        choices[a] = {"chosen_kind": dict(kinds), "offer_tag": dict(tags), "terminal_reason": dict(term),
+                      "walk_rate": term.get("walk", 0) / len(by_arm[a]) if by_arm[a] else None,
+                      "mean_prob_mass_on_ASK_when_present": mean(pmass) if pmass else None, "n_decisions_with_ASK_on_menu": len(pmass),
+                      "mean_confidence": mean(conf) if conf else None, "mean_choice_entropy_bits": mean(ent) if ent else None}
 
     analysis = {
         "env": summary.get("env"), "config": summary["config"], "kernel": summary["kernel"], "menu": summary.get("menu"),
         "arms": arms, "episodes": len(recs), "error_stubs": stubs, "elapsed_s": summary.get("elapsed_s"),
         "repeats": summary.get("repeats"), "seed": summary.get("seed"), "bootstrap": {"B": args.B, "seed": args.seed},
-        "cluster_definition": "(focal, opener, focal_ranking, opp_ranking)",
-        "per_arm": per_arm, "contrasts": contrasts, "ceilings": ceilings, "selectivity": sel, "position": position,
+        "cluster_definition": CLUSTER_DEFINITION, "n_offers": summary.get("n_offers"), "n_questions": summary.get("n_questions"),
+        "per_arm": per_arm, "contrasts": contrasts, "contrasts_questions": contrasts_questions, "ceilings": ceilings,
+        "selectivity": sel, "position": position, "choices": choices,
     }
     out = os.path.join(args.dir, "analysis.json")
     with open(out, "w") as f:
