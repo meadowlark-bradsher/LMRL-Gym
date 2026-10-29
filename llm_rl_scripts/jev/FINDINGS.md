@@ -42,7 +42,10 @@ plans with, and **0/158** when it must pick the questions itself. In Binned Car-
 (§3.6), with the forward model already in the menu, Jev's selection is **exactly
 optimal** at a horizon where the optimal policy never needs to ask — the decision is a
 two-offer utility read — and drops to one-line-heuristic level, ~0.06 utility below the
-exact policy, once the horizon binds and the ask-vs-act timing matters.
+exact policy, once the horizon binds and the ask-vs-act timing matters. In the live
+bilateral game with a public ASK action (§3.7), where the exact planner takes the whole value
+of asking (ceiling 0.102 normalized units when the focal opens), Jev asked in 0 of
+2555 eligible decisions and sits 0.28 below the planner — the dial's far end.
 
 **The sharp sub-pattern** (the most useful result of the study) is that a BED-style
 wrapper provides *two separable things*, and they unlock *different* outcomes:
@@ -415,6 +418,65 @@ externalized into the menu, Jev's selection goes from chance-level (Wordle, §3.
 the timing of information versus action matters. What Jev lacks is still the planner;
 here the horizon is what decides whether a planner is needed at all.
 
+### 3.7 Live Car-Dealer — the planner takes the whole value of asking; Jev never asks
+
+The bilateral game of §3.4 with a public **ASK** action (the nine questions of §3.6) against a
+history-responsive scripted opponent whose kernel the oracle knows (A.4; decisions in
+`car_dealer_live/DESIGN_LIVE.md`). PROPOSE and ASK share one budget of H opportunities, so a
+question costs an offer opportunity even at zero price. An exact oracle values every option with
+ASK allowed and forbidden; their difference Δ\* is the exact value of being allowed to ask. Phase 0
+swept 8 kernels × H ∈ {2, 3, 4} × c_q ∈ {0, 1/100, 3/100} exactly; Phase 1 ran Jev in the
+pre-registered cell (`PREREGISTRATION_LIVE.md`, tag `prereg-live-20261029`).
+
+- **Where asking is worth anything is a property of the game, settled without a model.** ASK is
+  never strictly optimal with 2 moves for any kernel; it is optimal at 3 and 4 for every kernel
+  (gate 7 of the design passes). For the registered kernel the mean Δ\* is **0.0000** at H = 2,
+  **0.0346** at H = 3, **0.0383** at H = 4 utility, and the exact value with the opponent's
+  type known is reached by H = 5, so asking has value only in the window where the budget is long
+  enough to exploit an answer and too short for the opponent's own counters to reveal its type for
+  free (the document's VOI-H2, with its mechanism: a fixed ultimatum ceiling, not "offers become
+  sufficient"). The two highest-EIG questions and the two rule-named offers of §3.6 were **not**
+  costless here: the planner's best opening offer ties with AMBITIOUS on EIG and P(accept) and
+  wins on the decision value of the types it sorts (a VOI-H3 instance), so the Condition B menu
+  cost the no-ask planner 0.0074 utility on average; the registered menu adds the planners'
+  own preferred moves and is lossless in 24/24 cells by construction (`PHASE1_SCRIPTED_RESULTS.md`).
+- **Primary cell (H = 4, c_q = 0, 144 cells × K = 5, 36 type-pair clusters): Jev asked in
+  0 of 2555 decisions where a question was on the menu**, in both the plain and the
+  EIG-shown arm, while placing 0.180 and 0.138 of its stated probability on the questions.
+  The registered primary contrast, Jev-with-ASK − Jev-without-ASK in focal-opens cells, is
+  **-0.010 [-0.021, -0.002]** (Y units; exact ceiling **0.102** = 0.0612 utility): *negative*, and since no
+  question was taken it is a presentation effect of two or three extra lettered options, not a
+  statement about inquiry. The planner captures the whole ceiling (exact_ask − exact_noask
+  reproduces Δ\* within its CI in every regime); Jev captured none of it. Held-out K = 1
+  replicate: -0.017 [-0.041, +0.000].
+- **The gap is the headline.** Jev-with-ASK sits **-0.277 [-0.316, -0.234]** below the exact planner in focal-opens
+  cells (Y = 0.354 vs 0.631; all cells
+  0.465 vs 0.631, greedy-EIG 0.465). The loss is mostly
+  **walking**: Jev ends 0.33 of episodes with no deal against 0.00 for the planner; its
+  offers are 698 AMBITIOUS, 213 SAFE and 360 of the ASK-planner's
+  probing offer (chosen at every focal opening). Showing EIG changed nothing about asking and
+  slightly *raised* net gain in the ask arm (+0.013 [+0.004, +0.023]; the registered "not > 0" fails on the good
+  side): with no questions taken the number can only have steered the choice among offers.
+- **Controls.** Negative control H = 2 (ASK never optimal): -0.001 [-0.006, +0.004]. Positive control H = 3:
+  -0.001 [-0.006, +0.003], unresolved for the same reason as P1. Question cost c_q = 3/100: 0.00 vs
+  a handful of questions, nothing to price. **Full 27-deal menu (named secondary arm): Jev walks
+  away in 0.93 of episodes and scores 0.035** — the shortlist is doing almost all of
+  Jev's absolute performance, the §3.4 pattern (a model that offers only its own ideal and
+  never concedes) seen again once the menu stops protecting it.
+- **Positional bias persists:** first two letters chosen 249 and 272 times vs 86 and
+  20 for the last two, with letters shuffled.
+- **Honest notes.** One kernel (the firmest of the Phase 0 sweep); the exact oracle is the planner,
+  so the document's budgeted-planner fairness question does not arise at H ≤ 4; the menu contains
+  the planners' preferred moves by construction, so the test is recognition, not generation; the
+  reviewer's stopping rule fired once (H = 3, question side) and was resolved before registration,
+  all recorded in `PREREGISTRATION_LIVE.md`; `jev-latest` pinned by name only.
+
+**Role lesson:** the design document's third interpretation-matrix row, measured: *the decision
+opportunity exists and the selector does not realise it.* Where §3.6 found Jev heuristic-level
+when the ask-vs-act timing matters, the live game finds it does not enter the ask side at all,
+even with the question's exact information value printed beside it. Inquiry is the planner's
+job; Jev's contribution is, once more, a valid pick from a menu someone else built.
+
 ## 4. The design patterns
 
 ### 4.1 Propose → Answer → Select
@@ -503,6 +565,7 @@ whether the options actually differ before it is treated as uncertainty.
 | Latent or planning needed; reward sparse or multi-step | **Externalized loop** (planner or belief filter) | selection from the maintained state | Text-Nav, Car-Dealer |
 | Reward-maximization with an instrumental latent | **Prior forward model** for the outcome; instance inference for the margin | selection; a value critic if scored on return (§5) | Car-Dealer |
 | Information acquisition with the forward model already in the menu | **The horizon decides**: no planner needed when information is free; a planner when asking costs the deal | correct selection when no planning is needed; heuristic-level when it is | Binned Car-Dealer |
+| Deliberate inquiry inside a live negotiation (ask costs an offer opportunity) | **The planner**: it captures the exact value of asking in full | none on the ask side — zero questions, even with EIG shown; a valid offer pick from the shortlist | Live Car-Dealer |
 
 In the Car-Dealer rows, information is not free to acquire: an offer is both a query
 and a commitment (§7), so any acquisition term has to be weighted against expected
@@ -636,6 +699,11 @@ when evaluating structured-decision models:
   design document, the conventional-LLM and BED-LLM arms, and the hard-regime Jev run
   are not built or run; the first-position bias is measured, not modelled; the
   entropy–regret sign flip is exploratory and needs its own pre-registered test.
+- **Live Car-Dealer:** one kernel (T1, firmest of the sweep) and the exact oracle as planner;
+  the budgeted B_plan/C_plan planners, T2 adaptive bilateral play and the CD-MIS-1
+  misspecification grid of the design document are not built; the menu carries the planners'
+  preferred moves by construction (recognition, not generation, is tested); the EIG-shown
+  gain on offers is unexplained and exploratory; `jev-latest` pinned by name only.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's
@@ -653,6 +721,7 @@ when evaluating structured-decision models:
 | Car-Dealer | merged, complete | selector + external belief filter | 0/12 alone → 24/24 with filter; ΔNash +0.158 |
 | 20Q | merged, complete | `Noul` = BED likelihood (vs selector); J/J oracle | likelihood loop 158/158 ~10Q (self-consistency; AUC 0.977); selector 0/158, 0.911 with history |
 | Binned Car-Dealer | merged, complete | selector over an exact-EIG menu vs DP reference | 2 rounds: Δ regret vs random −0.066, utility 0.71 vs exact 0.78 (≈ heuristics); 6 rounds: = exact (never-ask), zero regret 1,329/1,329 |
+| Live Car-Dealer | merged, complete | selector over a planner-complete shortlist in the bilateral game with ASK | Phase 0: ASK worth 0 at H=2, 0.038 utility at H=4 (exact); Jev: 0/2555 questions, P1 -0.010 [-0.021, -0.002] (ceiling 0.102), gap to planner -0.277 [-0.316, -0.234]; full menu: walks 0.93 |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
 
 ---
@@ -710,8 +779,10 @@ Questions (158 objects / 17 categories, §3.5); **Guess-My-City**; **Car-Dealer*
 buyer/seller negotiation (here a discretized redesign, §3.4 and A.4); **Binned
 Car-Dealer** = a single-learner information-acquisition variant of it (ask about the
 opponent's priorities or propose; frozen scripted opponent; exact DP reference; §3.6
-and A.4). This report presents live results for Text-Nav, Chess, Wordle, Car-Dealer,
-20Q, and Binned Car-Dealer; Guess-My-City / FO-Maze appear only as predicted role
+and A.4); **Live Car-Dealer** = the bilateral game with a public ASK action against a
+history-responsive scripted opponent with a known kernel, exact oracle with ASK allowed or
+forbidden (§3.7 and A.4). This report presents live results for Text-Nav, Chess, Wordle,
+Car-Dealer, 20Q, Binned Car-Dealer, and Live Car-Dealer; Guess-My-City / FO-Maze appear only as predicted role
 placements.
 
 ### A.3 Repo, branches, and where the numbers live
@@ -766,6 +837,17 @@ as this report. Named runs/docs used as shorthand in the body:
   `results/binned_b_sweep_20261026/sweep.json`,
   `results/binned_b_scripted_{r2_easy,r6_easy,r2_hard}_20261026/analysis.json`, and
   `results/binned_b_jev_{r2,r6}_easy_20261026/{analysis,verdicts}.json`.
+- **Live Car-Dealer:** package `llm_rl_scripts/car_dealer_live/` (`protocol_live.py`,
+  `opponent.py` = T1 kernel, `belief_live.py`, `oracle.py` with a menu hook, `menu_live.py` =
+  the registered shortlist, `arms_live.py`, `jev_policy_live.py`, `run_phase1.py`,
+  `costlessness_check.py`, `analyze_phase1.py`, `verdicts_live.py`, `render_phase1_note.py`).
+  Docs `DESIGN_LIVE.md`, `PHASE0_RESULTS.md`, `PHASE1_SCRIPTED_RESULTS.md`,
+  `PREREGISTRATION_LIVE.md` (tag `prereg-live-20261029`), `JEV_RESULTS_LIVE.md` (all notes
+  rendered from JSON). Numbers in `results/live_phase0_sweep_20261027/sweep.json`,
+  `results/live_phase0_horizon_growth_20261029/growth.json` (the horizon mechanism, H = 1–5),
+  `results/live_phase1_scripted3_20261029/`, and
+  `results/live_phase1_jev_{h4_cq0,h2_cq0,h3_cq0,h4_cq3,h4_cq0_full,h4_cq0_replicate}_20261029/`
+  (`analysis.json`; `verdicts.json` in the primary dir).
 
 ### A.4 Experiment design
 

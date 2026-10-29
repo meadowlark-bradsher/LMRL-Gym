@@ -135,6 +135,16 @@ def section(d: str, a: dict, w) -> None:
             w(f"| {arm} | {s['asked_when_optimal']}/{s['decisions_ask_optimal']} | {f3(s['p_ask_given_optimal'])} | "
               f"{s['asked_when_not_optimal']}/{s['decisions_ask_legal_not_optimal']} | {f3(s['p_ask_given_not_optimal'])} | {dtxt} |")
         w("")
+    if a.get("choices"):
+        w("### What each arm chose")
+        w("")
+        w("| arm | decisions by kind | offers by tag | episodes by terminal reason | walk rate | prob. mass on ASK when on the menu | mean confidence | mean choice entropy (bits) |")
+        w("|---|---|---|---|---|---|---|---|")
+        for arm, c in a["choices"].items():
+            w(f"| {arm} | {c['chosen_kind']} | {c['offer_tag']} | {c['terminal_reason']} | {f3(c['walk_rate'])} | "
+              f"{f3(c['mean_prob_mass_on_ASK_when_present']) if c['mean_prob_mass_on_ASK_when_present'] is not None else '—'} | "
+              f"{f3(c['mean_confidence']) if c['mean_confidence'] is not None else '—'} | {f3(c['mean_choice_entropy_bits']) if c['mean_choice_entropy_bits'] is not None else '—'} |")
+        w("")
     if a.get("position"):
         w("### Jev chosen position (0 = first lettered option)")
         w("")

@@ -292,13 +292,38 @@ def main(argv=None) -> int:
             position[a] = {"counts": dict(sorted(cnt.items(), key=lambda kv: int(kv[0]))), "decisions": tot,
                            "well_formed_share": (wf / tot) if tot else None}
 
+    # descriptive: what each arm chose (kinds, offer tags, terminal reasons), and for Jev the probability
+    # mass placed on ASK options when present, confidence and choice entropy
+    choices = {}
+    for a in arms:
+        kinds = defaultdict(int); tags = defaultdict(int); term = defaultdict(int)
+        pmass = []; conf = []; ent = []
+        for r in by_arm[a]:
+            term[r["terminal"]["reason"]] += 1
+            for d in r["decisions"]:
+                kinds[d["chosen_kind"]] += 1
+                if d["chosen_kind"] == "PROPOSE":
+                    tags[str(d.get("chosen_tag"))] += 1
+                j = d.get("jev")
+                if j:
+                    if j.get("confidence") is not None:
+                        conf.append(j["confidence"])
+                    if j.get("choice_entropy_bits") is not None:
+                        ent.append(j["choice_entropy_bits"])
+                    if any(m["kind"] == "ASK" for m in d["menu"]):
+                        pmass.append(sum(pr for k, pr in j["probabilities"].items() if k.startswith("ASK")))
+        choices[a] = {"chosen_kind": dict(kinds), "offer_tag": dict(tags), "terminal_reason": dict(term),
+                      "walk_rate": term.get("walk", 0) / len(by_arm[a]) if by_arm[a] else None,
+                      "mean_prob_mass_on_ASK_when_present": mean(pmass) if pmass else None, "n_decisions_with_ASK_on_menu": len(pmass),
+                      "mean_confidence": mean(conf) if conf else None, "mean_choice_entropy_bits": mean(ent) if ent else None}
+
     analysis = {
         "env": summary.get("env"), "config": summary["config"], "kernel": summary["kernel"], "menu": summary.get("menu"),
         "arms": arms, "episodes": len(recs), "error_stubs": stubs, "elapsed_s": summary.get("elapsed_s"),
         "repeats": summary.get("repeats"), "seed": summary.get("seed"), "bootstrap": {"B": args.B, "seed": args.seed},
         "cluster_definition": CLUSTER_DEFINITION, "n_offers": summary.get("n_offers"), "n_questions": summary.get("n_questions"),
         "per_arm": per_arm, "contrasts": contrasts, "contrasts_questions": contrasts_questions, "ceilings": ceilings,
-        "selectivity": sel, "position": position,
+        "selectivity": sel, "position": position, "choices": choices,
     }
     out = os.path.join(args.dir, "analysis.json")
     with open(out, "w") as f:
