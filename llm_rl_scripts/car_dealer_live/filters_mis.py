@@ -9,6 +9,10 @@ kernel for the likelihood; they differ in how they treat it.
 * B_mixture:    p_eff = (1 - eta) p_model + eta p_background, eta in {0.05, 0.2}.
                 p_background is uniform over the opponent's LEGAL actions at that node (the
                 observation category) and uniform over {yes, no} for answers.
+* B_ans{a}:     CD-MIS-2 hedged ANSWER model: Bayes under the assumed behavioural kernel, but every
+                answer likelihood assumes a flip rate a (p_model = (1 - a) p_truthful + a (1 - p_truthful));
+                a = 0 is B_naive. The ASK-allowed arms C_ans{a} plan with the same hedged kernel, so the
+                planner's expected information gain and the filter's update use the same answer model.
 The exact filter under the TRUE kernel (what O_true holds) is kept beside them for diagnostics.
 """
 
@@ -33,9 +37,10 @@ class FilterSpec:
     update: bool = True          # False = A_prior
     eta: float = 1e-3            # background mixture weight
     tau: float = 1.0             # likelihood tempering
+    answer_noise: float = 0.0    # assumed answer flip rate (hedged answer model; 0 = truthful)
 
     def to_json(self) -> dict:
-        return {"name": self.name, "update": self.update, "eta": self.eta, "tau": self.tau}
+        return {"name": self.name, "update": self.update, "eta": self.eta, "tau": self.tau, "answer_noise": self.answer_noise}
 
 
 FILTERS = {
@@ -45,6 +50,9 @@ FILTERS = {
     "B_temp0.75": FilterSpec("B_temp0.75", tau=0.75),
     "B_mix0.05": FilterSpec("B_mix0.05", eta=0.05),
     "B_mix0.2": FilterSpec("B_mix0.2", eta=0.2),
+    "B_ans0.1": FilterSpec("B_ans0.1", answer_noise=0.1),
+    "B_ans0.2": FilterSpec("B_ans0.2", answer_noise=0.2),
+    "B_ans0.3": FilterSpec("B_ans0.3", answer_noise=0.3),
 }
 
 
@@ -61,7 +69,12 @@ def opponent_action_likelihood(assumed: T1Kernel, state: PublicState, act: Actio
 
 
 def answer_likelihood(assumed: T1Kernel, question_id: str, answer: str, spec: FilterSpec) -> Tuple[float, ...]:
+    """Per-type effective likelihood of an answer. ``assumed`` is the agent's (truthful) kernel; a hedged
+    spec mixes in its assumed flip rate before the background floor is applied."""
     p_model = bl.answer_likelihoods(assumed, question_id)[answer]
+    a = spec.answer_noise
+    if a > 0:
+        p_model = tuple((1.0 - a) * p + a * (1.0 - p) for p in p_model)
     return effective_likelihood(p_model, 0.5, spec.eta)
 
 

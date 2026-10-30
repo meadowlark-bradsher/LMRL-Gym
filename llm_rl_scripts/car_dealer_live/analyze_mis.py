@@ -1,6 +1,8 @@
-"""Analyze one CD-MIS-1 result dir written by ``run_mis.py``: per-arm statistics per true process,
-paired cluster-bootstrap contrasts between arms (outcome Y and two diagnostics), and cross-process
-contrasts (each process minus ``matched``) per arm. Skips error stubs. Writes ``analysis.json``.
+"""Analyze one CD-MIS-1 / CD-MIS-2 result dir written by ``run_mis.py``: per-arm statistics per true
+process, paired cluster-bootstrap contrasts between arms (outcome Y and two diagnostics), cross-process
+contrasts (each process minus ``matched``) per arm, the share of seed-paired episodes in which two arms
+took identical trajectories, and (CD-MIS-2) the severity ordering of each process family. Skips error
+stubs. Writes ``analysis.json``.
 
     PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.analyze_mis --dir results/<dir> [--B 5000 --seed 41]
 
@@ -176,11 +178,57 @@ def arm_pairs(arms: List[str]) -> List[Tuple[str, str]]:
     # (added after the registered run for the matched-sanity gate and the decomposition; descriptive)
     if "O_true" in arms:
         pairs += [("O_true", c) for c in ("C_naive", "C_mix0.2") if c in arms]
+    # CD-MIS-2: every other ASK-allowed arm (the hedged-answer C_ans arms) against C_naive and under O_true
+    c_arms = [a for a in arms if a.startswith("C_")]
+    if "C_naive" in arms:
+        pairs += [(c, "C_naive") for c in c_arms if c != "C_naive"]
+    if "O_true" in arms:
+        pairs += [("O_true", c) for c in c_arms]
     seen, out = set(), []
     for p in pairs:
         if p not in seen:
             seen.add(p)
             out.append(p)
+    return out
+
+
+def episode_key(r: dict) -> tuple:
+    return (r["focal"], r["opener"], tuple(r["focal_ranking"]), tuple(r["private_truth_evaluator_only"]["opp_ranking"]), r["repeat"])
+
+
+def signature(r: dict) -> tuple:
+    return (tuple(d["chosen"] for d in r["decisions"]), r["terminal"]["deal_id"], r["terminal"]["reason"])
+
+
+def trajectory_identity(xs: List[dict], zs: List[dict]) -> dict:
+    """Share of seed-paired episodes (same cell and repeat) in which the two arms made identical
+    decision sequences and reached the same terminal; a decision-level reading of 'the filter changed
+    the belief but not the choice'."""
+    bz = {episode_key(r): signature(r) for r in zs}
+    same = total = 0
+    for r in xs:
+        k = episode_key(r)
+        if k in bz:
+            total += 1
+            same += signature(r) == bz[k]
+    return {"identical_share": (same / total) if total else None, "n_pairs": total}
+
+
+def severity_block(processes: List[str], meta: dict, per_arm: dict) -> dict:
+    """CD-MIS-2: per family, the levels in severity order and each arm's mean Y along them."""
+    fams: Dict[str, List[tuple]] = defaultdict(list)
+    for p in processes:
+        m = meta.get(p) or {}
+        if m.get("severity") is not None:
+            from fractions import Fraction
+            fams[m["family"]].append((float(Fraction(m["severity"])), p))
+    out = {}
+    for fam, lv in fams.items():
+        lv.sort()
+        arms = sorted({a for _, p in lv for a in per_arm.get(p, {})})
+        out[fam] = {"levels": [{"process": p, "severity": sv} for sv, p in lv],
+                    "mean_normalized_net_gain": {a: {p: per_arm[p][a]["all"]["mean_normalized_net_gain"] for _, p in lv if a in per_arm.get(p, {})} for a in arms},
+                    "mean_questions_asked": {a: {p: per_arm[p][a]["all"]["mean_questions_asked"] for _, p in lv if a in per_arm.get(p, {})} for a in arms}}
     return out
 
 
@@ -210,15 +258,18 @@ def main(argv=None) -> int:
 
     pairs = arm_pairs(arms)
     contrasts = {}
+    identity = {}
     contrasts_diag = {o: {} for o in OUTCOMES if o != "normalized_net_gain"}
     for p in processes:
         contrasts[p] = {}
+        identity[p] = {}
         for o in contrasts_diag:
             contrasts_diag[o][p] = {}
         for x, z in pairs:
             if not by[p][x] or not by[p][z]:
                 continue
             name = f"{x}-{z}"
+            identity[p][name] = trajectory_identity(by[p][x], by[p][z])
             contrasts[p][name] = {cs: paired_bootstrap(cluster_means(by[p][x], cs, y), cluster_means(by[p][z], cs, y), args.B, args.seed)
                                   for cs in CELL_SETS}
             for o, fn in OUTCOMES.items():
@@ -244,7 +295,9 @@ def main(argv=None) -> int:
         "assumed_kernel": summary.get("assumed_kernel"), "processes": processes, "arms": arms, "filters": summary.get("filters"),
         "repeats": summary.get("repeats"), "seed": summary.get("seed"), "episodes": len(recs), "error_stubs": stubs,
         "elapsed_s": summary.get("elapsed_s"), "bootstrap": {"B": args.B, "seed": args.seed}, "cluster_definition": CLUSTER_DEFINITION,
+        "process_meta": summary.get("process_meta"), "hedged_arms": summary.get("hedged_arms"),
         "per_arm": per_arm, "contrasts": contrasts, "contrasts_diag": contrasts_diag, "cross_process": cross_process,
+        "trajectory_identity": identity, "severity": severity_block(processes, summary.get("process_meta") or {}, per_arm),
     }
     out = os.path.join(args.dir, "analysis.json")
     with open(out, "w") as f:

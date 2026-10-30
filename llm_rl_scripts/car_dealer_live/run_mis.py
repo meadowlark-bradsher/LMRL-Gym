@@ -1,4 +1,4 @@
-"""CD-MIS-1 runner: learning with the wrong opponent model (design document section 7).
+"""CD-MIS-1 / CD-MIS-2 runner: learning with the wrong opponent model (design document section 7).
 
 Fixed: the agent's ASSUMED kernel (the registered T1), its planner (the exact oracle under the
 assumed kernel, over the full legal action set; ASK forbidden for A/B arms, allowed for C arms),
@@ -16,6 +16,12 @@ measured by O_true (Q under the true process and the exact true belief).
     PYTHONPATH=. python3 -u -m llm_rl_scripts.car_dealer_live.run_mis --process history --horizon 3 \
         --arms A_prior,B_naive,B_temp0.5,B_temp0.75,B_mix0.05,B_mix0.2,C_naive,C_mix0.2,O_true \
         --repeats 5 --seed 41 --out results/<dir>
+
+CD-MIS-2 adds severity levels (``--process evasive@0.1,evasive@0.5``; see ``opponents_mis``) and the
+hedged-answer ASK arms ``C_ans0.1`` / ``C_ans0.2`` / ``C_ans0.3`` (planner and filter both assume that
+answer flip rate; the behavioural kernel stays the registered T1). Random streams are seeded by the
+process FAMILY, so a family's levels share episodes wherever the play allows (the no-ask arms are
+identical across evasive levels; the CD-MIS-1 level of each family replicates CD-MIS-1 exactly).
 """
 
 from __future__ import annotations
@@ -35,14 +41,17 @@ from llm_rl_scripts.car_dealer_discrete.scoring import analyze_type_pair
 
 from . import belief_live as bl
 from . import filters_mis as fm
-from .opponents_mis import PROCESSES, assumed_kernel, true_kernel
+from .opponents_mis import PROCESSES, assumed_kernel, family, parse_process, severity, true_kernel
 from .oracle import EPS, Oracle
 from .protocol_live import ACCEPT, ASK, PROPOSE, ENV_VERSION, Action, LiveConfig, apply, asks_by, new_game, other
 
-ARMS = ["A_prior", "B_naive", "B_temp0.5", "B_temp0.75", "B_mix0.05", "B_mix0.2", "C_naive", "C_mix0.2", "O_true"]
+ARMS = ["A_prior", "B_naive", "B_temp0.5", "B_temp0.75", "B_mix0.05", "B_mix0.2", "C_naive", "C_mix0.2",
+        "C_ans0.1", "C_ans0.2", "C_ans0.3", "O_true"]
 ARM_FILTER = {"A_prior": "A_prior", "B_naive": "B_naive", "B_temp0.5": "B_temp0.5", "B_temp0.75": "B_temp0.75",
-              "B_mix0.05": "B_mix0.05", "B_mix0.2": "B_mix0.2", "C_naive": "B_naive", "C_mix0.2": "B_mix0.2"}
-ASK_ARMS = {"C_naive", "C_mix0.2", "O_true"}
+              "B_mix0.05": "B_mix0.05", "B_mix0.2": "B_mix0.2", "C_naive": "B_naive", "C_mix0.2": "B_mix0.2",
+              "C_ans0.1": "B_ans0.1", "C_ans0.2": "B_ans0.2", "C_ans0.3": "B_ans0.3"}
+ASK_ARMS = {"C_naive", "C_mix0.2", "C_ans0.1", "C_ans0.2", "C_ans0.3", "O_true"}
+HEDGED_ARMS = {"C_ans0.1": Fraction(1, 10), "C_ans0.2": Fraction(1, 5), "C_ans0.3": Fraction(3, 10)}
 
 
 def _f(x):
@@ -63,6 +72,17 @@ class MisCell:
         self.plan_noask = Oracle(cfg, focal, ranking, self.assumed, ask_allowed=False)
         self.plan_ask = Oracle(cfg, focal, ranking, self.assumed, ask_allowed=True)
         self.o_true = Oracle(cfg, focal, ranking, self.truth, ask_allowed=True)
+        self._hedged: Dict[str, Oracle] = {}
+
+    def planner(self, arm: str) -> Oracle:
+        if arm == "O_true":
+            return self.o_true
+        if arm in HEDGED_ARMS:
+            if arm not in self._hedged:
+                hedged = assumed_kernel(other(self.focal), self.cfg, answer_noise=HEDGED_ARMS[arm])
+                self._hedged[arm] = Oracle(self.cfg, self.focal, self.ranking, hedged, ask_allowed=True)
+            return self._hedged[arm]
+        return self.plan_ask if arm in ASK_ARMS else self.plan_noask
 
 
 def play_episode(cell: MisCell, arm: str, opener: str, opp_ranking, rng: random.Random, repeat: int) -> dict:
@@ -72,7 +92,7 @@ def play_episode(cell: MisCell, arm: str, opener: str, opp_ranking, rng: random.
     agent_b = bl.uniform()          # the arm's belief (assumed kernel through its filter)
     true_b = bl.uniform()           # exact posterior under the TRUE kernel (diagnostic; O_true's belief)
     spec = fm.FILTERS[ARM_FILTER.get(arm, "B_naive")]
-    planner = cell.o_true if arm == "O_true" else (cell.plan_ask if arm in ASK_ARMS else cell.plan_noask)
+    planner = cell.planner(arm)
     decisions: List[dict] = []
     pred_ll = []        # predictive log-loss of observed opponent responses under the agent's model
     brier = []          # (P_assumed(accept) - 1[accepted])^2 for the focal's proposals
@@ -152,6 +172,7 @@ def main(argv=None) -> int:
     p.add_argument("--roles", default="buyer,seller"); p.add_argument("--openers", default="buyer,seller")
     p.add_argument("--types", default="all"); p.add_argument("--opp-types", default="all")
     p.add_argument("--repeats", type=int, default=5); p.add_argument("--seed", type=int, default=41)
+    p.add_argument("--design", default="CD-MIS-1", help="label written to summary.json (CD-MIS-1 or CD-MIS-2)")
     p.add_argument("--out", required=True)
     args = p.parse_args(argv)
     cfg = LiveConfig(regime=args.regime, horizon=args.horizon, ask_cost=Fraction(args.ask_cost))
@@ -174,7 +195,7 @@ def main(argv=None) -> int:
                         for opener in openers:
                             for j in opp_types:
                                 for k in range(args.repeats):
-                                    rng = random.Random(f"{args.seed}|{proc}|{role}|{opener}|{i}|{j}|{k}")
+                                    rng = random.Random(f"{args.seed}|{family(proc)}|{role}|{opener}|{i}|{j}|{k}")
                                     try:
                                         rec = play_episode(cell, arm, opener, ALL_RANKINGS[j], rng, k)
                                     except Exception as e:
@@ -184,8 +205,9 @@ def main(argv=None) -> int:
                                         print(f"  episode failed: {rec['error']}", file=sys.stderr)
                                     f.write(json.dumps(rec) + "\n"); n += 1
                 print(f"[{time.time()-t0:7.1f}s] process={proc} role={role} done ({n} episodes)", file=sys.stderr)
-    summary = {"env": ENV_VERSION, "design": "CD-MIS-1", "config": cfg.to_json(), "assumed_kernel": assumed_kernel("seller", cfg).p.to_json(),
-               "processes": procs, "arms": arms, "filters": {a: fm.FILTERS[ARM_FILTER[a]].to_json() for a in arms if a in ARM_FILTER},
+    summary = {"env": ENV_VERSION, "design": args.design, "config": cfg.to_json(), "assumed_kernel": assumed_kernel("seller", cfg).p.to_json(),
+               "processes": procs, "process_meta": {q: {"family": family(q), "severity": (None if severity(q) is None else str(severity(q)))} for q in procs},
+               "arms": arms, "hedged_arms": {a: str(v) for a, v in HEDGED_ARMS.items() if a in arms}, "filters": {a: fm.FILTERS[ARM_FILTER[a]].to_json() for a in arms if a in ARM_FILTER},
                "roles": roles, "openers": openers, "focal_types": [_tag(ALL_RANKINGS[i]) for i in types], "opp_types": [_tag(ALL_RANKINGS[j]) for j in opp_types],
                "repeats": args.repeats, "seed": args.seed, "episodes": n, "error_stubs": errors, "elapsed_s": round(time.time() - t0, 2)}
     with open(os.path.join(args.out, "summary.json"), "w") as f:
