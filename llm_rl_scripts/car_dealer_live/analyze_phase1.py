@@ -22,8 +22,13 @@ from collections import defaultdict
 from statistics import mean
 from typing import Dict, List, Optional, Tuple
 
-ASK_NOASK_PAIRS = [("exact_ask", "exact_noask"), ("jev_ask_plain", "jev_noask_plain"), ("jev_ask_eig", "jev_noask_eig")]
-NOASK_ARMS = {"exact_noask", "jev_noask_plain", "jev_noask_eig"}
+ASK_NOASK_PAIRS = [("exact_ask", "exact_noask"), ("jev_ask_plain", "jev_noask_plain"), ("jev_ask_eig", "jev_noask_eig"),
+                   ("jev_ask_both", "jev_noask_both")]
+NOASK_ARMS = {"exact_noask", "jev_noask_plain", "jev_noask_eig", "jev_noask_both"}
+# CD-SEL-1: every selector arm against the plain arm, plus the within-treatment pairs
+SELECTOR_ARMS = ("jev_ask_belief", "jev_ask_pacc", "jev_ask_prior", "jev_ask_placebo", "jev_ask_both")
+SELECTOR_PAIRS = [(a, "jev_ask_plain") for a in SELECTOR_ARMS] + [
+    ("jev_ask_pacc", "jev_ask_prior"), ("jev_ask_both", "jev_ask_pacc"), ("jev_ask_both", "jev_ask_belief"), ("jev_ask_prior", "jev_ask_placebo")]
 CELL_SETS = ("all", "focal_opens", "opponent_opens")
 
 
@@ -259,6 +264,7 @@ def main(argv=None) -> int:
     pairs += [(a, "exact_ask") for a in arms if a != "exact_ask" and "exact_ask" in arms]
     if "jev_ask_eig" in arms and "jev_ask_plain" in arms:
         pairs.append(("jev_ask_eig", "jev_ask_plain"))
+    pairs += [(x, z) for x, z in SELECTOR_PAIRS if x in arms and z in arms and (x, z) not in pairs]
     contrasts = {}
     for x, z in pairs:
         name = f"{x}-{z}"
@@ -274,6 +280,13 @@ def main(argv=None) -> int:
         name = f"{x}-{z}"
         contrasts_questions[name] = {cs: paired_bootstrap(cluster_means(by_arm[x], cs, lambda r: r["questions_asked"]),
                                                           cluster_means(by_arm[z], cs, lambda r: r["questions_asked"]), args.B, args.seed)
+                                     for cs in CELL_SETS}
+
+    # the same pairs on the walk indicator (an episode ending with the focal or the opponent walking)
+    walk = lambda r: 1.0 if r["terminal"]["reason"] == "walk" else 0.0
+    contrasts_walk = {}
+    for x, z in pairs:
+        contrasts_walk[f"{x}-{z}"] = {cs: paired_bootstrap(cluster_means(by_arm[x], cs, walk), cluster_means(by_arm[z], cs, walk), args.B, args.seed)
                                      for cs in CELL_SETS}
 
     sel = {a: selectivity(by_arm[a], args.B, args.seed) for a in arms if a not in NOASK_ARMS}
@@ -322,7 +335,8 @@ def main(argv=None) -> int:
         "arms": arms, "episodes": len(recs), "error_stubs": stubs, "elapsed_s": summary.get("elapsed_s"),
         "repeats": summary.get("repeats"), "seed": summary.get("seed"), "bootstrap": {"B": args.B, "seed": args.seed},
         "cluster_definition": CLUSTER_DEFINITION, "n_offers": summary.get("n_offers"), "n_questions": summary.get("n_questions"),
-        "per_arm": per_arm, "contrasts": contrasts, "contrasts_questions": contrasts_questions, "ceilings": ceilings,
+        "per_arm": per_arm, "contrasts": contrasts, "contrasts_questions": contrasts_questions, "contrasts_walk": contrasts_walk,
+        "jev_arm_specs": summary.get("jev_arm_specs"), "ceilings": ceilings,
         "selectivity": sel, "position": position, "choices": choices,
     }
     out = os.path.join(args.dir, "analysis.json")

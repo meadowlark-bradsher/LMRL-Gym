@@ -1,4 +1,4 @@
-# Live Car-Dealer (`live-car-dealer-v0.1`) — CD-VOI-1 / CD-MIS-1 / CD-MIS-2, Phases 0–1
+# Live Car-Dealer (`live-car-dealer-v0.1`) — CD-VOI-1 / CD-MIS-1 / CD-MIS-2 / CD-SEL-1, Phases 0–1 and the Phase 2 selector arms
 
 The bilateral discretized Car-Dealer game with a public **ASK** action, a history-responsive
 **T1 opponent** whose kernel is known to the oracle, a matched finite filter, and an **exact
@@ -18,6 +18,7 @@ frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
 - CD-MIS-1 (learning with the wrong opponent model): [`PREREGISTRATION_MIS.md`](PREREGISTRATION_MIS.md); results: [`MIS_RESULTS.md`](MIS_RESULTS.md)
 - CD-MIS-2 (severity sweep; the evasive-answer channel, hedged answer models): [`PREREGISTRATION_MIS2.md`](PREREGISTRATION_MIS2.md);
   results: [`MIS2_RESULTS.md`](MIS2_RESULTS.md), rendered from `results/live_mis2_20261030/`
+- CD-SEL-1 (Jev shown what the history implies: the posterior in words, P(accept) on every offer; design Phase 2 selector arms): [`PREREGISTRATION_SEL.md`](PREREGISTRATION_SEL.md); results in `SEL_RESULTS.md` once run.
 
 ## Code
 
@@ -33,7 +34,7 @@ frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
 | `test_live.py` | the Phase 0 gates (6 tests, ~15 s) |
 | `menu_live.py` | Phase 1 shortlist menu (SAFE / AMBITIOUS offers, top-EIG questions, free moves) with exact annotations; restriction switches |
 | `arms_live.py` | `exact_ask` (C_plan), `exact_noask` (B_plan), `greedy_eig`, `random` |
-| `jev_policy_live.py` | Jev Choice over the lettered, shuffled menu; EIG shown / hidden |
+| `jev_policy_live.py` | Jev Choice over the lettered, shuffled menu; EIG shown / hidden; CD-SEL-1 treatments: the posterior in words (`show_belief`), P(accept) on every offer under the posterior / prior / a placebo constant (`accept_annotation`) |
 | `run_phase1.py` | Phase 1 runner: 144 cells × K, per-decision exact logs, `ceilings.json` |
 | `costlessness_check.py` | full vs shortlist oracle values over menu sizes; the reviewer's stopping rule |
 | `verdicts_live.py` | the pre-registered decision rules, applied by code |
@@ -41,13 +42,15 @@ frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
 | `analyze_mis.py`, `verdicts_mis.py`, `render_mis_note.py` | CD-MIS-1 analysis (also CD-MIS-2: generic arm pairs, identical-trajectory share, severity ordering), pre-registered rules, rendered note |
 | `verdicts_mis2.py`, `render_mis2_note.py` | CD-MIS-2 pre-registered rules and rendered note |
 | `test_mis.py`, `test_mis2.py` | the CD-MIS-1 gates (4 tests) and CD-MIS-2 gates (4 tests) |
-| `analyze_phase1.py`, `render_phase1_note.py` | analysis JSON and the rendered note |
+| `analyze_phase1.py`, `render_phase1_note.py` | analysis JSON (Phase 1 and CD-SEL-1 pairs, walk-rate contrasts) and the rendered Phase 1 note |
+| `verdicts_sel.py`, `render_sel_note.py`, `test_sel.py` | CD-SEL-1 pre-registered rules, rendered note (`SEL_RESULTS.md`), gates (4 tests) |
 | `test_phase1.py` | the Phase 1 gates (4 tests; incl. neither planner handicapped by the menu) |
 
 ```bash
 PYTHONPATH=. python3 -m pytest -q llm_rl_scripts/car_dealer_live
 PYTHONPATH=. python3 -u -m llm_rl_scripts.car_dealer_live.sweep_ask_value --out results/live_phase0_sweep_20261027/sweep.json
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.render_phase0_note --sweep results/live_phase0_sweep_20261027/sweep.json --out llm_rl_scripts/car_dealer_live/PHASE0_RESULTS.md
+# CD-SEL-1 (registered run; needs TYPESAFE_API_KEY): see llm_rl_scripts/car_dealer_live/PREREGISTRATION_SEL.md and results/live_sel_jev_h4_cq0_20261030/REGENERATE.sh
 # Phase 1 scripted baselines (primary cell; see results/live_phase1_scripted_20261029/REGENERATE.sh for all regimes)
 PYTHONPATH=. python3 -u -m llm_rl_scripts.car_dealer_live.run_phase1 --horizon 4 --ask-cost 0 --arms exact_ask,exact_noask,greedy_eig,random --repeats 5 --seed 0 --out results/live_phase1_scripted_20261029/h4_cq0
 ```
