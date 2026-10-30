@@ -16,6 +16,9 @@
   "shortlist": 3
  },
  "menu": "shortlist",
+ "heuristic_menu": true,
+ "n_offers": 2,
+ "n_questions": 2,
  "cells": {
   "buyer|buyer|p/w/d": {
    "menu_ask": 0.19487179487179487,
@@ -30,16 +33,16 @@
    "loss_noask": 0.0
   },
   "buyer|seller|p/w/d": {
-   "menu_ask": 0.24694308132908208,
-   "menu_noask": 0.24694308132908208,
+   "menu_ask": 0.2469430813290821,
+   "menu_noask": 0.2469430813290821,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.24694308132908208,
+   "offers_restricted_ask": 0.2469430813290821,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.042818153577202506,
-   "loss_noask": 0.042818153577202506
+   "loss_ask": 0.04281815357720248,
+   "loss_noask": 0.04281815357720248
   },
   "buyer|buyer|p/d/w": {
    "menu_ask": 0.19487179487179487,
@@ -78,16 +81,16 @@
    "loss_noask": 0.0
   },
   "buyer|seller|w/p/d": {
-   "menu_ask": 0.24694308132908208,
-   "menu_noask": 0.24694308132908208,
+   "menu_ask": 0.2469430813290821,
+   "menu_noask": 0.2469430813290821,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.24694308132908208,
+   "offers_restricted_ask": 0.2469430813290821,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.042818153577202506,
-   "loss_noask": 0.042818153577202506
+   "loss_ask": 0.04281815357720248,
+   "loss_noask": 0.04281815357720248
   },
   "buyer|buyer|w/d/p": {
    "menu_ask": 0.19487179487179487,
@@ -102,16 +105,16 @@
    "loss_noask": 0.0
   },
   "buyer|seller|w/d/p": {
-   "menu_ask": 0.24694308132908208,
-   "menu_noask": 0.24694308132908208,
+   "menu_ask": 0.2469430813290821,
+   "menu_noask": 0.2469430813290821,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.24694308132908208,
+   "offers_restricted_ask": 0.2469430813290821,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.042818153577202506,
-   "loss_noask": 0.042818153577202506
+   "loss_ask": 0.04281815357720248,
+   "loss_noask": 0.04281815357720248
   },
   "buyer|buyer|d/p/w": {
    "menu_ask": 0.19487179487179487,
@@ -126,16 +129,16 @@
    "loss_noask": 0.0
   },
   "buyer|seller|d/p/w": {
-   "menu_ask": 0.2469430813290821,
-   "menu_noask": 0.2469430813290821,
+   "menu_ask": 0.24694308132908208,
+   "menu_noask": 0.24694308132908208,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.2469430813290821,
+   "offers_restricted_ask": 0.24694308132908208,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.04281815357720248,
-   "loss_noask": 0.04281815357720248
+   "loss_ask": 0.042818153577202506,
+   "loss_noask": 0.042818153577202506
   },
   "buyer|buyer|d/w/p": {
    "menu_ask": 0.19487179487179487,
@@ -162,16 +165,16 @@
    "loss_noask": 0.04281815357720248
   },
   "seller|buyer|p/w/d": {
-   "menu_ask": 0.24694308132908208,
-   "menu_noask": 0.24694308132908208,
+   "menu_ask": 0.2469430813290821,
+   "menu_noask": 0.2469430813290821,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.24694308132908208,
+   "offers_restricted_ask": 0.2469430813290821,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.042818153577202506,
-   "loss_noask": 0.042818153577202506
+   "loss_ask": 0.04281815357720248,
+   "loss_noask": 0.04281815357720248
   },
   "seller|seller|p/w/d": {
    "menu_ask": 0.19487179487179487,
@@ -186,16 +189,16 @@
    "loss_noask": 0.0
   },
   "seller|buyer|p/d/w": {
-   "menu_ask": 0.24694308132908208,
-   "menu_noask": 0.24694308132908208,
+   "menu_ask": 0.2469430813290821,
+   "menu_noask": 0.2469430813290821,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.24694308132908208,
+   "offers_restricted_ask": 0.2469430813290821,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.042818153577202506,
-   "loss_noask": 0.042818153577202506
+   "loss_ask": 0.04281815357720248,
+   "loss_noask": 0.04281815357720248
   },
   "seller|seller|p/d/w": {
    "menu_ask": 0.19487179487179487,
@@ -210,16 +213,16 @@
    "loss_noask": 0.0
   },
   "seller|buyer|w/p/d": {
-   "menu_ask": 0.24694308132908208,
-   "menu_noask": 0.24694308132908208,
+   "menu_ask": 0.2469430813290821,
+   "menu_noask": 0.2469430813290821,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.24694308132908208,
+   "offers_restricted_ask": 0.2469430813290821,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.042818153577202506,
-   "loss_noask": 0.042818153577202506
+   "loss_ask": 0.04281815357720248,
+   "loss_noask": 0.04281815357720248
   },
   "seller|seller|w/p/d": {
    "menu_ask": 0.19487179487179487,
@@ -282,16 +285,16 @@
    "loss_noask": 0.0
   },
   "seller|buyer|d/w/p": {
-   "menu_ask": 0.2469430813290821,
-   "menu_noask": 0.2469430813290821,
+   "menu_ask": 0.24694308132908208,
+   "menu_noask": 0.24694308132908208,
    "full_ask": 0.2897612349062846,
    "full_noask": 0.2897612349062846,
-   "offers_restricted_ask": 0.2469430813290821,
+   "offers_restricted_ask": 0.24694308132908208,
    "questions_restricted_ask": 0.2897612349062846,
    "delta_full": 0.0,
    "delta_menu": 0.0,
-   "loss_ask": 0.04281815357720248,
-   "loss_noask": 0.04281815357720248
+   "loss_ask": 0.042818153577202506,
+   "loss_noask": 0.042818153577202506
   },
   "seller|seller|d/w/p": {
    "menu_ask": 0.19487179487179487,

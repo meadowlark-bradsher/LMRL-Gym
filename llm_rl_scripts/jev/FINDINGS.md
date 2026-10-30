@@ -559,7 +559,9 @@ with `O_true` (assumed = true) as its diagonal. 56,160 scripted episodes, 0 stub
   uniform prior — depended on the process's hash seed. The table is now ordered by action key (`belief_live.py`), a test pins it,
   and both CD-MIS-1 and CD-MIS-2 were regenerated with the fixed code; no rule changed, the §3.8 numbers moved in the third decimal at
   most where ties had been broken differently, and the first run's analysis is kept in the registration as a disclosed artefact.
-  Phase 1's scripted baselines were produced before the fix and may differ at exact ties if regenerated; the Jev runs cannot be.
+  Phase 1's scripted baselines were regenerated with the fixed code too: 0 of 48 per-arm mean-Y values and 0 of 48 contrast points of the
+  registered dir moved (largest change 0.0000), so no §3.7 number and no verdict changed (`PREREGISTRATION_LIVE.md`, post-run
+  disclosure); the Jev runs cannot be regenerated.
   Still one assumed kernel, the exact oracle as planner, a fixed (not estimated) hedge, H = 4, easy regime.
 
 **Role lesson:** the belief filter's weak point is the question channel, and the fix is on the model side, not the inference side:
@@ -800,8 +802,8 @@ when evaluating structured-decision models:
 - **CD-MIS-1 / CD-MIS-2:** the exact oracle as planner; the robust filters never changed a decision at any severity
   swept, so their cost/benefit is untested where it would bind (a planner sensitive to posterior sharpness); the hedge is a
   fixed assumed rate, not an estimate, so the value of asking under noise is not recovered; anchoring, threshold and
-  withholding have no severity axis; Phase 1's scripted result dirs predate the determinism fix (§3.9) and may differ at
-  exact ties if regenerated.
+  withholding have no severity axis; Phase 1's scripted result dirs were regenerated after the determinism fix (§3.9) with no
+  number moved, but the Jev result dirs are model runs and were not.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's

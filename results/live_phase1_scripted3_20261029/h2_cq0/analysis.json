@@ -25,7 +25,7 @@
  ],
  "episodes": 2880,
  "error_stubs": 0,
- "elapsed_s": 4.84,
+ "elapsed_s": 4.85,
  "repeats": 5,
  "seed": 0,
  "bootstrap": {
@@ -705,5 +705,88 @@
    "n_clusters": 36
   }
  },
- "position": {}
+ "position": {},
+ "choices": {
+  "exact_ask": {
+   "chosen_kind": {
+    "PROPOSE": 720,
+    "WALK": 120
+   },
+   "offer_tag": {
+    "SAFE": 431,
+    "AMBITIOUS": 146,
+    "PLAN": 143
+   },
+   "terminal_reason": {
+    "walk": 240,
+    "accept": 480
+   },
+   "walk_rate": 0.3333333333333333,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "exact_noask": {
+   "chosen_kind": {
+    "PROPOSE": 720,
+    "WALK": 120
+   },
+   "offer_tag": {
+    "SAFE": 431,
+    "AMBITIOUS": 146,
+    "PLAN": 143
+   },
+   "terminal_reason": {
+    "walk": 240,
+    "accept": 480
+   },
+   "walk_rate": 0.3333333333333333,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "greedy_eig": {
+   "chosen_kind": {
+    "PROPOSE": 577,
+    "ACCEPT": 383,
+    "ASK": 143
+   },
+   "offer_tag": {
+    "AMBITIOUS": 577
+   },
+   "terminal_reason": {
+    "accept": 616,
+    "walk": 104
+   },
+   "walk_rate": 0.14444444444444443,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "random": {
+   "chosen_kind": {
+    "PROPOSE": 285,
+    "ACCEPT": 514,
+    "ASK": 339,
+    "REJECT": 53
+   },
+   "offer_tag": {
+    "AMBITIOUS": 129,
+    "SAFE": 142,
+    "PLAN": 14
+   },
+   "terminal_reason": {
+    "accept": 685,
+    "walk": 35
+   },
+   "walk_rate": 0.04861111111111111,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  }
+ }
 }

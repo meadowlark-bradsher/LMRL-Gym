@@ -17,6 +17,9 @@
     "shortlist": 3
   },
   "menu": "shortlist",
+  "heuristic_menu": true,
+  "n_offers": 2,
+  "n_questions": 2,
   "arms": [
     "exact_ask",
     "exact_noask",
@@ -53,5 +56,5 @@
   "jev_shuffle_options": true,
   "episodes": 2880,
   "error_stubs": 0,
-  "elapsed_s": 142.16
+  "elapsed_s": 124.17
 }
