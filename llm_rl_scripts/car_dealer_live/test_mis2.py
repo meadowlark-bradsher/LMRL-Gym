@@ -100,3 +100,28 @@ def test_bare_family_reproduces_mis1_kernel_and_seed_stream():
     assert k1.cfg.answer_noise == k2.cfg.answer_noise == Fraction(3, 10) and k1.p == k2.p
     h1, h2 = true_kernel("history", "seller", CFG), true_kernel("history@0.1", "seller", CFG)
     assert h1.step == h2.step and family("history@0.1") == family("history") == "history"
+
+
+def test_trajectories_do_not_depend_on_the_hash_seed():
+    """Exact ties between actions must break the same way in every process: the likelihood table is
+    ordered by action key, so PYTHONHASHSEED cannot change the oracle's summation order. (Found by the
+    CD-MIS-2 exact-replication gate: seed 4 flipped a tie between two questions at the uniform prior.)"""
+    import subprocess, sys as _sys
+    from .protocol_live import Action, PROPOSE
+    from llm_rl_scripts.car_dealer_discrete.game import ALL_DEALS
+    st = apply(new_game(CFG, "buyer"), Action(PROPOSE, deal_id=ALL_DEALS[0].id))
+    keys = [a.key for a in bl.action_likelihoods(assumed_kernel("seller", CFG), st)]
+    assert keys == sorted(keys)
+    with tempfile.TemporaryDirectory() as d:
+        procs = []
+        for h in ("0", "4"):
+            env = dict(os.environ, PYTHONHASHSEED=h, PYTHONPATH=os.getcwd())
+            procs.append(subprocess.Popen([_sys.executable, "-m", "llm_rl_scripts.car_dealer_live.run_mis", "--process", "evasive@0.3", "--horizon", "4",
+                                           "--roles", "buyer", "--openers", "buyer", "--types", "3", "--opp-types", "0", "--repeats", "1",
+                                           "--arms", "C_naive", "--seed", "41", "--out", os.path.join(d, h)], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
+        assert all(p.wait() == 0 for p in procs)
+        sigs = []
+        for h in ("0", "4"):
+            r = json.loads(next(gzip.open(os.path.join(d, h, "runs.jsonl.gz"), "rt")))
+            sigs.append([x["chosen"] for x in r["decisions"]])
+        assert sigs[0] == sigs[1] and sigs[0][0].startswith("ASK")

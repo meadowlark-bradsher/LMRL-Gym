@@ -42,7 +42,9 @@ def action_likelihoods(kernel: T1Kernel, state: PublicState) -> Dict[Action, Tup
     actions = set()
     for d in per_theta:
         actions.update(d)
-    return {a: tuple(d.get(a, 0.0) for d in per_theta) for a in actions}
+    # deterministic order: the oracle sums over this table, and a hash-seed-dependent order changes the
+    # last bits of equal Q-values, so exact ties between actions would break differently across processes
+    return {a: tuple(d.get(a, 0.0) for d in per_theta) for a in sorted(actions, key=lambda a: a.key)}
 
 
 def answer_likelihoods(kernel: T1Kernel, question_id: str) -> Dict[str, Tuple[float, ...]]:

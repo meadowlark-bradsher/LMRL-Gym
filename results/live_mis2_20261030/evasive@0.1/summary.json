@@ -1,0 +1,124 @@
+{
+  "env": "live-car-dealer-v0.1",
+  "design": "CD-MIS-2",
+  "config": {
+    "env": "live-car-dealer-v0.1",
+    "regime": "easy",
+    "reservation": "2/5",
+    "horizon": 4,
+    "ask_cost": "0",
+    "answer_noise": "0"
+  },
+  "assumed_kernel": {
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "accept_noise": 0.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+  },
+  "processes": [
+    "evasive@0.1"
+  ],
+  "process_meta": {
+    "evasive@0.1": {
+      "family": "evasive",
+      "severity": "1/10"
+    }
+  },
+  "arms": [
+    "A_prior",
+    "B_naive",
+    "C_naive",
+    "C_mix0.2",
+    "C_ans0.1",
+    "C_ans0.2",
+    "C_ans0.3",
+    "O_true"
+  ],
+  "hedged_arms": {
+    "C_ans0.1": "1/10",
+    "C_ans0.2": "1/5",
+    "C_ans0.3": "3/10"
+  },
+  "filters": {
+    "A_prior": {
+      "name": "A_prior",
+      "update": false,
+      "eta": 0.001,
+      "tau": 1.0,
+      "answer_noise": 0.0
+    },
+    "B_naive": {
+      "name": "B_naive",
+      "update": true,
+      "eta": 0.001,
+      "tau": 1.0,
+      "answer_noise": 0.0
+    },
+    "C_naive": {
+      "name": "B_naive",
+      "update": true,
+      "eta": 0.001,
+      "tau": 1.0,
+      "answer_noise": 0.0
+    },
+    "C_mix0.2": {
+      "name": "B_mix0.2",
+      "update": true,
+      "eta": 0.2,
+      "tau": 1.0,
+      "answer_noise": 0.0
+    },
+    "C_ans0.1": {
+      "name": "B_ans0.1",
+      "update": true,
+      "eta": 0.001,
+      "tau": 1.0,
+      "answer_noise": 0.1
+    },
+    "C_ans0.2": {
+      "name": "B_ans0.2",
+      "update": true,
+      "eta": 0.001,
+      "tau": 1.0,
+      "answer_noise": 0.2
+    },
+    "C_ans0.3": {
+      "name": "B_ans0.3",
+      "update": true,
+      "eta": 0.001,
+      "tau": 1.0,
+      "answer_noise": 0.3
+    }
+  },
+  "roles": [
+    "buyer",
+    "seller"
+  ],
+  "openers": [
+    "buyer",
+    "seller"
+  ],
+  "focal_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "opp_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "repeats": 5,
+  "seed": 41,
+  "episodes": 5760,
+  "error_stubs": 0,
+  "elapsed_s": 741.88
+}

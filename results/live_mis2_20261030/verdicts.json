@@ -1,0 +1,1120 @@
+{
+ "confirmatory": {
+  "process": "evasive@0.3",
+  "contrast": "C_ans0.2-C_naive"
+ },
+ "cells": "all",
+ "gates": {
+  "no_stubs": {
+   "error_stubs": 0,
+   "pass": true
+  },
+  "balanced": {
+   "episodes_per_process_arm": {
+    "evasive@0": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "C_ans0.1": 720,
+     "C_ans0.2": 720,
+     "C_ans0.3": 720,
+     "O_true": 720
+    },
+    "evasive@0.1": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "C_ans0.1": 720,
+     "C_ans0.2": 720,
+     "C_ans0.3": 720,
+     "O_true": 720
+    },
+    "evasive@0.2": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "C_ans0.1": 720,
+     "C_ans0.2": 720,
+     "C_ans0.3": 720,
+     "O_true": 720
+    },
+    "evasive@0.3": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "C_ans0.1": 720,
+     "C_ans0.2": 720,
+     "C_ans0.3": 720,
+     "O_true": 720
+    },
+    "evasive@0.4": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "C_ans0.1": 720,
+     "C_ans0.2": 720,
+     "C_ans0.3": 720,
+     "O_true": 720
+    },
+    "evasive@0.5": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "C_mix0.2": 720,
+     "C_ans0.1": 720,
+     "C_ans0.2": 720,
+     "C_ans0.3": 720,
+     "O_true": 720
+    },
+    "history@0.1": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "O_true": 720,
+     "B_mix0.2": 720
+    },
+    "history@0.2": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "O_true": 720,
+     "B_mix0.2": 720
+    },
+    "history@0.4": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "O_true": 720,
+     "B_mix0.2": 720
+    },
+    "stochastic@0.15": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "O_true": 720,
+     "B_mix0.2": 720
+    },
+    "stochastic@0.3": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "O_true": 720,
+     "B_mix0.2": 720
+    },
+    "stochastic@0.5": {
+     "A_prior": 720,
+     "B_naive": 720,
+     "C_naive": 720,
+     "O_true": 720,
+     "B_mix0.2": 720
+    }
+   },
+   "pass": true
+  },
+  "noask_invariant_to_answer_noise": {
+   "B_naive_mean_Y_by_level": {
+    "evasive@0": 0.5647613960113961,
+    "evasive@0.1": 0.5647613960113961,
+    "evasive@0.2": 0.5647613960113961,
+    "evasive@0.3": 0.5647613960113961,
+    "evasive@0.4": 0.5647613960113961,
+    "evasive@0.5": 0.5647613960113961
+   },
+   "pass": true
+  },
+  "diagonal_zero_regret": {
+   "C_ans0.3 mean true-model decision regret at evasive@0.3": 4.163336342344337e-18,
+   "tolerance": 0.001,
+   "O_true-C_ans0.3 identical trajectories (ties may differ)": {
+    "identical_share": 0.9097222222222222,
+    "n_pairs": 720
+   },
+   "pass": true
+  },
+  "replicates_mis1_exactly": {
+   "mean_Y_difference_by_process_arm": {
+    "evasive@0.3:A_prior": 0.0,
+    "evasive@0.3:B_naive": 0.0,
+    "evasive@0.3:C_naive": 0.0,
+    "evasive@0.3:C_mix0.2": 0.0,
+    "evasive@0.3:O_true": 0.0,
+    "history@0.1:A_prior": 0.0,
+    "history@0.1:B_naive": 0.0,
+    "history@0.1:B_mix0.2": 0.0,
+    "history@0.1:C_naive": 0.0,
+    "history@0.1:O_true": 0.0,
+    "stochastic@0.15:A_prior": 0.0,
+    "stochastic@0.15:B_naive": 0.0,
+    "stochastic@0.15:B_mix0.2": 0.0,
+    "stochastic@0.15:C_naive": 0.0,
+    "stochastic@0.15:O_true": 0.0
+   },
+   "pass": true
+  }
+ },
+ "rules": {
+  "E1": {
+   "process": "evasive@0.3",
+   "quantity": "\u0394 Y, C_ans0.2-C_naive, all cells",
+   "prediction": "> 0",
+   "note": "PRIMARY: a fixed hedged answer model (assumed flip 0.2) recovers value lost by trusting evasive answers (true flip 0.3)",
+   "estimate": {
+    "point": 0.08393874643874645,
+    "ci95": [
+     0.0625,
+     0.10587606837606839
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.02361111111111111,
+   "verdict": "confirmed"
+  },
+  "E2": {
+   "process": "evasive@0",
+   "quantity": "\u0394 Y, C_ans0.2-C_naive, all cells",
+   "prediction": "<= 0",
+   "note": "cost of the hedge when answers are truthful (its size is the premium)",
+   "estimate": {
+    "point": -0.025569800569800565,
+    "ci95": [
+     -0.03438390313390313,
+     -0.017485754985754973
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.025,
+   "verdict": "confirmed"
+  },
+  "E3a": {
+   "process": "evasive@0",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response start: asking helps when answers are truthful",
+   "estimate": {
+    "point": 0.06727207977207979,
+    "ci95": [
+     0.05224358974358976,
+     0.0841346153846154
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "confirmed"
+  },
+  "E3b": {
+   "process": "evasive@0.5",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "< 0",
+   "note": "dose-response end: trusting pure-noise answers hurts",
+   "estimate": {
+    "point": -0.18066239316239316,
+    "ci95": [
+     -0.2124465811965812,
+     -0.1468304843304843
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "confirmed"
+  },
+  "E4": {
+   "process": "evasive@0.1",
+   "quantity": "\u0394 Y, O_true-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "questions keep value under mild noise when the answer model is right",
+   "estimate": {
+    "point": 0.03522079772079774,
+    "ci95": [
+     0.017556980056980073,
+     0.05436253561253564
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3541666666666667,
+   "verdict": "confirmed"
+  },
+  "E5": {
+   "process": "evasive@0.5",
+   "quantity": "\u0394 Y, O_true-B_naive, all cells",
+   "prediction": "= 0",
+   "note": "pure-noise answers: the calibrated planner stops asking and equals the no-ask learner",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.925,
+   "verdict": "confirmed"
+  },
+  "E6": {
+   "process": "evasive@0.3",
+   "quantity": "\u0394 Y, C_ans0.2-B_naive, all cells",
+   "prediction": ">= 0",
+   "note": "the hedged ASK arm is not worse than never asking at the CD-MIS-1 rate",
+   "estimate": {
+    "point": -0.002813390313390295,
+    "ci95": [
+     -0.020708689458689436,
+     0.01584757834757836
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.475,
+   "verdict": "confirmed"
+  },
+  "S1": {
+   "process": "history@0.4",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": ">= 0",
+   "note": "learning the wrong model does not hurt at the harshest history step",
+   "estimate": {
+    "point": 0.12238247863247861,
+    "ci95": [
+     0.09487179487179483,
+     0.14996438746438745
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3388888888888889,
+   "verdict": "confirmed"
+  },
+  "S2": {
+   "process": "stochastic@0.5",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": ">= 0",
+   "note": "learning the wrong model does not hurt at the harshest acceptance noise",
+   "estimate": {
+    "point": 0.042450142450142454,
+    "ci95": [
+     0.004362535612535612,
+     0.07868589743589743
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.37222222222222223,
+   "verdict": "confirmed"
+  },
+  "S3a": {
+   "process": "history@0.4",
+   "quantity": "\u0394 Y, B_mix0.2-B_naive, all cells",
+   "prediction": "= 0",
+   "note": "robust filter inert at the harshest history step",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 1.0,
+   "verdict": "confirmed"
+  },
+  "S3b": {
+   "process": "stochastic@0.5",
+   "quantity": "\u0394 Y, B_mix0.2-B_naive, all cells",
+   "prediction": "= 0",
+   "note": "robust filter inert at the harshest acceptance noise",
+   "estimate": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 1.0,
+   "verdict": "confirmed"
+  },
+  "S4a": {
+   "process": "history@0.4",
+   "quantity": "\u0394 Y, O_true-C_naive, all cells",
+   "prediction": "= 0",
+   "note": "asking insures against the behavioural model at any severity",
+   "estimate": {
+    "point": -4.625929269271485e-18,
+    "ci95": [
+     -0.002225783475783483,
+     0.002225783475783474
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.40694444444444444,
+   "verdict": "confirmed"
+  },
+  "S4b": {
+   "process": "stochastic@0.5",
+   "quantity": "\u0394 Y, O_true-C_naive, all cells",
+   "prediction": "> 0",
+   "note": "acceptance noise is the behavioural axis asking does not fully insure",
+   "estimate": {
+    "point": 0.02984330484330484,
+    "ci95": [
+     0.018019943019943013,
+     0.04334045584045583
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.019444444444444445,
+   "verdict": "confirmed"
+  },
+  "G_evasive@0": {
+   "process": "evasive@0",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3236111111111111,
+   "verdict": "opposite"
+  },
+  "G_evasive@0.1": {
+   "process": "evasive@0.1",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3236111111111111,
+   "verdict": "opposite"
+  },
+  "G_evasive@0.2": {
+   "process": "evasive@0.2",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3236111111111111,
+   "verdict": "opposite"
+  },
+  "G_evasive@0.3": {
+   "process": "evasive@0.3",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3236111111111111,
+   "verdict": "opposite"
+  },
+  "G_evasive@0.4": {
+   "process": "evasive@0.4",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3236111111111111,
+   "verdict": "opposite"
+  },
+  "G_evasive@0.5": {
+   "process": "evasive@0.5",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12779558404558403,
+    "ci95": [
+     0.09850427350427349,
+     0.1570334757834758
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3236111111111111,
+   "verdict": "opposite"
+  },
+  "G_history@0.1": {
+   "process": "history@0.1",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12617521367521364,
+    "ci95": [
+     0.09809472934472933,
+     0.15455840455840456
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3388888888888889,
+   "verdict": "opposite"
+  },
+  "G_history@0.2": {
+   "process": "history@0.2",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12601495726495723,
+    "ci95": [
+     0.09834401709401706,
+     0.15398860398860398
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3333333333333333,
+   "verdict": "opposite"
+  },
+  "G_history@0.4": {
+   "process": "history@0.4",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.12238247863247861,
+    "ci95": [
+     0.09487179487179483,
+     0.14996438746438745
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.3388888888888889,
+   "verdict": "opposite"
+  },
+  "G_stochastic@0.15": {
+   "process": "stochastic@0.15",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.06369301994301994,
+    "ci95": [
+     0.030893874643874657,
+     0.09387464387464388
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.42083333333333334,
+   "verdict": "opposite"
+  },
+  "G_stochastic@0.3": {
+   "process": "stochastic@0.3",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.053988603988603986,
+    "ci95": [
+     0.017289886039886026,
+     0.08846153846153847
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.39444444444444443,
+   "verdict": "opposite"
+  },
+  "G_stochastic@0.5": {
+   "process": "stochastic@0.5",
+   "quantity": "\u0394 Y, B_naive-A_prior, all cells",
+   "prediction": "< 0",
+   "note": "full grid (the CD-MIS-1 negative-learning direction), reported without selection",
+   "estimate": {
+    "point": 0.042450142450142454,
+    "ci95": [
+     0.004362535612535612,
+     0.07868589743589743
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.37222222222222223,
+   "verdict": "opposite"
+  },
+  "D_evasive@0": {
+   "process": "evasive@0",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response of the value of trusting answers, reported without selection",
+   "estimate": {
+    "point": 0.06727207977207979,
+    "ci95": [
+     0.05224358974358976,
+     0.0841346153846154
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "confirmed"
+  },
+  "D_evasive@0.1": {
+   "process": "evasive@0.1",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response of the value of trusting answers, reported without selection",
+   "estimate": {
+    "point": 0.008885327635327652,
+    "ci95": [
+     -0.011039886039886034,
+     0.031089743589743604
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "not supported"
+  },
+  "D_evasive@0.2": {
+   "process": "evasive@0.2",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response of the value of trusting answers, reported without selection",
+   "estimate": {
+    "point": -0.04718660968660968,
+    "ci95": [
+     -0.0712962962962963,
+     -0.021652421652421646
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "opposite"
+  },
+  "D_evasive@0.3": {
+   "process": "evasive@0.3",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response of the value of trusting answers, reported without selection",
+   "estimate": {
+    "point": -0.08675213675213675,
+    "ci95": [
+     -0.10893874643874642,
+     -0.06264245014245014
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "opposite"
+  },
+  "D_evasive@0.4": {
+   "process": "evasive@0.4",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response of the value of trusting answers, reported without selection",
+   "estimate": {
+    "point": -0.13368945868945867,
+    "ci95": [
+     -0.15852920227920228,
+     -0.10639245014245012
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "opposite"
+  },
+  "D_evasive@0.5": {
+   "process": "evasive@0.5",
+   "quantity": "\u0394 Y, C_naive-B_naive, all cells",
+   "prediction": "> 0",
+   "note": "dose-response of the value of trusting answers, reported without selection",
+   "estimate": {
+    "point": -0.18066239316239316,
+    "ci95": [
+     -0.2124465811965812,
+     -0.1468304843304843
+    ],
+    "n_clusters": 36
+   },
+   "identical_trajectory_share": 0.0,
+   "verdict": "opposite"
+  }
+ },
+ "gates_pass": true,
+ "descriptive": {
+  "dose_response_C_naive_minus_B_naive": [
+   {
+    "process": "evasive@0",
+    "point": 0.06727207977207979,
+    "ci95": [
+     0.05224358974358976,
+     0.0841346153846154
+    ],
+    "side": "above 0"
+   },
+   {
+    "process": "evasive@0.1",
+    "point": 0.008885327635327652,
+    "ci95": [
+     -0.011039886039886034,
+     0.031089743589743604
+    ],
+    "side": "unresolved"
+   },
+   {
+    "process": "evasive@0.2",
+    "point": -0.04718660968660968,
+    "ci95": [
+     -0.0712962962962963,
+     -0.021652421652421646
+    ],
+    "side": "below 0"
+   },
+   {
+    "process": "evasive@0.3",
+    "point": -0.08675213675213675,
+    "ci95": [
+     -0.10893874643874642,
+     -0.06264245014245014
+    ],
+    "side": "below 0"
+   },
+   {
+    "process": "evasive@0.4",
+    "point": -0.13368945868945867,
+    "ci95": [
+     -0.15852920227920228,
+     -0.10639245014245012
+    ],
+    "side": "below 0"
+   },
+   {
+    "process": "evasive@0.5",
+    "point": -0.18066239316239316,
+    "ci95": [
+     -0.2124465811965812,
+     -0.1468304843304843
+    ],
+    "side": "below 0"
+   }
+  ],
+  "severity": {
+   "evasive": {
+    "levels": [
+     {
+      "process": "evasive@0",
+      "severity": 0.0
+     },
+     {
+      "process": "evasive@0.1",
+      "severity": 0.1
+     },
+     {
+      "process": "evasive@0.2",
+      "severity": 0.2
+     },
+     {
+      "process": "evasive@0.3",
+      "severity": 0.3
+     },
+     {
+      "process": "evasive@0.4",
+      "severity": 0.4
+     },
+     {
+      "process": "evasive@0.5",
+      "severity": 0.5
+     }
+    ],
+    "mean_normalized_net_gain": {
+     "A_prior": {
+      "evasive@0": 0.43696581196581197,
+      "evasive@0.1": 0.43696581196581197,
+      "evasive@0.2": 0.43696581196581197,
+      "evasive@0.3": 0.43696581196581197,
+      "evasive@0.4": 0.43696581196581197,
+      "evasive@0.5": 0.43696581196581197
+     },
+     "B_naive": {
+      "evasive@0": 0.5647613960113961,
+      "evasive@0.1": 0.5647613960113961,
+      "evasive@0.2": 0.5647613960113961,
+      "evasive@0.3": 0.5647613960113961,
+      "evasive@0.4": 0.5647613960113961,
+      "evasive@0.5": 0.5647613960113961
+     },
+     "C_ans0.1": {
+      "evasive@0": 0.6228988603988604,
+      "evasive@0.1": 0.5999821937321937,
+      "evasive@0.2": 0.5751958689458689,
+      "evasive@0.3": 0.5512464387464387,
+      "evasive@0.4": 0.5276887464387464,
+      "evasive@0.5": 0.49804131054131057
+     },
+     "C_ans0.2": {
+      "evasive@0": 0.6064636752136753,
+      "evasive@0.1": 0.590758547008547,
+      "evasive@0.2": 0.5782051282051283,
+      "evasive@0.3": 0.5619480056980057,
+      "evasive@0.4": 0.5480413105413106,
+      "evasive@0.5": 0.5313390313390314
+     },
+     "C_ans0.3": {
+      "evasive@0": 0.5762286324786325,
+      "evasive@0.1": 0.5723112535612536,
+      "evasive@0.2": 0.565758547008547,
+      "evasive@0.3": 0.5631232193732194,
+      "evasive@0.4": 0.559704415954416,
+      "evasive@0.5": 0.5560719373219374
+     },
+     "C_mix0.2": {
+      "evasive@0": 0.628383190883191,
+      "evasive@0.1": 0.5753027065527065,
+      "evasive@0.2": 0.5261217948717949,
+      "evasive@0.3": 0.487962962962963,
+      "evasive@0.4": 0.4481837606837607,
+      "evasive@0.5": 0.408244301994302
+     },
+     "C_naive": {
+      "evasive@0": 0.6320334757834758,
+      "evasive@0.1": 0.5736467236467236,
+      "evasive@0.2": 0.5175747863247864,
+      "evasive@0.3": 0.47800925925925924,
+      "evasive@0.4": 0.4310719373219373,
+      "evasive@0.5": 0.38409900284900284
+     },
+     "O_true": {
+      "evasive@0": 0.6320334757834758,
+      "evasive@0.1": 0.5999821937321937,
+      "evasive@0.2": 0.5782051282051283,
+      "evasive@0.3": 0.5631232193732194,
+      "evasive@0.4": 0.5647613960113961,
+      "evasive@0.5": 0.5647613960113961
+     }
+    },
+    "mean_questions_asked": {
+     "A_prior": {
+      "evasive@0": 0,
+      "evasive@0.1": 0,
+      "evasive@0.2": 0,
+      "evasive@0.3": 0,
+      "evasive@0.4": 0,
+      "evasive@0.5": 0
+     },
+     "B_naive": {
+      "evasive@0": 0,
+      "evasive@0.1": 0,
+      "evasive@0.2": 0,
+      "evasive@0.3": 0,
+      "evasive@0.4": 0,
+      "evasive@0.5": 0
+     },
+     "C_ans0.1": {
+      "evasive@0": 1.0263888888888888,
+      "evasive@0.1": 1.0125,
+      "evasive@0.2": 0.9986111111111111,
+      "evasive@0.3": 0.9958333333333333,
+      "evasive@0.4": 0.9875,
+      "evasive@0.5": 0.9833333333333333
+     },
+     "C_ans0.2": {
+      "evasive@0": 0.6194444444444445,
+      "evasive@0.1": 0.6097222222222223,
+      "evasive@0.2": 0.6083333333333333,
+      "evasive@0.3": 0.6069444444444444,
+      "evasive@0.4": 0.6138888888888889,
+      "evasive@0.5": 0.6069444444444444
+     },
+     "C_ans0.3": {
+      "evasive@0": 0.09444444444444444,
+      "evasive@0.1": 0.09444444444444444,
+      "evasive@0.2": 0.09444444444444444,
+      "evasive@0.3": 0.09444444444444444,
+      "evasive@0.4": 0.09444444444444444,
+      "evasive@0.5": 0.09444444444444444
+     },
+     "C_mix0.2": {
+      "evasive@0": 2,
+      "evasive@0.1": 2,
+      "evasive@0.2": 2.001388888888889,
+      "evasive@0.3": 2.004166666666667,
+      "evasive@0.4": 2.0083333333333333,
+      "evasive@0.5": 2.013888888888889
+     },
+     "C_naive": {
+      "evasive@0": 2,
+      "evasive@0.1": 2,
+      "evasive@0.2": 2,
+      "evasive@0.3": 2,
+      "evasive@0.4": 2,
+      "evasive@0.5": 2
+     },
+     "O_true": {
+      "evasive@0": 1.5708333333333333,
+      "evasive@0.1": 1.0125,
+      "evasive@0.2": 0.6083333333333333,
+      "evasive@0.3": 0.09444444444444444,
+      "evasive@0.4": 0.0375,
+      "evasive@0.5": 0.0375
+     }
+    }
+   },
+   "history": {
+    "levels": [
+     {
+      "process": "history@0.1",
+      "severity": 0.1
+     },
+     {
+      "process": "history@0.2",
+      "severity": 0.2
+     },
+     {
+      "process": "history@0.4",
+      "severity": 0.4
+     }
+    ],
+    "mean_normalized_net_gain": {
+     "A_prior": {
+      "history@0.1": 0.43856837606837606,
+      "history@0.2": 0.4375,
+      "history@0.4": 0.4393696581196581
+     },
+     "B_mix0.2": {
+      "history@0.1": 0.5647435897435897,
+      "history@0.2": 0.5635149572649573,
+      "history@0.4": 0.5617521367521368
+     },
+     "B_naive": {
+      "history@0.1": 0.5647435897435897,
+      "history@0.2": 0.5635149572649573,
+      "history@0.4": 0.5617521367521368
+     },
+     "C_naive": {
+      "history@0.1": 0.6315883190883191,
+      "history@0.2": 0.6315883190883191,
+      "history@0.4": 0.628650284900285
+     },
+     "O_true": {
+      "history@0.1": 0.6315883190883191,
+      "history@0.2": 0.6343482905982906,
+      "history@0.4": 0.628650284900285
+     }
+    },
+    "mean_questions_asked": {
+     "A_prior": {
+      "history@0.1": 0,
+      "history@0.2": 0,
+      "history@0.4": 0
+     },
+     "B_mix0.2": {
+      "history@0.1": 0,
+      "history@0.2": 0,
+      "history@0.4": 0
+     },
+     "B_naive": {
+      "history@0.1": 0,
+      "history@0.2": 0,
+      "history@0.4": 0
+     },
+     "C_naive": {
+      "history@0.1": 2,
+      "history@0.2": 2,
+      "history@0.4": 2
+     },
+     "O_true": {
+      "history@0.1": 1.5611111111111111,
+      "history@0.2": 1.2319444444444445,
+      "history@0.4": 1.6388888888888888
+     }
+    }
+   },
+   "stochastic": {
+    "levels": [
+     {
+      "process": "stochastic@0.15",
+      "severity": 0.15
+     },
+     {
+      "process": "stochastic@0.3",
+      "severity": 0.3
+     },
+     {
+      "process": "stochastic@0.5",
+      "severity": 0.5
+     }
+    ],
+    "mean_normalized_net_gain": {
+     "A_prior": {
+      "stochastic@0.15": 0.443019943019943,
+      "stochastic@0.3": 0.43847934472934474,
+      "stochastic@0.5": 0.4358974358974359
+     },
+     "B_mix0.2": {
+      "stochastic@0.15": 0.506712962962963,
+      "stochastic@0.3": 0.49246794871794874,
+      "stochastic@0.5": 0.47834757834757835
+     },
+     "B_naive": {
+      "stochastic@0.15": 0.506712962962963,
+      "stochastic@0.3": 0.49246794871794874,
+      "stochastic@0.5": 0.47834757834757835
+     },
+     "C_naive": {
+      "stochastic@0.15": 0.6034366096866097,
+      "stochastic@0.3": 0.6034366096866097,
+      "stochastic@0.5": 0.6034366096866097
+     },
+     "O_true": {
+      "stochastic@0.15": 0.6332799145299145,
+      "stochastic@0.3": 0.6332799145299145,
+      "stochastic@0.5": 0.6332799145299145
+     }
+    },
+    "mean_questions_asked": {
+     "A_prior": {
+      "stochastic@0.15": 0,
+      "stochastic@0.3": 0,
+      "stochastic@0.5": 0
+     },
+     "B_mix0.2": {
+      "stochastic@0.15": 0,
+      "stochastic@0.3": 0,
+      "stochastic@0.5": 0
+     },
+     "B_naive": {
+      "stochastic@0.15": 0,
+      "stochastic@0.3": 0,
+      "stochastic@0.5": 0
+     },
+     "C_naive": {
+      "stochastic@0.15": 2,
+      "stochastic@0.3": 2,
+      "stochastic@0.5": 2
+     },
+     "O_true": {
+      "stochastic@0.15": 1.425,
+      "stochastic@0.3": 1.425,
+      "stochastic@0.5": 1.425
+     }
+    }
+   }
+  },
+  "cross_process": {
+   "mean_normalized_net_gain": {
+    "A_prior": {
+     "evasive@0": 0.43696581196581197,
+     "evasive@0.1": 0.43696581196581197,
+     "evasive@0.2": 0.43696581196581197,
+     "evasive@0.3": 0.43696581196581197,
+     "evasive@0.4": 0.43696581196581197,
+     "evasive@0.5": 0.43696581196581197,
+     "history@0.1": 0.43856837606837606,
+     "history@0.2": 0.4375,
+     "history@0.4": 0.4393696581196581,
+     "stochastic@0.15": 0.443019943019943,
+     "stochastic@0.3": 0.43847934472934474,
+     "stochastic@0.5": 0.4358974358974359
+    },
+    "B_naive": {
+     "evasive@0": 0.5647613960113961,
+     "evasive@0.1": 0.5647613960113961,
+     "evasive@0.2": 0.5647613960113961,
+     "evasive@0.3": 0.5647613960113961,
+     "evasive@0.4": 0.5647613960113961,
+     "evasive@0.5": 0.5647613960113961,
+     "history@0.1": 0.5647435897435897,
+     "history@0.2": 0.5635149572649573,
+     "history@0.4": 0.5617521367521368,
+     "stochastic@0.15": 0.506712962962963,
+     "stochastic@0.3": 0.49246794871794874,
+     "stochastic@0.5": 0.47834757834757835
+    },
+    "C_naive": {
+     "evasive@0": 0.6320334757834758,
+     "evasive@0.1": 0.5736467236467236,
+     "evasive@0.2": 0.5175747863247864,
+     "evasive@0.3": 0.47800925925925924,
+     "evasive@0.4": 0.4310719373219373,
+     "evasive@0.5": 0.38409900284900284,
+     "history@0.1": 0.6315883190883191,
+     "history@0.2": 0.6315883190883191,
+     "history@0.4": 0.628650284900285,
+     "stochastic@0.15": 0.6034366096866097,
+     "stochastic@0.3": 0.6034366096866097,
+     "stochastic@0.5": 0.6034366096866097
+    },
+    "C_mix0.2": {
+     "evasive@0": 0.628383190883191,
+     "evasive@0.1": 0.5753027065527065,
+     "evasive@0.2": 0.5261217948717949,
+     "evasive@0.3": 0.487962962962963,
+     "evasive@0.4": 0.4481837606837607,
+     "evasive@0.5": 0.408244301994302
+    },
+    "C_ans0.1": {
+     "evasive@0": 0.6228988603988604,
+     "evasive@0.1": 0.5999821937321937,
+     "evasive@0.2": 0.5751958689458689,
+     "evasive@0.3": 0.5512464387464387,
+     "evasive@0.4": 0.5276887464387464,
+     "evasive@0.5": 0.49804131054131057
+    },
+    "C_ans0.2": {
+     "evasive@0": 0.6064636752136753,
+     "evasive@0.1": 0.590758547008547,
+     "evasive@0.2": 0.5782051282051283,
+     "evasive@0.3": 0.5619480056980057,
+     "evasive@0.4": 0.5480413105413106,
+     "evasive@0.5": 0.5313390313390314
+    },
+    "C_ans0.3": {
+     "evasive@0": 0.5762286324786325,
+     "evasive@0.1": 0.5723112535612536,
+     "evasive@0.2": 0.565758547008547,
+     "evasive@0.3": 0.5631232193732194,
+     "evasive@0.4": 0.559704415954416,
+     "evasive@0.5": 0.5560719373219374
+    },
+    "O_true": {
+     "evasive@0": 0.6320334757834758,
+     "evasive@0.1": 0.5999821937321937,
+     "evasive@0.2": 0.5782051282051283,
+     "evasive@0.3": 0.5631232193732194,
+     "evasive@0.4": 0.5647613960113961,
+     "evasive@0.5": 0.5647613960113961,
+     "history@0.1": 0.6315883190883191,
+     "history@0.2": 0.6343482905982906,
+     "history@0.4": 0.628650284900285,
+     "stochastic@0.15": 0.6332799145299145,
+     "stochastic@0.3": 0.6332799145299145,
+     "stochastic@0.5": 0.6332799145299145
+    },
+    "B_mix0.2": {
+     "history@0.1": 0.5647435897435897,
+     "history@0.2": 0.5635149572649573,
+     "history@0.4": 0.5617521367521368,
+     "stochastic@0.15": 0.506712962962963,
+     "stochastic@0.3": 0.49246794871794874,
+     "stochastic@0.5": 0.47834757834757835
+    }
+   },
+   "vs_matched": {}
+  }
+ }
+}

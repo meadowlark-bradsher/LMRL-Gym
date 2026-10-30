@@ -4,6 +4,7 @@
 # analysis, verdicts and rendered note. No model calls; ~2.5 h serial, ~30 min with the processes in
 # parallel. Run from the repo root.
 set -euo pipefail
+export PYTHONHASHSEED=0   # belt and braces: the code orders every likelihood table, so results do not depend on it
 cd "$(dirname "$0")/../.."
 OUT=results/live_mis_20261029
 for p in matched threshold stochastic anchoring withholding history evasive; do

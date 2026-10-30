@@ -137,6 +137,22 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.render_mis2_note --dir re
 the severity ordering; its existing pairs and numbers are unchanged, so re-running it on the CD-MIS-1 directory reproduces that
 analysis with the new fields appended.
 
+## Post-run disclosure (2026-10-30): the replication gate failed once, for a pipeline reason, and the grid was re-run
+
+The first run of the registered grid passed four gates and failed **exact replication of CD-MIS-1**: the no-ask arms matched to
+10⁻¹², the ASK arms did not (`C_naive` at evasive@0.3 differed by +0.005 in mean Y; 60 of 720 trajectories differed, every one at an
+exact tie between two questions at the uniform prior). Cause: `belief_live.action_likelihoods` built the opponent-action table from a
+Python set, so the oracle's floating-point summation order depended on the interpreter's hash seed (reproduced: PYTHONHASHSEED 4 broke
+the tie the other way; the eight seeds 0–7 agree after the fix). The table is now ordered by action key; a fifth test in
+`test_mis2.py` runs the tie cell under two hash seeds; both `REGENERATE.sh` scripts export `PYTHONHASHSEED=0`. **Both CD-MIS-1 and
+CD-MIS-2 were regenerated** with the fixed code, and all five gates then passed. Nothing in the rules or the analysis changed; the
+first run's `analysis.json` is kept as `results/live_mis2_20261030/analysis_first_run_before_determinism_fix.json` (every rule had the
+same verdict in it). One pipeline fix after the run, not a change to any decision rule: `merge_mis.py` took the per-process metadata
+from the first sub-directory only, which hid the severity levels from the rendered tables; it now unions them.
+
+The Phase 1 scripted result directories (`results/live_phase1_scripted*_20261029/`) were produced before this fix and may differ at
+exact ties if regenerated; the Jev runs cannot be regenerated. Neither is touched here.
+
 ## Limits accepted in advance
 
 Three families swept, two levels beyond CD-MIS-1 on the behavioural axes; the hedge is a single fixed rate per arm (no adaptive
