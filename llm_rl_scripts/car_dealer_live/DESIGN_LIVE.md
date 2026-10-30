@@ -128,6 +128,18 @@ bounded by the full one and Δ\*_menu ≥ 0; the `exact_ask` / `exact_noask` arm
 oracles' root values by Monte Carlo within 4 SE and `exact_noask` never asks; the runner's records
 are complete, normalised, stub-free, and Jev positions are logged.
 
-## 7. What is still not done
+## 7. CD-MIS-1 (`opponents_mis.py`, `filters_mis.py`, `run_mis.py`), registered 2026-10-29
 
-No registration, no Jev or LLM call, no verdict code, no T2, no mismatch grid (CD-MIS-1).
+Seven true opponent processes (one perturbation axis each, parameters in `PREREGISTRATION_MIS.md`), the
+registered T1 as the agent's assumed kernel, the exact oracle under the assumed kernel as the fixed
+planner, filters A_prior / B_naive / B_tempered / B_mixture (background floor 10⁻³ for naive and
+tempered; mixture over the opponent's legal actions), C arms with ASK, and O_true (true process, exact
+filter). Diagnostics separate belief error (posterior on the true type, log-loss, entropy, predictive
+log-loss, Brier) from decision loss (true-model decision regret at every focal choice). Confirmatory
+contrast M1 = `B_naive − A_prior` under history-contingent countering; rules in `verdicts_mis.py`.
+Gates in `test_mis.py`.
+
+## 8. What is still not done
+
+Phase 2 arms (A_prior / B_passive selectors with Jev, C_bonus, placebo, a general-LLM adapter), Phase 3
+(T2 adaptive bilateral play), a CD-MIS-1 severity sweep, and the reviewer's read of the planner-completeness fix.

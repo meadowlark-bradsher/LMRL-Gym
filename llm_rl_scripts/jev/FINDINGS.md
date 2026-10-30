@@ -477,6 +477,53 @@ when the ask-vs-act timing matters, the live game finds it does not enter the as
 even with the question's exact information value printed beside it. Inquiry is the planner's
 job; Jev's contribution is, once more, a valid pick from a menu someone else built.
 
+### 3.8 Live Car-Dealer, CD-MIS-1 — a wrong opponent model does not hurt the learner; a wrong *answer* model does
+
+The misspecification study of the design document (§7; `PREREGISTRATION_MIS.md`, tag `prereg-mis-20261029`): the agent keeps
+the registered T1 as its assumed kernel, the exact oracle under it as planner, a uniform prior, and the Phase 1 protocol, while
+the **true** opponent is perturbed along one axis at a time — a deterministic threshold responder, noisier acceptance, a high
+anchor with late concession, strategic withholding, history-contingent countering (aspiration rises with every question the
+focal asks and every offer it rejects), and evasive answers (flipped w.p. 0.3) — against a matched control. Filters: prior-only
+`A_prior`, naive Bayes `B_naive`, tempered (τ = 0.5, 0.75) and mixture (η = 0.05, 0.2) robust filters, the same with ASK
+(`C_naive`, `C_mix0.2`), and `O_true` planning with the true process. 7 × 9 × 720 = 45,360 scripted episodes, 0 stubs, 36
+type-pair clusters, no model call; every number exact-on-model or Monte Carlo over frozen seeds (`MIS_RESULTS.md`).
+
+- **The registered negative-learning hypothesis is refuted in its confirmatory cell.** Under history-contingent countering,
+  `B_naive − A_prior` = **+0.126 [+0.098, +0.155]** (Y units): updating the wrong model *helps*, by as much as under the matched
+  process (+0.129 [+0.101, +0.159]). The naive posterior is also *more* accurate than the prior there (log-loss
+  on the true type -2.21 [-2.26, -2.16] bits) and its true-model decision regret lower (-0.077 [-0.092, -0.062]). Learning the wrong model helps
+  under every mismatch — anchoring +0.135 [+0.107, +0.164], evasive +0.128 [+0.099, +0.157],
+  threshold +0.083 [+0.063, +0.102], stochastic +0.064 [+0.031, +0.094] — except
+  **withholding**, where it is null (-0.002 [-0.092, +0.083]): an opponent that never accepts early
+  gives the no-ask learner nothing it can use.
+- **Robust filters change the belief, never the decision.** Tempering and mixing moved the posterior in most decisions
+  (final posterior on the true type 0.813 naive vs 0.775 mixture under history) but the planner
+  chose the same action in **6466 of 6466** decisions under history and evasive; every robustness contrast is
+  exactly 0 (M4–M7). Robustness is free here and buys nothing: the decision depends on which type leads, not on how confident
+  the filter is.
+- **Where a wrong model does hurt is the question channel.** With evasive answers the ASK-allowed learner that trusts them
+  falls to Y = 0.471, below the no-ask learner (0.565) and the true oracle
+  (0.563): `C_naive − B_naive` = -0.094 [-0.119, -0.067], and the misspecification cost
+  for the ASK planner `O_true − C_naive` = +0.092 [+0.070, +0.113] (exploratory: the registered M9 is the
+  history-process version, +0.067 [+0.052, +0.084]). Under anchoring, history, withholding and the matched
+  process `O_true − C_naive` is exactly 0: with questions available the planner reaches the true-model value whatever the
+  opponent's concession rule, because a truthful answer resolves the type that the opponent's moves would have misreported.
+  Under the threshold and stochastic processes it costs +0.005 [+0.003, +0.008] and
+  +0.029 [+0.018, +0.043].
+- **Asking is the robustness mechanism this game actually has.** `C_naive − B_naive` is positive under every process but
+  evasive (history +0.067 [+0.052, +0.084]; withholding +0.206 [+0.154, +0.262], where it
+  is the whole gap to the truth). A deployed agent that can ask is insured against a wrong *behavioural* model and exposed
+  to a wrong *answer* model; the robust filters insure against neither.
+- **Honest notes.** One perturbation value per axis, no severity sweep; the exact oracle is the planner; the registered
+  matched-sanity gate compared an ASK-allowed with an ASK-forbidden arm and read +0.066 (the value of asking) — it was
+  corrected after the run to the ASK-allowed pair, which passes exactly, and the correction is disclosed in the registration;
+  no decision rule changed. A 48-episode H = 3 timing probe on the history process preceded the registration and is disclosed.
+
+**Role lesson:** the design's fourth and fifth interpretation-matrix rows resolve the unexpected way. Bayesian updating of a
+wrong behavioural model was not harmful anywhere and the robust filters were inert; the one harmful misspecification was
+trusting answers from an evasive counterpart. For the harness this says the belief filter's weak point is the channel the
+model itself would use — the question — not the inference.
+
 ## 4. The design patterns
 
 ### 4.1 Propose → Answer → Select
@@ -566,6 +613,7 @@ whether the options actually differ before it is treated as uncertainty.
 | Reward-maximization with an instrumental latent | **Prior forward model** for the outcome; instance inference for the margin | selection; a value critic if scored on return (§5) | Car-Dealer |
 | Information acquisition with the forward model already in the menu | **The horizon decides**: no planner needed when information is free; a planner when asking costs the deal | correct selection when no planning is needed; heuristic-level when it is | Binned Car-Dealer |
 | Deliberate inquiry inside a live negotiation (ask costs an offer opportunity) | **The planner**: it captures the exact value of asking in full | none on the ask side — zero questions, even with EIG shown; a valid offer pick from the shortlist | Live Car-Dealer |
+| Belief filter facing an opponent that does not follow the assumed model | **The filter still helps** when the misspecification is behavioural; **asking**, not tempering or mixing, is what recovers the true-model value; a wrong *answer* model is the one that hurts | — (scripted) | Live Car-Dealer CD-MIS-1 |
 
 In the Car-Dealer rows, information is not free to acquire: an offer is both a query
 and a commitment (§7), so any acquisition term has to be weighted against expected
@@ -704,6 +752,10 @@ when evaluating structured-decision models:
   misspecification grid of the design document are not built; the menu carries the planners'
   preferred moves by construction (recognition, not generation, is tested); the EIG-shown
   gain on offers is unexplained and exploratory; `jev-latest` pinned by name only.
+- **CD-MIS-1:** one perturbation value per axis (no severity sweep); the exact oracle as planner; the
+  robust filters never changed a decision, so their cost/benefit is untested where it would bind (a
+  planner sensitive to posterior sharpness, or a harsher perturbation); the evasive-answer harm is
+  exploratory (its registered counterpart was the history process) and wants its own pre-registered test.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's
@@ -722,6 +774,7 @@ when evaluating structured-decision models:
 | 20Q | merged, complete | `Noul` = BED likelihood (vs selector); J/J oracle | likelihood loop 158/158 ~10Q (self-consistency; AUC 0.977); selector 0/158, 0.911 with history |
 | Binned Car-Dealer | merged, complete | selector over an exact-EIG menu vs DP reference | 2 rounds: Δ regret vs random −0.066, utility 0.71 vs exact 0.78 (≈ heuristics); 6 rounds: = exact (never-ask), zero regret 1,329/1,329 |
 | Live Car-Dealer | merged, complete | selector over a planner-complete shortlist in the bilateral game with ASK | Phase 0: ASK worth 0 at H=2, 0.038 utility at H=4 (exact); Jev: 0/2555 questions, P1 -0.010 [-0.021, -0.002] (ceiling 0.102), gap to planner -0.277 [-0.316, -0.234]; full menu: walks 0.93 |
+| Live Car-Dealer CD-MIS-1 | merged, complete | (scripted) wrong-model learning vs prior-only, robust filters, true oracle | B_naive − A_prior +0.126 [+0.098, +0.155] under history (negative learning refuted); withholding null; robust filters change 0 decisions; evasive answers: C_naive − B_naive -0.094 [-0.119, -0.067] |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
 
 ---
@@ -847,7 +900,9 @@ as this report. Named runs/docs used as shorthand in the body:
   `results/live_phase0_horizon_growth_20261029/growth.json` (the horizon mechanism, H = 1–5),
   `results/live_phase1_scripted3_20261029/`, and
   `results/live_phase1_jev_{h4_cq0,h2_cq0,h3_cq0,h4_cq3,h4_cq0_full,h4_cq0_replicate}_20261029/`
-  (`analysis.json`; `verdicts.json` in the primary dir).
+  (`analysis.json`; `verdicts.json` in the primary dir). CD-MIS-1: `opponents_mis.py`, `filters_mis.py`,
+  `run_mis.py`, `analyze_mis.py`, `verdicts_mis.py`, `render_mis_note.py`; `PREREGISTRATION_MIS.md` (tag
+  `prereg-mis-20261029`), `MIS_RESULTS.md`; numbers in `results/live_mis_20261029/{analysis,verdicts}.json`.
 
 ### A.4 Experiment design
 
