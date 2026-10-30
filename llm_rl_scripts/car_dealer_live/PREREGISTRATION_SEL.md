@@ -125,6 +125,14 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.render_sel_note --dir res
 Verdicts applied by code and frozen before reading. No rule changes after data; any pipeline correction after the run is disclosed in a
 post-run section of this file.
 
+## Post-run status (2026-10-30)
+
+The registered run completed (7200 episodes, 0 error stubs, 1020.45 s); all four gates pass; the drift check
+places the in-study `jev_ask_plain` arm inside the Phase 1 plain arm's interval (0.458 vs 0.465
+[0.373, 0.558]). **No pipeline correction was made after the run; no rule changed.** The primary
+came out on the opposite side of its registered prediction (P1 -0.0579 [-0.1174, -0.0003], verdict
+*negative*); the results note is `SEL_RESULTS.md` and the reading is in `llm_rl_scripts/jev/FINDINGS.md` §3.10.
+
 ## Limits accepted in advance
 
 One regime and one kernel; the belief shown is the **matched** filter (the opponent model is correct by construction, so this is the

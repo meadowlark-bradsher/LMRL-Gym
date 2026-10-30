@@ -1,0 +1,566 @@
+{
+ "study": "CD-SEL-1",
+ "delta": 0.02,
+ "primary_cells": "all",
+ "primary_contrast": "jev_ask_both-jev_ask_plain",
+ "gates": {
+  "pipeline": {
+   "error_stubs": 0,
+   "missing_arms": [],
+   "episodes_per_arm": {
+    "exact_ask": 720,
+    "exact_noask": 720,
+    "random": 720,
+    "jev_ask_plain": 720,
+    "jev_ask_belief": 720,
+    "jev_ask_pacc": 720,
+    "jev_ask_prior": 720,
+    "jev_ask_placebo": 720,
+    "jev_ask_both": 720,
+    "jev_noask_both": 720
+   },
+   "well_formed": {
+    "jev_ask_plain": 1.0,
+    "jev_ask_belief": 1.0,
+    "jev_ask_pacc": 1.0,
+    "jev_ask_prior": 1.0,
+    "jev_ask_placebo": 1.0,
+    "jev_ask_both": 1.0,
+    "jev_noask_both": 1.0
+   },
+   "pass": true
+  },
+  "shuffle_active": {
+   "positions_used_per_arm": {
+    "jev_ask_plain": 9,
+    "jev_ask_belief": 9,
+    "jev_ask_pacc": 8,
+    "jev_ask_prior": 8,
+    "jev_ask_placebo": 9,
+    "jev_ask_both": 8,
+    "jev_noask_both": 6
+   },
+   "pass": true
+  },
+  "random_matches_frozen": {
+   "study_random_mean_Y": -0.006303418803418786,
+   "frozen_random_ci95": [
+    -0.09834401709401708,
+    0.07282763532763534
+   ],
+   "pass": true
+  },
+  "exact_pair_reproduces_ceiling": {
+   "contrast": {
+    "point": 0.0597934472934473,
+    "ci95": [
+     0.0455840455840456,
+     0.07621082621082624
+    ],
+    "n_clusters": 36
+   },
+   "ceiling_delta_menu_Y": 0.06381087747560826,
+   "pass": true
+  }
+ },
+ "rules": {
+  "P1": {
+   "quantity": "\u0394 Y, jev_ask_both-jev_ask_plain, all cells (PRIMARY): belief in words + posterior P(accept) shown",
+   "prediction": "> 0; material if lower CI bound > 0.02",
+   "estimate": {
+    "point": -0.05790598290598292,
+    "ci95": [
+     -0.11737891737891741,
+     -0.00028490028490029545
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "negative",
+   "gap_closed_point": -0.3325833503784006,
+   "both_minus_exact_ask": {
+    "point": -0.23201566951566954,
+    "ci95": [
+     -0.2673611111111111,
+     -0.19560185185185186
+    ],
+    "n_clusters": 36
+   },
+   "plain_minus_exact_ask": {
+    "point": -0.17410968660968662,
+    "ci95": [
+     -0.2039351851851852,
+     -0.14382122507122508
+    ],
+    "n_clusters": 36
+   }
+  },
+  "S1": {
+   "quantity": "\u0394 Y, jev_ask_belief-jev_ask_plain, all cells (the posterior in words alone)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.004059829059829067,
+    "ci95": [
+     -0.00653490028490028,
+     0.013799857549857556
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved"
+  },
+  "S2": {
+   "quantity": "\u0394 Y, jev_ask_pacc-jev_ask_plain, all cells (posterior P(accept) alone; B_passive selector)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": -0.050427350427350436,
+    "ci95": [
+     -0.11055911680911681,
+     0.009259259259259259
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved"
+  },
+  "S3": {
+   "quantity": "\u0394 Y, jev_ask_pacc-jev_ask_prior, all cells (passive learning in the selector: B_passive \u2212 A_prior)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": -0.001566951566951563,
+    "ci95": [
+     -0.011396011396011398,
+     0.0071581196581196604
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "S4": {
+   "quantity": "\u0394 Y, jev_ask_placebo-jev_ask_plain, all cells (a constant annotation; salience check)",
+   "prediction": "= 0 (CI includes 0)",
+   "estimate": {
+    "point": -0.003205128205128206,
+    "ci95": [
+     -0.009740028490028484,
+     0.003472222222222215
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "S5": {
+   "quantity": "\u0394 questions asked / episode, jev_ask_belief-jev_ask_plain, all cells (seeing the uncertainty -> asking)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.0625,
+    "ci95": [
+     0.03888888888888889,
+     0.08888888888888889
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "questions_per_episode": {
+    "jev_ask_plain": 0.001388888888888889,
+    "jev_ask_belief": 0.06388888888888888,
+    "jev_ask_pacc": 0,
+    "jev_ask_prior": 0.001388888888888889,
+    "jev_ask_placebo": 0.001388888888888889,
+    "jev_ask_both": 0.013888888888888888
+   }
+  },
+  "S5b": {
+   "quantity": "\u0394 questions asked / episode, jev_ask_both-jev_ask_plain, all cells",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.0125,
+    "ci95": [
+     0.002777777777777778,
+     0.022222222222222223
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "S6": {
+   "quantity": "\u0394 Y, jev_ask_both-jev_noask_both, focal-opens cells (the value of having questions on the menu once the belief is shown)",
+   "prediction": "> 0",
+   "estimate": {
+    "point": -0.001958689458689455,
+    "ci95": [
+     -0.013354700854700847,
+     0.009793447293447296
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "unresolved",
+   "captured_fraction_of_delta_menu": {
+    "ceiling": 0.10194272056883841,
+    "point": -0.01921362749355722,
+    "ci95": [
+     -0.13100200563789033,
+     0.09606813746778632
+    ]
+   },
+   "ceiling_delta_menu_Y": 0.10194272056883841
+  },
+  "S7": {
+   "quantity": "\u0394 Y, jev_ask_both-exact_ask, all cells (the remaining gap to the planner)",
+   "prediction": "< 0",
+   "estimate": {
+    "point": -0.23201566951566954,
+    "ci95": [
+     -0.2673611111111111,
+     -0.19560185185185186
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "S8": {
+   "quantity": "\u0394 walk rate, jev_ask_pacc-jev_ask_plain, all cells (acceptance numbers -> fewer walk-outs)",
+   "prediction": "< 0",
+   "estimate": {
+    "point": -0.3416666666666667,
+    "ci95": [
+     -0.4277777777777778,
+     -0.2569444444444444
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "walk_rate": {
+    "exact_ask": 0.0,
+    "exact_noask": 0.09166666666666666,
+    "random": 0.011111111111111112,
+    "jev_ask_plain": 0.3416666666666667,
+    "jev_ask_belief": 0.3125,
+    "jev_ask_pacc": 0.0,
+    "jev_ask_prior": 0.005555555555555556,
+    "jev_ask_placebo": 0.3416666666666667,
+    "jev_ask_both": 0.0,
+    "jev_noask_both": 0.0
+   }
+  },
+  "S8b": {
+   "quantity": "\u0394 walk rate, jev_ask_both-jev_ask_plain, all cells",
+   "prediction": "< 0",
+   "estimate": {
+    "point": -0.3416666666666667,
+    "ci95": [
+     -0.4277777777777778,
+     -0.2569444444444444
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "S9_jev_ask_belief": {
+   "quantity": "P(ask | ASK strictly optimal) \u2212 P(ask | ASK legal, not optimal), jev_ask_belief",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.02454076666597635,
+    "ci95": [
+     0.004309386955921125,
+     0.045163430196765275
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "p_ask_given_optimal": 0.04288939051918736,
+   "p_ask_given_not_optimal": 0.01834862385321101,
+   "asked_when_optimal": 38,
+   "decisions_ask_optimal": 886
+  },
+  "S9_jev_ask_both": {
+   "quantity": "P(ask | ASK strictly optimal) \u2212 P(ask | ASK legal, not optimal), jev_ask_both",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.01680672268907563,
+    "ci95": [
+     0.006688963210702341,
+     0.02857142857142857
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "p_ask_given_optimal": 0.01680672268907563,
+   "p_ask_given_not_optimal": 0.0,
+   "asked_when_optimal": 10,
+   "decisions_ask_optimal": 595
+  }
+ },
+ "checks": {
+  "plain_arm_drift": {
+   "study_mean_Y": 0.45783475783475786,
+   "phase1_mean_Y": 0.4653133903133903,
+   "phase1_ci95": [
+    0.3729166666666667,
+    0.5582086894586894
+   ],
+   "inside_phase1_ci": true,
+   "study_walk_rate": 0.3416666666666667,
+   "phase1_walk_rate": 0.3277777777777778,
+   "study_questions_per_episode": 0.001388888888888889,
+   "phase1_questions_per_episode": 0,
+   "note": "jev-latest is stochastic server-side and pinned by name only; a shift here is model drift, not a pipeline fault, and is disclosed with the results"
+  }
+ },
+ "gates_pass": true,
+ "descriptive": {
+  "mean_Y_all": {
+   "exact_ask": 0.6319444444444444,
+   "exact_noask": 0.5721509971509972,
+   "random": -0.006303418803418786,
+   "jev_ask_plain": 0.45783475783475786,
+   "jev_ask_belief": 0.4618945868945869,
+   "jev_ask_pacc": 0.4074074074074074,
+   "jev_ask_prior": 0.40897435897435896,
+   "jev_ask_placebo": 0.45462962962962966,
+   "jev_ask_both": 0.39992877492877493,
+   "jev_noask_both": 0.3977920227920228
+  },
+  "mean_Y_focal_opens": {
+   "exact_ask": 0.6315883190883191,
+   "exact_noask": 0.5351851851851852,
+   "random": -0.0060185185185185,
+   "jev_ask_plain": 0.3507834757834758,
+   "jev_ask_belief": 0.372008547008547,
+   "jev_ask_pacc": 0.3922720797720798,
+   "jev_ask_prior": 0.39458689458689455,
+   "jev_ask_placebo": 0.36264245014245017,
+   "jev_ask_both": 0.38746438746438744,
+   "jev_noask_both": 0.3894230769230769
+  },
+  "agreement_rate": {
+   "exact_ask": 1.0,
+   "exact_noask": 0.9083333333333333,
+   "random": 0.9888888888888889,
+   "jev_ask_plain": 0.6583333333333333,
+   "jev_ask_belief": 0.6875,
+   "jev_ask_pacc": 1.0,
+   "jev_ask_prior": 0.9944444444444445,
+   "jev_ask_placebo": 0.6583333333333333,
+   "jev_ask_both": 1.0,
+   "jev_noask_both": 1.0
+  },
+  "offer_tags": {
+   "jev_ask_plain": {
+    "PLAN_ASK": 360,
+    "AMBITIOUS": 717,
+    "SAFE": 199,
+    "PLAN": 3
+   },
+   "jev_ask_belief": {
+    "PLAN_ASK": 360,
+    "AMBITIOUS": 668,
+    "SAFE": 227,
+    "PLAN": 4
+   },
+   "jev_ask_pacc": {
+    "SAFE": 874,
+    "AMBITIOUS": 52
+   },
+   "jev_ask_prior": {
+    "SAFE": 856,
+    "AMBITIOUS": 51,
+    "PLAN": 1
+   },
+   "jev_ask_placebo": {
+    "PLAN_ASK": 360,
+    "AMBITIOUS": 715,
+    "SAFE": 182,
+    "PLAN": 2
+   },
+   "jev_ask_both": {
+    "SAFE": 852,
+    "AMBITIOUS": 66,
+    "PLAN": 1
+   },
+   "jev_noask_both": {
+    "SAFE": 825,
+    "AMBITIOUS": 119,
+    "PLAN": 2
+   }
+  },
+  "prior_vs_placebo": {
+   "point": -0.04565527065527067,
+   "ci95": [
+    -0.105982905982906,
+    0.013265669515669508
+   ],
+   "n_clusters": 36
+  },
+  "both_vs_pacc": {
+   "point": -0.007478632478632484,
+   "ci95": [
+    -0.015046296296296299,
+    -8.903133903134257e-05
+   ],
+   "n_clusters": 36
+  },
+  "both_vs_belief": {
+   "point": -0.06196581196581199,
+   "ci95": [
+    -0.11835826210826211,
+    -0.007638888888888905
+   ],
+   "n_clusters": 36
+  },
+  "position": {
+   "jev_ask_plain": {
+    "counts": {
+     "0": 286,
+     "1": 266,
+     "2": 196,
+     "3": 166,
+     "4": 151,
+     "5": 172,
+     "6": 129,
+     "7": 109,
+     "8": 21
+    },
+    "decisions": 1496,
+    "well_formed_share": 1.0
+   },
+   "jev_ask_belief": {
+    "counts": {
+     "0": 280,
+     "1": 280,
+     "2": 160,
+     "3": 188,
+     "4": 172,
+     "5": 178,
+     "6": 130,
+     "7": 103,
+     "8": 20
+    },
+    "decisions": 1511,
+    "well_formed_share": 1.0
+   },
+   "jev_ask_pacc": {
+    "counts": {
+     "0": 125,
+     "1": 109,
+     "2": 117,
+     "3": 145,
+     "4": 130,
+     "5": 128,
+     "6": 108,
+     "7": 80
+    },
+    "decisions": 942,
+    "well_formed_share": 1.0
+   },
+   "jev_ask_prior": {
+    "counts": {
+     "0": 123,
+     "1": 112,
+     "2": 139,
+     "3": 114,
+     "4": 118,
+     "5": 131,
+     "6": 116,
+     "7": 91
+    },
+    "decisions": 944,
+    "well_formed_share": 1.0
+   },
+   "jev_ask_placebo": {
+    "counts": {
+     "0": 286,
+     "1": 281,
+     "2": 158,
+     "3": 167,
+     "4": 179,
+     "5": 171,
+     "6": 139,
+     "7": 92,
+     "8": 21
+    },
+    "decisions": 1494,
+    "well_formed_share": 1.0
+   },
+   "jev_ask_both": {
+    "counts": {
+     "0": 108,
+     "1": 122,
+     "2": 113,
+     "3": 128,
+     "4": 127,
+     "5": 151,
+     "6": 110,
+     "7": 94
+    },
+    "decisions": 953,
+    "well_formed_share": 1.0
+   },
+   "jev_noask_both": {
+    "counts": {
+     "0": 158,
+     "1": 168,
+     "2": 184,
+     "3": 240,
+     "4": 213,
+     "5": 5
+    },
+    "decisions": 968,
+    "well_formed_share": 1.0
+   }
+  },
+  "ceilings": {
+   "all": {
+    "n_cells": 24,
+    "mean_delta_full": 0.03828652648536496,
+    "mean_delta_menu": 0.03828652648536496,
+    "mean_loss_ask": 2.3129646346357427e-18,
+    "mean_loss_noask": 0.0,
+    "mean_loss_offers_restriction_ask": 0.0,
+    "mean_loss_questions_restriction_ask": 2.3129646346357427e-18,
+    "cells_with_any_loss": 0,
+    "cells_with_delta_menu_positive": 24,
+    "mean_full_ask": 0.37923429826330823,
+    "mean_full_noask": 0.3409477717779433,
+    "mean_menu_ask": 0.37923429826330823,
+    "mean_menu_noask": 0.3409477717779433,
+    "y_scale": 0.6,
+    "mean_delta_full_Y": 0.06381087747560826,
+    "mean_delta_menu_Y": 0.06381087747560826
+   },
+   "focal_opens": {
+    "n_cells": 12,
+    "mean_delta_full": 0.061165632341303046,
+    "mean_delta_menu": 0.06116563234130304,
+    "mean_loss_ask": 4.625929269271485e-18,
+    "mean_loss_noask": 0.0,
+    "mean_loss_offers_restriction_ask": 0.0,
+    "mean_loss_questions_restriction_ask": 4.625929269271485e-18,
+    "cells_with_any_loss": 0,
+    "cells_with_delta_menu_positive": 12,
+    "mean_full_ask": 0.37923429826330823,
+    "mean_full_noask": 0.31806866592200517,
+    "mean_menu_ask": 0.37923429826330823,
+    "mean_menu_noask": 0.31806866592200517,
+    "y_scale": 0.6,
+    "mean_delta_full_Y": 0.10194272056883841,
+    "mean_delta_menu_Y": 0.10194272056883841
+   },
+   "opponent_opens": {
+    "n_cells": 12,
+    "mean_delta_full": 0.015407420629426872,
+    "mean_delta_menu": 0.015407420629426872,
+    "mean_loss_ask": 0.0,
+    "mean_loss_noask": 0.0,
+    "mean_loss_offers_restriction_ask": 0.0,
+    "mean_loss_questions_restriction_ask": 0.0,
+    "cells_with_any_loss": 0,
+    "cells_with_delta_menu_positive": 12,
+    "mean_full_ask": 0.3792342982633082,
+    "mean_full_noask": 0.36382687763388133,
+    "mean_menu_ask": 0.3792342982633082,
+    "mean_menu_noask": 0.36382687763388133,
+    "y_scale": 0.6,
+    "mean_delta_full_Y": 0.02567903438237812,
+    "mean_delta_menu_Y": 0.02567903438237812
+   }
+  }
+ }
+}

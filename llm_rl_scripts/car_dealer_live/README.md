@@ -18,7 +18,7 @@ frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
 - CD-MIS-1 (learning with the wrong opponent model): [`PREREGISTRATION_MIS.md`](PREREGISTRATION_MIS.md); results: [`MIS_RESULTS.md`](MIS_RESULTS.md)
 - CD-MIS-2 (severity sweep; the evasive-answer channel, hedged answer models): [`PREREGISTRATION_MIS2.md`](PREREGISTRATION_MIS2.md);
   results: [`MIS2_RESULTS.md`](MIS2_RESULTS.md), rendered from `results/live_mis2_20261030/`
-- CD-SEL-1 (Jev shown what the history implies: the posterior in words, P(accept) on every offer; design Phase 2 selector arms): [`PREREGISTRATION_SEL.md`](PREREGISTRATION_SEL.md); results in `SEL_RESULTS.md` once run.
+- CD-SEL-1 (Jev shown what the history implies: the posterior in words, P(accept) on every offer; design Phase 2 selector arms): [`PREREGISTRATION_SEL.md`](PREREGISTRATION_SEL.md); results: [`SEL_RESULTS.md`](SEL_RESULTS.md), rendered from `results/live_sel_jev_h4_cq0_20261030/`
 
 ## Code
 

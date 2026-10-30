@@ -179,3 +179,7 @@ Decisions made here: the primary cell set is all cells (the shown information be
 not only the ask-versus-offer choice); the in-study `jev_ask_plain` arm is re-run rather than borrowed
 from Phase 1 because `jev-latest` may have drifted (reported as a drift check, not a gate); the posterior
 is shown as a ranked list of surviving rankings, never as the planner's values or any recommendation.
+
+Result (2026-10-30, `SEL_RESULTS.md`, FINDINGS §3.10): P1 -0.058 [-0.117, -0.000] — the shown
+acceptance probability ends every walk-out and makes Jev propose the SAFE offer almost always; the posterior in words produces the
+first selective questions (0.064 per episode) and no net change.
