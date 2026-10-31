@@ -13,7 +13,12 @@ whether ASK was strictly optimal in that state, the chosen option and its
 regrets. Arms: exact_ask, exact_noask, greedy_eig, random (``arms_live``);
 jev_ask_plain, jev_ask_eig, jev_noask_plain, jev_noask_eig (``jev_policy_live``;
 ``--jev-backend mock`` runs offline; ``http`` needs TYPESAFE_API_KEY and is gated
-by the pre-registration).
+by the pre-registration). CD-SEL-1 selector arms (design Phase 2; ``JEV_ARMS``
+holds every arm's shown-information spec): jev_ask_belief (the posterior over the
+opponent's rankings in words), jev_ask_pacc (B_passive: posterior P(accept) on
+every offer), jev_ask_prior (A_prior: P(accept) under the never-updated uniform
+prior), jev_ask_placebo (P_placebo: a constant on every offer), jev_ask_both /
+jev_noask_both (belief + posterior P(accept), with and without questions).
 
 Ceilings written to ``ceilings.json`` per (role, opener, focal type): the root
 values of six exact oracles — full menu with/without ASK, shortlist menu
@@ -39,15 +44,46 @@ from llm_rl_scripts.car_dealer_discrete.scoring import analyze_type_pair, nash_p
 
 from . import belief_live as bl
 from .arms_live import arms_for
-from .jev_policy_live import JevLivePolicy
+from .jev_policy_live import PLACEBO_P_ACCEPT, JevLivePolicy
 from .menu_live import Menu
 from .opponent import KernelParams, T1Kernel
 from .oracle import EPS, Oracle
 from .protocol_live import ASK, PROPOSE, ENV_VERSION, Action, LiveConfig, apply, asks_by, new_game, other
 
-JEV_ARMS = {"jev_ask_plain": (True, False), "jev_ask_eig": (True, True),
-            "jev_noask_plain": (False, False), "jev_noask_eig": (False, True)}
-NOASK_ARMS = {"exact_noask", "jev_noask_plain", "jev_noask_eig"}
+# arm -> what the model is shown: ask = questions on the menu; show_eig = exact EIG per option;
+# show_belief = the posterior over the opponent's rankings in words; accept_annotation = P(accept)
+# on every offer under the posterior / the uniform prior / a constant placebo (jev_policy_live).
+JEV_ARMS = {
+    "jev_ask_plain": {"ask": True}, "jev_ask_eig": {"ask": True, "show_eig": True},
+    "jev_noask_plain": {"ask": False}, "jev_noask_eig": {"ask": False, "show_eig": True},
+    # CD-SEL-1 (design Phase 2 selector arms)
+    "jev_ask_belief": {"ask": True, "show_belief": True},
+    "jev_ask_pacc": {"ask": True, "accept_annotation": "posterior"},      # B_passive
+    "jev_ask_prior": {"ask": True, "accept_annotation": "prior"},         # A_prior
+    "jev_ask_placebo": {"ask": True, "accept_annotation": "placebo"},     # P_placebo
+    "jev_ask_both": {"ask": True, "show_belief": True, "accept_annotation": "posterior"},
+    "jev_noask_both": {"ask": False, "show_belief": True, "accept_annotation": "posterior"},
+}
+NOASK_ARMS = {"exact_noask"} | {a for a, spec in JEV_ARMS.items() if not spec["ask"]}
+
+
+def shown_p_accept(cell: "Cell", state, rows, belief, annotation: Optional[str]) -> Optional[Dict[str, float]]:
+    """The P(accept) printed on each PROPOSE option for an ``accept_annotation`` arm."""
+    if annotation is None:
+        return None
+    out: Dict[str, float] = {}
+    for r in rows:
+        if r.action.kind != PROPOSE:
+            continue
+        if annotation == "posterior":
+            out[r.key] = float(r.p_accept)
+        elif annotation == "prior":
+            out[r.key] = float(cell.menu.p_accept(state, bl.uniform(), r.action.deal_id))
+        elif annotation == "placebo":
+            out[r.key] = PLACEBO_P_ACCEPT
+        else:
+            raise ValueError(annotation)
+    return out
 
 
 def _f(x):
@@ -122,7 +158,8 @@ def play_episode(cell: Cell, arm: str, opener: str, opp_ranking, rng: random.Ran
         entropies.append(h)
         info = None
         if arm in JEV_ARMS:
-            key = _choose_with_retry(jev, state, rows, max_retries, backoff)
+            shown = shown_p_accept(cell, state, rows, belief, jev.accept_annotation)
+            key = _choose_with_retry(jev, state, rows, max_retries, backoff, belief, shown)
             info = jev.last_info
         else:
             key = arms[arm](rows, q_ask, q_noask, rng).key
@@ -193,11 +230,11 @@ def play_episode(cell: Cell, arm: str, opener: str, opp_ranking, rng: random.Ran
     }
 
 
-def _choose_with_retry(jev, state, rows, max_retries: int, backoff: float) -> str:
+def _choose_with_retry(jev, state, rows, max_retries: int, backoff: float, belief=None, p_accept_shown=None) -> str:
     from LLM_RL.jev.client import JevError
     for attempt in range(1, max_retries + 1):
         try:
-            return jev.choose(state, rows)
+            return jev.choose(state, rows, belief, p_accept_shown)
         except JevError as e:
             if attempt == max_retries:
                 raise
@@ -273,7 +310,9 @@ def main(argv=None) -> int:
                     cell = cells[(role, i)]
                     jev = None
                     if arm in JEV_ARMS:
-                        jev = JevLivePolicy(jev_client, cfg, role, ALL_RANKINGS[i], show_eig=JEV_ARMS[arm][1],
+                        spec = JEV_ARMS[arm]
+                        jev = JevLivePolicy(jev_client, cfg, role, ALL_RANKINGS[i], show_eig=spec.get("show_eig", False),
+                                            show_belief=spec.get("show_belief", False), accept_annotation=spec.get("accept_annotation"),
                                             shuffle_rng=None if args.no_shuffle else random.Random(shuffle_master.random()))
                     for opener in openers:
                         for j in opp_types:
@@ -294,6 +333,7 @@ def main(argv=None) -> int:
                "roles": roles, "openers": openers, "focal_types": [_tag(ALL_RANKINGS[i]) for i in types],
                "opp_types": [_tag(ALL_RANKINGS[j]) for j in opp_types], "repeats": args.repeats, "seed": args.seed,
                "jev_backend": args.jev_backend if jev_client else None, "jev_shuffle_options": not args.no_shuffle,
+               "jev_arm_specs": {a: JEV_ARMS[a] for a in arms if a in JEV_ARMS}, "placebo_p_accept": PLACEBO_P_ACCEPT,
                "episodes": n, "error_stubs": errors, "elapsed_s": round(time.time() - t0, 2)}
     with open(os.path.join(args.out, "summary.json"), "w") as f:
         json.dump(summary, f, indent=2)

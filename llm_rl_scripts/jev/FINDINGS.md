@@ -45,7 +45,9 @@ two-offer utility read — and drops to one-line-heuristic level, ~0.06 utility 
 exact policy, once the horizon binds and the ask-vs-act timing matters. In the live
 bilateral game with a public ASK action (§3.7), where the exact planner takes the whole value
 of asking (ceiling 0.102 normalized units when the focal opens), Jev asked in 0 of
-2555 eligible decisions and sits 0.28 below the planner — the dial's far end.
+2555 eligible decisions and sits 0.28 below the planner — the dial's far end. Showing it what its history implies (§3.10) does not move it off that end: the posterior in words buys
+the first selective questions (0.064 per episode) and no gain, and a printed acceptance probability turns the
+walk-outs into give-aways (-0.058 [-0.117, -0.000]).
 
 **The sharp sub-pattern** (the most useful result of the study) is that a BED-style
 wrapper provides *two separable things*, and they unlock *different* outcomes:
@@ -570,6 +572,58 @@ What no fixed hedge restores is the *value* of asking under noise; that needs th
 estimate. On the behavioural side the harness can keep its naive filter: harsher wrong models did not turn learning negative, and the
 robust filters stayed inert where they would have had to bind.
 
+### 3.10 Live Car-Dealer, CD-SEL-1 — shown what its history implies, Jev asks for the first time and stops walking out, and loses value either way
+
+The Phase 1 selector (§3.7) had the full event history in its state text at every decision and never used it:
+no questions, a third of negotiations ended in a walk-out. CD-SEL-1 (`PREREGISTRATION_SEL.md`, tag
+`prereg-sel-20261030`; the design document's Phase 2 selector arms) shows Jev, in separately named arms, what
+that history **implies**: the matched posterior over the opponent's six priority rankings, in words (`belief`);
+the posterior probability that each offer on the menu is accepted (`pacc`, the `B_passive` selector); the same
+number under the never-updated uniform prior (`prior`, `A_prior`); a constant 0.50 on every offer
+(`placebo`); and belief + posterior P(accept) together (`both`, with and without questions on the menu). Same
+primary cell as Phase 1 (H = 4, c_q = 0, the T1 kernel, the planner-complete shortlist), 7,200 episodes,
+720 per arm, in-run `exact_ask` / `exact_noask` / `random`; all four gates pass; the re-run plain arm sits inside the
+Phase 1 plain arm's interval (0.458 vs 0.465 [0.373, 0.558],
+walk rate 0.342 vs 0.328), so `jev-latest` did not drift between the two studies.
+
+- **Primary: the full passive information makes Jev worse.** `jev_ask_both − jev_ask_plain` over all cells is
+  **-0.0579 [-0.1174, -0.0003]** Y (registered "> 0"; verdict *negative* — the upper bound clears zero by a hair, so the firm result is the sign and the mechanism below, not the size). The gap to the exact planner widens from
+  -0.174 [-0.204, -0.144] to -0.232 [-0.267, -0.196]. Mean Y: plain 0.458, belief 0.462, pacc 0.407,
+  prior 0.409, placebo 0.455, both 0.400; planner 0.632.
+- **The acceptance number removes the walk-outs and replaces them with a worse failure.** With P(accept) printed on
+  every offer Jev ends 0.000 of episodes in a walk-out (plain 0.342; S8
+  -0.342 [-0.428, -0.257]) and agreement goes to 1.000 — but it gets there by proposing the SAFE offer, the one
+  with the highest printed probability, in 94% of its proposals (plain: 16% SAFE,
+  56% AMBITIOUS). It no longer loses the deal; it gives the surplus away. The loss is in the
+  cells where the opponent opens (-0.142 [-0.206, -0.077]: plain Jev rejected and countered ambitiously there and scored
+  0.565; with the number shown it concedes, 0.423); where Jev opens the
+  number helps a little but not resolvably (+0.041 [-0.028, +0.105]).
+- **It is the number's *variation across offers* that acts, not its meaning.** The constant placebo changes nothing
+  (S4 -0.003 [-0.010, +0.003], walk rate 0.342), and the never-updated prior number produces the same
+  behaviour as the posterior one (S3 `pacc − prior` -0.002 [-0.011, +0.007]; prior walk rate 0.006, SAFE share
+  94%). Jev picks the offer with the largest printed probability; whether that probability has learned
+  anything about *this* opponent makes no difference to what it does — the Condition B finding ("Jev reads the number it is given")
+  in its sharpest form.
+- **The posterior in words produces the first questions Jev has ever asked here — too few to matter.** `jev_ask_belief` asked
+  46 questions in 720 episodes (0.064 per episode; plain 1; S5
+  +0.062 [+0.039, +0.089]), and asked **selectively**: P(ask | ASK strictly optimal) 0.043 vs
+  0.018 when a question was legal but not optimal (S9 +0.025 [+0.004, +0.045], over
+  1322 eligible decisions). Net gain did not move over all cells (S1 +0.004 [-0.007, +0.014]), but in the cells where Jev opens —
+  the cells where asking has its value — it rose by +0.021 [+0.006, +0.036] (a secondary cell set; the registered primary set is all cells).
+  Adding the acceptance number on top of the belief suppresses the asking again (10 questions in `both`; `both − belief`
+  -0.062 [-0.118, -0.008]): once a sure offer is labelled, the question loses.
+- **No ASK value with the belief shown** (S6 `both − noask_both`, focal-opens -0.002 [-0.013, +0.010] vs the ceiling
+  0.102), and the remaining gap to the planner is -0.232 [-0.267, -0.196] (S7).
+- **Honest notes.** The registered primary was "> 0" and came out negative; the mechanism bullets above are the registered
+  secondaries, not post-hoc. The focal-opens reading of S1 is a secondary cell set. The belief shown is the matched filter (the
+  best case); the posterior is shown as surviving rankings, never as values. One regime, one kernel, `jev-latest` pinned by name.
+
+**Role lesson:** the two halves of the externalized belief loop have different effects when handed to the selector as text.
+The *posterior itself* elicits a little of the behaviour the planner has — the first selective questions in the program — without
+changing the outcome. The *acceptance probability*, the forward-model half that unlocked agreement in §3.4 when it drove the
+filter, is read by Jev as a ranking cue and makes it the most conceding negotiator in the study. The division of labour of §4.3
+stands with a sharper edge: the belief loop's outputs are for the planner to consume, not for the selector to look at.
+
 ## 4. The design patterns
 
 ### 4.1 Propose → Answer → Select
@@ -661,6 +715,7 @@ whether the options actually differ before it is treated as uncertainty.
 | Deliberate inquiry inside a live negotiation (ask costs an offer opportunity) | **The planner**: it captures the exact value of asking in full | none on the ask side — zero questions, even with EIG shown; a valid offer pick from the shortlist | Live Car-Dealer |
 | Belief filter facing an opponent that does not follow the assumed model | **The filter still helps** when the misspecification is behavioural; **asking**, not tempering or mixing, is what recovers the true-model value; a wrong *answer* model is the one that hurts | — (scripted) | Live Car-Dealer CD-MIS-1 |
 | Belief filter facing answers that may be wrong | **Hedge the answer model**, not the behavioural one: a fixed assumed flip rate removes the harm of trusting evasive answers at a small premium; restoring the *value* of asking needs the true rate | — (scripted) | Live Car-Dealer CD-MIS-2 |
+| The selector shown the belief loop's outputs as text (posterior in words; P(accept) per offer) | **Neither helps the selector**: the posterior in words buys the first selective questions (0.064/episode) and no net gain; the acceptance number is read as a ranking cue — walk-outs 0.342 → 0.000, SAFE offers 94%, net gain -0.058 [-0.117, -0.000] | selection that follows the largest printed number, learned or not | Live Car-Dealer CD-SEL-1 |
 
 In the Car-Dealer rows, information is not free to acquire: an offer is both a query
 and a commitment (§7), so any acquisition term has to be weighted against expected
@@ -804,6 +859,10 @@ when evaluating structured-decision models:
   fixed assumed rate, not an estimate, so the value of asking under noise is not recovered; anchoring, threshold and
   withholding have no severity axis; Phase 1's scripted result dirs were regenerated after the determinism fix (§3.9) with no
   number moved, but the Jev result dirs are model runs and were not.
+- **CD-SEL-1:** one regime and kernel; the matched filter's outputs shown (best case for shown information); the posterior shown as
+  surviving rankings, not values; the first-position bias is still present in every Jev arm; the focal-opens gain of the belief arm
+  (+0.021 [+0.006, +0.036]) is a secondary cell set and the registered primary was negative; the heuristic Phase 2 arms (`C_bonus`), the
+  general-LLM adapter, and T2 remain unbuilt.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's
@@ -824,6 +883,7 @@ when evaluating structured-decision models:
 | Live Car-Dealer | merged, complete | selector over a planner-complete shortlist in the bilateral game with ASK | Phase 0: ASK worth 0 at H=2, 0.038 utility at H=4 (exact); Jev: 0/2555 questions, P1 -0.010 [-0.021, -0.002] (ceiling 0.102), gap to planner -0.277 [-0.316, -0.234]; full menu: walks 0.93 |
 | Live Car-Dealer CD-MIS-2 | merged, complete | (scripted) severity sweep; hedged-answer ASK arms vs trusting; true-rate × assumed-rate matrix | E1 `C_ans0.2 − C_naive` +0.084 [+0.062, +0.106] at flip 0.3 (confirmed); `C_naive − B_naive` sign change by 0.2; `B_naive − A_prior` +0.042 [+0.004, +0.079] at noise 0.5; robust filter identical trajectories 1.000 |
 | Live Car-Dealer CD-MIS-1 | merged, complete | (scripted) wrong-model learning vs prior-only, robust filters, true oracle | B_naive − A_prior +0.126 [+0.098, +0.155] under history (negative learning refuted); withholding null; robust filters change 0 decisions; evasive answers: C_naive − B_naive -0.087 [-0.109, -0.063] |
+| Live Car-Dealer CD-SEL-1 | run complete, PR open | selector shown the posterior in words and/or P(accept) per offer (A_prior / B_passive / placebo) | P1 `both − plain` -0.058 [-0.117, -0.000] (registered > 0: negative); walk rate 0.342 → 0.000, SAFE 94%; `pacc − prior` -0.002 [-0.011, +0.007]; belief arm asks 0.064/episode selectively (+0.025 [+0.004, +0.045]), Y +0.004 [-0.007, +0.014] |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
 
 ---
@@ -954,7 +1014,9 @@ as this report. Named runs/docs used as shorthand in the body:
   `prereg-mis-20261029`), `MIS_RESULTS.md`; numbers in `results/live_mis_20261029/{analysis,verdicts}.json`. CD-MIS-2:
   severity ids in `opponents_mis.py`, hedged answer model in `filters_mis.py`, `verdicts_mis2.py`, `render_mis2_note.py`,
   `test_mis2.py`; `PREREGISTRATION_MIS2.md` (tag `prereg-mis2-20261030`), `MIS2_RESULTS.md`; numbers in
-  `results/live_mis2_20261030/{analysis,verdicts}.json`.
+  `results/live_mis2_20261030/{analysis,verdicts}.json`. CD-SEL-1: shown-information treatments in `jev_policy_live.py`, arm specs in
+  `run_phase1.py`, selector pairs and walk-rate contrasts in `analyze_phase1.py`, `verdicts_sel.py`, `render_sel_note.py`, `test_sel.py`;
+  `PREREGISTRATION_SEL.md` (tag `prereg-sel-20261030`), `SEL_RESULTS.md`; numbers in `results/live_sel_jev_h4_cq0_20261030/{analysis,verdicts}.json`.
 
 ### A.4 Experiment design
 

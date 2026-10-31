@@ -1,0 +1,98 @@
+{
+  "env": "live-car-dealer-v0.1",
+  "config": {
+    "env": "live-car-dealer-v0.1",
+    "regime": "easy",
+    "reservation": "2/5",
+    "horizon": 4,
+    "ask_cost": "0",
+    "answer_noise": "0"
+  },
+  "kernel": {
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "accept_noise": 0.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+  },
+  "menu": "shortlist",
+  "heuristic_menu": false,
+  "n_offers": 3,
+  "n_questions": 2,
+  "arms": [
+    "exact_ask",
+    "exact_noask",
+    "random",
+    "jev_ask_plain",
+    "jev_ask_belief",
+    "jev_ask_pacc",
+    "jev_ask_prior",
+    "jev_ask_placebo",
+    "jev_ask_both",
+    "jev_noask_both"
+  ],
+  "roles": [
+    "buyer",
+    "seller"
+  ],
+  "openers": [
+    "buyer",
+    "seller"
+  ],
+  "focal_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "opp_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "repeats": 5,
+  "seed": 51,
+  "jev_backend": "http",
+  "jev_shuffle_options": true,
+  "jev_arm_specs": {
+    "jev_ask_plain": {
+      "ask": true
+    },
+    "jev_ask_belief": {
+      "ask": true,
+      "show_belief": true
+    },
+    "jev_ask_pacc": {
+      "ask": true,
+      "accept_annotation": "posterior"
+    },
+    "jev_ask_prior": {
+      "ask": true,
+      "accept_annotation": "prior"
+    },
+    "jev_ask_placebo": {
+      "ask": true,
+      "accept_annotation": "placebo"
+    },
+    "jev_ask_both": {
+      "ask": true,
+      "show_belief": true,
+      "accept_annotation": "posterior"
+    },
+    "jev_noask_both": {
+      "ask": false,
+      "show_belief": true,
+      "accept_annotation": "posterior"
+    }
+  },
+  "placebo_p_accept": 0.5,
+  "episodes": 7200,
+  "error_stubs": 0,
+  "elapsed_s": 1020.45
+}

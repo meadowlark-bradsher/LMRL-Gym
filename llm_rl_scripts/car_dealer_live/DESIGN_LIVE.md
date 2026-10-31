@@ -152,6 +152,34 @@ level replicates CD-MIS-1 exactly (gated). Gates in `test_mis2.py`.
 
 ## 9. What is still not done
 
-Phase 2 arms (A_prior / B_passive selectors with Jev, C_bonus, placebo, a general-LLM adapter), Phase 3
-(T2 adaptive bilateral play), an adaptive (estimated rather than fixed) answer-noise model, and the
-reviewer's read of the planner-completeness fix.
+Phase 2 heuristic arms (`C_bonus`, `C_greedy` beyond `greedy_eig`) and the general-LLM adapter on the same
+menus, Phase 3 (T2 adaptive bilateral play), an adaptive (estimated rather than fixed) answer-noise model,
+and the reviewer's read of the planner-completeness fix. The Phase 2 **selector** arms (`A_prior`,
+`B_passive`, `P_placebo`, the posterior as a named treatment) are CD-SEL-1 (§10).
+
+## 10. CD-SEL-1 (`jev_policy_live.py` shown-information treatments, `run_phase1.py` arm specs, `verdicts_sel.py`), registered 2026-10-30
+
+Jev's state text has carried the event history since Phase 1; CD-SEL-1 shows it what the history implies.
+`JevLivePolicy` gains `show_belief` (the matched posterior over the opponent's six rankings, in words, with
+probabilities and the count of rankings ruled out, appended to the state text) and `accept_annotation`
+(every PROPOSE option carries "If you propose it now, the seller accepts with probability p": `posterior`
+= B_passive, `prior` = A_prior — the same number under the never-updated uniform prior —, `placebo` = the
+constant `PLACEBO_P_ACCEPT` = 0.50). The runner computes the numbers (`shown_p_accept`) from the menu's
+own filter; the policy only formats what it is handed; every shown number is logged per decision under
+`jev.shown`. `run_phase1.JEV_ARMS` is now a spec table (`ask`, `show_eig`, `show_belief`,
+`accept_annotation`); new arms `jev_ask_belief`, `jev_ask_pacc`, `jev_ask_prior`, `jev_ask_placebo`,
+`jev_ask_both`, `jev_noask_both`; the Phase 1 arms and prompts are unchanged (gated by `test_sel.py`).
+`analyze_phase1.py` adds the selector pairs (every selector arm − `jev_ask_plain`; `pacc − prior`,
+`both − pacc`, `both − belief`, `prior − placebo`), `both − noask_both` as an ask/no-ask pair with its
+captured fraction, and walk-rate contrasts on the same pairing. Primary P1 = `jev_ask_both − jev_ask_plain`
+over all cells; rules S1–S9 and the gates in `verdicts_sel.py`; registration in `PREREGISTRATION_SEL.md`;
+note rendered by `render_sel_note.py` (reusing the Phase 1 section renderer).
+
+Decisions made here: the primary cell set is all cells (the shown information bears on every decision,
+not only the ask-versus-offer choice); the in-study `jev_ask_plain` arm is re-run rather than borrowed
+from Phase 1 because `jev-latest` may have drifted (reported as a drift check, not a gate); the posterior
+is shown as a ranked list of surviving rankings, never as the planner's values or any recommendation.
+
+Result (2026-10-30, `SEL_RESULTS.md`, FINDINGS §3.10): P1 -0.058 [-0.117, -0.000] — the shown
+acceptance probability ends every walk-out and makes Jev propose the SAFE offer almost always; the posterior in words produces the
+first selective questions (0.064 per episode) and no net change.
