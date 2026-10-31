@@ -34,6 +34,8 @@ def main(argv=None) -> int:
     p.add_argument("--ask-cost", default="0"); p.add_argument("--alpha0", default="4/5"); p.add_argument("--beta", type=float, default=8.0)
     p.add_argument("--p-counter", type=float, default=1.0); p.add_argument("--p-hold", type=float, default=1.0); p.add_argument("--shortlist", type=int, default=3)
     p.add_argument("--sizes", default="2x2,3x2,3x2c", help="n_offers x n_questions variants (2 = SAFE+AMBITIOUS, 3 = +PLAN; suffix c = + PLAN_ASK/PLAN_Q completeness)")
+    p.add_argument("--heuristic-menu", action="store_true",
+                   help="pre-2026-10-29 heuristic-only rule for the non-'c' sizes (no PLAN candidate; third offer = BALANCED); regenerates the pre-registration check")
     p.add_argument("--registered", default="3x2c", help="the menu the registration uses; the stopping rule is evaluated on it")
     p.add_argument("--stop-threshold", type=float, default=0.005, help="|mean Δ*_menu − mean Δ*_full| above this in any cell set -> STOP")
     p.add_argument("--out", required=True)
@@ -54,7 +56,7 @@ def main(argv=None) -> int:
         for rk in ALL_RANKINGS:
             kernel = T1Kernel(other(role), cfg, params)
             full_ask = Oracle(cfg, role, rk, kernel, True); full_noask = Oracle(cfg, role, rk, kernel, False)
-            menus = {label(no, nq, c): Menu(cfg, role, rk, kernel, n_offers=no, n_questions=nq, plan_oracle=full_noask,
+            menus = {label(no, nq, c): Menu(cfg, role, rk, kernel, n_offers=no, n_questions=nq, plan_oracle=None if args.heuristic_menu else full_noask,
                                             plan_ask_oracle=full_ask if c else None) for no, nq, c in sizes}
             oracles = {k: (Oracle(cfg, role, rk, kernel, True, menu=m.actions(True)), Oracle(cfg, role, rk, kernel, False, menu=m.actions(False)))
                        for k, m in menus.items()}
@@ -78,9 +80,14 @@ def main(argv=None) -> int:
                   "mean_delta_menu": sum(r[k]["delta_menu"] for r in rows) / len(rows),
                   "mean_delta_full": sum(r["delta_full"] for r in rows) / len(rows)}
     # stopping rule (reviewer, 2026-10-29): the registered menu's artefact = mean Δ*_menu − mean Δ*_full, per cell set
-    stop = {"registered": args.registered, "threshold": args.stop_threshold, "cell_sets": {}}
+    # (skipped, written as null, when the registered size is not among --sizes, e.g. the pre-registration two-candidate run)
+    stop = None
+    if args.registered in agg:
+        stop = {"registered": args.registered, "threshold": args.stop_threshold, "cell_sets": {}}
     for cs, pred in (("all", lambda k: True), ("focal_opens", lambda k: k.split("|")[0] == k.split("|")[1]),
                      ("opponent_opens", lambda k: k.split("|")[0] != k.split("|")[1])):
+        if stop is None:
+            break
         rows = [v for k, v in cells.items() if pred(k)]
         art = sum(r[args.registered]["delta_menu"] - r["delta_full"] for r in rows) / len(rows)
         stop["cell_sets"][cs] = {"cells": len(rows), "mean_delta_full": sum(r["delta_full"] for r in rows) / len(rows),
@@ -88,7 +95,8 @@ def main(argv=None) -> int:
                                  "artefact": art, "mean_loss_ask": sum(r[args.registered]["loss_ask"] for r in rows) / len(rows),
                                  "mean_loss_noask": sum(r[args.registered]["loss_noask"] for r in rows) / len(rows),
                                  "exceeds": abs(art) > args.stop_threshold}
-    stop["verdict"] = "STOP" if any(v["exceeds"] for v in stop["cell_sets"].values()) else "PROCEED"
+    if stop is not None:
+        stop["verdict"] = "STOP" if any(v["exceeds"] for v in stop["cell_sets"].values()) else "PROCEED"
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     with open(args.out, "w") as f:
         json.dump({"env": ENV_VERSION, "config": cfg.to_json(), "kernel": params.to_json(), "sizes": [label(a, b, c) for a, b, c in sizes],

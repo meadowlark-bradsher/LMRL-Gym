@@ -15,7 +15,7 @@ Y = focal normalized net gain = (U − r − c_q × own asks) / (U_max − r), w
 
 ## H = 4, c_q = 0 — `results/live_phase1_scripted3_20261029/h4_cq0`
 
-Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 178.79 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
+Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 180.91 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
 
 ### Per arm (all cells)
 
@@ -79,6 +79,15 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 | greedy_eig | 0/677 | 0.000 | 0/481 | 0.000 | +0.000 [+0.000, +0.000] |
 | random | 311/833 | 0.373 | 261/662 | 0.394 | -0.021 [-0.075, +0.036] |
 
+### What each arm chose
+
+| arm | decisions by kind | offers by tag | episodes by terminal reason | walk rate | prob. mass on ASK when on the menu | mean confidence | mean choice entropy (bits) |
+|---|---|---|---|---|---|---|---|
+| exact_ask | {'ASK': 1092, 'PROPOSE': 720, 'REJECT': 348} | {'SAFE': 720} | {'accept': 720} | 0.000 | — | — | — |
+| exact_noask | {'PROPOSE': 1064, 'REJECT': 526} | {'PLAN': 360, 'SAFE': 423, 'AMBITIOUS': 281} | {'accept': 644, 'walk': 76} | 0.106 | — | — | — |
+| greedy_eig | {'PROPOSE': 1158, 'ACCEPT': 85} | {'AMBITIOUS': 739, 'PLAN': 136, 'SAFE': 283} | {'accept': 686, 'walk': 34} | 0.047 | — | — | — |
+| random | {'PROPOSE': 528, 'REJECT': 195, 'ASK': 572, 'ACCEPT': 394} | {'AMBITIOUS': 156, 'SAFE': 265, 'PLAN_ASK': 45, 'PLAN': 62} | {'walk': 10, 'accept': 710} | 0.014 | — | — | — |
+
 ### Read-out (computed)
 
 - exact_ask − exact_noask (all): +0.0657 [+0.0481, +0.0853] vs exact Δ\*_menu 0.0638 in Y units (0.0383 utility / 0.6000) — the ceiling is inside the CI.
@@ -89,7 +98,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## H = 2, c_q = 0 — `results/live_phase1_scripted3_20261029/h2_cq0`
 
-Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 4.84 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
+Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 4.85 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
 
 ### Per arm (all cells)
 
@@ -153,6 +162,15 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 | greedy_eig | 0/0 | — | 143/720 | 0.199 | — |
 | random | 0/0 | — | 339/720 | 0.471 | — |
 
+### What each arm chose
+
+| arm | decisions by kind | offers by tag | episodes by terminal reason | walk rate | prob. mass on ASK when on the menu | mean confidence | mean choice entropy (bits) |
+|---|---|---|---|---|---|---|---|
+| exact_ask | {'PROPOSE': 720, 'WALK': 120} | {'SAFE': 431, 'AMBITIOUS': 146, 'PLAN': 143} | {'walk': 240, 'accept': 480} | 0.333 | — | — | — |
+| exact_noask | {'PROPOSE': 720, 'WALK': 120} | {'SAFE': 431, 'AMBITIOUS': 146, 'PLAN': 143} | {'walk': 240, 'accept': 480} | 0.333 | — | — | — |
+| greedy_eig | {'PROPOSE': 577, 'ACCEPT': 383, 'ASK': 143} | {'AMBITIOUS': 577} | {'accept': 616, 'walk': 104} | 0.144 | — | — | — |
+| random | {'PROPOSE': 285, 'ACCEPT': 514, 'ASK': 339, 'REJECT': 53} | {'AMBITIOUS': 129, 'SAFE': 142, 'PLAN': 14} | {'accept': 685, 'walk': 35} | 0.049 | — | — | — |
+
 ### Read-out (computed)
 
 - exact_ask − exact_noask (all): +0.0000 [+0.0000, +0.0000] vs exact Δ\*_menu 0.0000 in Y units (0.0000 utility / 0.6000) — the ceiling is inside the CI.
@@ -162,7 +180,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## H = 3, c_q = 0 — `results/live_phase1_scripted3_20261029/h3_cq0`
 
-Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 26.18 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
+Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 26.62 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
 
 ### Per arm (all cells)
 
@@ -226,6 +244,15 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 | greedy_eig | 0/720 | 0.000 | 0/240 | 0.000 | +0.000 [+0.000, +0.000] |
 | random | 331/720 | 0.460 | 169/463 | 0.365 | +0.095 [+0.039, +0.150] |
 
+### What each arm chose
+
+| arm | decisions by kind | offers by tag | episodes by terminal reason | walk rate | prob. mass on ASK when on the menu | mean confidence | mean choice entropy (bits) |
+|---|---|---|---|---|---|---|---|
+| exact_ask | {'ASK': 720, 'PROPOSE': 720} | {'SAFE': 720} | {'accept': 720} | 0.000 | — | — | — |
+| exact_noask | {'PROPOSE': 960, 'REJECT': 360} | {'AMBITIOUS': 593, 'PLAN': 135, 'SAFE': 232} | {'walk': 186, 'accept': 534} | 0.258 | — | — | — |
+| greedy_eig | {'PROPOSE': 960, 'ACCEPT': 198} | {'AMBITIOUS': 790, 'PLAN': 104, 'SAFE': 66} | {'walk': 85, 'accept': 635} | 0.118 | — | — | — |
+| random | {'PROPOSE': 422, 'REJECT': 137, 'ACCEPT': 419, 'ASK': 500} | {'AMBITIOUS': 191, 'SAFE': 209, 'PLAN': 22} | {'accept': 680, 'walk': 40} | 0.056 | — | — | — |
+
 ### Read-out (computed)
 
 - exact_ask − exact_noask (all): +0.0571 [+0.0168, +0.0998] vs exact Δ\*_menu 0.0577 in Y units (0.0346 utility / 0.6000) — the ceiling is inside the CI.
@@ -236,7 +263,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## H = 4, c_q = 3/100 — `results/live_phase1_scripted3_20261029/h4_cq3`
 
-Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 176.78 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
+Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, menu `shortlist` (3 offer candidates × 2 questions), arms ['exact_ask', 'exact_noask', 'greedy_eig', 'random'], 2880 episodes (5 repeats per cell, seed 0), 0 error stubs, 178.61 s. Bootstrap B = 5000, clusters = (buyer ranking, seller ranking) type pair; 36 clusters.
 
 ### Per arm (all cells)
 
@@ -300,6 +327,15 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 | greedy_eig | 0/534 | 0.000 | 0/624 | 0.000 | +0.000 [+0.000, +0.000] |
 | random | 223/558 | 0.400 | 346/908 | 0.381 | +0.019 [-0.036, +0.074] |
 
+### What each arm chose
+
+| arm | decisions by kind | offers by tag | episodes by terminal reason | walk rate | prob. mass on ASK when on the menu | mean confidence | mean choice entropy (bits) |
+|---|---|---|---|---|---|---|---|
+| exact_ask | {'ASK': 468, 'REJECT': 538, 'PROPOSE': 824} | {'SAFE': 667, 'AMBITIOUS': 157} | {'accept': 710, 'walk': 10} | 0.014 | — | — | — |
+| exact_noask | {'PROPOSE': 1064, 'REJECT': 526} | {'PLAN': 360, 'SAFE': 423, 'AMBITIOUS': 281} | {'accept': 644, 'walk': 76} | 0.106 | — | — | — |
+| greedy_eig | {'PROPOSE': 1158, 'ACCEPT': 85} | {'AMBITIOUS': 739, 'PLAN': 136, 'SAFE': 283} | {'accept': 686, 'walk': 34} | 0.047 | — | — | — |
+| random | {'PROPOSE': 510, 'REJECT': 193, 'ASK': 569, 'ACCEPT': 392} | {'AMBITIOUS': 166, 'SAFE': 263, 'PLAN': 81} | {'walk': 6, 'accept': 714} | 0.008 | — | — | — |
+
 ### Read-out (computed)
 
 - exact_ask − exact_noask (all): +0.0165 [-0.0032, +0.0379] vs exact Δ\*_menu 0.0158 in Y units (0.0095 utility / 0.6000) — the ceiling is inside the CI.
@@ -310,7 +346,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## Menu size and costlessness — `results/live_phase1_scripted3_20261029/costlessness_h4_cq0.json`
 
-`costlessness_check.py`, H = 4, c_q = 0, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 105.3 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
+`costlessness_check.py`, H = 4, c_q = 0, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 105.4 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
 
 | menu (offers × questions) | cells lossless | mean loss, ASK allowed | max loss, ASK allowed | mean loss, ASK forbidden | max loss, ASK forbidden | mean Δ\*_menu | mean Δ\*_full |
 |---|---|---|---|---|---|---|---|
@@ -323,7 +359,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## Menu size and costlessness — `results/live_phase1_scripted3_20261029/costlessness_h2_cq0.json`
 
-`costlessness_check.py`, H = 2, c_q = 0, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 1.9 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
+`costlessness_check.py`, H = 2, c_q = 0, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 2.0 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
 
 | menu (offers × questions) | cells lossless | mean loss, ASK allowed | max loss, ASK allowed | mean loss, ASK forbidden | max loss, ASK forbidden | mean Δ\*_menu | mean Δ\*_full |
 |---|---|---|---|---|---|---|---|
@@ -336,7 +372,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## Menu size and costlessness — `results/live_phase1_scripted3_20261029/costlessness_h3_cq0.json`
 
-`costlessness_check.py`, H = 3, c_q = 0, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 16.0 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
+`costlessness_check.py`, H = 3, c_q = 0, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 16.1 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
 
 | menu (offers × questions) | cells lossless | mean loss, ASK allowed | max loss, ASK allowed | mean loss, ASK forbidden | max loss, ASK forbidden | mean Δ\*_menu | mean Δ\*_full |
 |---|---|---|---|---|---|---|---|
@@ -349,7 +385,7 @@ Config: env `live-car-dealer-v0.1`, regime easy (r = 2/5), kernel α₀=4/5, β=
 
 ## Menu size and costlessness — `results/live_phase1_scripted3_20261029/costlessness_h4_cq3.json`
 
-`costlessness_check.py`, H = 4, c_q = 3/100, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 104.2 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
+`costlessness_check.py`, H = 4, c_q = 3/100, kernel α₀=4/5, β=8, p_counter=1, p_hold=1, shortlist=3, 104.0 s. Root values of the exact oracle under the full action set and under the shortlist menu with n_offers × n_questions candidates (the offer rule yields at most three distinct candidates: SAFE, AMBITIOUS, BALANCED). Utility units.
 
 | menu (offers × questions) | cells lossless | mean loss, ASK allowed | max loss, ASK allowed | mean loss, ASK forbidden | max loss, ASK forbidden | mean Δ\*_menu | mean Δ\*_full |
 |---|---|---|---|---|---|---|---|

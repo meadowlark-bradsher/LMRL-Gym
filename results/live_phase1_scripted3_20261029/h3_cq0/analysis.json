@@ -25,7 +25,7 @@
  ],
  "episodes": 2880,
  "error_stubs": 0,
- "elapsed_s": 26.18,
+ "elapsed_s": 26.62,
  "repeats": 5,
  "seed": 0,
  "bootstrap": {
@@ -290,7 +290,7 @@
     "agreement_rate": 0.9166666666666666,
     "mean_questions_asked": 0.8305555555555556,
     "mean_proposals_made": 0.7027777777777777,
-    "mean_total_decision_regret": 0.3575610885891347,
+    "mean_total_decision_regret": 0.35756108858913477,
     "zero_regret_decision_share": 0.15938303341902313,
     "mean_total_eig_regret_bits": 0.5755996476088119,
     "mean_final_entropy_bits": 0.8415263016495623,
@@ -738,5 +738,86 @@
    "B_effective": 5000
   }
  },
- "position": {}
+ "position": {},
+ "choices": {
+  "exact_ask": {
+   "chosen_kind": {
+    "ASK": 720,
+    "PROPOSE": 720
+   },
+   "offer_tag": {
+    "SAFE": 720
+   },
+   "terminal_reason": {
+    "accept": 720
+   },
+   "walk_rate": 0.0,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "exact_noask": {
+   "chosen_kind": {
+    "PROPOSE": 960,
+    "REJECT": 360
+   },
+   "offer_tag": {
+    "AMBITIOUS": 593,
+    "PLAN": 135,
+    "SAFE": 232
+   },
+   "terminal_reason": {
+    "walk": 186,
+    "accept": 534
+   },
+   "walk_rate": 0.25833333333333336,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "greedy_eig": {
+   "chosen_kind": {
+    "PROPOSE": 960,
+    "ACCEPT": 198
+   },
+   "offer_tag": {
+    "AMBITIOUS": 790,
+    "PLAN": 104,
+    "SAFE": 66
+   },
+   "terminal_reason": {
+    "walk": 85,
+    "accept": 635
+   },
+   "walk_rate": 0.11805555555555555,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "random": {
+   "chosen_kind": {
+    "PROPOSE": 422,
+    "REJECT": 137,
+    "ACCEPT": 419,
+    "ASK": 500
+   },
+   "offer_tag": {
+    "AMBITIOUS": 191,
+    "SAFE": 209,
+    "PLAN": 22
+   },
+   "terminal_reason": {
+    "accept": 680,
+    "walk": 40
+   },
+   "walk_rate": 0.05555555555555555,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  }
+ }
 }

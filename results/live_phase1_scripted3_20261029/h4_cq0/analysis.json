@@ -25,7 +25,7 @@
  ],
  "episodes": 2880,
  "error_stubs": 0,
- "elapsed_s": 178.79,
+ "elapsed_s": 180.91,
  "repeats": 5,
  "seed": 0,
  "bootstrap": {
@@ -54,7 +54,7 @@
     "agreement_rate": 1.0,
     "mean_questions_asked": 1.5166666666666666,
     "mean_proposals_made": 1,
-    "mean_total_decision_regret": 3.161051667335515e-17,
+    "mean_total_decision_regret": 2.852656382717416e-17,
     "zero_regret_decision_share": 1.0,
     "mean_total_eig_regret_bits": 0.8798515582886957,
     "mean_final_entropy_bits": 0.26944444444444443,
@@ -77,7 +77,7 @@
     "agreement_rate": 1.0,
     "mean_questions_asked": 1.8027777777777778,
     "mean_proposals_made": 1,
-    "mean_total_decision_regret": 4.394632805807911e-17,
+    "mean_total_decision_regret": 2.544261098099317e-17,
     "zero_regret_decision_share": 1.0,
     "mean_total_eig_regret_bits": 0.7891402853316556,
     "mean_final_entropy_bits": 0.275,
@@ -100,7 +100,7 @@
     "agreement_rate": 1.0,
     "mean_questions_asked": 1.2305555555555556,
     "mean_proposals_made": 1,
-    "mean_total_decision_regret": 1.927470528863119e-17,
+    "mean_total_decision_regret": 3.161051667335515e-17,
     "zero_regret_decision_share": 1.0,
     "mean_total_eig_regret_bits": 0.9705628312457358,
     "mean_final_entropy_bits": 0.2638888888888889,
@@ -125,7 +125,7 @@
     "agreement_rate": 0.8944444444444445,
     "mean_questions_asked": 0,
     "mean_proposals_made": 1.4777777777777779,
-    "mean_total_decision_regret": 4.780126911580535e-18,
+    "mean_total_decision_regret": 4.163336342344337e-18,
     "zero_regret_decision_share": 1.0,
     "mean_total_eig_regret_bits": 0.4077836120456746,
     "mean_final_entropy_bits": 0.34909393634396507,
@@ -148,7 +148,7 @@
     "agreement_rate": 0.8583333333333333,
     "mean_questions_asked": 0,
     "mean_proposals_made": 1.6666666666666667,
-    "mean_total_decision_regret": 9.56025382316107e-18,
+    "mean_total_decision_regret": 8.326672684688674e-18,
     "zero_regret_decision_share": 1.0,
     "mean_total_eig_regret_bits": 0.32855601028399967,
     "mean_final_entropy_bits": 0.5021182549932041,
@@ -219,7 +219,7 @@
     "agreement_rate": 1.0,
     "mean_questions_asked": 0,
     "mean_proposals_made": 1.6666666666666667,
-    "mean_total_decision_regret": 0.18350074447173456,
+    "mean_total_decision_regret": 0.1835007444717346,
     "zero_regret_decision_share": 0.0,
     "mean_total_eig_regret_bits": 0.0,
     "mean_final_entropy_bits": 0.55,
@@ -334,19 +334,19 @@
     "B": 5000,
     "captured_fraction": {
      "delta_menu": {
-      "ceiling": 0.06381087747560825,
-      "point": 1.0291272940827043,
+      "ceiling": 0.06381087747560826,
+      "point": 1.029127294082704,
       "ci95": [
-       0.7542654761132185,
-       1.3363586256404747
+       0.7542654761132183,
+       1.3363586256404743
       ]
      },
      "delta_full": {
-      "ceiling": 0.06381087747560825,
-      "point": 1.0291272940827043,
+      "ceiling": 0.06381087747560826,
+      "point": 1.029127294082704,
       "ci95": [
-       0.7542654761132185,
-       1.3363586256404747
+       0.7542654761132183,
+       1.3363586256404743
       ]
      }
     }
@@ -362,19 +362,19 @@
     "B": 5000,
     "captured_fraction": {
      "delta_menu": {
-      "ceiling": 0.10194272056883834,
-      "point": 0.9844364050335344,
+      "ceiling": 0.10194272056883841,
+      "point": 0.9844364050335337,
       "ci95": [
-       0.7074108304446087,
-       1.286265026023234
+       0.7074108304446083,
+       1.2862650260232331
       ]
      },
      "delta_full": {
-      "ceiling": 0.10194272056883835,
-      "point": 0.9844364050335342,
+      "ceiling": 0.10194272056883841,
+      "point": 0.9844364050335337,
       "ci95": [
-       0.7074108304446086,
-       1.2862650260232338
+       0.7074108304446083,
+       1.2862650260232331
       ]
      }
     }
@@ -390,19 +390,19 @@
     "B": 5000,
     "captured_fraction": {
      "delta_menu": {
-      "ceiling": 0.025679034382378143,
-      "point": 1.2065448225797595,
+      "ceiling": 0.02567903438237812,
+      "point": 1.2065448225797606,
       "ci95": [
-       0.6934165647010111,
-       1.784854237540403
+       0.6934165647010118,
+       1.7848542375404048
       ]
      },
      "delta_full": {
-      "ceiling": 0.025679034382378143,
-      "point": 1.2065448225797595,
+      "ceiling": 0.02567903438237812,
+      "point": 1.2065448225797606,
       "ci95": [
-       0.6934165647010111,
-       1.784854237540403
+       0.6934165647010118,
+       1.7848542375404048
       ]
      }
     }
@@ -638,44 +638,44 @@
  "ceilings": {
   "all": {
    "n_cells": 24,
-   "mean_delta_full": 0.03828652648536495,
-   "mean_delta_menu": 0.038286526485364944,
+   "mean_delta_full": 0.03828652648536496,
+   "mean_delta_menu": 0.03828652648536496,
+   "mean_loss_ask": 2.3129646346357427e-18,
+   "mean_loss_noask": 0.0,
+   "mean_loss_offers_restriction_ask": 0.0,
+   "mean_loss_questions_restriction_ask": 2.3129646346357427e-18,
+   "cells_with_any_loss": 0,
+   "cells_with_delta_menu_positive": 24,
+   "mean_full_ask": 0.37923429826330823,
+   "mean_full_noask": 0.3409477717779433,
+   "mean_menu_ask": 0.37923429826330823,
+   "mean_menu_noask": 0.3409477717779433,
+   "y_scale": 0.6,
+   "mean_delta_full_Y": 0.06381087747560826,
+   "mean_delta_menu_Y": 0.06381087747560826
+  },
+  "focal_opens": {
+   "n_cells": 12,
+   "mean_delta_full": 0.061165632341303046,
+   "mean_delta_menu": 0.06116563234130304,
    "mean_loss_ask": 4.625929269271485e-18,
    "mean_loss_noask": 0.0,
    "mean_loss_offers_restriction_ask": 0.0,
    "mean_loss_questions_restriction_ask": 4.625929269271485e-18,
    "cells_with_any_loss": 0,
-   "cells_with_delta_menu_positive": 24,
-   "mean_full_ask": 0.3792342982633082,
-   "mean_full_noask": 0.3409477717779433,
-   "mean_menu_ask": 0.3792342982633082,
-   "mean_menu_noask": 0.3409477717779433,
-   "y_scale": 0.6,
-   "mean_delta_full_Y": 0.06381087747560825,
-   "mean_delta_menu_Y": 0.06381087747560825
-  },
-  "focal_opens": {
-   "n_cells": 12,
-   "mean_delta_full": 0.06116563234130301,
-   "mean_delta_menu": 0.061165632341303004,
-   "mean_loss_ask": 9.25185853854297e-18,
-   "mean_loss_noask": 0.0,
-   "mean_loss_offers_restriction_ask": 0.0,
-   "mean_loss_questions_restriction_ask": 9.25185853854297e-18,
-   "cells_with_any_loss": 0,
    "cells_with_delta_menu_positive": 12,
    "mean_full_ask": 0.37923429826330823,
-   "mean_full_noask": 0.3180686659220052,
+   "mean_full_noask": 0.31806866592200517,
    "mean_menu_ask": 0.37923429826330823,
-   "mean_menu_noask": 0.3180686659220052,
+   "mean_menu_noask": 0.31806866592200517,
    "y_scale": 0.6,
-   "mean_delta_full_Y": 0.10194272056883835,
-   "mean_delta_menu_Y": 0.10194272056883834
+   "mean_delta_full_Y": 0.10194272056883841,
+   "mean_delta_menu_Y": 0.10194272056883841
   },
   "opponent_opens": {
    "n_cells": 12,
-   "mean_delta_full": 0.015407420629426885,
-   "mean_delta_menu": 0.015407420629426885,
+   "mean_delta_full": 0.015407420629426872,
+   "mean_delta_menu": 0.015407420629426872,
    "mean_loss_ask": 0.0,
    "mean_loss_noask": 0.0,
    "mean_loss_offers_restriction_ask": 0.0,
@@ -683,12 +683,12 @@
    "cells_with_any_loss": 0,
    "cells_with_delta_menu_positive": 12,
    "mean_full_ask": 0.3792342982633082,
-   "mean_full_noask": 0.3638268776338813,
+   "mean_full_noask": 0.36382687763388133,
    "mean_menu_ask": 0.3792342982633082,
-   "mean_menu_noask": 0.3638268776338813,
+   "mean_menu_noask": 0.36382687763388133,
    "y_scale": 0.6,
-   "mean_delta_full_Y": 0.025679034382378143,
-   "mean_delta_menu_Y": 0.025679034382378143
+   "mean_delta_full_Y": 0.02567903438237812,
+   "mean_delta_menu_Y": 0.02567903438237812
   }
  },
  "selectivity": {
@@ -738,5 +738,88 @@
    "B_effective": 5000
   }
  },
- "position": {}
+ "position": {},
+ "choices": {
+  "exact_ask": {
+   "chosen_kind": {
+    "ASK": 1092,
+    "PROPOSE": 720,
+    "REJECT": 348
+   },
+   "offer_tag": {
+    "SAFE": 720
+   },
+   "terminal_reason": {
+    "accept": 720
+   },
+   "walk_rate": 0.0,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "exact_noask": {
+   "chosen_kind": {
+    "PROPOSE": 1064,
+    "REJECT": 526
+   },
+   "offer_tag": {
+    "PLAN": 360,
+    "SAFE": 423,
+    "AMBITIOUS": 281
+   },
+   "terminal_reason": {
+    "accept": 644,
+    "walk": 76
+   },
+   "walk_rate": 0.10555555555555556,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "greedy_eig": {
+   "chosen_kind": {
+    "PROPOSE": 1158,
+    "ACCEPT": 85
+   },
+   "offer_tag": {
+    "AMBITIOUS": 739,
+    "PLAN": 136,
+    "SAFE": 283
+   },
+   "terminal_reason": {
+    "accept": 686,
+    "walk": 34
+   },
+   "walk_rate": 0.04722222222222222,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  },
+  "random": {
+   "chosen_kind": {
+    "PROPOSE": 528,
+    "REJECT": 195,
+    "ASK": 572,
+    "ACCEPT": 394
+   },
+   "offer_tag": {
+    "AMBITIOUS": 156,
+    "SAFE": 265,
+    "PLAN_ASK": 45,
+    "PLAN": 62
+   },
+   "terminal_reason": {
+    "walk": 10,
+    "accept": 710
+   },
+   "walk_rate": 0.013888888888888888,
+   "mean_prob_mass_on_ASK_when_present": null,
+   "n_decisions_with_ASK_on_menu": 0,
+   "mean_confidence": null,
+   "mean_choice_entropy_bits": null
+  }
+ }
 }

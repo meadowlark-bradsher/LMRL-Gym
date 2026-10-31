@@ -61,15 +61,20 @@ def _tag(r):
 class Cell:
     """Everything exact for one (focal role, opener, focal type): menus and oracles."""
 
-    def __init__(self, cfg: LiveConfig, params: KernelParams, focal: str, ranking, menu_mode: str, n_offers: int = 3, n_questions: int = 2):
+    def __init__(self, cfg: LiveConfig, params: KernelParams, focal: str, ranking, menu_mode: str, n_offers: int = 3, n_questions: int = 2,
+                 heuristic_menu: bool = False):
+        """``heuristic_menu``: no PLAN / PLAN_ASK / PLAN_Q candidates (the pre-2026-10-29 heuristic-only
+        rule: SAFE, AMBITIOUS, then BALANCED fill), used to regenerate the pre-registration baselines."""
         self.cfg, self.focal, self.ranking = cfg, focal, ranking
+        self.heuristic_menu = heuristic_menu
         self.kernel = T1Kernel(other(focal), cfg, params)
         full = (menu_mode == "full")
         self.n_offers, self.n_questions = n_offers, n_questions
         self.full_noask = Oracle(cfg, focal, ranking, self.kernel, ask_allowed=False)   # menu-free; defines PLAN
         self.full_ask = Oracle(cfg, focal, ranking, self.kernel, ask_allowed=True)
+        self.plan_oracle, self.plan_ask_oracle = (None, None) if heuristic_menu else (self.full_noask, self.full_ask)
         self.menu = Menu(cfg, focal, ranking, self.kernel, restrict_offers=not full, restrict_questions=not full,
-                         n_offers=n_offers, n_questions=n_questions, plan_oracle=self.full_noask, plan_ask_oracle=self.full_ask)
+                         n_offers=n_offers, n_questions=n_questions, plan_oracle=self.plan_oracle, plan_ask_oracle=self.plan_ask_oracle)
         self.ask = Oracle(cfg, focal, ranking, self.kernel, ask_allowed=True, menu=self.menu.actions(True))
         self.noask = Oracle(cfg, focal, ranking, self.kernel, ask_allowed=False, menu=self.menu.actions(False))
 
@@ -79,9 +84,9 @@ class Cell:
         out["full_noask"] = self.full_noask.root_value(opener)
         if self.menu.restrict_offers or self.menu.restrict_questions:
             m_off = Menu(self.cfg, self.focal, self.ranking, self.kernel, restrict_offers=True, restrict_questions=False,
-                         n_offers=self.n_offers, n_questions=self.n_questions, plan_oracle=self.full_noask, plan_ask_oracle=self.full_ask)
+                         n_offers=self.n_offers, n_questions=self.n_questions, plan_oracle=self.plan_oracle, plan_ask_oracle=self.plan_ask_oracle)
             m_q = Menu(self.cfg, self.focal, self.ranking, self.kernel, restrict_offers=False, restrict_questions=True,
-                         n_offers=self.n_offers, n_questions=self.n_questions, plan_oracle=self.full_noask, plan_ask_oracle=self.full_ask)
+                         n_offers=self.n_offers, n_questions=self.n_questions, plan_oracle=self.plan_oracle, plan_ask_oracle=self.plan_ask_oracle)
             out["offers_restricted_ask"] = Oracle(self.cfg, self.focal, self.ranking, self.kernel, True, menu=m_off.actions(True)).root_value(opener)
             out["questions_restricted_ask"] = Oracle(self.cfg, self.focal, self.ranking, self.kernel, True, menu=m_q.actions(True)).root_value(opener)
         out["delta_full"] = out["full_ask"] - out["full_noask"]
@@ -213,6 +218,8 @@ def main(argv=None) -> int:
     p.add_argument("--menu", default="shortlist", choices=("shortlist", "full"))
     p.add_argument("--n-offers", type=int, default=3, help="offer candidates in the shortlist (SAFE, AMBITIOUS, PLAN, then BALANCED fill)")
     p.add_argument("--n-questions", type=int, default=2)
+    p.add_argument("--heuristic-menu", action="store_true",
+                   help="pre-2026-10-29 heuristic-only shortlist (SAFE, AMBITIOUS, BALANCED fill; no PLAN / PLAN_ASK / PLAN_Q); regenerates the pre-registration baselines")
     p.add_argument("--roles", default="buyer,seller"); p.add_argument("--openers", default="buyer,seller")
     p.add_argument("--types", default="all", help="'all' or focal type indices '0,3'")
     p.add_argument("--opp-types", default="all", help="'all' or opponent type indices")
@@ -244,7 +251,7 @@ def main(argv=None) -> int:
     ceilings: Dict[str, dict] = {}
     for role in roles:
         for i in types:
-            c = Cell(cfg, params, role, ALL_RANKINGS[i], args.menu, args.n_offers, args.n_questions)
+            c = Cell(cfg, params, role, ALL_RANKINGS[i], args.menu, args.n_offers, args.n_questions, heuristic_menu=args.heuristic_menu)
             cells[(role, i)] = c
             for opener in openers:
                 if not args.skip_ceilings:
@@ -253,7 +260,7 @@ def main(argv=None) -> int:
                           f"Δfull={ceilings[f'{role}|{opener}|{_tag(ALL_RANKINGS[i])}']['delta_full']:.4f} "
                           f"Δmenu={ceilings[f'{role}|{opener}|{_tag(ALL_RANKINGS[i])}']['delta_menu']:.4f}", file=sys.stderr)
     with open(os.path.join(args.out, "ceilings.json"), "w") as f:
-        json.dump({"config": cfg.to_json(), "kernel": params.to_json(), "menu": args.menu, "n_offers": args.n_offers,
+        json.dump({"config": cfg.to_json(), "kernel": params.to_json(), "menu": args.menu, "heuristic_menu": args.heuristic_menu, "n_offers": args.n_offers,
                    "n_questions": args.n_questions, "cells": ceilings}, f, indent=1)
 
     n = errors = 0
@@ -282,7 +289,7 @@ def main(argv=None) -> int:
                                 f.write(json.dumps(rec) + "\n")
                                 n += 1
             print(f"[{time.time()-t0:6.1f}s] arm={arm} done ({n} episodes so far)", file=sys.stderr)
-    summary = {"env": ENV_VERSION, "config": cfg.to_json(), "kernel": params.to_json(), "menu": args.menu,
+    summary = {"env": ENV_VERSION, "config": cfg.to_json(), "kernel": params.to_json(), "menu": args.menu, "heuristic_menu": args.heuristic_menu,
                "n_offers": args.n_offers, "n_questions": args.n_questions, "arms": arms,
                "roles": roles, "openers": openers, "focal_types": [_tag(ALL_RANKINGS[i]) for i in types],
                "opp_types": [_tag(ALL_RANKINGS[j]) for j in opp_types], "repeats": args.repeats, "seed": args.seed,

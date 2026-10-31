@@ -3,6 +3,7 @@
 # completeness), the costlessness checks with the stopping rule, the analyses and the rendered note.
 # Run from the repo root. No model calls are made.
 set -euo pipefail
+export PYTHONHASHSEED=0   # belt and braces: the code orders every likelihood table, so results do not depend on it
 cd "$(dirname "$0")/../.."
 OUT=results/live_phase1_scripted3_20261029
 for spec in "4 0 h4_cq0" "2 0 h2_cq0" "3 0 h3_cq0" "4 3/100 h4_cq3"; do
