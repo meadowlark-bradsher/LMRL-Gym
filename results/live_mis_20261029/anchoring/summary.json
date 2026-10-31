@@ -20,6 +20,12 @@
   "processes": [
     "anchoring"
   ],
+  "process_meta": {
+    "anchoring": {
+      "family": "anchoring",
+      "severity": "3"
+    }
+  },
   "arms": [
     "A_prior",
     "B_naive",
@@ -31,54 +37,63 @@
     "C_mix0.2",
     "O_true"
   ],
+  "hedged_arms": {},
   "filters": {
     "A_prior": {
       "name": "A_prior",
       "update": false,
       "eta": 0.001,
-      "tau": 1.0
+      "tau": 1.0,
+      "answer_noise": 0.0
     },
     "B_naive": {
       "name": "B_naive",
       "update": true,
       "eta": 0.001,
-      "tau": 1.0
+      "tau": 1.0,
+      "answer_noise": 0.0
     },
     "B_temp0.5": {
       "name": "B_temp0.5",
       "update": true,
       "eta": 0.001,
-      "tau": 0.5
+      "tau": 0.5,
+      "answer_noise": 0.0
     },
     "B_temp0.75": {
       "name": "B_temp0.75",
       "update": true,
       "eta": 0.001,
-      "tau": 0.75
+      "tau": 0.75,
+      "answer_noise": 0.0
     },
     "B_mix0.05": {
       "name": "B_mix0.05",
       "update": true,
       "eta": 0.05,
-      "tau": 1.0
+      "tau": 1.0,
+      "answer_noise": 0.0
     },
     "B_mix0.2": {
       "name": "B_mix0.2",
       "update": true,
       "eta": 0.2,
-      "tau": 1.0
+      "tau": 1.0,
+      "answer_noise": 0.0
     },
     "C_naive": {
       "name": "B_naive",
       "update": true,
       "eta": 0.001,
-      "tau": 1.0
+      "tau": 1.0,
+      "answer_noise": 0.0
     },
     "C_mix0.2": {
       "name": "B_mix0.2",
       "update": true,
       "eta": 0.2,
-      "tau": 1.0
+      "tau": 1.0,
+      "answer_noise": 0.0
     }
   },
   "roles": [
@@ -109,5 +124,5 @@
   "seed": 41,
   "episodes": 6480,
   "error_stubs": 0,
-  "elapsed_s": 202.61
+  "elapsed_s": 207.48
 }

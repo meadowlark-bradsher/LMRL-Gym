@@ -139,7 +139,19 @@ log-loss, Brier) from decision loss (true-model decision regret at every focal c
 contrast M1 = `B_naive − A_prior` under history-contingent countering; rules in `verdicts_mis.py`.
 Gates in `test_mis.py`.
 
-## 8. What is still not done
+## 8. CD-MIS-2 (`opponents_mis.py` severity ids, `filters_mis.py` hedged answer model, `verdicts_mis2.py`), registered 2026-10-30
+
+The severity sweep CD-MIS-1 listed as a limit, plus a confirmatory test of its one exploratory finding
+(trusting evasive answers hurts). Process ids `family@value` set the one scalar parameter of a family
+(evasive flip rate 0–0.5, history step 0.1–0.4, acceptance noise 0.15–0.5); new ASK arms `C_ans a`
+assume a fixed answer flip rate a in both planner and filter, so on the evasive family the grid is the
+true-rate × assumed-rate matrix with `O_true` as its diagonal. Confirmatory E1 = `C_ans0.2 − C_naive`
+at true rate 0.3; rules in `verdicts_mis2.py`; registration in `PREREGISTRATION_MIS2.md`. Random streams
+are seeded by family, so the no-ask arms are identical across evasive levels and each family's CD-MIS-1
+level replicates CD-MIS-1 exactly (gated). Gates in `test_mis2.py`.
+
+## 9. What is still not done
 
 Phase 2 arms (A_prior / B_passive selectors with Jev, C_bonus, placebo, a general-LLM adapter), Phase 3
-(T2 adaptive bilateral play), a CD-MIS-1 severity sweep, and the reviewer's read of the planner-completeness fix.
+(T2 adaptive bilateral play), an adaptive (estimated rather than fixed) answer-noise model, and the
+reviewer's read of the planner-completeness fix.

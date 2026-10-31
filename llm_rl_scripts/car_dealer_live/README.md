@@ -1,4 +1,4 @@
-# Live Car-Dealer (`live-car-dealer-v0.1`) — CD-VOI-1 / CD-MIS-1, Phases 0–1
+# Live Car-Dealer (`live-car-dealer-v0.1`) — CD-VOI-1 / CD-MIS-1 / CD-MIS-2, Phases 0–1
 
 The bilateral discretized Car-Dealer game with a public **ASK** action, a history-responsive
 **T1 opponent** whose kernel is known to the oracle, a matched finite filter, and an **exact
@@ -16,6 +16,8 @@ frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
   two-candidate baselines that motivated the change)
 - Pre-registration of the Jev run: [`PREREGISTRATION_LIVE.md`](PREREGISTRATION_LIVE.md); results: [`JEV_RESULTS_LIVE.md`](JEV_RESULTS_LIVE.md)
 - CD-MIS-1 (learning with the wrong opponent model): [`PREREGISTRATION_MIS.md`](PREREGISTRATION_MIS.md); results: [`MIS_RESULTS.md`](MIS_RESULTS.md)
+- CD-MIS-2 (severity sweep; the evasive-answer channel, hedged answer models): [`PREREGISTRATION_MIS2.md`](PREREGISTRATION_MIS2.md);
+  results: [`MIS2_RESULTS.md`](MIS2_RESULTS.md), rendered from `results/live_mis2_20261030/`
 
 ## Code
 
@@ -35,9 +37,10 @@ frozen; the Jev run is pre-registered in `PREREGISTRATION_LIVE.md`.
 | `run_phase1.py` | Phase 1 runner: 144 cells × K, per-decision exact logs, `ceilings.json` |
 | `costlessness_check.py` | full vs shortlist oracle values over menu sizes; the reviewer's stopping rule |
 | `verdicts_live.py` | the pre-registered decision rules, applied by code |
-| `opponents_mis.py`, `filters_mis.py`, `run_mis.py` | CD-MIS-1: seven true opponent processes, robust filters, the mismatch runner with belief-vs-decision diagnostics |
-| `analyze_mis.py`, `verdicts_mis.py`, `render_mis_note.py` | CD-MIS-1 analysis, pre-registered rules, rendered note |
-| `test_mis.py` | the CD-MIS-1 gates (4 tests) |
+| `opponents_mis.py`, `filters_mis.py`, `run_mis.py` | CD-MIS-1/2: seven true opponent processes with `family@severity` levels, robust and hedged-answer filters, the mismatch runner with belief-vs-decision diagnostics |
+| `analyze_mis.py`, `verdicts_mis.py`, `render_mis_note.py` | CD-MIS-1 analysis (also CD-MIS-2: generic arm pairs, identical-trajectory share, severity ordering), pre-registered rules, rendered note |
+| `verdicts_mis2.py`, `render_mis2_note.py` | CD-MIS-2 pre-registered rules and rendered note |
+| `test_mis.py`, `test_mis2.py` | the CD-MIS-1 gates (4 tests) and CD-MIS-2 gates (4 tests) |
 | `analyze_phase1.py`, `render_phase1_note.py` | analysis JSON and the rendered note |
 | `test_phase1.py` | the Phase 1 gates (4 tests; incl. neither planner handicapped by the menu) |
 

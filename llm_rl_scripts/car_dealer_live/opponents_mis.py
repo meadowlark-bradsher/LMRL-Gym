@@ -17,6 +17,12 @@ about real negotiators (design section 7.1). Parameters are frozen in PREREGISTR
 | withholding | strategic stalling | never accepts while more than one opportunity remains (rejects or counters instead); accepts IR at the end |
 | history | history-contingent countering | aspiration rises by 0.1 for every question the focal has asked and every offer the focal has rejected (capped at 1) |
 | evasive | noisy answers | each answer is flipped w.p. 0.3 |
+
+CD-MIS-2 (severity sweep): a process id ``family@value`` sets the one scalar severity parameter of
+that family -- ``history@0.4`` (aspiration step), ``stochastic@0.5`` (acceptance noise; beta 2 and
+shortlist 5 kept), ``anchoring@6`` (concession power), ``evasive@0.1`` (answer flip rate). A bare
+family name is the CD-MIS-1 level (``MIS1_LEVEL``). ``matched``, ``threshold`` and ``withholding``
+have no severity parameter.
 """
 
 from __future__ import annotations
@@ -53,6 +59,10 @@ class AnchoringKernel(T1Kernel):
 
     power = 3
 
+    def __init__(self, role, cfg, params=REFERENCE, power: int = 3):
+        super().__init__(role, cfg, params)
+        self.power = power
+
     def aspiration(self, remaining: int) -> Fraction:
         r = self.cfg.reservation
         return r + (self.p.alpha0 - r) * Fraction(remaining, self.cfg.horizon) ** self.power
@@ -86,6 +96,10 @@ class HistoryKernel(T1Kernel):
 
     step = Fraction(1, 10)
 
+    def __init__(self, role, cfg, params=REFERENCE, step: Fraction = Fraction(1, 10)):
+        super().__init__(role, cfg, params)
+        self.step = step
+
     def _penalty(self, state: PublicState) -> int:
         f = other(self.role)
         return len(state.asked_by(f)) + len(state.rejected_by(f))
@@ -100,24 +114,55 @@ class HistoryKernel(T1Kernel):
         return min(Fraction(1), base + self.step * getattr(self, "_pen", 0))
 
 
+MIS1_LEVEL = {"history": Fraction(1, 10), "stochastic": Fraction(3, 20), "anchoring": 3, "evasive": Fraction(3, 10)}
+SEVERITY_AXIS = {"history": "aspiration step per focal question or rejection", "stochastic": "P(reject an acceptable offer)",
+                 "anchoring": "concession power (remaining/H)^p", "evasive": "P(answer flipped)"}
+
+
+def parse_process(process: str):
+    """'history@0.4' -> ('history', Fraction(2, 5)); 'history' -> ('history', None)."""
+    if "@" in process:
+        fam, sev = process.split("@", 1)
+        if fam not in MIS1_LEVEL:
+            raise ValueError(f"{fam} has no severity parameter")
+        return fam, Fraction(sev)
+    return process, None
+
+
+def family(process: str) -> str:
+    return parse_process(process)[0]
+
+
+def severity(process: str):
+    """The family's severity parameter (the CD-MIS-1 level for a bare family name; None otherwise)."""
+    fam, sev = parse_process(process)
+    if sev is None:
+        return MIS1_LEVEL.get(fam)
+    return sev
+
+
 def true_kernel(process: str, role: str, cfg: LiveConfig) -> T1Kernel:
-    """The TRUE opponent for a CD-MIS-1 condition. ``cfg`` carries the registered horizon / cost;
-    answer noise is applied only by the 'evasive' process."""
+    """The TRUE opponent for a CD-MIS condition. ``cfg`` carries the registered horizon / cost;
+    answer noise is applied only by the 'evasive' family."""
+    fam, sev = parse_process(process)
     assumed = LiveConfig(regime=cfg.regime, horizon=cfg.horizon, ask_cost=cfg.ask_cost, answer_noise=Fraction(0))
-    if process == "matched":
+    if fam == "matched":
         return T1Kernel(role, assumed, REFERENCE)
-    if process == "threshold":
+    if fam == "threshold":
         return ThresholdKernel(role, assumed, replace(REFERENCE, shortlist=1))
-    if process == "stochastic":
-        return T1Kernel(role, assumed, replace(REFERENCE, beta=2.0, accept_noise=0.15, shortlist=5))
-    if process == "anchoring":
-        return AnchoringKernel(role, assumed, replace(REFERENCE, alpha0=Fraction(19, 20)))
-    if process == "withholding":
+    if fam == "stochastic":
+        noise = MIS1_LEVEL[fam] if sev is None else sev
+        return T1Kernel(role, assumed, replace(REFERENCE, beta=2.0, accept_noise=float(noise), shortlist=5))
+    if fam == "anchoring":
+        power = MIS1_LEVEL[fam] if sev is None else int(sev)
+        return AnchoringKernel(role, assumed, replace(REFERENCE, alpha0=Fraction(19, 20)), power=power)
+    if fam == "withholding":
         return WithholdingKernel(role, assumed, REFERENCE)
-    if process == "history":
-        return HistoryKernel(role, assumed, REFERENCE)
-    if process == "evasive":
-        noisy = LiveConfig(regime=cfg.regime, horizon=cfg.horizon, ask_cost=cfg.ask_cost, answer_noise=Fraction(3, 10))
+    if fam == "history":
+        return HistoryKernel(role, assumed, REFERENCE, step=MIS1_LEVEL[fam] if sev is None else sev)
+    if fam == "evasive":
+        rate = MIS1_LEVEL[fam] if sev is None else sev
+        noisy = LiveConfig(regime=cfg.regime, horizon=cfg.horizon, ask_cost=cfg.ask_cost, answer_noise=rate)
         return T1Kernel(role, noisy, REFERENCE)
     raise ValueError(process)
 
@@ -125,6 +170,7 @@ def true_kernel(process: str, role: str, cfg: LiveConfig) -> T1Kernel:
 PROCESSES = ("matched", "threshold", "stochastic", "anchoring", "withholding", "history", "evasive")
 
 
-def assumed_kernel(role: str, cfg: LiveConfig) -> T1Kernel:
-    """The agent's ASSUMED (registered) kernel: truthful answers, reference parameters."""
-    return T1Kernel(role, LiveConfig(regime=cfg.regime, horizon=cfg.horizon, ask_cost=cfg.ask_cost, answer_noise=Fraction(0)), REFERENCE)
+def assumed_kernel(role: str, cfg: LiveConfig, answer_noise: Fraction = Fraction(0)) -> T1Kernel:
+    """The agent's ASSUMED (registered) kernel: reference parameters; truthful answers unless the
+    agent hedges its answer model (CD-MIS-2 ``C_ans`` arms set ``answer_noise`` to the assumed flip rate)."""
+    return T1Kernel(role, LiveConfig(regime=cfg.regime, horizon=cfg.horizon, ask_cost=cfg.ask_cost, answer_noise=answer_noise), REFERENCE)

@@ -74,7 +74,7 @@ as it changes the decision. One confirmatory contrast; the rest secondary, no mu
 - No error stubs; every (process, arm) has 720 episodes.
 - Under `matched`, `O_true − C_naive` is not positive (the naive filter is then correctly specified up to the 10⁻³ floor).
   **Post-run correction (2026-10-29):** this gate was registered as `O_true − B_naive`, which compares an ASK-allowed planner with
-  an ASK-forbidden one and is positive by exactly the value of asking (it read +0.066 [+0.048, +0.086]); the intended check is the
+  an ASK-forbidden one and is positive by exactly the value of asking (it read +0.066 [+0.048, +0.085]); the intended check is the
   ASK-allowed pair. The gate is a pipeline check, not a hypothesis; no decision rule (M1–M11, G_*) was changed after the run.
 - `test_mis.py`: every process is a valid kernel at every reachable node; filters stay normalised and survive impossible observations;
   under `matched` the naive filter tracks the exact filter and `O_true` equals the assumed ASK planner.
@@ -104,6 +104,18 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.verdicts_mis --analysis r
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_live.render_mis_note --dir results/live_mis_20261029 \
     --verdicts results/live_mis_20261029/verdicts.json --out llm_rl_scripts/car_dealer_live/MIS_RESULTS.md
 ```
+
+## Post-run disclosure (2026-10-30): the grid was regenerated after a determinism fix
+
+CD-MIS-2's exact-replication gate (its CD-MIS-1 levels must reproduce this grid's mean Y to 10⁻¹²) failed on its first run and
+exposed a pipeline defect that predates this study: `belief_live.action_likelihoods` built the opponent-action table from a Python
+set, so the oracle's summation order — and therefore the break of *exact ties* between two questions at the uniform prior — depended
+on the interpreter's hash seed. The no-ask arms were unaffected; the ASK arms chose a different (equally optimal) question in some
+episodes, which changed the sampled answers and the later play. The table is now ordered by action key, `test_mis2.py` pins the
+behaviour across hash seeds, `REGENERATE.sh` also exports `PYTHONHASHSEED=0`, and this grid was regenerated with the fixed code. The
+first run's `analysis.json` is kept beside it as `analysis_first_run_before_determinism_fix.json`. Effect: 12 of the 63
+(process, arm) mean-Y values moved (largest contrast move 0.007 in Y; e.g. `C_naive − B_naive` under `evasive` −0.094 → −0.087);
+**no verdict changed**, no rule changed, and `MIS_RESULTS.md` and FINDINGS §3.8 were re-rendered from the regenerated JSON.
 
 ## Limits accepted in advance
 
