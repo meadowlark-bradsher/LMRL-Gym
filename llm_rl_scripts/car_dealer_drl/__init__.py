@@ -26,7 +26,15 @@ oracle hard at first and weans off it:
   mixture of true opponents and scored against O_assumed (the registered oracle
   deployed under misspecification) and O_true (the clairvoyant per-draw ceiling),
   with a pre-registered transfer split to held-out opponents.
-* R4: weaker/absent oracles.
+* **R4** (``potentials``/``run_r4``): weaker / absent oracles. Holding the nstep1
+  learner fixed (R1 setup) and varying only the shaping potential Phi, a degradation
+  ladder measures how much of R1's V* recovery survives: Phi=V* (exact), Phi=V* under
+  a wrong kernel, Phi=V*_noask (inquiry-blind), Phi=entropy (oracle-free; the deepink
+  potential) and Phi=0. Finding: every VALUE potential recovers V* fully (V* is
+  kernel-robust, and the small value of inquiry is recovered from the true reward
+  even by an inquiry-blind potential), but the oracle-free entropy potential fails at
+  every scale -- rewarding information rather than value misleads here, the opposite
+  of 20Q. The oracle's contribution is its VALUE content, not merely dense shaping.
 
 The policy is a drop-in ``policy(state, belief) -> Action`` over the menu rows,
 exactly like the scripted and Jev arms in ``car_dealer_live``.

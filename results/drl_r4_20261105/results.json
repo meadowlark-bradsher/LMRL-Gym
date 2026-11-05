@@ -1,0 +1,112 @@
+{
+ "env": "live-car-dealer-v0.1",
+ "rung": "R4",
+ "config": {
+  "horizon": 4,
+  "ask_cost": "0",
+  "seed": 0,
+  "iters": 400,
+  "episodes_per_iter": 192,
+  "hidden": 256,
+  "lr": 0.003,
+  "entropy_coef": 0.01,
+  "eval_repeats": 20,
+  "wrong_kernel": {
+   "alpha0": "3/5",
+   "beta": 4.0
+  },
+  "entropy_scales": [
+   0.05,
+   0.15,
+   0.38
+  ]
+ },
+ "arms": {
+  "exact": {
+   "mean_net": 0.37926014957264953,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": 2.5851309341378322e-05,
+   "residual_z": 0.009942954317288059,
+   "recovers": true,
+   "optimal_match": 1.0,
+   "ask_rate_per_episode": 2.0,
+   "ask_optimal_recall": 1.0,
+   "mean_decision_regret": 3.2638500955415483e-18,
+   "recovery": 1.0003729140175448
+  },
+  "mismatch": {
+   "mean_net": 0.37926014957264953,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": 2.5851309341378322e-05,
+   "residual_z": 0.009942954317288059,
+   "recovers": true,
+   "optimal_match": 1.0,
+   "ask_rate_per_episode": 2.0,
+   "ask_optimal_recall": 1.0,
+   "mean_decision_regret": 3.2638500955415483e-18,
+   "recovery": 1.0003729140175448
+  },
+  "noask": {
+   "mean_net": 0.37926014957264953,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": 2.5851309341378322e-05,
+   "residual_z": 0.009942954317288059,
+   "recovers": true,
+   "optimal_match": 1.0,
+   "ask_rate_per_episode": 2.0,
+   "ask_optimal_recall": 1.0,
+   "mean_decision_regret": 3.2638500955415483e-18,
+   "recovery": 1.0003729140175448
+  },
+  "entropy@0.05": {
+   "mean_net": 0.30337606837606834,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": -0.07585822988723982,
+   "residual_z": -21.743858013358796,
+   "recovers": false,
+   "optimal_match": 0.319387153800825,
+   "ask_rate_per_episode": 0.0,
+   "ask_optimal_recall": 0.0,
+   "mean_decision_regret": 0.04407706855875169,
+   "recovery": -0.09428102451860049
+  },
+  "entropy@0.15": {
+   "mean_net": 0.3019017094017094,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": -0.07733258886159879,
+   "residual_z": -25.488105333996966,
+   "recovers": false,
+   "optimal_match": 0.3454262185622079,
+   "ask_rate_per_episode": 0.0,
+   "ask_optimal_recall": 0.0,
+   "mean_decision_regret": 0.049164760240793595,
+   "recovery": -0.11554915918728292
+  },
+  "entropy@0.38": {
+   "mean_net": 0.15622329059829057,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": -0.2230110076650176,
+   "residual_z": -57.62748396711794,
+   "recovers": false,
+   "optimal_match": 0.6188466947960619,
+   "ask_rate_per_episode": 1.1229166666666666,
+   "ask_optimal_recall": 0.5432174715472162,
+   "mean_decision_regret": 0.07582125968290356,
+   "recovery": -2.2170103930628398
+  },
+  "none": {
+   "mean_net": 0.30991185897435897,
+   "ceiling": 0.3792342982633083,
+   "mean_residual": -0.06932243928894921,
+   "residual_z": -20.205312857455134,
+   "recovers": false,
+   "optimal_match": 0.3314674130347861,
+   "ask_rate_per_episode": 0.0,
+   "ask_optimal_recall": 0.0,
+   "mean_decision_regret": 0.04043063446131474,
+   "recovery": 0.0
+  }
+ },
+ "reading": "Recovery: exact +1.00, mismatch +1.00, noask +1.00, entropy@0.05 -0.09, entropy@0.15 -0.12, entropy@0.38 -2.22, none 0. All three VALUE potentials (exact, wrong-kernel, inquiry-blind V*_noask) recover V* fully: V* is nearly invariant to the opponent model here, and the small value of inquiry is captured from the true one-step reward even when the potential ignores it. The oracle-free entropy potential fails at every scale tested (best entropy@0.05: -0.09): rewarding information gain rather than value misleads the bootstrapped learner in Car-Dealer, where ASK is optimal at only ~2% of nodes -- the opposite of 20Q, where information gain IS the objective. This is categorical, not mere scale-sensitivity.",
+ "elapsed_s": 638.7
+}

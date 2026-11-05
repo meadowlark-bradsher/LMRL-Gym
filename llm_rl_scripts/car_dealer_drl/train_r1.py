@@ -88,7 +88,7 @@ def _entropy(logits: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
 
 
 def _sample_episodes(net: PolicyValueNet, cells: Dict[Tuple[str, int], Cell], n: int,
-                     cfg: R1Config, rng: random.Random, gen: torch.Generator) -> List[Episode]:
+                     cfg: R1Config, rng: random.Random, gen: torch.Generator, potential=None) -> List[Episode]:
     choose = net_sampler(net, temperature=cfg.sample_temp, generator=gen)
     keys = list(cells.keys())
     openers = ("buyer", "seller")
@@ -97,13 +97,17 @@ def _sample_episodes(net: PolicyValueNet, cells: Dict[Tuple[str, int], Cell], n:
         role, i = keys[rng.randrange(len(keys))]
         opener = openers[rng.randrange(2)]
         j = rng.randrange(len(ALL_RANKINGS))
-        ep = rollout(cells[(role, i)], opener, ALL_RANKINGS[j], rng, choose, shaping=cfg.shaping)
+        ep = rollout(cells[(role, i)], opener, ALL_RANKINGS[j], rng, choose,
+                     shaping=cfg.shaping, potential=potential)
         if ep.steps:
             eps.append(ep)
     return eps
 
 
-def train_r1(cells: Dict[Tuple[str, int], Cell], cfg: R1Config = R1Config()) -> Tuple[PolicyValueNet, Dict]:
+def train_r1(cells: Dict[Tuple[str, int], Cell], cfg: R1Config = R1Config(), potential=None) -> Tuple[PolicyValueNet, Dict]:
+    """``potential``: an optional R4 shaping potential ``potential(cell, state, belief)``
+    passed through to ``env.rollout``; None uses the R1/R2 default (Phi=V* when
+    ``cfg.shaping`` else 0)."""
     torch.manual_seed(cfg.seed)
     rng = random.Random(f"r1|{cfg.seed}|{'shaped' if cfg.shaping else 'sparse'}")
     gen = torch.Generator().manual_seed(cfg.seed + 1)
@@ -114,7 +118,7 @@ def train_r1(cells: Dict[Tuple[str, int], Cell], cfg: R1Config = R1Config()) -> 
     best_match, best_state, best_iter, hist = -1.0, None, -1, []
     bad = 0
     for it in range(cfg.iters):
-        eps = _sample_episodes(net, cells, cfg.episodes_per_iter, cfg, rng, gen)
+        eps = _sample_episodes(net, cells, cfg.episodes_per_iter, cfg, rng, gen, potential=potential)
         steps = [s for ep in eps for s in ep.steps]
         S, Rf, M, a, g = _batch(steps, target)
 
