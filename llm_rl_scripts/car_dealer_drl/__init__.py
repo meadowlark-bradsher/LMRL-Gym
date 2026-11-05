@@ -13,8 +13,12 @@ oracle hard at first and weans off it:
   its policy from reward. Phi = V* makes the one-step shaped reward the optimal
   advantage, so RL recovers V* with dense help. A pre-registered shaping-off
   ablation isolates the shaping's contribution.
-* R2: reward-only VOI discovery (does model-free RL find ASK without the oracle?);
-  R3: best-response to the CD-MIS opponent population; R4: weaker/absent oracles.
+* **R2** (``ask_eval``/``run_r2``): reward-only VOI discovery. RL with *no oracle*
+  (no BC labels, no PBRS potential) from the raw terminal reward; the net sees only
+  the menu the Jev arm sees. Does it discover ASK where asking carries value? R2
+  reports a pre-registered discovery verdict (captured-VOI fraction and
+  ASK-optimal recall against the exact labels), mirroring the Jev 0/2555 finding.
+* R3: best-response to the CD-MIS opponent population; R4: weaker/absent oracles.
 
 The policy is a drop-in ``policy(state, belief) -> Action`` over the menu rows,
 exactly like the scripted and Jev arms in ``car_dealer_live``.

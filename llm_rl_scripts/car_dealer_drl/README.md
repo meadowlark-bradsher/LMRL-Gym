@@ -16,7 +16,7 @@ first and weans off it.
 |---|---|---|
 | **R0** (done) | Can the featurization + a tiny net **reproduce** the exact menu policy? | Teacher (behavior cloning of `exact_ask`) |
 | **R1** (done) | Does RL **recover** `V*` with dense help? | Potential-based shaping, Φ = `V*` (potential only, no action labels) |
-| R2 | Does model-free RL **discover ASK** from reward alone? (mirrors the Jev 0/2555 finding) | Scorer only |
+| **R2** (done) | Does model-free RL **discover ASK** from reward alone? (mirrors the Jev 0/2555 finding) | None in training; oracle labels eval nodes only |
 | R3 | Best-response to the **CD-MIS opponent population**; transfer to held-out opponents | Per-draw ceiling |
 | R4 | Weaker / absent oracles (mismatched kernel, H=6 approximate, none); the entropy potential of `deepink-revised` as the oracle-free Φ | Degraded → gone |
 
@@ -38,10 +38,13 @@ assignment is dense while the optimal policy is left invariant (Ng–Harada–Ru
 | `evaluate.py` | episode loop mirroring `run_phase1.play_episode`; scores a policy against the exact `cell.ask.root_value` ceiling; `oracle_choice` shim validates the harness |
 | `run_r0.py` | R0 end-to-end: collect → train → gate; writes `results.json`, `policy.pt`, `R0_RESULTS.md` |
 | `env.py` | R1 belief-MDP rollout with PBRS: emits the shaped reward `r' = R + Φ(s′) − Φ(s)`, Φ = `cell.ask.value` (terminal clamp Φ=0); `oracle_sampler` validates the dynamics |
-| `train_r1.py` | R1 advantage actor-critic; one-step shaped-reward advantage (low variance because Φ=V\* absorbs the continuation), entropy-annealed, model-selected on greedy optimal-match |
+| `train_r1.py` | R1/R2 advantage actor-critic; one-step shaped-reward advantage (R1, low variance because Φ=V\* absorbs the continuation) or MC return-to-go (R2 sparse); entropy-annealed, model-selected on greedy optimal-match |
 | `run_r1.py` | R1 end-to-end: train shaped + the shaping-off ablation → gate; writes `results.json`, `policy.pt`, `R1_RESULTS.md` |
+| `ask_eval.py` | R2 ASK-aware evaluation: labels each node's ASK-optimality with the exact oracle, scores captured-VOI fraction, ASK-optimal recall/precision, ASK rate (oracle labels eval only) |
+| `run_r2.py` | R2 end-to-end: train with no oracle (sparse reward, MC) → ASK-discovery verdict; writes `results.json`, `policy.pt`, `R2_RESULTS.md` |
 | `test_drl.py` | R0 gates (fast subset): feature dims, decision-sufficiency of the featurization, oracle-shim reproduces `exact_ask`, row masking, BC learns |
 | `test_r1.py` | R1 gates (fast subset): PBRS telescoping identity, env dynamics reproduce the ceiling, shaping-off is sparse, actor-critic learns |
+| `test_r2.py` | R2 gates (fast subset): ASK-evaluator endpoints (oracle recall 1.0 / full VOI, noask-optimal recall 0 / zero VOI), verdict classifier |
 
 ## Run
 
@@ -49,6 +52,7 @@ assignment is dense while the optimal policy is left invariant (Ng–Harada–Ru
 PYTHONPATH=. python3 -m pytest -q llm_rl_scripts/car_dealer_drl
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r0 --out results/drl_r0_<date>
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r1 --out results/drl_r1_<date>
+PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r2 --out results/drl_r2_<date>
 ```
 
 ## Gate (R0)
@@ -70,6 +74,21 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r1 --out results/drl_r
   If it also clears H1/H2, the honest reading is that H=4 is too short for shaping
   to matter here — which motivates the longer-horizon rungs. The pre-registration
   is frozen in `run_r1.py`'s module docstring before the run.
+
+## Verdict (R2)
+
+R2 reports a **discovery verdict**, not a pass/fail — the scientific question has
+no predetermined success. The training config is tuned for *value* (never for the
+ASK outcome) and frozen in `run_r2.py`'s docstring before the run. In the exact
+registered regime the value of inquiry is ~0.038 net (~10% of the ceiling) and ASK
+is strictly optimal at ~2% of focal nodes, so the prize is real and rare.
+
+- **captured-VOI fraction** = (net − noask-ceiling)/(ask-ceiling − noask-ceiling):
+  0 = never-ask-optimal, 1 = ask-optimal.
+- **ASK-optimal recall** = asks taken at the oracle's strictly-ASK-optimal nodes
+  (Jev's 0/2555 is recall 0 — the number R2 asks whether RL beats).
+- Verdict: **DISCOVERED** if captured-VOI ≥ 0.50 and recall ≥ 0.50; **PARTIAL** if
+  recall ≥ 0.10 or captured-VOI ≥ 0.25; else **NOT_DISCOVERED** (Jev-like).
 
 ## Reuses
 
