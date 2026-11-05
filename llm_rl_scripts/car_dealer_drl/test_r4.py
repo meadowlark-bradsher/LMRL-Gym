@@ -23,7 +23,7 @@ from .dataset import build_cells
 from .env import oracle_sampler, rollout
 from .evaluate import evaluate, net_choice_fn
 from .net import PolicyValueNet
-from .potentials import make_phi_mismatch, phi_entropy, phi_exact, phi_noask
+from .potentials import TruncatedOracle, make_phi_mismatch, phi_entropy, phi_exact, phi_noask
 from .run_r4 import WRONG_KERNEL
 from .train_r1 import R1Config, train_r1
 
@@ -92,6 +92,21 @@ def test_mismatch_is_kernel_robust(cells):
                     state = apply(state, act)
     assert max_mis < 0.05, f"mismatch not inert as expected: max diff {max_mis:.4f}"
     assert max_noask > max_mis, "V*_noask should be a stronger degradation than kernel mismatch"
+
+
+def test_truncated_oracle(cells):
+    """The depth-capped oracle (R4 H=6 approximate potential) equals exact V* when
+    the cap exceeds the horizon, and strictly underestimates when it is tighter
+    (leaf = no deal)."""
+    from llm_rl_scripts.car_dealer_live.protocol_live import new_game
+    for (role, i), cell in cells.items():
+        st = new_game(cell.cfg, role)
+        b = bl.uniform()
+        exact = cell.ask.value(st, b)
+        full = TruncatedOracle(cell.cfg, role, ALL_RANKINGS[i], cell.kernel, cell.menu.actions(True), 6)
+        tight = TruncatedOracle(cell.cfg, role, ALL_RANKINGS[i], cell.kernel, cell.menu.actions(True), 1)
+        assert full.value_trunc(st, b, 6) == pytest.approx(exact, abs=1e-9)   # cap > H=4 horizon -> exact
+        assert tight.value_trunc(st, b, 1) < exact - 1e-3                      # myopic underestimates
 
 
 def test_potential_hook_trains(cells):

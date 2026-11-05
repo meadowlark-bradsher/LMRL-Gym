@@ -35,6 +35,11 @@ oracle hard at first and weans off it:
   even by an inquiry-blind potential), but the oracle-free entropy potential fails at
   every scale -- rewarding information rather than value misleads here, the opposite
   of 20Q. The oracle's contribution is its VALUE content, not merely dense shaping.
+  The H=6 arm (``run_r4_h6``) shows the ordering holds at the longer horizon
+  (exact-Phi +0.61 vs entropy +0.17) and records an amortization finding: the exact
+  oracle is O(1) after a one-time solve while the depth-capped approximation is
+  recomputed lazily, so exact-Phi is the efficient value potential, not the
+  approximate one.
 
 The policy is a drop-in ``policy(state, belief) -> Action`` over the menu rows,
 exactly like the scripted and Jev arms in ``car_dealer_live``.

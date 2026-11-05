@@ -1,0 +1,68 @@
+{
+ "env": "live-car-dealer-v0.1",
+ "rung": "R4-H6",
+ "config": {
+  "horizon": 6,
+  "ask_cost": "0",
+  "seed": 0,
+  "iters": 400,
+  "episodes_per_iter": 192,
+  "hidden": 256,
+  "lr": 0.003,
+  "entropy_coef": 0.01,
+  "eval_repeats": 16,
+  "entropy_scale": 0.1
+ },
+ "ceiling_mean": 0.3820512820512822,
+ "ceiling_per_cell": {
+  "buyer|buyer|0": 0.3820512820512821,
+  "buyer|seller|0": 0.38205128205128214,
+  "buyer|buyer|1": 0.3820512820512821,
+  "buyer|seller|1": 0.3820512820512821,
+  "buyer|buyer|2": 0.38205128205128214,
+  "buyer|seller|2": 0.38205128205128214,
+  "buyer|buyer|3": 0.38205128205128214,
+  "buyer|seller|3": 0.3820512820512821,
+  "buyer|buyer|4": 0.38205128205128214,
+  "buyer|seller|4": 0.38205128205128214,
+  "buyer|buyer|5": 0.3820512820512821,
+  "buyer|seller|5": 0.38205128205128214,
+  "seller|buyer|0": 0.3820512820512821,
+  "seller|seller|0": 0.3820512820512821,
+  "seller|buyer|1": 0.3820512820512821,
+  "seller|seller|1": 0.3820512820512821,
+  "seller|buyer|2": 0.382051282051282,
+  "seller|seller|2": 0.3820512820512821,
+  "seller|buyer|3": 0.3820512820512821,
+  "seller|seller|3": 0.38205128205128214,
+  "seller|buyer|4": 0.382051282051282,
+  "seller|seller|4": 0.3820512820512821,
+  "seller|buyer|5": 0.38205128205128214,
+  "seller|seller|5": 0.38205128205128214
+ },
+ "arms": {
+  "exact": {
+   "mean_net": 0.34881143162393163,
+   "se": 0.003601296322538286,
+   "ask_rate_per_episode": 0.0,
+   "n": 2304,
+   "recovery": 0.6090473572606604
+  },
+  "entropy": {
+   "mean_net": 0.3116920405982906,
+   "se": 0.0034101325502687977,
+   "ask_rate_per_episode": 0.0,
+   "n": 2304,
+   "recovery": 0.17246524778135525
+  },
+  "none": {
+   "mean_net": 0.29702857905982905,
+   "se": 0.0033446390817073114,
+   "ask_rate_per_episode": 0.0,
+   "n": 2304,
+   "recovery": 0.0
+  }
+ },
+ "reading": "Exact-V* recovery +0.61; entropy +0.17; none 0 (ASK/ep: exact 0.00, entropy 0.00). The ordering of R4 holds at H=6: the exact value potential recovers far more (+0.61) than the oracle-free entropy potential (+0.17) -- information-shaping is not a substitute for value-shaping, consistent with H=4. But exact-V* recovers only +0.61 at the matched H=4 budget and asks 0.00/ep: the longer horizon is harder to learn, and the shortfall is largely the hard-to-reach ASK value (offer-play is learned but not the information-gathering refinements VOI grows with at H=6 -- echoing R2). Closing it needs more budget; this arm is a feasibility/ordering check, not a full H=6 solve.",
+ "elapsed_s": 1368.6
+}

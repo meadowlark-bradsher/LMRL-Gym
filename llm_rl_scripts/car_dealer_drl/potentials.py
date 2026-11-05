@@ -61,6 +61,62 @@ def make_phi_mismatch(cells: Dict[Tuple[str, int], Cell], wrong: KernelParams) -
     return phi
 
 
+class TruncatedOracle(Oracle):
+    """A cheap, depth-capped approximation of V*: exact DP, but only ``max_depth``
+    focal decisions of lookahead; beyond the frontier the game is assumed to end
+    with no deal (leaf value ``leaf``, default 0 = the reservation baseline). Each
+    opponent->focal transition consumes one unit of depth. This is the R4 'weaker
+    oracle' for the H=6 regime, where the full DP is expensive (~98s/cell) but a
+    few-ply truncation costs a fraction of that."""
+
+    def __init__(self, cfg, focal, ranking, kernel, menu, max_depth: int, leaf: float = 0.0):
+        super().__init__(cfg, focal, ranking, kernel, ask_allowed=True, menu=menu)
+        self.max_depth = max_depth
+        self.leaf = leaf
+        self._vt: Dict[tuple, float] = {}
+
+    def value_trunc(self, state, belief, depth: int) -> float:
+        if state.terminal is not None:
+            return self.terminal_gain(state)
+        if depth <= 0:
+            return self.leaf
+        key = (state.key(), bl.round_belief(belief), depth)
+        if key in self._vt:
+            return self._vt[key]
+        if state.turn == self.focal:
+            v = max(self._q(state, belief, a, depth) for a in self.focal_actions(state, belief))
+        else:
+            from llm_rl_scripts.car_dealer_live.protocol_live import apply
+            liks = bl.action_likelihoods(self.kernel, state)
+            v = sum(p * self.value_trunc(apply(state, act), post, depth - 1)
+                    for act, (p, post) in bl.branches(belief, liks).items())
+        self._vt[key] = v
+        return v
+
+    def _q(self, state, belief, action, depth: int) -> float:
+        from llm_rl_scripts.car_dealer_live.protocol_live import ASK, apply
+        if action.kind == ASK:
+            liks = bl.answer_likelihoods(self.kernel, action.question_id)
+            return sum(p * self.value_trunc(apply(state, action, ans), post, depth)
+                       for ans, (p, post) in bl.branches(belief, liks).items()) - float(self.cfg.ask_cost)
+        return self.value_trunc(apply(state, action), belief, depth)
+
+
+def make_phi_approx(cells: Dict[Tuple[str, int], Cell], max_depth: int, leaf: float = 0.0) -> Callable:
+    """Phi = depth-capped approximate V* (``TruncatedOracle``), over each cell's menu.
+    A cheap stand-in for the exact oracle where the full DP is too expensive."""
+    oracles: Dict[Tuple[str, int], TruncatedOracle] = {}
+    for (role, i), cell in cells.items():
+        oracles[(role, i)] = TruncatedOracle(cell.cfg, role, ALL_RANKINGS[i], cell.kernel,
+                                             cell.menu.actions(True), max_depth=max_depth, leaf=leaf)
+
+    def phi(cell: Cell, state, belief) -> float:
+        o = oracles[(cell.focal, ALL_RANKINGS.index(cell.ranking))]
+        return float(o.value_trunc(state, belief, o.max_depth))
+    phi.oracles = oracles
+    return phi
+
+
 def phi_entropy(scale: float) -> Callable:
     """Phi = scale * (1 - H(belief)/log2(N)): information gained so far, in [0, scale].
     Oracle-free -- the deepink entropy potential. ``scale`` sets the shaping strength
