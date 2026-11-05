@@ -18,7 +18,7 @@ first and weans off it.
 | **R1** (done) | Does RL **recover** `V*` with dense help? | Potential-based shaping, Φ = `V*` (potential only, no action labels) |
 | **R2** (done) | Does model-free RL **discover ASK** from reward alone? (mirrors the Jev 0/2555 finding) | None in training; oracle labels eval nodes only |
 | **R3** (done) | Best-response to the **CD-MIS opponent population**; transfer to held-out opponents | Assumed-kernel shaping only; O_true/O_assumed as eval references |
-| R4 | Weaker / absent oracles (mismatched kernel, H=6 approximate, none); the entropy potential of `deepink-revised` as the oracle-free Φ | Degraded → gone |
+| **R4** (done) | Weaker / absent oracles: how much V\* recovery survives as Φ degrades (exact → wrong-kernel → inquiry-blind → entropy → none)? | Degraded → gone |
 
 R0 is pure supervised imitation (no RL, no shaping): it establishes representation
 sufficiency. R1 is the first rung with reward-driven learning — the net never sees
@@ -46,10 +46,14 @@ assignment is dense while the optimal policy is left invariant (Ng–Harada–Ru
 | `evaluate_mis.py` | R3 per-process scoring vs O_assumed (misspecified planner) and O_true (clairvoyant ceiling), with the pre-registered train/held-out split and advantage SEs |
 | `train_r3.py` | R3 best-response to the opponent mixture; one-step shaped-reward advantage; model-selected on mean true net over the training processes |
 | `run_r3.py` | R3 end-to-end: train on the mixture → robustness + transfer verdicts (+ RL-competence gate on `matched`); writes `results.json`, `policy.pt`, `R3_RESULTS.md` |
+| `potentials.py` | R4 shaping potentials: `phi_exact` (V\*), `make_phi_mismatch` (wrong-kernel V\*), `phi_noask` (inquiry-blind V\*), `phi_entropy` (oracle-free belief entropy, the deepink potential), `TruncatedOracle`/`make_phi_approx` (depth-capped approximate V\*). `env.rollout` takes a `potential` hook |
+| `run_r4.py` | R4 H=4 degradation ladder: train each potential (nstep1) → recovery vs the exact ceiling + ASK rate; writes `results.json`, `policies.pt`, `R4_RESULTS.md` |
+| `run_r4_h6.py` | R4 H=6 arm: exact ceiling (cached) + exact/entropy/none recovery; records the amortization finding (why exact-Φ, not the approximate oracle) |
 | `test_drl.py` | R0 gates (fast subset): feature dims, decision-sufficiency of the featurization, oracle-shim reproduces `exact_ask`, row masking, BC learns |
 | `test_r1.py` | R1 gates (fast subset): PBRS telescoping identity, env dynamics reproduce the ceiling, shaping-off is sparse, actor-critic learns |
 | `test_r2.py` | R2 gates (fast subset): ASK-evaluator endpoints (oracle recall 1.0 / full VOI, noask-optimal recall 0 / zero VOI), verdict classifier |
 | `test_r3.py` | R3 gates (fast subset): robustified filter survives every process, O_true ≥ O_assumed per process, `matched` is calibrated, `train_r3` learns |
+| `test_r4.py` | R4 gates (fast subset): entropy potential well-formed + PBRS telescoping, mismatch is kernel-robust (and V\*_noask a stronger degradation), the potential hook trains |
 
 ## Run
 
@@ -59,6 +63,8 @@ PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r0 --out results/drl_r
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r1 --out results/drl_r1_<date>
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r2 --out results/drl_r2_<date>
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r3 --out results/drl_r3_<date>
+PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r4 --out results/drl_r4_<date>
+PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r4_h6 --out results/drl_r4_h6_<date>  # ~40 min (exact H=6 ceiling)
 ```
 
 ## Gate (R0)
@@ -117,6 +123,38 @@ evasive} — and the verdicts:
   or fall below it (overfit to the mixture)?
 - Context only: misspecification-gap-recovered = advantage / (O_true − O_assumed),
   and regret vs O_true (no menu-restricted, model-blind actor can reach O_true).
+
+## Result (R4)
+
+Holding the nstep1 learner fixed and varying only Φ, recovery = (net − none)/(ceiling
+− none), 1 = full V\* recovery:
+
+| Φ | recovery | ASK/ep |
+|---|---|---|
+| exact V\* | +1.00 | 2.0 |
+| wrong-kernel V\* | +1.00 | 2.0 |
+| V\*_noask (inquiry-blind) | +1.00 | 2.0 |
+| entropy @0.05 / @0.15 / @0.38 | −0.09 / −0.12 / −2.22 | 0 / 0 / 1.1 |
+| none (Φ=0) | 0.00 | 0 |
+
+Every **value** potential recovers V\* fully — V\* is nearly invariant to the opponent
+kernel, and the small value of inquiry is recovered from the true one-step reward even
+by an inquiry-blind potential. The **oracle-free entropy** potential fails at every
+scale (categorical, not scale-sensitivity): rewarding information gain rather than
+value misleads the bootstrapped learner where ASK is optimal at only ~2% of nodes — the
+opposite of 20Q, where information gain *is* the objective. So the oracle's contribution
+is specifically its **value** content, not merely dense shaping.
+
+**H=6 arm** (`run_r4_h6.py`, exact ceiling 0.3821): the ordering holds at the longer
+horizon — exact-Φ recovers +0.61, the oracle-free entropy potential only +0.17, none 0 —
+so information-shaping is still no substitute for value-shaping. Exact-Φ is *not* at full
+recovery here (asks 0/ep): H=6 is harder at the matched budget, the shortfall being the
+hard-to-reach ASK value (echoing R2), so this arm is an ordering/feasibility check, not a
+full H=6 solve. It runs **exact-Φ, not the approximate oracle**, because of an
+*amortization* finding: the exact oracle is expensive once (~35-min ceiling solve) but
+O(1) thereafter, whereas the depth-capped `TruncatedOracle` is recomputed lazily and would
+cost ~5+ hours for no benefit — so the efficient value potential at H=6 is the exact one.
+(`TruncatedOracle` is kept and tested as the approximate-potential implementation.)
 
 ## Reuses
 

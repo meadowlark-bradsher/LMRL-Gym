@@ -81,10 +81,11 @@ def _terminal_gain(cell: Cell, state) -> float:
 
 
 def rollout(cell: Cell, opener: str, opp_ranking, rng: random.Random, choose: ChooseFn,
-            shaping: bool = True) -> Episode:
+            shaping: bool = True, potential: Optional[Callable] = None) -> Episode:
     """Play one episode under ``choose`` against the matched kernel and emit shaped
-    rewards. ``shaping=False`` sets Phi=0 everywhere (sparse terminal reward only),
-    for the ablation; the optimal policy is identical either way."""
+    rewards. The potential is ``potential(cell, state, belief)`` when given (R4's
+    weaker/oracle-free potentials); otherwise Phi = V*_assumed when ``shaping`` else
+    Phi = 0 (the R1/R2 default). The optimal policy is invariant to the choice."""
     cfg, focal = cell.cfg, cell.focal
     ctx = context_for(cell)
     state = new_game(cfg, opener)
@@ -102,7 +103,10 @@ def rollout(cell: Cell, opener: str, opp_ranking, rng: random.Random, choose: Ch
         sf = state_features(ctx, state, belief)
         rows = cell.menu.rows(state, belief, include_questions=True)
         rf = rows_matrix(rows)
-        phi = float(cell.ask.value(state, belief)) if shaping else 0.0
+        if potential is not None:
+            phi = float(potential(cell, state, belief))
+        else:
+            phi = float(cell.ask.value(state, belief)) if shaping else 0.0
         idx = choose(cell, state, belief, rows, sf, rf)
         chosen = rows[idx]
         env_r = 0.0
