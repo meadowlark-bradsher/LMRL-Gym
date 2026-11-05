@@ -70,6 +70,7 @@ class Episode:
     role: str
     type_idx: int
     opener: str
+    asks: int = 0             # focal ASK actions taken this episode
 
 
 def _terminal_gain(cell: Cell, state) -> float:
@@ -137,7 +138,8 @@ def rollout(cell: Cell, opener: str, opp_ranking, rng: random.Random, choose: Ch
         s.ret_to_go = acc
 
     phi0 = steps[0].phi if steps else 0.0
-    return Episode(steps, net_gain, phi0, focal, ALL_RANKINGS.index(cell.ranking), opener)
+    return Episode(steps, net_gain, phi0, focal, ALL_RANKINGS.index(cell.ranking), opener,
+                   asks=asks_by(state, focal))
 
 
 def net_sampler(net, temperature: float = 1.0, generator: Optional["object"] = None) -> ChooseFn:

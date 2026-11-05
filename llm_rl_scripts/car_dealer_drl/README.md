@@ -17,7 +17,7 @@ first and weans off it.
 | **R0** (done) | Can the featurization + a tiny net **reproduce** the exact menu policy? | Teacher (behavior cloning of `exact_ask`) |
 | **R1** (done) | Does RL **recover** `V*` with dense help? | Potential-based shaping, Φ = `V*` (potential only, no action labels) |
 | **R2** (done) | Does model-free RL **discover ASK** from reward alone? (mirrors the Jev 0/2555 finding) | None in training; oracle labels eval nodes only |
-| R3 | Best-response to the **CD-MIS opponent population**; transfer to held-out opponents | Per-draw ceiling |
+| **R3** (done) | Best-response to the **CD-MIS opponent population**; transfer to held-out opponents | Assumed-kernel shaping only; O_true/O_assumed as eval references |
 | R4 | Weaker / absent oracles (mismatched kernel, H=6 approximate, none); the entropy potential of `deepink-revised` as the oracle-free Φ | Degraded → gone |
 
 R0 is pure supervised imitation (no RL, no shaping): it establishes representation
@@ -42,9 +42,14 @@ assignment is dense while the optimal policy is left invariant (Ng–Harada–Ru
 | `run_r1.py` | R1 end-to-end: train shaped + the shaping-off ablation → gate; writes `results.json`, `policy.pt`, `R1_RESULTS.md` |
 | `ask_eval.py` | R2 ASK-aware evaluation: labels each node's ASK-optimality with the exact oracle, scores captured-VOI fraction, ASK-optimal recall/precision, ASK rate (oracle labels eval only) |
 | `run_r2.py` | R2 end-to-end: train with no oracle (sparse reward, MC) → ASK-discovery verdict; writes `results.json`, `policy.pt`, `R2_RESULTS.md` |
+| `env_mis.py` | R3 misspecified rollout: TRUE opponent (`opponents_mis`) acts/answers/pays while the agent plans with the ASSUMED kernel (robustified `filters_mis` belief, shortlist menu, Φ=V\*_assumed); `otrue_net_gain` is the clairvoyant O_true rollout |
+| `evaluate_mis.py` | R3 per-process scoring vs O_assumed (misspecified planner) and O_true (clairvoyant ceiling), with the pre-registered train/held-out split and advantage SEs |
+| `train_r3.py` | R3 best-response to the opponent mixture; one-step shaped-reward advantage; model-selected on mean true net over the training processes |
+| `run_r3.py` | R3 end-to-end: train on the mixture → robustness + transfer verdicts (+ RL-competence gate on `matched`); writes `results.json`, `policy.pt`, `R3_RESULTS.md` |
 | `test_drl.py` | R0 gates (fast subset): feature dims, decision-sufficiency of the featurization, oracle-shim reproduces `exact_ask`, row masking, BC learns |
 | `test_r1.py` | R1 gates (fast subset): PBRS telescoping identity, env dynamics reproduce the ceiling, shaping-off is sparse, actor-critic learns |
 | `test_r2.py` | R2 gates (fast subset): ASK-evaluator endpoints (oracle recall 1.0 / full VOI, noask-optimal recall 0 / zero VOI), verdict classifier |
+| `test_r3.py` | R3 gates (fast subset): robustified filter survives every process, O_true ≥ O_assumed per process, `matched` is calibrated, `train_r3` learns |
 
 ## Run
 
@@ -53,6 +58,7 @@ PYTHONPATH=. python3 -m pytest -q llm_rl_scripts/car_dealer_drl
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r0 --out results/drl_r0_<date>
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r1 --out results/drl_r1_<date>
 PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r2 --out results/drl_r2_<date>
+PYTHONPATH=. python3 -m llm_rl_scripts.car_dealer_drl.run_r3 --out results/drl_r3_<date>
 ```
 
 ## Gate (R0)
@@ -89,6 +95,28 @@ is strictly optimal at ~2% of focal nodes, so the prize is real and rare.
   (Jev's 0/2555 is recall 0 — the number R2 asks whether RL beats).
 - Verdict: **DISCOVERED** if captured-VOI ≥ 0.50 and recall ≥ 0.50; **PARTIAL** if
   recall ≥ 0.10 or captured-VOI ≥ 0.25; else **NOT_DISCOVERED** (Jev-like).
+
+## Verdict (R3)
+
+One policy is trained against a **mixture** of true opponents (the training
+processes) while planning/observing only with the assumed kernel — it never sees
+which opponent it faces. It is scored against two references per process:
+**O_assumed** (the registered shortlist oracle deployed under misspecification —
+same menu and belief as the learned actor) and **O_true** (the clairvoyant
+per-draw ceiling: full action set + exact true belief). The pre-registration
+(frozen in `run_r3.py`) fixes the transfer split — train
+{matched, stochastic, anchoring, history}, hold out {threshold, withholding,
+evasive} — and the verdicts:
+
+- **RL-competence gate:** on `matched` (no misspecification) the learned actor must
+  reach O_assumed within 2 SE; otherwise a shortfall elsewhere can't be blamed on
+  misspecification and the robustness read is withheld.
+- Per group, advantage = learned − O_assumed, z = advantage/SE: **BEATS_PLANNER**
+  (z > +2), **MATCHES_PLANNER** (|z| ≤ 2), **BELOW_PLANNER** (z < −2).
+- **Transfer:** does the held-out advantage track the training advantage (robust)
+  or fall below it (overfit to the mixture)?
+- Context only: misspecification-gap-recovered = advantage / (O_true − O_assumed),
+  and regret vs O_true (no menu-restricted, model-blind actor can reach O_true).
 
 ## Reuses
 

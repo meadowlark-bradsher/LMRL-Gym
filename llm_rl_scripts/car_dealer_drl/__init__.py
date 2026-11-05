@@ -18,7 +18,15 @@ oracle hard at first and weans off it:
   the menu the Jev arm sees. Does it discover ASK where asking carries value? R2
   reports a pre-registered discovery verdict (captured-VOI fraction and
   ASK-optimal recall against the exact labels), mirroring the Jev 0/2555 finding.
-* R3: best-response to the CD-MIS opponent population; R4: weaker/absent oracles.
+* **R3** (``env_mis``/``evaluate_mis``/``train_r3``/``run_r3``): best-response to the
+  CD-MIS opponent population. The TRUE opponent is drawn from the misspecification
+  grid (``opponents_mis``) while the agent plans/observes only with its ASSUMED
+  (registered T1) kernel -- shortlist menu, robustified belief filter
+  (``filters_mis``), Phi = V*_assumed shaping. One policy is trained against a
+  mixture of true opponents and scored against O_assumed (the registered oracle
+  deployed under misspecification) and O_true (the clairvoyant per-draw ceiling),
+  with a pre-registered transfer split to held-out opponents.
+* R4: weaker/absent oracles.
 
 The policy is a drop-in ``policy(state, belief) -> Action`` over the menu rows,
 exactly like the scripted and Jev arms in ``car_dealer_live``.
