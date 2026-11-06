@@ -28,6 +28,7 @@ import numpy as np
 from . import game as g
 
 _ANSWERS = (True, False)
+_ID2Q = {q.id: i for i, q in enumerate(g.BANK)}
 
 
 @dataclass
@@ -77,6 +78,13 @@ class Solver:
     def best_action(self, b: np.ndarray, asked: FrozenSet[int] = frozenset()) -> str:
         self.value(b, asked)
         return self._best[self._key(b, asked)]
+
+    def action(self, b: np.ndarray, asked: FrozenSet[int] = frozenset()):
+        """Structured optimal action: ``("OFFER", deal_idx)`` or ``("ASK", q_idx)``."""
+        a = self.best_action(b, asked)
+        if a == "OFFER":
+            return ("OFFER", self.best_offer(b))
+        return ("ASK", _ID2Q[a])
 
     # -- expected information gain (for the later EIG-vs-value contrast) -----------
     def eig_bits(self, b: np.ndarray, q: int) -> float:

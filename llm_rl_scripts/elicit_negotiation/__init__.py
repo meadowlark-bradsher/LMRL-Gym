@@ -15,8 +15,18 @@ the measuring stick, and later increments test where an EIG (expected informatio
 gain) acquisition rule tracks it and where it does not -- the regime question for a
 negotiating-agent harness.
 
-Increment 1 (this commit): ``game`` (types, utilities, acceptance, question bank,
-answer kernels, belief ops) and ``oracle`` (the exact VOI dynamic program: V*,
-V*_noask, VOI), with tests and a calibration. No EIG baseline, learned policy or
-rung scaffold yet.
+Increment 1: ``game`` (types, utilities, acceptance, question bank, answer kernels,
+belief ops) and ``oracle`` (the exact VOI dynamic program: V*, V*_noask, VOI), with
+tests and a calibration.
+
+Increment 2: ``policies`` (the value-optimal oracle policy and an EIG-greedy
+acquisition baseline), ``evaluate`` (exact dual-belief expected payoff, so answer-
+kernel mismatch is representable), and ``experiment`` (two studies). Finding: under a
+matched kernel the oracle weakly dominates EIG-greedy and strictly beats it at every
+positive token price (EIG's signal is ~flat and value-blind, so it over-asks when
+info is free and mis-spends a token budget); under answer-kernel mismatch, an oracle
+that knows the true kernel recovers payoff that naive truthful-assuming elicitation
+throws away (up to +0.13 at flip prob 0.3, +0.07 under a strategic lean) -- the
+elicitation echo of the CD-DRL R4 result that an acquisition signal is only as good
+as its value model. No learned/LLM policy or rung scaffold yet.
 """

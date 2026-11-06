@@ -1,0 +1,177 @@
+{
+ "frontier": [
+  {
+   "token_price": 0.0,
+   "oracle_payoff": 0.8111111111111108,
+   "oracle_first": "top_price",
+   "oracle_questions": 2.333333333333333,
+   "eig_payoff": 0.8111111111111111,
+   "eig_first": "top_price",
+   "eig_questions": 8.000000000000002,
+   "eig_best_tau": 0.0,
+   "gap": -3.3306690738754696e-16
+  },
+  {
+   "token_price": 0.01,
+   "oracle_payoff": 0.7911111111111108,
+   "oracle_first": "top_price",
+   "oracle_questions": 1.8666666666666665,
+   "eig_payoff": 0.7506666666666666,
+   "eig_first": "top_price",
+   "eig_questions": 1.6,
+   "eig_best_tau": 0.95,
+   "gap": 0.04044444444444417
+  },
+  {
+   "token_price": 0.02,
+   "oracle_payoff": 0.7711111111111107,
+   "oracle_first": "top_price",
+   "oracle_questions": 1.8666666666666665,
+   "eig_payoff": 0.7346666666666666,
+   "eig_first": "top_price",
+   "eig_questions": 1.6,
+   "eig_best_tau": 0.95,
+   "gap": 0.03644444444444417
+  },
+  {
+   "token_price": 0.03,
+   "oracle_payoff": 0.7511111111111107,
+   "oracle_first": "top_price",
+   "oracle_questions": 1.8666666666666665,
+   "eig_payoff": 0.7333333333333334,
+   "eig_first": "OFFER",
+   "eig_questions": 0.0,
+   "eig_best_tau": 0.99,
+   "gap": 0.017777777777777337
+  },
+  {
+   "token_price": 0.05,
+   "oracle_payoff": 0.7333333333333334,
+   "oracle_first": "OFFER",
+   "oracle_questions": 0.0,
+   "eig_payoff": 0.7333333333333334,
+   "eig_first": "OFFER",
+   "eig_questions": 0.0,
+   "eig_best_tau": 0.99,
+   "gap": 0.0
+  },
+  {
+   "token_price": 0.1,
+   "oracle_payoff": 0.7333333333333334,
+   "oracle_first": "OFFER",
+   "oracle_questions": 0.0,
+   "eig_payoff": 0.7333333333333334,
+   "eig_first": "OFFER",
+   "eig_questions": 0.0,
+   "eig_best_tau": 0.99,
+   "gap": 0.0
+  }
+ ],
+ "mismatch": [
+  {
+   "kernel": "noisy",
+   "eps": 0.0,
+   "naive_oracle_payoff": 0.7711111111111107,
+   "robust_oracle_payoff": 0.7711111111111107,
+   "naive_eig_payoff": 0.7346666666666666,
+   "naive_eig_questions": 1.6,
+   "robust_gain": 0.0
+  },
+  {
+   "kernel": "noisy",
+   "eps": 0.05,
+   "naive_oracle_payoff": 0.7411945000000004,
+   "robust_oracle_payoff": 0.7531533733333338,
+   "naive_eig_payoff": 0.7182000000000001,
+   "naive_eig_questions": 1.5899999999999999,
+   "robust_gain": 0.011958873333333342
+  },
+  {
+   "kernel": "noisy",
+   "eps": 0.1,
+   "naive_oracle_payoff": 0.7122448888888888,
+   "robust_oracle_payoff": 0.7369898222222222,
+   "naive_eig_payoff": 0.7017333333333334,
+   "naive_eig_questions": 1.58,
+   "robust_gain": 0.024744933333333385
+  },
+  {
+   "kernel": "noisy",
+   "eps": 0.2,
+   "naive_oracle_payoff": 0.6562346666666665,
+   "robust_oracle_payoff": 0.7333333333333334,
+   "naive_eig_payoff": 0.6687999999999998,
+   "naive_eig_questions": 1.56,
+   "robust_gain": 0.07709866666666687
+  },
+  {
+   "kernel": "noisy",
+   "eps": 0.3,
+   "naive_oracle_payoff": 0.6011897777777778,
+   "robust_oracle_payoff": 0.7333333333333334,
+   "naive_eig_payoff": 0.6358666666666666,
+   "naive_eig_questions": 1.54,
+   "robust_gain": 0.13214355555555557
+  },
+  {
+   "kernel": "strategic",
+   "eps": null,
+   "naive_oracle_payoff": 0.6807288888888885,
+   "robust_oracle_payoff": 0.7477333333333329,
+   "naive_eig_payoff": 0.7346666666666668,
+   "naive_eig_questions": 1.6,
+   "robust_gain": 0.06700444444444442
+  }
+ ],
+ "diagnostic": {
+  "eig_spread_bits": 0.0526547604001788,
+  "max_eig_question": "top_price",
+  "max_eig_bits": 0.970950594454667,
+  "oracle_questions_free": 2.333333333333333,
+  "eig_questions_free": 8.000000000000002,
+  "same_gross_payoff": true
+ },
+ "max_gap": 0.04044444444444417,
+ "oracle_dominates": true,
+ "robust_helps": true,
+ "eig_over_asks": true,
+ "teeth": true,
+ "config": {
+  "token_prices": [
+   0.0,
+   0.01,
+   0.02,
+   0.03,
+   0.05,
+   0.1
+  ],
+  "taus": [
+   0.0,
+   0.3,
+   0.5,
+   0.7,
+   0.85,
+   0.9,
+   0.95,
+   0.99
+  ],
+  "epsilons": [
+   0.0,
+   0.05,
+   0.1,
+   0.2,
+   0.3
+  ],
+  "mismatch_price": 0.02,
+  "strategic_lean": [
+   [
+    "top_warranty",
+    0.4
+   ],
+   [
+    "top_delivery",
+    0.4
+   ]
+  ]
+ }
+}
