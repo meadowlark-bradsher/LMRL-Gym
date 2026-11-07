@@ -156,7 +156,8 @@ agent-arm analogue of the 2023 self-report.
 ### Scorer re-gate
 
 The scorer was developed on narrator prose. Before the freeze, a pilot of 160 conversations per
-arm (balanced over the nine cells) is split 80 DEV / 80 GATE.
+arm (balanced over the nine cells) is split 80 DEV / 80 GATE by id (`analyze_current.py
+pilot-packet`, seed 20261108; the files hold id and text only).
 
 - DEV may be read freely and used to revise the scorer's rules if they fail on the new format.
 - GATE is read only after any revision is frozen, labelled blind to cell (same definitions as
@@ -178,8 +179,12 @@ As in CD-PERSONA-0 (`audit.py`), once per arm for the primary model: 60 scorer-c
 with decoys to a fixed 180-item packet, cell and scorer call sealed until the labels are
 written, corrected rate `(S·precision + N·miss)/(S+N)` with a B = 5000 bootstrap interval. New
 this time: the decoy strata are registered as a reported check of the scorer outside `H`, and
-`B-spec × missing-one` is a second audited cell set `H_spec` (60 sales, 30 no-sales), audited in
-the same packet, so the packet is 180 + 90 = 270 items per arm.
+in Arm A `B-spec × missing-one` is a second audited cell set `H_spec` (60 sales, 30 no-sales,
+drawn from conversations not already in the packet), audited in the same shuffled packet, so
+the Arm A packet is 180 + 90 = 270 items and the Arm N packet is the 2023 design's 180 (Arm N
+has no feature-match factor). If a stratum has fewer conversations than its quota, all of them
+are taken and the packet is correspondingly smaller. `analyze_current.py` builds both and
+corrects M1 and M1b with `audit.corrected_rate`.
 
 ## Measures
 
@@ -206,12 +211,20 @@ most 0.20 `SOFT`; above 0.20 `NOT_HELD`.
   `LEAVE`/`timeout`) and the scorer's dialogue outcome, and the `timeout` share. Arm N: the 2023
   self-report measure, unchanged.
 - **M6, response to the discount schedule** (Arm A only). For `B-discount × S-discount`, the
-  cumulative acceptance after the 5%, 10% and 15% offers. This is the oracle-usefulness
+  cumulative acceptance (decision token `BUY`, as a share of the cell) by the end of the
+  buyer's reply to seller turn 1 (no offer yet), 2 (5%), 3 (10%), 4 (15%) and 5 (the close at
+  15%); and the per-offer acceptance among buyers still in the conversation at that turn.
+  "After the 15% offer" in P7 means by the reply to turn 4. This is the oracle-usefulness
   measure: whether the buyer's behavior moves with the one thing its persona is about.
 
 A **decomposition** row reports `eps_buyer(2023) − eps_buyer(Arm N)` (model effect under the
-old protocol) and `eps_buyer(Arm N) − eps_buyer(Arm A)` (protocol effect under the new model),
-each with a bootstrap interval. The three cells of the 2×2 are reported as one table.
+old protocol) and `eps_buyer(Arm N) − eps_buyer(Arm A)` (protocol effect under the new model).
+Each difference carries a normal interval built from the two audit-corrected estimates'
+bootstrap standard errors (interval width / 3.92), the 2023 estimate taken from
+`results/persona_baseline2023_20261106/results.json`. The three cells of the 2×2 are reported
+as one table.
+
+Conversations that end in a model refusal are excluded from every rate and counted.
 
 ## Predictions
 
@@ -248,9 +261,12 @@ a verdict is flagged borderline as above.
    this file.
 4. Generate the confirmatory sets (seed 20261109): Arm A and Arm N. Record the raw
    transcripts under `results/persona_current_<date>/`.
-5. `analyze packet --confirmatory`, label the audit packets blind, `analyze report
-   --confirmatory`. The analyzer is extended for M1b, M4 by `m`, M5 tokens, M6 and the
-   decomposition before the tag, with tests on synthetic transcripts only.
+5. `analyze_current packet --confirmatory`, label the audit packets blind, `analyze_current
+   report --confirmatory`. The analyzer for this study is `analyze_current.py` (M1b, M4 by
+   `m`, M5 tokens, M6, the decomposition, both packets); it reuses the frozen `scorer.py`,
+   `audit.py` and the statistics in `analyze.py`, which are not edited so CD-PERSONA-0 stays
+   regenerable. Written 2026-11-06 with tests on synthetic transcripts only
+   (`test_analysis_current.py`).
 6. Render the note from the result files, as in `render_baseline_note.py`.
 
 ## Limits
