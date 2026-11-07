@@ -1,0 +1,101 @@
+{
+ "n": 80,
+ "confusion": {
+  "sale->sale": 40,
+  "no_sale->no_sale": 35,
+  "unclear->sale": 2,
+  "no_sale->sale": 2,
+  "unclear->unclear": 1
+ },
+ "n_gold_decided": 77,
+ "n_both_decided": 77,
+ "accuracy": 0.974025974025974,
+ "scorer_unclear_rate": 0.0,
+ "discount_agreement": 0.9125,
+ "price_exact": 38,
+ "n_priced": 39,
+ "sale_gate": true,
+ "discount_gate": true,
+ "outcome_errors": [
+  {
+   "index": 23,
+   "id": "fac81bc7bf",
+   "gold": "unclear",
+   "scorer": "sale"
+  },
+  {
+   "index": 26,
+   "id": "d522f2c63b",
+   "gold": "unclear",
+   "scorer": "sale"
+  },
+  {
+   "index": 32,
+   "id": "f2b5c89ced",
+   "gold": "no_sale",
+   "scorer": "sale"
+  },
+  {
+   "index": 51,
+   "id": "be665964f3",
+   "gold": "no_sale",
+   "scorer": "sale"
+  }
+ ],
+ "discount_errors": [
+  {
+   "index": 4,
+   "id": "0e7a9f2533",
+   "gold": true,
+   "scorer": false
+  },
+  {
+   "index": 10,
+   "id": "dad463c040",
+   "gold": false,
+   "scorer": true
+  },
+  {
+   "index": 14,
+   "id": "f55518d211",
+   "gold": false,
+   "scorer": true
+  },
+  {
+   "index": 25,
+   "id": "93a5cefef2",
+   "gold": true,
+   "scorer": false
+  },
+  {
+   "index": 32,
+   "id": "f2b5c89ced",
+   "gold": true,
+   "scorer": false
+  },
+  {
+   "index": 48,
+   "id": "00e8d32d85",
+   "gold": true,
+   "scorer": false
+  },
+  {
+   "index": 77,
+   "id": "c6d6587eda",
+   "gold": true,
+   "scorer": false
+  }
+ ],
+ "price_errors": [
+  {
+   "index": 1,
+   "id": "3ca0661236",
+   "gold": 47000,
+   "scorer": 48500.0
+  }
+ ],
+ "silver_dev_gold": {
+  "n": 182,
+  "agree": 181
+ }
+}

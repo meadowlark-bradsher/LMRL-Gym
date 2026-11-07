@@ -1,0 +1,150 @@
+{
+ "n": 80,
+ "confusion": {
+  "no_sale->no_sale": 33,
+  "unclear->no_sale": 2,
+  "sale->sale": 43,
+  "unclear->sale": 1,
+  "no_sale->sale": 1
+ },
+ "false_sales": 1,
+ "n_labelled_no_sale": 34,
+ "missed_sales": 0,
+ "n_labelled_sale": 43,
+ "n_gold_decided": 77,
+ "n_both_decided": 77,
+ "accuracy": 0.987012987012987,
+ "scorer_unclear_rate": 0.0,
+ "discount_agreement": 0.95,
+ "price_exact": 41,
+ "n_priced": 41,
+ "sale_gate": true,
+ "discount_gate": true,
+ "outcome_errors": [
+  {
+   "index": 1,
+   "id": "5615bfdc88",
+   "gold": "unclear",
+   "scorer": "no_sale"
+  },
+  {
+   "index": 49,
+   "id": "f805c79196",
+   "gold": "unclear",
+   "scorer": "sale"
+  },
+  {
+   "index": 52,
+   "id": "1df5342888",
+   "gold": "no_sale",
+   "scorer": "sale"
+  },
+  {
+   "index": 58,
+   "id": "6703263dfb",
+   "gold": "unclear",
+   "scorer": "no_sale"
+  }
+ ],
+ "discount_errors": [
+  {
+   "index": 9,
+   "id": "7082c8d6a3",
+   "gold": true,
+   "scorer": false
+  },
+  {
+   "index": 20,
+   "id": "ab0d8313bd",
+   "gold": true,
+   "scorer": false
+  },
+  {
+   "index": 30,
+   "id": "7ac99fd530",
+   "gold": false,
+   "scorer": true
+  },
+  {
+   "index": 71,
+   "id": "6acb8a7167",
+   "gold": true,
+   "scorer": false
+  }
+ ],
+ "price_errors": [],
+ "development_set": {
+  "n": 80,
+  "confusion": {
+   "sale->sale": 40,
+   "no_sale->no_sale": 37,
+   "unclear->sale": 2,
+   "unclear->unclear": 1
+  },
+  "false_sales": 0,
+  "n_labelled_no_sale": 37,
+  "missed_sales": 0,
+  "n_labelled_sale": 40,
+  "n_gold_decided": 77,
+  "n_both_decided": 77,
+  "accuracy": 1.0,
+  "scorer_unclear_rate": 0.0,
+  "discount_agreement": 0.95,
+  "price_exact": 38,
+  "n_priced": 39,
+  "sale_gate": true,
+  "discount_gate": true,
+  "outcome_errors": [
+   {
+    "index": 23,
+    "id": "fac81bc7bf",
+    "gold": "unclear",
+    "scorer": "sale"
+   },
+   {
+    "index": 26,
+    "id": "d522f2c63b",
+    "gold": "unclear",
+    "scorer": "sale"
+   }
+  ],
+  "discount_errors": [
+   {
+    "index": 4,
+    "id": "0e7a9f2533",
+    "gold": true,
+    "scorer": false
+   },
+   {
+    "index": 14,
+    "id": "f55518d211",
+    "gold": false,
+    "scorer": true
+   },
+   {
+    "index": 25,
+    "id": "93a5cefef2",
+    "gold": true,
+    "scorer": false
+   },
+   {
+    "index": 77,
+    "id": "c6d6587eda",
+    "gold": true,
+    "scorer": false
+   }
+  ],
+  "price_errors": [
+   {
+    "index": 1,
+    "id": "3ca0661236",
+    "gold": 47000,
+    "scorer": 48500.0
+   }
+  ]
+ },
+ "silver_dev_gold_reserve": {
+  "n": 234,
+  "agree": 233
+ }
+}
