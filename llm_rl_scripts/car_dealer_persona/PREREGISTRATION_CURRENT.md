@@ -42,14 +42,19 @@ interpretable: it separates "the protocol leaks" from "the model leaks".
 
 Chosen 2026-11-06.
 
-| role | model id | temperature | notes |
+| role | model id | sampling | notes |
 |---|---|---|---|
-| primary buyer (Arm A) and narrator (Arm N) | `claude-sonnet-5-5` | 0.7 | one model plays both arms so the 2×2 is clean |
+| primary buyer (Arm A) and narrator (Arm N) | `claude-sonnet-5-5` | model default | one model plays both arms so the 2×2 is clean |
 | second buyer (Arm A only) | none | | P8 is void; a later buyer (e.g. Jev) gets its own registration |
 
-Temperature 0.7 matches the 2023 generation script. The exact model version string returned by
-the API at the first pilot call is recorded in the tag commit; a provider-side model change
-after the freeze is a limit, not a reason to re-run.
+The 2023 script sampled at temperature 0.7. `claude-sonnet-5-5` accepts no `temperature`
+(a non-default value is rejected, and the current API version drops the parameter), so both
+arms run at the model's default sampling with its default adaptive thinking and effort. That
+is one more difference between the 2023 cell and Arm N besides the model, and is listed under
+§Limits. No server-side fallback is enabled: a refusal is recorded as a `refusal` outcome, not
+answered by another model. Every conversation records the model string the API returns
+(`models` in `run.py`); a provider-side model change after the freeze is a limit, not a reason
+to re-run.
 
 ## Design
 
@@ -111,10 +116,21 @@ The buyer never sees the seller's background. The conversation runs seller turn,
 alternating, until a `BUY` or `LEAVE` token or until the buyer has replied to seller turn 5; a
 `CONTINUE` after turn 5 is recorded as `timeout`.
 
+Harness rules (`run.py`, `buyer.py`), fixed here because the analysis reads them:
+
+- A sale closes at the **seller's** price on the table at that turn, whatever price the buyer
+  wrote after `BUY`; the buyer's figure is kept as `buyer_price` and a mismatch is reported.
+- A reply with no well-formed `DECISION:` line counts as `CONTINUE` and is tallied as
+  `malformed`; the share of malformed replies is reported with M5.
+- If several `DECISION:` lines appear, the last one is read.
+- The buyer's reply is sent at most 1,024 tokens; the narrator's completion at the 2023
+  `max_tokens` of 2,048.
+
 ### Arm N: current model as the 2023 narrator
 
 `get_conversation_prompt` from `personality_convos.py`, byte for byte (its probability and
-price annotations included), one call per conversation, `max_tokens` 2048, temperature 0.7. The
+price annotations included; `narrator.py` carries a copy that the tests check against the
+original with `ast`), one call per conversation, `max_tokens` 2048, default sampling. The
 list price and feature match are not under the narrator's control in 2023 and are not in Arm N
 either: `m` and feature match are dropped here, and the narrator invents prices as before. This
 arm is the 2023 protocol with only the model swapped.
@@ -226,7 +242,7 @@ a verdict is flagged borderline as above.
 1. Build the harness in this package: `sellers.py` (the three scripts, pure functions of record
    and turn), `buyer.py` (the agent prompt and the token parser), `narrator.py` (Arm N),
    `run.py` (record sampling, generation, the seller-line assertion). Tests on the scripts and
-   parser, no model calls.
+   parser, no model calls. Done 2026-11-06 (`test_harness.py`, 38 tests).
 2. Generate the pilot (seed 20261108). Re-gate the scorer (§Scorer re-gate).
 3. Commit and tag `prereg-persona1-<date>`; record the tag and the scorer hash at the top of
    this file.
@@ -245,7 +261,8 @@ a verdict is flagged borderline as above.
 - Arm N does not control price or feature match, so M1b, M4-by-`m` and M6 exist only in Arm A,
   and the 2×2 is exact only for M1 and M3.
 - Unless the 2023 model is still callable, the model effect is read under the old protocol
-  only.
+  only; and the 2023 cell was sampled at temperature 0.7 while Arm N runs at the current
+  model's default sampling, so "model effect" includes that change.
 - Labels come from one labeler, Claude; the audit is blind to cell and scorer call, not to
   content. In Arm A the content includes the seller's scripted lines, which identify the seller
   type to a reader.
