@@ -101,6 +101,8 @@ class Completion:
     text: str
     model: str
     stop_reason: str
+    input_tokens: int = 0     # billed usage, for the cost line in the note
+    output_tokens: int = 0    # includes thinking tokens
 
 
 class Client(Protocol):
@@ -124,7 +126,9 @@ class AnthropicClient:
         response = self._client.messages.create(
             model=self.model, max_tokens=max_tokens, messages=messages, **kwargs)
         text = "".join(b.text for b in response.content if b.type == "text")
-        return Completion(text=text, model=response.model, stop_reason=response.stop_reason)
+        return Completion(text=text, model=response.model, stop_reason=response.stop_reason,
+                          input_tokens=response.usage.input_tokens,
+                          output_tokens=response.usage.output_tokens)
 
 
 # ---- Arm A --------------------------------------------------------------------------
@@ -140,12 +144,16 @@ def run_agent(record: Record, client: Client, max_tokens: int = BUYER_MAX_TOKENS
     turns: List[dict] = []
     outcome, buyer_price, sale_price = "timeout", None, None
     malformed, refusal, models = 0, False, set()
+    usage = {"input_tokens": 0, "output_tokens": 0, "calls": 0}
     for turn in range(1, sellers.MAX_TURNS + 1):
         line = sellers.seller_line(record.seller, record, turn)
         seller_lines.append(line)
         turns.append({"turn": turn, "speaker": "Agent", "text": line})
         reply = client.complete(system, buyer_mod.messages(seller_lines, buyer_lines), max_tokens)
         models.add(reply.model)
+        usage["input_tokens"] += reply.input_tokens
+        usage["output_tokens"] += reply.output_tokens
+        usage["calls"] += 1
         if reply.stop_reason == "refusal":
             refusal = True
             outcome = "refusal"
@@ -174,6 +182,7 @@ def run_agent(record: Record, client: Client, max_tokens: int = BUYER_MAX_TOKENS
         "malformed_replies": malformed,
         "refusal": refusal,
         "models": sorted(models),
+        "usage": usage,
     }
     result["seller_ok"] = verify_seller_lines(result)
     result["text"] = render_transcript(result)
@@ -199,11 +208,15 @@ def verify_seller_lines(result: dict) -> bool:
     return True
 
 
-def render_transcript(result: dict) -> str:
+def render_transcript(result: dict, include_close: bool = True) -> str:
     """The conversation in the 2023 layout ("Agent: ...", "Buyer: ...") with the buyer's
-    DECISION lines removed, which is what the persona-blind scorer reads."""
+    DECISION lines removed. With ``include_close=False`` the seller's scripted close line
+    is left out too: it is emitted from the decision token, and the persona-blind scorer
+    must read the buyer's words alone."""
     parts = []
     for t in result["turns"]:
+        if t.get("close") and not include_close:
+            continue
         text = t["text"] if t["speaker"] == "Agent" else buyer_mod.strip_decisions(t["text"])
         parts.append(f"{t['speaker']}: {text}")
     return "\n\n".join(parts)
@@ -224,6 +237,8 @@ def run_narrator(record: Record, client: Client) -> dict:
         "refusal": reply.stop_reason == "refusal",
         "stop_reason": reply.stop_reason,
         "models": [reply.model],
+        "usage": {"input_tokens": reply.input_tokens, "output_tokens": reply.output_tokens,
+                  "calls": 1},
     }
 
 

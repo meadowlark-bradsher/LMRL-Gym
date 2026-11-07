@@ -1,10 +1,15 @@
 # Pre-registration: CD-PERSONA-1 — do current models hold a planted Car Dealer persona?
 
-**Drafted:** 2026-11-06. **Status: NOT FROZEN.** This registration is frozen when the harness
-and the pilot gate exist and the commit that holds them is tagged `prereg-persona1-<date>`. No confirmatory conversation is generated before that tag. **Baseline:**
+**Drafted:** 2026-11-06. **Status: FROZEN 2026-11-07**, tag `prereg-persona1-20261107` on the
+commit that holds the harness, the pilot, the revised scorer and the passed gate. No
+confirmatory conversation was generated before that tag; the confirmatory run is made from the
+tagged commit (`run.py --phase confirmatory --tag prereg-persona1-20261107`). **Baseline:**
 CD-PERSONA-0 (`PREREGISTRATION_BASELINE2023.md`, results in `RESULTS_BASELINE2023.md`, both on
-PR #37 at the time of drafting). **Scorer:** the frozen `scorer.py` (sha256 `626833c6…0e7f26`),
-unchanged.
+PR #37 at the time of drafting). **Scorer:** `scorer_current.py` (sha256
+`c100ddc975e02a16a647ab28b3ab693350173a1b4a11c94e2e6253c7ef63b28c`), the frozen `scorer.py`
+rules (sha256 `626833c6…0e7f26`, not edited) revised on the pilot DEV halves on 2026-11-07
+(§Scorer re-gate); gate PASSED on both arms the same day (`gate_A.json`, `gate_N.json` in the
+pilot directory), no rule changed after the gate.
 
 ## Why this study
 
@@ -34,9 +39,18 @@ interpretable: it separates "the protocol leaks" from "the model leaks".
 - Everything in CD-PERSONA-0, including the confirmatory results by cell. The predictions below
   are informed by them, which is why they are stated before any current-model conversation
   exists.
-- **Not seen:** no conversation has been generated with any current model under either
-  protocol. The pilot (§Scorer re-gate) is the first, and is generated with a seed distinct
-  from the confirmatory seed.
+- 2026-11-07, before this amendment: a 3-conversation smoke test per arm, then the pilot
+  (160 per arm, seed 20261108, `results/persona_current_pilot_20261107/`). Of the pilot, only
+  the DEV halves (80 per arm, split by id with seed 20261108) and whole-pilot health counts
+  were read: 0 refusals; Arm A 22/160 decision-token timeouts, 1 malformed token, all 160
+  seller scripts verified; Arm N 157/160 stories in markdown (`**Agent:**`), 31/160 cut off
+  at the 2023 `max_tokens` of 2,048, one empty completion. Cost $4.71. **No cell-level
+  outcome has been tabulated.**
+- 2026-11-07, after the revision was frozen: the GATE halves (80 per arm), read once for the
+  blind labelling in §Scorer re-gate from a numbered view that hid the ids (the packet ids
+  carry the cell). The labels are `pilot_gate_labels_{A,N}.jsonl`; the labeller saw no scorer
+  call and no cell until the gate had been run.
+- **Not seen:** no confirmatory conversation; any pilot outcome by cell.
 
 ## Models
 
@@ -147,11 +161,16 @@ seedable and is not claimed to be reproducible).
 
 ## Outcome scoring
 
-`scorer.py` is reused unchanged and stays persona-blind. In Arm A the `DECISION:` lines are
-stripped before scoring, exactly as the narrator's annotations are stripped in the 2023 data, so
-the **dialogue outcome** (sale / no_sale / unclear) is decided from the words alone in both arms
-and is comparable with 2023. The buyer's **decision token** is kept as a separate channel, the
-agent-arm analogue of the 2023 self-report.
+The scorer stays persona-blind: `scorer_current.py` wraps the frozen `scorer.py` rules (see
+§Scorer re-gate for what it adds). In Arm A the `DECISION:` lines are stripped before scoring,
+exactly as the narrator's annotations are stripped in the 2023 data, and the seller's scripted
+close line ("Great, let's finalize it at $X." / "Understood. Thanks for coming in.") is left out
+of the scored text, because the harness emits it from the decision token and it would otherwise
+hand the token to the scorer (amended 2026-11-07, on the DEV halves). So the **dialogue
+outcome** (sale / no_sale / unclear) is decided from the words alone in both arms and is
+comparable with 2023. The buyer's **decision token** is kept as a separate channel, the
+agent-arm analogue of the 2023 self-report. The labelling packets (pilot and audit) carry the
+scored text.
 
 ### Scorer re-gate
 
@@ -169,6 +188,50 @@ pilot-packet`, seed 20261108; the files hold id and text only).
   a second failure stops the study at the pilot and is reported.
 - If the scorer is revised, its new sha256 is recorded here and in the tag commit; the 2023
   numbers are not re-scored (they stay the baseline as published).
+
+**Revision made 2026-11-07, on DEV only** (`scorer_current.py`, sha256 at the top of this
+file). The frozen rules failed on the new text in two ways. (1) Arm N: the current model
+answers the 2023 prompt in markdown, and the frozen speaker regex anchors on a bare `Agent:`,
+so 80/80 DEV stories split into zero turns; the revision normalises the markup and leaves the
+splitter unchanged. (2) Arm A: the buyer agent leaves in words the 2023 narrator never used
+("I'm done here", "I'm leaving", "I'll take that as a no", "check with other dealers") and
+commits by asking for the paperwork ("let's get the paperwork done"); the frozen rules scored
+these `unclear` or, through "sign"/"take that", as sales. The revision adds those buyer acts,
+treats a dealer's "$11,000 and we can start the paperwork" as an offer rather than a close,
+and stops reading "$1,500 over what I wanted" as a price. Dealer acts, the discount detector
+and the self-report parser are the frozen code. On DEV after the revision: Arm A agrees with
+the decision token on 68/68 decided items (frozen: 44 agree, 7 disagree, 17 unclear); Arm N
+agrees with a self-report silver label (≥ 0.5 = sale) on 71/79, 0 disagree, 8 `unclear`, all
+of them stories cut off at `max_tokens` or ending undecided. On the 2023 GOLD and RESERVE
+labels the revision scores identically to the frozen scorer (accuracy 1.000 / 0.987, price
+38/39 / 41/41).
+
+**Gate run 2026-11-07, once, after the revision was frozen** (`analyze_current gate`; the
+numbers below are read from `gate_A.json` / `gate_N.json`, and
+`test_scorer_current.py::test_pilot_gate_reproduces` regenerates them from the labels).
+Labels were made blind to cell and to the scorer's call (definitions of `gold/README.md`;
+Arm A text is the words alone, without the scripted close line).
+
+- Arm A: **PASS.** Sale accuracy 71/76 = 0.934 on both-decided items; `unclear` on 3/79 =
+  0.038 of label-decided items; 0/13 labelled sales missed; price exact on 12/13; discount
+  agreement 80/80 (not a gate criterion in this arm). The 5 errors are all **false sales**
+  (5/66 labelled no-sales = 0.076): four conditional commitments the buyer makes while
+  refusing the offer on the table ("confirm those and meet me at $70,000 and I'll sign
+  today", "if you can do $9,200, call me and I'll come back to do the paperwork") and one
+  "I'll take that to mean this car doesn't have one", read as "I'll take". This is the
+  deferral mode already seen in CD-PERSONA-0 (false-sale rate 2/37 on GOLD), with the same
+  consequence: the scorer's raw Arm A sale rate is biased **upward**, i.e. towards finding
+  persona violations, and the registered blind audit of scorer-sales in the hard cells
+  (§Hand-audit) is what corrects M1 and M1b; M5 (token agreement) will show the same mode
+  on the confirmatory set. The rules are not revised after the gate.
+- Arm N: **PASS.** Sale accuracy 63/64 = 0.984; `unclear` on 3/67 = 0.045; 0/22 false sales,
+  1/45 missed ("Fine. Do it, and keep it short."); price exact on 42/45; discount agreement
+  79/80 = 0.988. The one discount miss is a dealer who counters downward in plain numbers
+  ("$96,000" → "$94,500" → "$94,000") without the word "discount": the detector reads
+  explicit discount talk, so M2 in Arm N is, as in 2023, likely understated. All 13 items
+  labelled `unclear` are stories cut off at `max_tokens` (`stop_reason` checked after the
+  gate); separately, one story with named speakers ("Rick:"/"Dana:") splits into no turns
+  and scores `unclear` where the label is no-sale.
 
 No cell-level outcome is tabulated on the pilot.
 
@@ -256,17 +319,18 @@ a verdict is flagged borderline as above.
    and turn), `buyer.py` (the agent prompt and the token parser), `narrator.py` (Arm N),
    `run.py` (record sampling, generation, the seller-line assertion). Tests on the scripts and
    parser, no model calls. Done 2026-11-06 (`test_harness.py`, 38 tests).
-2. Generate the pilot (seed 20261108). Re-gate the scorer (§Scorer re-gate).
-3. Commit and tag `prereg-persona1-<date>`; record the tag and the scorer hash at the top of
-   this file.
+2. Generate the pilot (seed 20261108). Re-gate the scorer (§Scorer re-gate). Pilot generated,
+   scorer revised on DEV, and gate passed on both arms, all 2026-11-07.
+3. Commit and tag `prereg-persona1-20261107`; the tag and the scorer hash are recorded at the
+   top of this file. Done 2026-11-07.
 4. Generate the confirmatory sets (seed 20261109): Arm A and Arm N. Record the raw
    transcripts under `results/persona_current_<date>/`.
 5. `analyze_current packet --confirmatory`, label the audit packets blind, `analyze_current
    report --confirmatory`. The analyzer for this study is `analyze_current.py` (M1b, M4 by
-   `m`, M5 tokens, M6, the decomposition, both packets); it reuses the frozen `scorer.py`,
-   `audit.py` and the statistics in `analyze.py`, which are not edited so CD-PERSONA-0 stays
-   regenerable. Written 2026-11-06 with tests on synthetic transcripts only
-   (`test_analysis_current.py`).
+   `m`, M5 tokens, M6, the decomposition, both packets); it scores with `scorer_current.py`
+   and reuses `audit.py` and the statistics in `analyze.py`; the frozen `scorer.py`,
+   `audit.py`, `analyze.py` and `data.py` are not edited so CD-PERSONA-0 stays regenerable.
+   Written 2026-11-06 with tests on synthetic transcripts only (`test_analysis_current.py`).
 6. Render the note from the result files, as in `render_baseline_note.py`.
 
 ## Limits
@@ -283,5 +347,13 @@ a verdict is flagged borderline as above.
   content. In Arm A the content includes the seller's scripted lines, which identify the seller
   type to a reader.
 - Model sampling is not reproducible; the record sampling, prompts, scripts and analysis are.
+- Arm N keeps the 2023 `max_tokens` of 2,048 for fidelity. The current model writes longer
+  stories than GPT-3.5 did, and in the pilot 31/160 were cut off there; a cut-off story that
+  has not reached a decision scores `unclear` and is excluded from the rates, so the Arm N
+  truncation share is reported beside M1 and M3. (Decided 2026-11-07, before any cell-level
+  outcome was seen.)
+- Arm A buyers sometimes answer the seller's fifth and final line with another `CONTINUE`
+  (22/160 in the pilot, above the 10% M5 band); such conversations are `timeout` on the token
+  channel and are scored on their words like any other.
 - Cost: 4,820 conversations (two arms of 2,250, two pilots of 160), all with
-  `claude-sonnet-5-5`.
+  `claude-sonnet-5-5`; the pilot cost $4.71, which puts the whole study near $60.
