@@ -1,0 +1,27 @@
+{
+  "config": {
+    "confidence": 0.9,
+    "eps": 0.05,
+    "games": 2000,
+    "matrix": "matrix_jev.json",
+    "n_true_objects": 158,
+    "seed": 7,
+    "zipf_s": 1.1
+  },
+  "created": "20261108_161009",
+  "pitman_yor_fit": {
+    "loglik": -438.44830306659117,
+    "sigma": 0.2,
+    "theta": 20.0
+  },
+  "schema": "twenty_questions_openworld_v1",
+  "totals": {
+    "distinct_species_seen": 146,
+    "expert_calls": 144,
+    "false_positive_expert_calls": 0,
+    "final_pool_size": 144,
+    "games": 2000,
+    "won": 1854,
+    "wrong": 2
+  }
+}
