@@ -115,6 +115,29 @@ hypothesis quietly re-enter the belief that decides whether to call the human. T
 the difference between `modeswitch` (works) and `retract`/`tombstone` (blind the gate
 and manufacture wrong answers).
 
+## What the scorecard leaves out
+
+Every axis this study measures — in-pool failure, detector AUC, wrong-guesses,
+escalations — is one a graded posterior is good at, and `soft` leads or ties on all of
+them (in-pool 0.039, AUC 0.996, few wrong, few escalations). Read naively, the table
+says "just use `soft`." That reading omits the axis the discrete backends exist for.
+
+`hard`, `retract`, `tombstone`, and `modeswitch` are not chosen for their error rates;
+they are chosen for a **discrete, append-only, replayable audit trail** — the ability
+to reconstruct and verify *why* each hypothesis was eliminated or revived, op by op
+(the CMBS premise). `soft`'s ε-floored posterior is a cloud of weights; it cannot
+produce that log, and the study never scores the one thing it cannot do. So `soft`'s
+dominance here is dominance *on the measured axes only*.
+
+The honest claim is therefore narrower than "soft holds both axes": **among discrete,
+auditable backends, `modeswitch` is the resolution** — it recovers in-pool loss without
+blinding the escalation gate or manufacturing wrong answers, where the naive reversible
+backends do both. `soft` is a different design point that buys the measured axes by
+giving up auditability, and this study does not weigh that trade — so it should not be
+read as recommending `soft` over the auditable backends wherever a replayable belief log
+is the requirement. Scoring auditability directly (replay cost, op-log verifiability,
+answer-the-why queries) is the measurement this study did not take.
+
 ## Caveats
 
 * The recovery is modest in magnitude (0.175 → 0.152 at 10%) because most flips strike
