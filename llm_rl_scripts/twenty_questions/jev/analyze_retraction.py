@@ -52,7 +52,7 @@ def report(path: str) -> None:
           " PY sigma={:.3f}".format(data["pitman_yor_fit"]["sigma"]))
     print("-" * 70)
     header = "backend     " + "".join("  ipfail@{:.0f}%".format(l * 100) for l in levels)
-    print(header + "    AUC@hi   wrong@0   retr@hi")
+    print(header + "    AUC@hi   wrong@0   retr@hi    q@hi")
     hi = levels[-1]
     for bk, m in labels:
         name = bk if m is None else "{}@{:g}".format(bk, m)
@@ -61,8 +61,10 @@ def report(path: str) -> None:
         auc_hi = _m(cell(cells, bk, m, hi), "auc")
         wrong0 = _m(cell(cells, bk, m, 0.0), "wrong")
         retr_hi = _m(cell(cells, bk, m, hi), "mean_retractions")
+        q_hi = _m(cell(cells, bk, m, hi), "mean_questions")
         print("{:11s}".format(name) + "".join("   {:>8s}".format(v) for v in ipf)
-              + "    {:.3f}   {:6.0f}    {:5.2f}".format(auc_hi, wrong0, retr_hi))
+              + "    {:.3f}   {:6.0f}    {:5.2f}   {:5.2f}".format(
+                  auc_hi, wrong0, retr_hi, q_hi))
     print("=" * 70)
     _figure(path, data)
 
