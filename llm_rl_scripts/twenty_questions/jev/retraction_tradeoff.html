@@ -1,0 +1,279 @@
+<title>The Retraction Trade-off</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: single reading column; diagrams and charts carry the argument.
+     Colour maps to the three belief strategies: soft=green, hard=coral, retract=indigo. */
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --sunk:#eef1f5; --fg:#1a2130; --muted:#5a6475;
+    --line:#e0e4ea; --accent:#3a46a6; --soft:#2d8a66; --hard:#c24a30; --warn:#b07a16;
+    --display:"Newsreader",Georgia,"Times New Roman",serif;
+    --body:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0e1218; --surface:#151b24; --sunk:#1a212b; --fg:#e6eaf1; --muted:#97a2b4;
+    --line:#242e3a; --accent:#8c92ef; --soft:#4fb98c; --hard:#e6745a; --warn:#d7a54a;
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0e1218; --surface:#151b24; --sunk:#1a212b; --fg:#e6eaf1; --muted:#97a2b4;
+    --line:#242e3a; --accent:#8c92ef; --soft:#4fb98c; --hard:#e6745a; --warn:#d7a54a;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.65;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:860px;margin:0 auto;
+    padding-left:max(20px,env(safe-area-inset-left,0px));
+    padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .col{max-width:660px}
+  h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;line-height:1.14;margin:0}
+  h1{font-size:clamp(2.1rem,6vw,3.1rem);letter-spacing:-.01em}
+  h2{font-size:clamp(1.45rem,4vw,1.85rem);margin:0 0 .6rem}
+  p{margin:0 0 1.05rem;max-width:66ch}
+  a{color:var(--accent)}
+  strong{font-weight:600}
+  em{font-style:italic}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .9rem}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .8rem}
+  header{padding:clamp(2.6rem,7vw,4.2rem) 0 1rem}
+  .lede{font-size:clamp(1.12rem,2.6vw,1.32rem);color:var(--fg);max-width:42ch;margin-top:1.1rem}
+  .toggle{position:absolute;top:max(14px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));
+    font-family:var(--mono);font-size:.72rem;color:var(--muted);background:var(--surface);
+    border:1px solid var(--line);border-radius:999px;padding:.34rem .7rem;cursor:pointer}
+  .toggle:hover{color:var(--fg);border-color:var(--muted)}
+  section{padding:2.4rem 0;border-top:1px solid var(--line)}
+  section.plain{border-top:none}
+  /* three-strategy cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin:1.5rem 0 .4rem}
+  @media (max-width:680px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:1.1rem 1.15rem;
+    border-top:3px solid var(--line)}
+  .card.soft{border-top-color:var(--soft)} .card.hard{border-top-color:var(--hard)} .card.retract{border-top-color:var(--accent)}
+  .card h3{font-family:var(--body);font-weight:600;font-size:1.02rem;display:flex;align-items:baseline;gap:.5rem}
+  .tag{font-family:var(--mono);font-size:.68rem;font-weight:500;padding:.1rem .4rem;border-radius:5px;letter-spacing:.02em}
+  .tag.soft{color:var(--soft);background:color-mix(in srgb,var(--soft) 14%,transparent)}
+  .tag.hard{color:var(--hard);background:color-mix(in srgb,var(--hard) 14%,transparent)}
+  .tag.retract{color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
+  .card p{font-size:.9rem;color:var(--muted);margin:.6rem 0 0;max-width:none}
+  /* figure */
+  figure{margin:1.5rem 0 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:1.1rem 1.1rem .8rem;overflow:hidden}
+  figure svg{display:block;width:100%;height:auto}
+  figcaption{font-size:.82rem;color:var(--muted);margin-top:.6rem;line-height:1.45}
+  .legend{display:flex;flex-wrap:wrap;gap:1rem;margin:.1rem 0 .3rem;font-size:.82rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:.4rem}
+  .sw{width:20px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+  @media (max-width:680px){.grid2{grid-template-columns:1fr}}
+  /* svg classes */
+  .ax{stroke:var(--line);stroke-width:1}
+  .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4;opacity:.55}
+  .tk{fill:var(--muted);font-family:var(--mono);font-size:11px}
+  .tt{fill:var(--muted);font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+  .callout{background:var(--sunk);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:0 12px 12px 0;padding:1.05rem 1.2rem;margin:1.4rem 0}
+  .callout p:last-child{margin-bottom:0}
+  ul{margin:0 0 1.05rem;padding-left:1.15rem;max-width:66ch}
+  li{margin-bottom:.5rem} li::marker{color:var(--accent)}
+  footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--muted);font-size:.84rem}
+  footer code{font-family:var(--mono);font-size:.82em;background:var(--sunk);padding:.1rem .35rem;border-radius:5px}
+  .note{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:.8rem}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<button class="toggle" id="tgl" aria-label="Toggle light or dark theme">theme</button>
+
+<div class="wrap">
+  <header>
+    <div class="col">
+      <p class="eyebrow">Open-world Twenty Questions · belief backends</p>
+      <h1>The Retraction Trade-off</h1>
+      <p class="lede">Can you make "cross it off the list" reversible — without breaking everything else the list has to do?</p>
+    </div>
+  </header>
+
+  <section class="plain col">
+    <p class="kicker">The setup, in one minute</p>
+    <h2>A guessing game where the answer might not be on your list</h2>
+    <p>Picture Twenty Questions, but open-world: the hidden object might be something you've never seen. A program keeps a list of <em>candidate objects</em>, asks yes/no questions to narrow it down, and — when nothing on the list fits — calls an expert who names the new object and adds it. The list grows by discovery.</p>
+    <p>Everything turns on one choice: <strong>how do you represent "what it could still be"?</strong> There are three honest answers, and they behave very differently when the person answering your questions is occasionally wrong.</p>
+    <div class="cards">
+      <div class="card soft">
+        <h3><span class="tag soft">soft</span> keep doubts</h3>
+        <p>Never fully rule anything out — keep weighted probabilities and floor them so nothing hits exactly zero. Survives a wrong answer, but belief is a cloud: no crisp record of what's been eliminated.</p>
+      </div>
+      <div class="card hard">
+        <h3><span class="tag hard">hard</span> cross off</h3>
+        <p>Strike any candidate an answer contradicts, permanently. Crisp and auditable — but a single wrong answer crosses off the true object, and it can never come back.</p>
+      </div>
+      <div class="card retract">
+        <h3><span class="tag retract">retract</span> cross off, take back</h3>
+        <p>Strike like <span class="mono">hard</span>, but allow <em>un-striking</em> when later evidence recovers a candidate. The hoped-for best of both: crisp records <em>and</em> resilience.</p>
+      </div>
+    </div>
+    <p class="note">The experiment runs all three as the answerer gets noisier — flipping 5% then 10% of answers — and measures what breaks.</p>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="kicker">Finding 1</p>
+      <h2>Hard elimination breaks under noise — retraction recovers it</h2>
+      <p>The key number is the <strong>in-pool failure rate</strong>: when the secret really was a known object (so it was findable), how often did the method fail to find it? With a perfect answerer every method is fine. As answers start flipping, <span class="mono" style="color:var(--hard)">hard</span> falls apart — one flip crosses off the truth for good — while <span class="mono" style="color:var(--soft)">soft</span> barely notices. <span class="mono" style="color:var(--accent)">retract</span> lands between them, and with a generous enough "take-back" rule it climbs almost all the way back to <span class="mono">soft</span>.</p>
+    </div>
+    <figure>
+      <div class="legend">
+        <span><span class="sw" style="border-color:var(--soft)"></span>soft</span>
+        <span><span class="sw" style="border-color:var(--hard)"></span>hard</span>
+        <span><span class="sw" style="border-color:var(--accent);border-top-style:dashed"></span>retract (cautious)</span>
+        <span><span class="sw" style="border-color:var(--accent)"></span>retract (generous)</span>
+      </div>
+      <svg viewBox="0 0 640 290" role="img" aria-label="In-pool failure rate versus answer-noise for four methods; hard rises steeply to 0.18, soft stays near 0.045, retract between">
+        <line class="ax" x1="64" y1="250" x2="600" y2="250"/>
+        <line class="ax" x1="64" y1="30" x2="64" y2="250"/>
+        <line class="grid" x1="64" y1="195" x2="600" y2="195"/>
+        <line class="grid" x1="64" y1="140" x2="600" y2="140"/>
+        <line class="grid" x1="64" y1="85" x2="600" y2="85"/>
+        <text class="tk" x="56" y="253" text-anchor="end">0</text>
+        <text class="tk" x="56" y="198" text-anchor="end">.05</text>
+        <text class="tk" x="56" y="143" text-anchor="end">.10</text>
+        <text class="tk" x="56" y="88" text-anchor="end">.15</text>
+        <text class="tk" x="56" y="33" text-anchor="end">.20</text>
+        <text class="tk" x="64" y="266" text-anchor="middle">0</text>
+        <text class="tk" x="332" y="266" text-anchor="middle">5%</text>
+        <text class="tk" x="600" y="266" text-anchor="middle">10%</text>
+        <text class="tt" x="332" y="284" text-anchor="middle">answers flipped</text>
+        <text class="tt" x="18" y="140" text-anchor="middle" transform="rotate(-90 18 140)">in-pool failure</text>
+        <polyline fill="none" stroke="var(--soft)" stroke-width="2.6" stroke-linejoin="round" points="64,250 332,223.6 600,200.5"/>
+        <polyline fill="none" stroke="var(--hard)" stroke-width="2.6" stroke-linejoin="round" points="64,243.4 332,138.9 600,52"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round" points="64,242.3 332,182.9 600,125.7"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linejoin="round" points="64,242.3 332,229.1 600,220.3"/>
+        <circle cx="600" cy="52" r="3.4" fill="var(--hard)"/>
+        <circle cx="600" cy="220.3" r="3.4" fill="var(--accent)"/>
+        <circle cx="600" cy="200.5" r="3.4" fill="var(--soft)"/>
+        <text class="tk" x="592" y="48" text-anchor="end" fill="var(--hard)">.18</text>
+      </svg>
+      <figcaption>Lower is better. At 10% noise <span class="mono">hard</span> fails on ~18% of findable secrets; generous <span class="mono">retract</span> recovers almost all of that, back down near <span class="mono">soft</span>. So far, retraction looks like a free win.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="kicker">Finding 2 — the catch</p>
+      <h2>The same knob that recovers the truth also revives the wrongs</h2>
+      <p>Retraction has one dial: how readily a crossed-off candidate is allowed back. Widen it and in-pool recovery improves (left). But widen it and the method starts reviving candidates that <em>deserved</em> to be crossed off — so it mis-guesses, and it stops recognizing genuinely new objects, calling the expert far less often (right). Crucially, this cost appears <strong>even with a perfect answerer</strong>, where nothing should ever be revived.</p>
+    </div>
+    <div class="grid2">
+      <figure>
+        <svg viewBox="0 0 340 250" role="img" aria-label="In-pool failures at 10 percent noise fall as the take-back dial widens">
+          <line class="ax" x1="54" y1="210" x2="320" y2="210"/>
+          <line class="ax" x1="54" y1="26" x2="54" y2="210"/>
+          <rect x="78" y="91.3" width="48" height="118.7" rx="2" fill="var(--soft)"/>
+          <rect x="155" y="96.6" width="48" height="113.4" rx="2" fill="var(--soft)"/>
+          <rect x="232" y="181.6" width="48" height="28.4" rx="2" fill="var(--soft)"/>
+          <text class="tk" x="102" y="86" text-anchor="middle">.113</text>
+          <text class="tk" x="179" y="91" text-anchor="middle">.108</text>
+          <text class="tk" x="256" y="176" text-anchor="middle">.027</text>
+          <text class="tk" x="102" y="224" text-anchor="middle">1</text>
+          <text class="tk" x="179" y="224" text-anchor="middle">2</text>
+          <text class="tk" x="256" y="224" text-anchor="middle">4</text>
+          <text class="tt" x="187" y="242" text-anchor="middle">take-back dial →</text>
+          <text class="tt" x="20" y="118" text-anchor="middle" transform="rotate(-90 20 118)" fill="var(--soft)">in-pool failures</text>
+        </svg>
+        <figcaption><strong>The win:</strong> wider dial → fewer in-pool failures at 10% noise. Lower is better.</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 340 250" role="img" aria-label="Wrong guesses on a clean oracle rise as the take-back dial widens">
+          <line class="ax" x1="54" y1="210" x2="320" y2="210"/>
+          <line class="ax" x1="54" y1="26" x2="54" y2="210"/>
+          <rect x="78" y="140.7" width="48" height="69.3" rx="2" fill="var(--hard)"/>
+          <rect x="155" y="126.7" width="48" height="83.3" rx="2" fill="var(--hard)"/>
+          <rect x="232" y="22" width="48" height="188" rx="2" fill="var(--hard)"/>
+          <text class="tk" x="102" y="135" text-anchor="middle">198</text>
+          <text class="tk" x="179" y="121" text-anchor="middle">238</text>
+          <text class="tk" x="256" y="17" text-anchor="middle">537</text>
+          <text class="tk" x="102" y="224" text-anchor="middle">1</text>
+          <text class="tk" x="179" y="224" text-anchor="middle">2</text>
+          <text class="tk" x="256" y="224" text-anchor="middle">4</text>
+          <text class="tt" x="187" y="242" text-anchor="middle">take-back dial →</text>
+          <text class="tt" x="20" y="118" text-anchor="middle" transform="rotate(-90 20 118)" fill="var(--hard)">wrong guesses</text>
+        </svg>
+        <figcaption><strong>The cost:</strong> wider dial → more wrong guesses, on a <em>perfect</em> answerer. Higher is worse.</figcaption>
+      </figure>
+    </div>
+    <div class="callout">
+      <p>Read the two charts together: they move in opposite directions along the same dial. There is no setting that keeps both low. That tension — not any single number — is the finding.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="kicker">Why it happens</p>
+      <h2>A single score can't tell an unlucky truth from an ordinary wrong</h2>
+      <p>When should a crossed-off candidate come back? This version decides with one number — a running score of how well each candidate fits the answers so far — and revives anything that climbs back within a margin of the leader. The problem is that two very different candidates produce the <em>same</em> dip in that score:</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 640 300" role="img" aria-label="Two candidate score trajectories both dip below the strike line; the truth recovers, the wrong stays down, but at the dip they look identical">
+        <line class="ax" x1="58" y1="260" x2="610" y2="260"/>
+        <line class="ax" x1="58" y1="24" x2="58" y2="260"/>
+        <text class="tt" x="334" y="282" text-anchor="middle">questions asked →</text>
+        <text class="tt" x="20" y="142" text-anchor="middle" transform="rotate(-90 20 142)">fit score</text>
+        <!-- strike line -->
+        <line x1="58" y1="185" x2="610" y2="185" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="6 4"/>
+        <text class="tk" x="602" y="178" text-anchor="end" fill="var(--muted)">strike line</text>
+        <!-- truth: dips then recovers -->
+        <polyline fill="none" stroke="var(--soft)" stroke-width="2.6" stroke-linejoin="round" points="70,70 180,78 290,215 400,120 500,86 590,78"/>
+        <!-- wrong: dips and stays -->
+        <polyline fill="none" stroke="var(--hard)" stroke-width="2.6" stroke-linejoin="round" points="70,120 180,150 290,208 400,226 500,236 590,246"/>
+        <!-- the dip marker -->
+        <circle cx="290" cy="215" r="4" fill="var(--soft)"/>
+        <circle cx="290" cy="208" r="4" fill="var(--hard)"/>
+        <line x1="290" y1="150" x2="290" y2="238" stroke="var(--line)" stroke-width="1"/>
+        <text class="tk" x="290" y="146" text-anchor="middle" fill="var(--muted)">same dip here</text>
+        <text class="tk" x="596" y="74" text-anchor="end" fill="var(--soft)">truth — recovers</text>
+        <text class="tk" x="596" y="258" text-anchor="end" fill="var(--hard)">wrong — stays down</text>
+      </svg>
+      <figcaption>Illustrative. A true object hit by one flipped answer and an ordinary wrong object both fall below the strike line. Only the <em>future</em> tells them apart — the truth climbs back, the wrong keeps failing. A rule that looks at the depth of the dip, not the pattern of evidence, revives both or neither.</figcaption>
+    </figure>
+    <p class="col">That is why the dial can't win: it is asked to make a distinction the information it looks at doesn't contain. The truth and the wrong differ in <em>which</em> answers hurt them and whether contradictions keep coming — not in how far a single score dropped.</p>
+  </section>
+
+  <section class="col">
+    <p class="kicker">What it points to</p>
+    <h2>Remember what killed each candidate, not just a score</h2>
+    <p>The fix isn't a better threshold — it's more structure. If each crossed-off candidate carries a record of <em>which</em> answer struck it, you can ask the question a single score can't: was this candidate killed by one lonely outlier (revive it) or contradicted again and again (leave it)? That's the difference between a truth unlucky with one flip and a wrong that simply doesn't fit.</p>
+    <p>This is the motivation for a structured belief store with per-candidate "tombstones" — an elimination tied to its cause, reversible by naming that cause. The scalar version here isn't a failure; it's the control that shows why the structure is needed. The next step measures whether that structure buys the resilience <em>without</em> the novelty-detection cost.</p>
+    <div class="callout">
+      <p><strong>The one-line takeaway.</strong> Making elimination reversible with a single tunable score recovers robustness to noise but trades away the ability to spot genuinely new things — because one number can't distinguish an unlucky truth from an ordinary wrong. Telling them apart needs memory of <em>why</em> each candidate was eliminated.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="col">
+      <p>From the open-world Twenty Questions retraction study. Three belief backends through one loop and one noise grid; numbers shown are the measured shape of the trade-off (illustrative single-seed values — the seed-replicated grid and full write-up live with the study). The deterministic stream, backends, and grid all regenerate from committed code: <code>openworld_backends.py</code>, <code>eval_openworld.py --retraction-grid</code>.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var btn=document.getElementById('tgl');
+    function cur(){
+      var a=document.documentElement.getAttribute('data-theme');
+      if(a)return a;
+      return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+    }
+    btn.addEventListener('click',function(){
+      var next=cur()==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      try{localStorage.setItem('retr-theme',next);}catch(e){}
+    });
+    try{var s=localStorage.getItem('retr-theme');if(s)document.documentElement.setAttribute('data-theme',s);}catch(e){}
+  })();
+</script>

@@ -214,6 +214,7 @@ class OWEpisode:
     p_unknown_max: float
     p_unknown_final: float
     fire_turn: Optional[int]     # turn UNKNOWN first crossed the gate, else None
+    n_retractions: int = 0       # un-eliminate ops (retract backend); 0 otherwise
     steps: List[OWStep] = field(default_factory=list)
 
 
@@ -226,7 +227,8 @@ def run_openworld_episode(true_h: Hypothesis,
                           confidence: float = 0.9,
                           eps: float = 0.05,
                           top_k_guesses: int = 5,
-                          backend: str = "soft") -> OWEpisode:
+                          backend: str = "soft",
+                          margin: float = 2.0) -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
@@ -237,7 +239,9 @@ def run_openworld_episode(true_h: Hypothesis,
     like = make_openworld_likelihood(matrix, known_hyps, eps=eps)
     bank = build_openworld_bank(known_hyps)
     guess_by_name = {q.key: q for q in bank[GUESS]}
-    bk = BACKENDS[backend](known_hyps, by_name, like, UNKNOWN, p_unknown_prior, eps)
+    kwargs = {"margin": margin} if backend == "retract" else {}
+    bk = BACKENDS[backend](known_hyps, by_name, like, UNKNOWN, p_unknown_prior,
+                           eps, **kwargs)
 
     steps: List[OWStep] = []
     p_unk_max = bk.distribution().get(UNKNOWN, 0.0)
@@ -257,7 +261,8 @@ def run_openworld_episode(true_h: Hypothesis,
                 true_name=true_h.name, true_category=true_h.category,
                 in_pool=in_pool, outcome="expert", n_questions=turn - 1,
                 p_unknown_max=p_unk_max, p_unknown_final=dist.get(UNKNOWN, 0.0),
-                fire_turn=fire_turn, steps=steps,
+                fire_turn=fire_turn, n_retractions=getattr(bk, "n_revives", 0),
+                steps=steps,
             )
         if decision[0] == "guess":
             q = guess_by_name[decision[1]]
@@ -278,7 +283,8 @@ def run_openworld_episode(true_h: Hypothesis,
                 true_name=true_h.name, true_category=true_h.category,
                 in_pool=in_pool, outcome="won", n_questions=turn,
                 p_unknown_max=p_unk_max, p_unknown_final=dist.get(UNKNOWN, 0.0),
-                fire_turn=fire_turn, steps=steps,
+                fire_turn=fire_turn, n_retractions=getattr(bk, "n_revives", 0),
+                steps=steps,
             )
 
         bk.observe(q, ans)
@@ -361,6 +367,7 @@ class GameRecord:
     k_before: int                # |H_known| before this game
     expert_called: bool
     false_positive: bool         # in-pool but fired UNKNOWN
+    n_retractions: int = 0       # un-eliminate ops this game (retract backend)
 
 
 def run_accumulation(objects: Sequence[Hypothesis],
@@ -370,7 +377,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      max_questions: int = 20, confidence: float = 0.9,
                      eps: float = 0.05, oracle_threshold: float = 0.5,
                      oracle_noise: float = 0.0, noise_seed: int = 0,
-                     backend: str = "soft"
+                     backend: str = "soft", margin: float = 2.0
                      ) -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
@@ -400,7 +407,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
         ep = run_openworld_episode(
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
-            backend=backend,
+            backend=backend, margin=margin,
         )
 
         expert_called = ep.outcome == "expert"
@@ -416,6 +423,6 @@ def run_accumulation(objects: Sequence[Hypothesis],
             is_new=is_new, outcome=ep.outcome, n_questions=ep.n_questions,
             p_unknown_max=ep.p_unknown_max, fire_turn=ep.fire_turn,
             k_before=k_before, expert_called=expert_called,
-            false_positive=false_positive,
+            false_positive=false_positive, n_retractions=ep.n_retractions,
         ))
     return records
