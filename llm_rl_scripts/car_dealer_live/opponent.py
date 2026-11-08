@@ -132,7 +132,7 @@ class T1Kernel:
 
     def answer_distribution(self, question_id: str, ranking: Ranking) -> Dict[str, float]:
         t = truthful_answer(question_id, ranking)
-        n = float(self.cfg.answer_noise)
+        n = float(self.cfg.noise_for(question_id))
         o = "no" if t == "yes" else "yes"
         return {t: 1.0 - n, o: n} if n > 0 else {t: 1.0}
 

@@ -1,4 +1,4 @@
-# CD-NOUL-2 — the live LLM opponent (Stage 2 plan, 2026-11-08, DRAFT — not registered)
+# CD-NOUL-2 — the live LLM opponent (Stage 2 plan, 2026-11-08, DRAFT — not registered; §3.1a added after the offline Phase 0 calibration)
 
 Follow-on to CD-NOUL-1 Stage 1 (`DESIGN_NOUL.md`, `PREREGISTRATION_NOUL.md` tag `prereg-noul1-20261108`,
 `RESULTS_NOUL.md`, FINDINGS §3.12). Stage 1 kept the registered T1 kernel as the opponent and verbalized only
@@ -137,6 +137,65 @@ constant, not a tuned quantity; Stage 2's live text is its test. Prediction: on 
 closes to within δ of `sonnet_answer` (whose raw log-loss 0.085 bits Stage 1 found good enough to lose only
 −0.002 to the oracle on clear text). The same temperature is applied to `sonnet_answer` as a secondary
 (it should be near 1).
+
+### 3.1a Phase 0 finding (2026-11-08, offline, from the frozen Stage 1 matrices)
+
+`calibrate_noul.py` was run on the 4,320-item Stage 1 bank (`results/noul_bank_20261108/calibration_noul2.json`;
+numbers below are read from it). A single temperature does what §3.1 asked on clear text and something
+unwanted on guarded text:
+
+| decoder | map | T | b | acc. oblique | log-loss plain | log-loss oblique | confident-wrong oblique (of 2,160) | E[read error] plain | E[read error] oblique |
+|---|---|---|---|---|---|---|---|---|---|
+| `noul` | raw | 1.00 | +0.00 | 0.712 | 0.197 | 0.691 | 0 | 0.125 | 0.289 |
+| `noul` | pooled | 2.07 | +0.00 | 0.712 | 0.041 | 0.678 | 18 | 0.027 | 0.183 |
+| `noul` | safe | 1.17 | +0.00 | 0.712 | 0.150 | 0.675 | 0 | 0.096 | 0.265 |
+| `noul` | platt | 3.62 | +1.97 | 0.815 | 0.003 | 0.520 | 17 | 0.002 | 0.169 |
+| `sonnet` | raw | 1.00 | +0.00 | 0.830 | 0.085 | 0.584 | 0 | 0.057 | 0.300 |
+| `sonnet` | pooled | 3.93 | +0.00 | 0.830 | 0.001 | 0.395 | 18 | 0.000 | 0.133 |
+| `sonnet` | safe | 2.21 | +0.00 | 0.830 | 0.004 | 0.435 | 0 | 0.002 | 0.194 |
+| `sonnet` | platt | 5.61 | +1.33 | 0.900 | 0.001 | 0.323 | 13 | 0.000 | 0.100 |
+
+- **On `plain` every map helps and none can hurt**: the raw decoders are right on all 2,160 items, so the
+  plain-only fit runs to the search ceiling (T = 50) and the pooled T already takes Noul from 0.197 to 0.041
+  bits.
+- **On `oblique` the pooled temperature creates confident-wrong reads where the raw decoders had none** —
+  18 for Noul and 18 for the judge, overlapping on only 3 items. They are not
+  misleading texts: inspected, they are truthful indirect replies in which the speaker talks up its top
+  attribute and brushes off the one the question named (e.g. asked "price over delivery?", a
+  warranty-first buyer says it cares about coverage, not speed), and Noul reads the absence of the named
+  attribute as a NO lean (the Stage 1 "NO-lean on deflections", p_yes ≈ 0.15–0.25 against a truth of YES). A
+  temperature amplifies that bias; it cannot remove it.
+- **The Platt fit (slope and intercept) can.** Noul's intercept comes out at b ≈ +2.0 logits toward YES —
+  the size of the lean — and lifts oblique accuracy from 0.712 to 0.815 (the judge
+  0.830 → 0.900) and oblique log-loss from 0.691 to 0.520 bits, but still leaves
+  17 confident-wrong reads (judge 13). These fits are in-sample on the Stage 1 bank (two parameters on 4,320
+  items; over-fitting is not the worry — the verbalizer's distribution is, which is why Stage 2's live text
+  is the test).
+- **`safe`** is the largest pure temperature with zero confident-wrong reads on the oblique bank: T = 1.17 for
+  Noul buys little on clear text (0.197 → 0.150 bits); T = 2.21 for the judge buys almost everything
+  (0.085 → 0.004).
+
+What this changes in the design (decisions for the registration, listed with a recommendation):
+
+1. **The calibration map is per brief**, as the a_q vectors already were: `candid` text is truthful and
+   near-direct, where a sharp map is safe by the never-lies gate, so `candid` takes the Platt map; `guarded`
+   takes the map the registration picks from the table above. Recommendation: **Platt with a read clamp**
+   (below) for both, because a filter that cannot see a confident-wrong read coming is better protected by
+   bounding every read than by blunting all of them.
+2. **A read clamp** `p' ∈ [1 − c, c]`, c = 0.95, applied after the map in the `adaptive` filter: the
+   boundary analogue of CD-MIS-1's background floor, at the read rather than the belief. It bounds the damage
+   of a confident-wrong read at 19:1 odds against the true type (recoverable from the next move's kernel
+   likelihood; Stage 1's zeroed-truth episodes came from reads of exactly 1.0) at the cost of capping a
+   correct read's evidence at the same odds. c is a registered constant; c = 1 is "no clamp" and is the
+   natural secondary.
+3. **A new gate 9 (Phase 0 pilot):** on the `candid` pilot's blind-audited answers, the chosen map produces
+   0 confident-wrong reads; on `guarded`, the count is reported against the bank's expectation
+   (17/2,160 ≈ 0.8 % for Noul under Platt).
+4. The §4 arm `plan_ask-noul-adaptive` (raw Noul) stays, so the value of the map is measured, and a
+   `plan_ask-noulcal-adaptive-noclamp` secondary (c = 1) measures the clamp.
+
+`decode.calibrated_p_yes` is the pure-temperature read; `calibrate_noul.read(p, T, b)` the Platt read; the
+registration pins (T, b, c) per decoder × brief and the a_q vectors computed under the same map.
 
 ### 3.2 Uncertainty-scaled hedge (`a = adaptive`)
 

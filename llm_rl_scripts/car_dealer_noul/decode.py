@@ -82,6 +82,7 @@ def regex_p_yes(text: str) -> float:
 import datetime as _dt
 import hashlib
 import json
+import math
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -233,6 +234,66 @@ def build_matrix(decoder: str, rows: List[dict], client, path: Path, workers: in
                 if log and n % 100 == 0:
                     print(f"  {n}/{len(todo)}", file=log, flush=True)
     return n
+
+
+
+# ---- CD-NOUL-2 additions: calibrated reads and the offer likelihood ------------------------------
+# Nothing above this line changed for Stage 2; ``prompt_hash`` covers the Stage 1 prompts only.
+
+CAL_EPS = 1e-3
+
+
+def calibrated_p_yes(p_yes: float, temperature: float) -> float:
+    """Temperature-scaled read sigmoid(T * logit(p)). T = 1 is the identity; 0.5 is a fixed point for
+    every T, so an uninformative read stays uninformative; T > 1 sharpens an under-confident decoder."""
+    p = min(max(float(p_yes), CAL_EPS), 1.0 - CAL_EPS)
+    z = float(temperature) * math.log(p / (1.0 - p))
+    return 1.0 / (1.0 + math.exp(-z))
+
+
+def move_text(role: str, action_key: str, deal_label: Optional[str] = None) -> str:
+    """The opponent's typed move in words, for the offer-likelihood context."""
+    kind = action_key.split(" ")[0]
+    if kind == "PROPOSE":
+        return f"The {role} proposed a deal with {deal_label}"
+    if kind == "REJECT":
+        return f"The {role} rejected the standing proposal"
+    if kind == "HOLD":
+        return f"The {role} held to its own standing proposal"
+    if kind == "ACCEPT":
+        return f"The {role} accepted the standing proposal"
+    if kind == "WALK":
+        return f"The {role} walked away"
+    return f"The {role} made the move {action_key}"
+
+
+def offer_context_state(role: str, move: str, utterance: str) -> str:
+    return (
+        "A negotiation over one used car between a buyer and a seller; the deal will set the "
+        "price, the length of the warranty and the delivery time, and each side has private "
+        f"priorities over those three. {move}, saying: \"{utterance}\""
+    )
+
+
+def offer_type_questions(role: str) -> Dict[str, str]:
+    return {k: v for k, v in noul_questions(role, "").items() if k.startswith("type:")}
+
+
+def offer_item(client, role: str, action_key: str, utterance: str, deal_label: Optional[str] = None) -> dict:
+    """Six type Nouls on an opponent move plus its words -> per-type likelihood scaled to max 1."""
+    state = offer_context_state(role, move_text(role, action_key, deal_label), utterance)
+    raw = client.nouls(state, offer_type_questions(role))
+    scores = {k[len("type:"):]: v for k, v in raw.items() if k.startswith("type:")}
+    return {"decoder": "noul_offer", "action": action_key, "raw": raw, "type_vector": list(type_vector(scores))}
+
+
+OFFER_PROMPT_VERSION = "noul_offer-v1"
+
+
+def offer_prompt_hash() -> str:
+    blob = OFFER_PROMPT_VERSION + "|" + offer_context_state("buyer", move_text("buyer", "PROPOSE X", "L"), "U") + "|" + \
+        json.dumps(offer_type_questions("buyer"), sort_keys=True)
+    return hashlib.sha256(blob.encode()).hexdigest()[:12]
 
 
 def prompt_hash() -> str:
