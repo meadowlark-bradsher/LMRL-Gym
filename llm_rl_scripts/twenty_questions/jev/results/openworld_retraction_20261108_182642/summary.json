@@ -1,0 +1,1009 @@
+{
+  "cells": [
+    {
+      "agg": {
+        "auc": {
+          "max": 0.9997081467689262,
+          "mean": 0.9997081467689262,
+          "min": 0.9997081467689262
+        },
+        "expert_calls": {
+          "max": 144,
+          "mean": 144.0,
+          "min": 144
+        },
+        "false_positive_calls": {
+          "max": 0,
+          "mean": 0.0,
+          "min": 0
+        },
+        "in_pool_fail_rate": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "mean_questions": {
+          "max": 8.7185,
+          "mean": 8.7185,
+          "min": 8.7185
+        },
+        "mean_retractions": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "wrong": {
+          "max": 2,
+          "mean": 2.0,
+          "min": 2
+        }
+      },
+      "backend": "soft",
+      "margin": null,
+      "n_noise_seeds": 1,
+      "oracle_noise": 0.0,
+      "per_seed": [
+        {
+          "auc": 0.9997081467689262,
+          "expert_calls": 144,
+          "false_positive_calls": 0,
+          "in_pool": 1854,
+          "in_pool_fail": 0,
+          "in_pool_fail_rate": 0.0,
+          "mean_questions": 8.7185,
+          "mean_retractions": 0.0,
+          "won": 1854,
+          "wrong": 2
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.9986865915591617,
+          "mean": 0.9986801609064446,
+          "min": 0.9986737302537276
+        },
+        "expert_calls": {
+          "max": 157,
+          "mean": 152.5,
+          "min": 148
+        },
+        "false_positive_calls": {
+          "max": 13,
+          "mean": 9.0,
+          "min": 5
+        },
+        "in_pool_fail_rate": {
+          "max": 0.024271844660194174,
+          "mean": 0.022935058399211557,
+          "min": 0.02159827213822894
+        },
+        "mean_questions": {
+          "max": 9.3245,
+          "mean": 9.2865,
+          "min": 9.2485
+        },
+        "mean_retractions": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "wrong": {
+          "max": 40,
+          "mean": 37.0,
+          "min": 34
+        }
+      },
+      "backend": "soft",
+      "margin": null,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.05,
+      "per_seed": [
+        {
+          "auc": 0.9986737302537276,
+          "expert_calls": 157,
+          "false_positive_calls": 13,
+          "in_pool": 1854,
+          "in_pool_fail": 45,
+          "in_pool_fail_rate": 0.024271844660194174,
+          "mean_questions": 9.3245,
+          "mean_retractions": 0.0,
+          "won": 1809,
+          "wrong": 34
+        },
+        {
+          "auc": 0.9986865915591617,
+          "expert_calls": 148,
+          "false_positive_calls": 5,
+          "in_pool": 1852,
+          "in_pool_fail": 40,
+          "in_pool_fail_rate": 0.02159827213822894,
+          "mean_questions": 9.2485,
+          "mean_retractions": 0.0,
+          "won": 1812,
+          "wrong": 40
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.9966666666666667,
+          "mean": 0.996262890860623,
+          "min": 0.9958591150545795
+        },
+        "expert_calls": {
+          "max": 166,
+          "mean": 162.0,
+          "min": 158
+        },
+        "false_positive_calls": {
+          "max": 25,
+          "mean": 20.0,
+          "min": 15
+        },
+        "in_pool_fail_rate": {
+          "max": 0.044816414686825054,
+          "mean": 0.039435234370439554,
+          "min": 0.03405405405405405
+        },
+        "mean_questions": {
+          "max": 9.8395,
+          "mean": 9.7725,
+          "min": 9.7055
+        },
+        "mean_retractions": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "wrong": {
+          "max": 65,
+          "mean": 60.0,
+          "min": 55
+        }
+      },
+      "backend": "soft",
+      "margin": null,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.1,
+      "per_seed": [
+        {
+          "auc": 0.9958591150545795,
+          "expert_calls": 166,
+          "false_positive_calls": 25,
+          "in_pool": 1852,
+          "in_pool_fail": 83,
+          "in_pool_fail_rate": 0.044816414686825054,
+          "mean_questions": 9.8395,
+          "mean_retractions": 0.0,
+          "won": 1769,
+          "wrong": 65
+        },
+        {
+          "auc": 0.9966666666666667,
+          "expert_calls": 158,
+          "false_positive_calls": 15,
+          "in_pool": 1850,
+          "in_pool_fail": 63,
+          "in_pool_fail_rate": 0.03405405405405405,
+          "mean_questions": 9.7055,
+          "mean_retractions": 0.0,
+          "won": 1787,
+          "wrong": 55
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.9999778339318172,
+          "mean": 0.9999778339318172,
+          "min": 0.9999778339318172
+        },
+        "expert_calls": {
+          "max": 158,
+          "mean": 158.0,
+          "min": 158
+        },
+        "false_positive_calls": {
+          "max": 12,
+          "mean": 12.0,
+          "min": 12
+        },
+        "in_pool_fail_rate": {
+          "max": 0.006472491909385114,
+          "mean": 0.006472491909385114,
+          "min": 0.006472491909385114
+        },
+        "mean_questions": {
+          "max": 8.654,
+          "mean": 8.654,
+          "min": 8.654
+        },
+        "mean_retractions": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "wrong": {
+          "max": 0,
+          "mean": 0.0,
+          "min": 0
+        }
+      },
+      "backend": "hard",
+      "margin": null,
+      "n_noise_seeds": 1,
+      "oracle_noise": 0.0,
+      "per_seed": [
+        {
+          "auc": 0.9999778339318172,
+          "expert_calls": 158,
+          "false_positive_calls": 12,
+          "in_pool": 1854,
+          "in_pool_fail": 12,
+          "in_pool_fail_rate": 0.006472491909385114,
+          "mean_questions": 8.654,
+          "mean_retractions": 0.0,
+          "won": 1842,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.9525978631910271,
+          "mean": 0.9516317920527257,
+          "min": 0.9506657209144243
+        },
+        "expert_calls": {
+          "max": 334,
+          "mean": 331.5,
+          "min": 329
+        },
+        "false_positive_calls": {
+          "max": 188,
+          "mean": 185.5,
+          "min": 183
+        },
+        "in_pool_fail_rate": {
+          "max": 0.10140237324703344,
+          "mean": 0.1000539374325782,
+          "min": 0.09870550161812297
+        },
+        "mean_questions": {
+          "max": 8.782,
+          "mean": 8.7395,
+          "min": 8.697
+        },
+        "mean_retractions": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "wrong": {
+          "max": 0,
+          "mean": 0.0,
+          "min": 0
+        }
+      },
+      "backend": "hard",
+      "margin": null,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.05,
+      "per_seed": [
+        {
+          "auc": 0.9506657209144243,
+          "expert_calls": 334,
+          "false_positive_calls": 188,
+          "in_pool": 1854,
+          "in_pool_fail": 188,
+          "in_pool_fail_rate": 0.10140237324703344,
+          "mean_questions": 8.697,
+          "mean_retractions": 0.0,
+          "won": 1666,
+          "wrong": 0
+        },
+        {
+          "auc": 0.9525978631910271,
+          "expert_calls": 329,
+          "false_positive_calls": 183,
+          "in_pool": 1854,
+          "in_pool_fail": 183,
+          "in_pool_fail_rate": 0.09870550161812297,
+          "mean_questions": 8.782,
+          "mean_retractions": 0.0,
+          "won": 1671,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.9151926231325087,
+          "mean": 0.9128411727327806,
+          "min": 0.9104897223330526
+        },
+        "expert_calls": {
+          "max": 479,
+          "mean": 470.5,
+          "min": 462
+        },
+        "false_positive_calls": {
+          "max": 333,
+          "mean": 324.5,
+          "min": 316
+        },
+        "in_pool_fail_rate": {
+          "max": 0.1796116504854369,
+          "mean": 0.1750269687162891,
+          "min": 0.1704422869471413
+        },
+        "mean_questions": {
+          "max": 8.8915,
+          "mean": 8.828,
+          "min": 8.7645
+        },
+        "mean_retractions": {
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "wrong": {
+          "max": 0,
+          "mean": 0.0,
+          "min": 0
+        }
+      },
+      "backend": "hard",
+      "margin": null,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.1,
+      "per_seed": [
+        {
+          "auc": 0.9104897223330526,
+          "expert_calls": 479,
+          "false_positive_calls": 333,
+          "in_pool": 1854,
+          "in_pool_fail": 333,
+          "in_pool_fail_rate": 0.1796116504854369,
+          "mean_questions": 8.7645,
+          "mean_retractions": 0.0,
+          "won": 1521,
+          "wrong": 0
+        },
+        {
+          "auc": 0.9151926231325087,
+          "expert_calls": 462,
+          "false_positive_calls": 316,
+          "in_pool": 1854,
+          "in_pool_fail": 316,
+          "in_pool_fail_rate": 0.1704422869471413,
+          "mean_questions": 8.8915,
+          "mean_retractions": 0.0,
+          "won": 1538,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.6743217130252414,
+          "mean": 0.6743217130252414,
+          "min": 0.6743217130252414
+        },
+        "expert_calls": {
+          "max": 105,
+          "mean": 105.0,
+          "min": 105
+        },
+        "false_positive_calls": {
+          "max": 12,
+          "mean": 12.0,
+          "min": 12
+        },
+        "in_pool_fail_rate": {
+          "max": 0.007021650087770626,
+          "mean": 0.007021650087770626,
+          "min": 0.007021650087770626
+        },
+        "mean_questions": {
+          "max": 8.793,
+          "mean": 8.793,
+          "min": 8.793
+        },
+        "mean_retractions": {
+          "max": 0.2975,
+          "mean": 0.2975,
+          "min": 0.2975
+        },
+        "wrong": {
+          "max": 198,
+          "mean": 198.0,
+          "min": 198
+        }
+      },
+      "backend": "retract",
+      "margin": 1.0,
+      "n_noise_seeds": 1,
+      "oracle_noise": 0.0,
+      "per_seed": [
+        {
+          "auc": 0.6743217130252414,
+          "expert_calls": 105,
+          "false_positive_calls": 12,
+          "in_pool": 1709,
+          "in_pool_fail": 12,
+          "in_pool_fail_rate": 0.007021650087770626,
+          "mean_questions": 8.793,
+          "mean_retractions": 0.2975,
+          "won": 1697,
+          "wrong": 198
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.6753936007031816,
+          "mean": 0.6748066817745157,
+          "min": 0.6742197628458498
+        },
+        "expert_calls": {
+          "max": 211,
+          "mean": 211.0,
+          "min": 211
+        },
+        "false_positive_calls": {
+          "max": 112,
+          "mean": 110.5,
+          "min": 109
+        },
+        "in_pool_fail_rate": {
+          "max": 0.06492753623188406,
+          "mean": 0.06421896442079192,
+          "min": 0.06351039260969978
+        },
+        "mean_questions": {
+          "max": 9.015,
+          "mean": 9.00125,
+          "min": 8.9875
+        },
+        "mean_retractions": {
+          "max": 1.1175,
+          "mean": 0.9035,
+          "min": 0.6895
+        },
+        "wrong": {
+          "max": 176,
+          "mean": 171.5,
+          "min": 167
+        }
+      },
+      "backend": "retract",
+      "margin": 1.0,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.05,
+      "per_seed": [
+        {
+          "auc": 0.6753936007031816,
+          "expert_calls": 211,
+          "false_positive_calls": 109,
+          "in_pool": 1732,
+          "in_pool_fail": 110,
+          "in_pool_fail_rate": 0.06351039260969978,
+          "mean_questions": 8.9875,
+          "mean_retractions": 1.1175,
+          "won": 1622,
+          "wrong": 167
+        },
+        {
+          "auc": 0.6742197628458498,
+          "expert_calls": 211,
+          "false_positive_calls": 112,
+          "in_pool": 1725,
+          "in_pool_fail": 112,
+          "in_pool_fail_rate": 0.06492753623188406,
+          "mean_questions": 9.015,
+          "mean_retractions": 0.6895,
+          "won": 1613,
+          "wrong": 176
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.7059514941947476,
+          "mean": 0.6999013896184125,
+          "min": 0.6938512850420774
+        },
+        "expert_calls": {
+          "max": 304,
+          "mean": 303.0,
+          "min": 302
+        },
+        "false_positive_calls": {
+          "max": 195,
+          "mean": 192.0,
+          "min": 189
+        },
+        "in_pool_fail_rate": {
+          "max": 0.11269208878770631,
+          "mean": 0.11066279682381314,
+          "min": 0.10863350485991996
+        },
+        "mean_questions": {
+          "max": 9.1955,
+          "mean": 9.152999999999999,
+          "min": 9.1105
+        },
+        "mean_retractions": {
+          "max": 2.0965,
+          "mean": 1.78625,
+          "min": 1.476
+        },
+        "wrong": {
+          "max": 139,
+          "mean": 138.0,
+          "min": 137
+        }
+      },
+      "backend": "retract",
+      "margin": 1.0,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.1,
+      "per_seed": [
+        {
+          "auc": 0.6938512850420774,
+          "expert_calls": 304,
+          "false_positive_calls": 195,
+          "in_pool": 1757,
+          "in_pool_fail": 198,
+          "in_pool_fail_rate": 0.11269208878770631,
+          "mean_questions": 9.1955,
+          "mean_retractions": 2.0965,
+          "won": 1559,
+          "wrong": 137
+        },
+        {
+          "auc": 0.7059514941947476,
+          "expert_calls": 302,
+          "false_positive_calls": 189,
+          "in_pool": 1749,
+          "in_pool_fail": 190,
+          "in_pool_fail_rate": 0.10863350485991996,
+          "mean_questions": 9.1105,
+          "mean_retractions": 1.476,
+          "won": 1559,
+          "wrong": 139
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.6496176964554052,
+          "mean": 0.6496176964554052,
+          "min": 0.6496176964554052
+        },
+        "expert_calls": {
+          "max": 98,
+          "mean": 98.0,
+          "min": 98
+        },
+        "false_positive_calls": {
+          "max": 12,
+          "mean": 12.0,
+          "min": 12
+        },
+        "in_pool_fail_rate": {
+          "max": 0.007159904534606206,
+          "mean": 0.007159904534606206,
+          "min": 0.007159904534606206
+        },
+        "mean_questions": {
+          "max": 8.8455,
+          "mean": 8.8455,
+          "min": 8.8455
+        },
+        "mean_retractions": {
+          "max": 0.485,
+          "mean": 0.485,
+          "min": 0.485
+        },
+        "wrong": {
+          "max": 238,
+          "mean": 238.0,
+          "min": 238
+        }
+      },
+      "backend": "retract",
+      "margin": 2.0,
+      "n_noise_seeds": 1,
+      "oracle_noise": 0.0,
+      "per_seed": [
+        {
+          "auc": 0.6496176964554052,
+          "expert_calls": 98,
+          "false_positive_calls": 12,
+          "in_pool": 1676,
+          "in_pool_fail": 12,
+          "in_pool_fail_rate": 0.007159904534606206,
+          "mean_questions": 8.8455,
+          "mean_retractions": 0.485,
+          "won": 1664,
+          "wrong": 238
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.6491358361984874,
+          "mean": 0.6476316671682605,
+          "min": 0.6461274981380337
+        },
+        "expert_calls": {
+          "max": 209,
+          "mean": 204.0,
+          "min": 199
+        },
+        "false_positive_calls": {
+          "max": 116,
+          "mean": 110.0,
+          "min": 104
+        },
+        "in_pool_fail_rate": {
+          "max": 0.06851742468989959,
+          "mean": 0.06491908970344036,
+          "min": 0.06132075471698113
+        },
+        "mean_questions": {
+          "max": 9.181,
+          "mean": 9.168,
+          "min": 9.155
+        },
+        "mean_retractions": {
+          "max": 1.281,
+          "mean": 1.2665,
+          "min": 1.252
+        },
+        "wrong": {
+          "max": 214,
+          "mean": 211.5,
+          "min": 209
+        }
+      },
+      "backend": "retract",
+      "margin": 2.0,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.05,
+      "per_seed": [
+        {
+          "auc": 0.6461274981380337,
+          "expert_calls": 199,
+          "false_positive_calls": 104,
+          "in_pool": 1696,
+          "in_pool_fail": 104,
+          "in_pool_fail_rate": 0.06132075471698113,
+          "mean_questions": 9.155,
+          "mean_retractions": 1.281,
+          "won": 1592,
+          "wrong": 209
+        },
+        {
+          "auc": 0.6491358361984874,
+          "expert_calls": 209,
+          "false_positive_calls": 116,
+          "in_pool": 1693,
+          "in_pool_fail": 116,
+          "in_pool_fail_rate": 0.06851742468989959,
+          "mean_questions": 9.181,
+          "mean_retractions": 1.252,
+          "won": 1577,
+          "wrong": 214
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.6822572332126472,
+          "mean": 0.6813103026528352,
+          "min": 0.6803633720930232
+        },
+        "expert_calls": {
+          "max": 294,
+          "mean": 293.0,
+          "min": 292
+        },
+        "false_positive_calls": {
+          "max": 193,
+          "mean": 189.5,
+          "min": 186
+        },
+        "in_pool_fail_rate": {
+          "max": 0.1117544875506659,
+          "mean": 0.10994701121719341,
+          "min": 0.10813953488372093
+        },
+        "mean_questions": {
+          "max": 9.515,
+          "mean": 9.342500000000001,
+          "min": 9.17
+        },
+        "mean_retractions": {
+          "max": 2.654,
+          "mean": 2.246,
+          "min": 1.838
+        },
+        "wrong": {
+          "max": 174,
+          "mean": 173.0,
+          "min": 172
+        }
+      },
+      "backend": "retract",
+      "margin": 2.0,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.1,
+      "per_seed": [
+        {
+          "auc": 0.6803633720930232,
+          "expert_calls": 292,
+          "false_positive_calls": 186,
+          "in_pool": 1720,
+          "in_pool_fail": 186,
+          "in_pool_fail_rate": 0.10813953488372093,
+          "mean_questions": 9.515,
+          "mean_retractions": 2.654,
+          "won": 1534,
+          "wrong": 174
+        },
+        {
+          "auc": 0.6822572332126472,
+          "expert_calls": 294,
+          "false_positive_calls": 193,
+          "in_pool": 1727,
+          "in_pool_fail": 193,
+          "in_pool_fail_rate": 0.1117544875506659,
+          "mean_questions": 9.17,
+          "mean_retractions": 1.838,
+          "won": 1534,
+          "wrong": 172
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.525134854354861,
+          "mean": 0.525134854354861,
+          "min": 0.525134854354861
+        },
+        "expert_calls": {
+          "max": 50,
+          "mean": 50.0,
+          "min": 50
+        },
+        "false_positive_calls": {
+          "max": 10,
+          "mean": 10.0,
+          "min": 10
+        },
+        "in_pool_fail_rate": {
+          "max": 0.007027406886858749,
+          "mean": 0.007027406886858749,
+          "min": 0.007027406886858749
+        },
+        "mean_questions": {
+          "max": 10.1975,
+          "mean": 10.1975,
+          "min": 10.1975
+        },
+        "mean_retractions": {
+          "max": 0.6125,
+          "mean": 0.6125,
+          "min": 0.6125
+        },
+        "wrong": {
+          "max": 537,
+          "mean": 537.0,
+          "min": 537
+        }
+      },
+      "backend": "retract",
+      "margin": 4.0,
+      "n_noise_seeds": 1,
+      "oracle_noise": 0.0,
+      "per_seed": [
+        {
+          "auc": 0.525134854354861,
+          "expert_calls": 50,
+          "false_positive_calls": 10,
+          "in_pool": 1423,
+          "in_pool_fail": 10,
+          "in_pool_fail_rate": 0.007027406886858749,
+          "mean_questions": 10.1975,
+          "mean_retractions": 0.6125,
+          "won": 1413,
+          "wrong": 537
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.5823063145809414,
+          "mean": 0.5720036956084245,
+          "min": 0.5617010766359075
+        },
+        "expert_calls": {
+          "max": 99,
+          "mean": 84.0,
+          "min": 69
+        },
+        "false_positive_calls": {
+          "max": 16,
+          "mean": 15.5,
+          "min": 15
+        },
+        "in_pool_fail_rate": {
+          "max": 0.020895522388059702,
+          "mean": 0.019725428523387042,
+          "min": 0.01855533465871438
+        },
+        "mean_questions": {
+          "max": 10.2465,
+          "mean": 9.9665,
+          "min": 9.6865
+        },
+        "mean_retractions": {
+          "max": 10.731,
+          "mean": 6.56325,
+          "min": 2.3955
+        },
+        "wrong": {
+          "max": 450,
+          "mean": 355.5,
+          "min": 261
+        }
+      },
+      "backend": "retract",
+      "margin": 4.0,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.05,
+      "per_seed": [
+        {
+          "auc": 0.5617010766359075,
+          "expert_calls": 69,
+          "false_positive_calls": 16,
+          "in_pool": 1509,
+          "in_pool_fail": 28,
+          "in_pool_fail_rate": 0.01855533465871438,
+          "mean_questions": 10.2465,
+          "mean_retractions": 2.3955,
+          "won": 1481,
+          "wrong": 450
+        },
+        {
+          "auc": 0.5823063145809414,
+          "expert_calls": 99,
+          "false_positive_calls": 15,
+          "in_pool": 1675,
+          "in_pool_fail": 35,
+          "in_pool_fail_rate": 0.020895522388059702,
+          "mean_questions": 9.6865,
+          "mean_retractions": 10.731,
+          "won": 1640,
+          "wrong": 261
+        }
+      ]
+    },
+    {
+      "agg": {
+        "auc": {
+          "max": 0.5876950061648981,
+          "mean": 0.5631902969319266,
+          "min": 0.538685587698955
+        },
+        "expert_calls": {
+          "max": 103,
+          "mean": 93.5,
+          "min": 84
+        },
+        "false_positive_calls": {
+          "max": 27,
+          "mean": 24.5,
+          "min": 22
+        },
+        "in_pool_fail_rate": {
+          "max": 0.027059530968129887,
+          "mean": 0.026897047470061122,
+          "min": 0.02673456397199236
+        },
+        "mean_questions": {
+          "max": 10.096,
+          "mean": 10.045,
+          "min": 9.994
+        },
+        "mean_retractions": {
+          "max": 8.9735,
+          "mean": 6.69225,
+          "min": 4.411
+        },
+        "wrong": {
+          "max": 387,
+          "mean": 333.0,
+          "min": 279
+        }
+      },
+      "backend": "retract",
+      "margin": 4.0,
+      "n_noise_seeds": 2,
+      "oracle_noise": 0.1,
+      "per_seed": [
+        {
+          "auc": 0.538685587698955,
+          "expert_calls": 84,
+          "false_positive_calls": 27,
+          "in_pool": 1571,
+          "in_pool_fail": 42,
+          "in_pool_fail_rate": 0.02673456397199236,
+          "mean_questions": 9.994,
+          "mean_retractions": 4.411,
+          "won": 1529,
+          "wrong": 387
+        },
+        {
+          "auc": 0.5876950061648981,
+          "expert_calls": 103,
+          "false_positive_calls": 22,
+          "in_pool": 1663,
+          "in_pool_fail": 45,
+          "in_pool_fail_rate": 0.027059530968129887,
+          "mean_questions": 10.096,
+          "mean_retractions": 8.9735,
+          "won": 1618,
+          "wrong": 279
+        }
+      ]
+    }
+  ],
+  "config": {
+    "backends": [
+      "soft",
+      "hard",
+      "retract"
+    ],
+    "confidence": 0.9,
+    "eps": 0.05,
+    "games": 2000,
+    "levels": [
+      0.0,
+      0.05,
+      0.1
+    ],
+    "margins": [
+      1.0,
+      2.0,
+      4.0
+    ],
+    "matrix": "matrix_jev.json",
+    "n_noise_seeds": 2,
+    "seed": 7,
+    "zipf_s": 1.1
+  },
+  "created": "20261108_182642",
+  "pitman_yor_fit": {
+    "sigma": 0.2,
+    "theta": 20.0
+  },
+  "schema": "twenty_questions_openworld_retraction_v1"
+}
