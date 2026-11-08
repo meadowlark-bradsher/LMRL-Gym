@@ -1,0 +1,89 @@
+{
+ "n": 80,
+ "confusion": {
+  "no_sale->no_sale": 59,
+  "sale->sale": 12,
+  "sale->unclear": 1,
+  "no_sale->sale": 5,
+  "unclear->sale": 1,
+  "no_sale->unclear": 2
+ },
+ "false_sales": 5,
+ "n_labelled_no_sale": 66,
+ "missed_sales": 0,
+ "n_labelled_sale": 13,
+ "n_gold_decided": 79,
+ "n_both_decided": 76,
+ "accuracy": 0.9342105263157895,
+ "scorer_unclear_rate": 0.03797468354430378,
+ "discount_agreement": 1.0,
+ "price_exact": 12,
+ "n_priced": 13,
+ "sale_gate": true,
+ "discount_gate": true,
+ "outcome_errors": [
+  {
+   "index": 13,
+   "id": "A-20261108",
+   "gold": "sale",
+   "scorer": "unclear"
+  },
+  {
+   "index": 22,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "sale"
+  },
+  {
+   "index": 24,
+   "id": "A-20261108",
+   "gold": "unclear",
+   "scorer": "sale"
+  },
+  {
+   "index": 37,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "unclear"
+  },
+  {
+   "index": 38,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "unclear"
+  },
+  {
+   "index": 39,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "sale"
+  },
+  {
+   "index": 51,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "sale"
+  },
+  {
+   "index": 62,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "sale"
+  },
+  {
+   "index": 72,
+   "id": "A-20261108",
+   "gold": "no_sale",
+   "scorer": "sale"
+  }
+ ],
+ "discount_errors": [],
+ "price_errors": [
+  {
+   "index": 13,
+   "id": "A-20261108",
+   "gold": 8000,
+   "scorer": null
+  }
+ ]
+}

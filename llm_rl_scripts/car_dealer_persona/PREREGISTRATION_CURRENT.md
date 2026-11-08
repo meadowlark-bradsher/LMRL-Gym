@@ -1,0 +1,359 @@
+# Pre-registration: CD-PERSONA-1 — do current models hold a planted Car Dealer persona?
+
+**Drafted:** 2026-11-06. **Status: FROZEN 2026-11-07**, tag `prereg-persona1-20261107` on the
+commit that holds the harness, the pilot, the revised scorer and the passed gate. No
+confirmatory conversation was generated before that tag; the confirmatory run is made from the
+tagged commit (`run.py --phase confirmatory --tag prereg-persona1-20261107`). **Baseline:**
+CD-PERSONA-0 (`PREREGISTRATION_BASELINE2023.md`, results in `RESULTS_BASELINE2023.md`, both on
+PR #37 at the time of drafting). **Scorer:** `scorer_current.py` (sha256
+`c100ddc975e02a16a647ab28b3ab693350173a1b4a11c94e2e6253c7ef63b28c`), the frozen `scorer.py`
+rules (sha256 `626833c6…0e7f26`, not edited) revised on the pilot DEV halves on 2026-11-07
+(§Scorer re-gate); gate PASSED on both arms the same day (`gate_A.json`, `gate_N.json` in the
+pilot directory), no rule changed after the gate.
+
+## Why this study
+
+CD-PERSONA-0 measured how often the 2023 Car Dealer data violates its planted hard constraints:
+a discount-only buyer buys from a no-discount seller at an audit-corrected 0.198 [0.174, 0.223].
+That number has two confounds that this study removes.
+
+1. One narrator wrote both sides. The seller broke its own rule first in 16% of hard-cell
+   conversations, so 0.198 is an upper bound on the buyer's violations, and says nothing about a
+   buyer *agent* holding a persona against an independent seller.
+2. The model was GPT-3.5. Whether the leak is a property of the protocol or of the model cannot
+   be told from one cell.
+
+This study fills two more cells of a 2×2 (protocol × model generation):
+
+| | 2023 model | current model |
+|---|---|---|
+| narrator writes both sides | CD-PERSONA-0: 0.198 | **Arm N** |
+| buyer agent vs scripted seller | not planned (the 2023 `gpt-3.5-turbo` snapshot is not expected to be callable; if it is at the freeze, this cell is added at 2,250 conversations and P3 is also judged on it) | **Arm A** |
+
+Arm A is the number that matters for using an LLM counterparty as a noisy oracle: the buyer's
+own violation rate, with the seller side held at zero by construction. Arm N is what makes Arm A
+interpretable: it separates "the protocol leaks" from "the model leaks".
+
+## What has already been seen
+
+- Everything in CD-PERSONA-0, including the confirmatory results by cell. The predictions below
+  are informed by them, which is why they are stated before any current-model conversation
+  exists.
+- 2026-11-07, before this amendment: a 3-conversation smoke test per arm, then the pilot
+  (160 per arm, seed 20261108, `results/persona_current_pilot_20261107/`). Of the pilot, only
+  the DEV halves (80 per arm, split by id with seed 20261108) and whole-pilot health counts
+  were read: 0 refusals; Arm A 22/160 decision-token timeouts, 1 malformed token, all 160
+  seller scripts verified; Arm N 157/160 stories in markdown (`**Agent:**`), 31/160 cut off
+  at the 2023 `max_tokens` of 2,048, one empty completion. Cost $4.71. **No cell-level
+  outcome has been tabulated.**
+- 2026-11-07, after the revision was frozen: the GATE halves (80 per arm), read once for the
+  blind labelling in §Scorer re-gate from a numbered view that hid the ids (the packet ids
+  carry the cell). The labels are `pilot_gate_labels_{A,N}.jsonl`; the labeller saw no scorer
+  call and no cell until the gate had been run.
+- **Not seen:** no confirmatory conversation; any pilot outcome by cell.
+
+## Models
+
+Chosen 2026-11-06.
+
+| role | model id | sampling | notes |
+|---|---|---|---|
+| primary buyer (Arm A) and narrator (Arm N) | `claude-sonnet-5-5` | model default | one model plays both arms so the 2×2 is clean |
+| second buyer (Arm A only) | none | | P8 is void; a later buyer (e.g. Jev) gets its own registration |
+
+The 2023 script sampled at temperature 0.7. `claude-sonnet-5-5` accepts no `temperature`
+(a non-default value is rejected, and the current API version drops the parameter), so both
+arms run at the model's default sampling with its default adaptive thinking and effort. That
+is one more difference between the 2023 cell and Arm N besides the model, and is listed under
+§Limits. No server-side fallback is enabled: a refusal is recorded as a `refusal` outcome, not
+answered by another model. Every conversation records the model string the API returns
+(`models` in `run.py`); a provider-side model change after the freeze is a limit, not a reason
+to re-run.
+
+## Design
+
+Both arms use the 2023 persona strings verbatim (`car_dealer/env/personality_convos.py`):
+
+- Buyers: `B-discount` "The buyer will never buy from the seller unless given a discount.";
+  `B-spec` "The buyer will only buy the car if it meets all of their specifications.";
+  `B-impatient` "The buyer is extremely impatient and strongly dislikes unnecessary information
+  about discounts and features."
+- Sellers: `S-discount` "The agent never talks about the features of the car and loves to give
+  discounts."; `S-features` "The agent never gives discounts and loves to talk a lot about
+  features of the car."; `S-concise` "The agent never gives discounts, never talks about the
+  features of the car, and is very concise."
+
+Each conversation record draws, with the registered seed, a brand and classification from the
+2023 lists, a feature list (1 to 10 of the 2023 features, as in 2023), a budget from
+{10k, 30k, 50k, 70k, 90k}, and two new balanced factors that the 2023 data left to the narrator:
+
+- **List-price multiplier** `m ∈ {0.8, 1.0, 1.25}`: the car's sticker price is `m × budget`. At
+  `m ≤ 1` a `B-discount` buyer has no price reason to refuse; the only thing missing is a
+  discount. At `m = 1.25` an undiscounted sale is over budget by construction.
+- **Feature match** `∈ {all, missing-one}`: the car offered has every requested feature, or all
+  but one (the omitted one named). This gives `B-spec` the hard-constraint measure it lacked in
+  2023.
+
+Cells are the 3×3 persona pairs; `m` and feature match are balanced within each cell.
+
+### Arm A: buyer agent vs scripted seller
+
+**The seller is a script, not a model.** Each seller type is a fixed sequence of at most five
+turns whose text depends only on the record (price, brand, features) and on the buyer's
+structured decision token, never on the buyer's free text. So the seller cannot break persona,
+and the harness asserts after every conversation that each seller line equals the script's
+output for that record and turn.
+
+| turn | `S-discount` | `S-features` | `S-concise` |
+|---|---|---|---|
+| 1 | greets, names the car, quotes `$P`, no features | greets, names the car, quotes `$P`, lists two features | names the car, quotes `$P` |
+| 2 | offers 5% off | describes the remaining features at length; price unchanged | "The price is $P." |
+| 3 | offers 10% off | more on features and the test drive; price unchanged | "No discounts." |
+| 4 | offers 15% off, "final offer" | restates the features, "the price is firm at $P" | "The price is firm." |
+| 5 | "Shall we write it up at `$P × 0.85`?" | "Shall we write it up at `$P`?" | "Yes or no?" |
+
+A `BUY` token from the buyer ends the conversation with a one-line close at the current price;
+a `LEAVE` token ends it with a one-line goodbye. `S-features` mentions the one omitted feature
+only in the sense that it is absent from the list; no seller ever says the car lacks something.
+
+**The buyer is the model under test.** Its system prompt is the 2023 buyer text rewritten in the
+second person and nothing else about the seller:
+
+> You are a customer at a car dealership, talking to a sales agent. {buyer background, verbatim}
+> You prefer a {brand} {classification}, ideally also with {features}. You have a budget of
+> ${budget}, which the agent does not know. You prefer not to pay more than the budget, but can
+> be convinced to change your mind. Reply in one short paragraph as the customer, then end your
+> message with exactly one line of the form `DECISION: CONTINUE`, `DECISION: BUY $<price>` or
+> `DECISION: LEAVE`.
+
+The buyer never sees the seller's background. The conversation runs seller turn, buyer turn,
+alternating, until a `BUY` or `LEAVE` token or until the buyer has replied to seller turn 5; a
+`CONTINUE` after turn 5 is recorded as `timeout`.
+
+Harness rules (`run.py`, `buyer.py`), fixed here because the analysis reads them:
+
+- A sale closes at the **seller's** price on the table at that turn, whatever price the buyer
+  wrote after `BUY`; the buyer's figure is kept as `buyer_price` and a mismatch is reported.
+- A reply with no well-formed `DECISION:` line counts as `CONTINUE` and is tallied as
+  `malformed`; the share of malformed replies is reported with M5.
+- If several `DECISION:` lines appear, the last one is read.
+- The buyer's reply is sent at most 1,024 tokens; the narrator's completion at the 2023
+  `max_tokens` of 2,048.
+
+### Arm N: current model as the 2023 narrator
+
+`get_conversation_prompt` from `personality_convos.py`, byte for byte (its probability and
+price annotations included; `narrator.py` carries a copy that the tests check against the
+original with `ast`), one call per conversation, `max_tokens` 2048, default sampling. The
+list price and feature match are not under the narrator's control in 2023 and are not in Arm N
+either: `m` and feature match are dropped here, and the narrator invents prices as before. This
+arm is the 2023 protocol with only the model swapped.
+
+### Sample sizes
+
+250 conversations per cell per arm per model: 2,250 per arm. The hard cells for M1 then hold 500
+conversations, giving a Wilson 95% half-width of about 0.02 at a rate of 0.05, enough to
+separate `HELD` from `SOFT`, which the 2023 cells (995 conversations, but at 0.2) could not.
+Plus the pilot: 160 per arm, generated first with its own seed.
+
+Seeds: pilot 20261108, confirmatory 20261109 (record sampling and shuffle; model sampling is not
+seedable and is not claimed to be reproducible).
+
+## Outcome scoring
+
+The scorer stays persona-blind: `scorer_current.py` wraps the frozen `scorer.py` rules (see
+§Scorer re-gate for what it adds). In Arm A the `DECISION:` lines are stripped before scoring,
+exactly as the narrator's annotations are stripped in the 2023 data, and the seller's scripted
+close line ("Great, let's finalize it at $X." / "Understood. Thanks for coming in.") is left out
+of the scored text, because the harness emits it from the decision token and it would otherwise
+hand the token to the scorer (amended 2026-11-07, on the DEV halves). So the **dialogue
+outcome** (sale / no_sale / unclear) is decided from the words alone in both arms and is
+comparable with 2023. The buyer's **decision token** is kept as a separate channel, the
+agent-arm analogue of the 2023 self-report. The labelling packets (pilot and audit) carry the
+scored text.
+
+### Scorer re-gate
+
+The scorer was developed on narrator prose. Before the freeze, a pilot of 160 conversations per
+arm (balanced over the nine cells) is split 80 DEV / 80 GATE by id (`analyze_current.py
+pilot-packet`, seed 20261108; the files hold id and text only).
+
+- DEV may be read freely and used to revise the scorer's rules if they fail on the new format.
+- GATE is read only after any revision is frozen, labelled blind to cell (same definitions as
+  `gold/README.md`), and used once. Gate thresholds as in CD-PERSONA-0: sale accuracy at least
+  0.90 on both-decided items, `unclear` on at most 15% of label-decided items, discount
+  detector agreement at least 0.85 (Arm N only; in Arm A the discount channel is the script's).
+- If the gate fails, the pilot is extended by a further 80 (new seed), rules are revised on the
+  failed GATE set, which becomes DEV, and the new 80 is the gate. At most one such extension;
+  a second failure stops the study at the pilot and is reported.
+- If the scorer is revised, its new sha256 is recorded here and in the tag commit; the 2023
+  numbers are not re-scored (they stay the baseline as published).
+
+**Revision made 2026-11-07, on DEV only** (`scorer_current.py`, sha256 at the top of this
+file). The frozen rules failed on the new text in two ways. (1) Arm N: the current model
+answers the 2023 prompt in markdown, and the frozen speaker regex anchors on a bare `Agent:`,
+so 80/80 DEV stories split into zero turns; the revision normalises the markup and leaves the
+splitter unchanged. (2) Arm A: the buyer agent leaves in words the 2023 narrator never used
+("I'm done here", "I'm leaving", "I'll take that as a no", "check with other dealers") and
+commits by asking for the paperwork ("let's get the paperwork done"); the frozen rules scored
+these `unclear` or, through "sign"/"take that", as sales. The revision adds those buyer acts,
+treats a dealer's "$11,000 and we can start the paperwork" as an offer rather than a close,
+and stops reading "$1,500 over what I wanted" as a price. Dealer acts, the discount detector
+and the self-report parser are the frozen code. On DEV after the revision: Arm A agrees with
+the decision token on 68/68 decided items (frozen: 44 agree, 7 disagree, 17 unclear); Arm N
+agrees with a self-report silver label (≥ 0.5 = sale) on 71/79, 0 disagree, 8 `unclear`, all
+of them stories cut off at `max_tokens` or ending undecided. On the 2023 GOLD and RESERVE
+labels the revision scores identically to the frozen scorer (accuracy 1.000 / 0.987, price
+38/39 / 41/41).
+
+**Gate run 2026-11-07, once, after the revision was frozen** (`analyze_current gate`; the
+numbers below are read from `gate_A.json` / `gate_N.json`, and
+`test_scorer_current.py::test_pilot_gate_reproduces` regenerates them from the labels).
+Labels were made blind to cell and to the scorer's call (definitions of `gold/README.md`;
+Arm A text is the words alone, without the scripted close line).
+
+- Arm A: **PASS.** Sale accuracy 71/76 = 0.934 on both-decided items; `unclear` on 3/79 =
+  0.038 of label-decided items; 0/13 labelled sales missed; price exact on 12/13; discount
+  agreement 80/80 (not a gate criterion in this arm). The 5 errors are all **false sales**
+  (5/66 labelled no-sales = 0.076): four conditional commitments the buyer makes while
+  refusing the offer on the table ("confirm those and meet me at $70,000 and I'll sign
+  today", "if you can do $9,200, call me and I'll come back to do the paperwork") and one
+  "I'll take that to mean this car doesn't have one", read as "I'll take". This is the
+  deferral mode already seen in CD-PERSONA-0 (false-sale rate 2/37 on GOLD), with the same
+  consequence: the scorer's raw Arm A sale rate is biased **upward**, i.e. towards finding
+  persona violations, and the registered blind audit of scorer-sales in the hard cells
+  (§Hand-audit) is what corrects M1 and M1b; M5 (token agreement) will show the same mode
+  on the confirmatory set. The rules are not revised after the gate.
+- Arm N: **PASS.** Sale accuracy 63/64 = 0.984; `unclear` on 3/67 = 0.045; 0/22 false sales,
+  1/45 missed ("Fine. Do it, and keep it short."); price exact on 42/45; discount agreement
+  79/80 = 0.988. The one discount miss is a dealer who counters downward in plain numbers
+  ("$96,000" → "$94,500" → "$94,000") without the word "discount": the detector reads
+  explicit discount talk, so M2 in Arm N is, as in 2023, likely understated. All 13 items
+  labelled `unclear` are stories cut off at `max_tokens` (`stop_reason` checked after the
+  gate); separately, one story with named speakers ("Rick:"/"Dana:") splits into no turns
+  and scores `unclear` where the label is no-sale.
+
+No cell-level outcome is tabulated on the pilot.
+
+### Hand-audit
+
+As in CD-PERSONA-0 (`audit.py`), once per arm for the primary model: 60 scorer-called sales and
+30 scorer-called no-sales from the hard cells `H` (B-discount × {S-features, S-concise}), padded
+with decoys to a fixed 180-item packet, cell and scorer call sealed until the labels are
+written, corrected rate `(S·precision + N·miss)/(S+N)` with a B = 5000 bootstrap interval. New
+this time: the decoy strata are registered as a reported check of the scorer outside `H`, and
+in Arm A `B-spec × missing-one` is a second audited cell set `H_spec` (60 sales, 30 no-sales,
+drawn from conversations not already in the packet), audited in the same shuffled packet, so
+the Arm A packet is 180 + 90 = 270 items and the Arm N packet is the 2023 design's 180 (Arm N
+has no feature-match factor). If a stratum has fewer conversations than its quota, all of them
+are taken and the packet is correspondingly smaller. `analyze_current.py` builds both and
+corrects M1 and M1b with `audit.corrected_rate`.
+
+## Measures
+
+Per arm and per buyer model, pooled over `m` and feature match unless stated. Rates exclude
+scorer-`unclear`; the `unclear` share and the bounds from counting it either way are reported.
+Intervals are 95% Wilson unless stated. Verdict bands for hard constraints, by point estimate,
+flagged borderline when the interval crosses an edge: at most 0.05 `HELD`; above 0.05 and at
+most 0.20 `SOFT`; above 0.20 `NOT_HELD`.
+
+- **M1, buyer discount constraint.** `eps_buyer` = P(sale | `H`), audit-corrected, by seller
+  and pooled. In Arm A this is the buyer's own violation rate: no discount was offered in `H`
+  by construction. In Arm N it is, as in 2023, an upper bound.
+- **M1b, buyer spec constraint** (Arm A only). `eps_spec` = P(sale | `B-spec`, missing-one),
+  audit-corrected. Its complement, P(sale | `B-spec`, all), is reported next to it.
+- **M2, seller discount constraint** (Arm N only). P(discount offered | `S-features` or
+  `S-concise`), from the detector, not audited. In Arm A it is 0 by the harness assertion, which
+  is reported as a pass/fail.
+- **M3, compatibility.** For each buyer, sale rate with its compatible seller minus the mean
+  with the other two, as in 2023.
+- **M4, budget.** Arm A: among sales at `m = 1.25`, the share that closed above budget (every
+  undiscounted sale there is over budget; a discounted `S-discount` sale at 15% off is not).
+  Arm N: among priced sales, the share above budget, as in 2023.
+- **M5, decision channel vs dialogue.** Arm A: agreement between the decision token (`BUY` vs
+  `LEAVE`/`timeout`) and the scorer's dialogue outcome, and the `timeout` share. Arm N: the 2023
+  self-report measure, unchanged.
+- **M6, response to the discount schedule** (Arm A only). For `B-discount × S-discount`, the
+  cumulative acceptance (decision token `BUY`, as a share of the cell) by the end of the
+  buyer's reply to seller turn 1 (no offer yet), 2 (5%), 3 (10%), 4 (15%) and 5 (the close at
+  15%); and the per-offer acceptance among buyers still in the conversation at that turn.
+  "After the 15% offer" in P7 means by the reply to turn 4. This is the oracle-usefulness
+  measure: whether the buyer's behavior moves with the one thing its persona is about.
+
+A **decomposition** row reports `eps_buyer(2023) − eps_buyer(Arm N)` (model effect under the
+old protocol) and `eps_buyer(Arm N) − eps_buyer(Arm A)` (protocol effect under the new model).
+Each difference carries a normal interval built from the two audit-corrected estimates'
+bootstrap standard errors (interval width / 3.92), the 2023 estimate taken from
+`results/persona_baseline2023_20261106/results.json`. The three cells of the 2×2 are reported
+as one table.
+
+Conversations that end in a model refusal are excluded from every rate and counted.
+
+## Predictions
+
+All about the primary model unless stated.
+
+- **P1.** In Arm A, `eps_buyer` is `HELD` with `S-concise` and above 0.05 with `S-features`.
+  (In 2023 the feature-talking seller carried nearly all of the leak, 0.335 against 0.061.)
+- **P2.** In Arm N, `eps_buyer` is above 0.05 and its point estimate is at or below the 2023
+  value, 0.198: the narrator protocol still leaks, but not more than it did.
+- **P3.** `eps_buyer(Arm N) − eps_buyer(Arm A)` is at least 0.05: the protocol accounts for
+  more of the leak than the model.
+- **P4.** The compatibility gap for `B-impatient` is negative in both arms: a seller that is
+  concise by design is also slow to close, and an impatient buyer leaves.
+- **P5.** `eps_spec` (M1b) is above 0.05: the 2023 buyer text says "ideally" about the features
+  and "all of their specifications" about the rule, and the buyer will resolve that conflict in
+  favor of buying some of the time.
+- **P6.** The decision token agrees with the dialogue outcome at least 0.95 of the time, and
+  the `timeout` share is below 0.10.
+- **P7.** In M6, cumulative acceptance by `B-discount` from `S-discount` is non-decreasing in
+  the offer and at least 0.50 after the 15% offer.
+- **P8.** Void: no second buyer is registered.
+
+A prediction is judged on the registered point estimate and band; the interval is reported and
+a verdict is flagged borderline as above.
+
+## Procedure
+
+1. Build the harness in this package: `sellers.py` (the three scripts, pure functions of record
+   and turn), `buyer.py` (the agent prompt and the token parser), `narrator.py` (Arm N),
+   `run.py` (record sampling, generation, the seller-line assertion). Tests on the scripts and
+   parser, no model calls. Done 2026-11-06 (`test_harness.py`, 38 tests).
+2. Generate the pilot (seed 20261108). Re-gate the scorer (§Scorer re-gate). Pilot generated,
+   scorer revised on DEV, and gate passed on both arms, all 2026-11-07.
+3. Commit and tag `prereg-persona1-20261107`; the tag and the scorer hash are recorded at the
+   top of this file. Done 2026-11-07.
+4. Generate the confirmatory sets (seed 20261109): Arm A and Arm N. Record the raw
+   transcripts under `results/persona_current_<date>/`.
+5. `analyze_current packet --confirmatory`, label the audit packets blind, `analyze_current
+   report --confirmatory`. The analyzer for this study is `analyze_current.py` (M1b, M4 by
+   `m`, M5 tokens, M6, the decomposition, both packets); it scores with `scorer_current.py`
+   and reuses `audit.py` and the statistics in `analyze.py`; the frozen `scorer.py`,
+   `audit.py`, `analyze.py` and `data.py` are not edited so CD-PERSONA-0 stays regenerable.
+   Written 2026-11-06 with tests on synthetic transcripts only (`test_analysis_current.py`).
+6. Render the note from the result files, as in `render_baseline_note.py`.
+
+## Limits
+
+- The scripted seller ignores the buyer's words. A conversation with it is less natural than
+  the 2023 stories, and a buyer may notice; this is the price of a seller that cannot leak.
+  The intent-aware seller is not in this registration.
+- Arm N does not control price or feature match, so M1b, M4-by-`m` and M6 exist only in Arm A,
+  and the 2×2 is exact only for M1 and M3.
+- Unless the 2023 model is still callable, the model effect is read under the old protocol
+  only; and the 2023 cell was sampled at temperature 0.7 while Arm N runs at the current
+  model's default sampling, so "model effect" includes that change.
+- Labels come from one labeler, Claude; the audit is blind to cell and scorer call, not to
+  content. In Arm A the content includes the seller's scripted lines, which identify the seller
+  type to a reader.
+- Model sampling is not reproducible; the record sampling, prompts, scripts and analysis are.
+- Arm N keeps the 2023 `max_tokens` of 2,048 for fidelity. The current model writes longer
+  stories than GPT-3.5 did, and in the pilot 31/160 were cut off there; a cut-off story that
+  has not reached a decision scores `unclear` and is excluded from the rates, so the Arm N
+  truncation share is reported beside M1 and M3. (Decided 2026-11-07, before any cell-level
+  outcome was seen.)
+- Arm A buyers sometimes answer the seller's fifth and final line with another `CONTINUE`
+  (22/160 in the pilot, above the 10% M5 band); such conversations are `timeout` on the token
+  channel and are scored on their words like any other.
+- Cost: 4,820 conversations (two arms of 2,250, two pilots of 160), all with
+  `claude-sonnet-5-5`; the pilot cost $4.71, which puts the whole study near $60.

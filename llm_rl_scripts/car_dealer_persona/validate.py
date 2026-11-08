@@ -41,8 +41,10 @@ def load_gold(path: str = GATE_PATH) -> list:
         return [json.loads(line) for line in f if line.strip()]
 
 
-def validate(gold: list) -> dict:
-    scored = [(g, s.score(g["original_conversation"])) for g in gold]
+def validate(gold: list, scorer=s) -> dict:
+    """``scorer`` is any module with ``score(text)``; the frozen ``scorer`` by default
+    (CD-PERSONA-0), ``scorer_current`` for the CD-PERSONA-1 re-gate."""
+    scored = [(g, scorer.score(g["original_conversation"])) for g in gold]
 
     confusion = {}
     for g, x in scored:

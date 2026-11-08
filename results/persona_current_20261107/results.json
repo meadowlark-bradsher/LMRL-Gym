@@ -1,0 +1,1553 @@
+{
+ "A": {
+  "arm": "A",
+  "n": 2250,
+  "refusals": 0,
+  "unclear": 67,
+  "M1_cell": {
+   "k": 4,
+   "n": 497,
+   "rate": 0.008048289738430584,
+   "ci95": [
+    0.00313409522931493,
+    0.020509308194042876
+   ],
+   "unclear": 3,
+   "bounds_unclear": [
+    0.008,
+    0.014
+   ],
+   "band": "HELD",
+   "borderline": false,
+   "by_seller": {
+    "S-features": {
+     "k": 0,
+     "n": 249,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.01519370230215281
+     ],
+     "unclear": 1,
+     "bounds_unclear": [
+      0.0,
+      0.004
+     ]
+    },
+    "S-concise": {
+     "k": 4,
+     "n": 248,
+     "rate": 0.016129032258064516,
+     "ci95": [
+      0.0062895793272683825,
+      0.04073045231166657
+     ],
+     "unclear": 2,
+     "bounds_unclear": [
+      0.016,
+      0.024
+     ]
+    }
+   }
+  },
+  "M3": {
+   "cells": {
+    "B-discount": {
+     "S-discount": {
+      "k": 130,
+      "n": 240,
+      "rate": 0.5416666666666666,
+      "ci95": [
+       0.4784666302802626,
+       0.6035538289030761
+      ],
+      "unclear": 10,
+      "bounds_unclear": [
+       0.52,
+       0.56
+      ]
+     },
+     "S-features": {
+      "k": 0,
+      "n": 249,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.01519370230215281
+      ],
+      "unclear": 1,
+      "bounds_unclear": [
+       0.0,
+       0.004
+      ]
+     },
+     "S-concise": {
+      "k": 4,
+      "n": 248,
+      "rate": 0.016129032258064516,
+      "ci95": [
+       0.0062895793272683825,
+       0.04073045231166657
+      ],
+      "unclear": 2,
+      "bounds_unclear": [
+       0.016,
+       0.024
+      ]
+     }
+    },
+    "B-spec": {
+     "S-discount": {
+      "k": 7,
+      "n": 249,
+      "rate": 0.028112449799196786,
+      "ci95": [
+       0.013682878703249367,
+       0.05688145881083059
+      ],
+      "unclear": 1,
+      "bounds_unclear": [
+       0.028,
+       0.032
+      ]
+     },
+     "S-features": {
+      "k": 57,
+      "n": 216,
+      "rate": 0.2638888888888889,
+      "ci95": [
+       0.20960715090154183,
+       0.3264224267580094
+      ],
+      "unclear": 34,
+      "bounds_unclear": [
+       0.228,
+       0.364
+      ]
+     },
+     "S-concise": {
+      "k": 43,
+      "n": 246,
+      "rate": 0.17479674796747968,
+      "ci95": [
+       0.1324378307473825,
+       0.22715640816239083
+      ],
+      "unclear": 4,
+      "bounds_unclear": [
+       0.172,
+       0.188
+      ]
+     }
+    },
+    "B-impatient": {
+     "S-discount": {
+      "k": 20,
+      "n": 244,
+      "rate": 0.08196721311475409,
+      "ci95": [
+       0.053685411633140764,
+       0.1232082172007596
+      ],
+      "unclear": 6,
+      "bounds_unclear": [
+       0.08,
+       0.104
+      ]
+     },
+     "S-features": {
+      "k": 137,
+      "n": 246,
+      "rate": 0.556910569105691,
+      "ci95": [
+       0.49443192569303335,
+       0.6176390824977563
+      ],
+      "unclear": 4,
+      "bounds_unclear": [
+       0.548,
+       0.564
+      ]
+     },
+     "S-concise": {
+      "k": 31,
+      "n": 245,
+      "rate": 0.12653061224489795,
+      "ci95": [
+       0.09058946982061344,
+       0.17400294559545842
+      ],
+      "unclear": 5,
+      "bounds_unclear": [
+       0.124,
+       0.144
+      ]
+     }
+    }
+   },
+   "gaps": {
+    "B-discount": {
+     "compatible_seller": "S-discount",
+     "gap": 0.5336021505376344,
+     "ci95": [
+      0.4700778964465302,
+      0.5971264046287386
+     ]
+    },
+    "B-spec": {
+     "compatible_seller": "S-features",
+     "gap": 0.16243429000555065,
+     "ci95": [
+      0.09822124321250494,
+      0.22664733679859636
+     ]
+    },
+    "B-impatient": {
+     "compatible_seller": "S-concise",
+     "gap": -0.1929082788653246,
+     "ci95": [
+      -0.24761219435895648,
+      -0.13820436337169273
+     ]
+    }
+   }
+  },
+  "M1b_cell": {
+   "k": 32,
+   "n": 369,
+   "rate": 0.08672086720867209,
+   "ci95": [
+    0.06209695694413109,
+    0.11986127947583919
+   ],
+   "unclear": 5,
+   "bounds_unclear": [
+    0.0855614973262032,
+    0.09893048128342247
+   ],
+   "band": "SOFT",
+   "borderline": false,
+   "all_features": {
+    "k": 75,
+    "n": 342,
+    "rate": 0.21929824561403508,
+    "ci95": [
+     0.17869579832901947,
+     0.26613674928815556
+    ],
+    "unclear": 34,
+    "bounds_unclear": [
+     0.19946808510638298,
+     0.2898936170212766
+    ]
+   }
+  },
+  "M2": {
+   "by_construction": true,
+   "seller_ok_all": true,
+   "seller_violations": 0
+  },
+  "M4": {
+   "k": 17,
+   "n": 27,
+   "rate": 0.6296296296296297,
+   "ci95": [
+    0.442289046234463,
+    0.7846771293206314
+   ],
+   "sales_without_price": 0,
+   "price_matches_close": {
+    "k": 338,
+    "n": 429,
+    "rate": 0.7878787878787878,
+    "ci95": [
+     0.7467255889651765,
+     0.8239219643199052
+    ]
+   },
+   "by_multiplier": {
+    "0.8": {
+     "sale": {
+      "k": 198,
+      "n": 727,
+      "rate": 0.2723521320495186,
+      "ci95": [
+       0.24125125410489226,
+       0.30584622912540016
+      ],
+      "unclear": 22,
+      "bounds_unclear": [
+       0.2643524699599466,
+       0.2937249666221629
+      ]
+     },
+     "over_budget": {
+      "k": 0,
+      "n": 198,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.01903274647049964
+      ]
+     }
+    },
+    "1.0": {
+     "sale": {
+      "k": 204,
+      "n": 718,
+      "rate": 0.2841225626740947,
+      "ci95": [
+       0.25235053181027256,
+       0.31819236846036847
+      ],
+      "unclear": 33,
+      "bounds_unclear": [
+       0.27163781624500666,
+       0.3155792276964048
+      ]
+     },
+     "over_budget": {
+      "k": 0,
+      "n": 204,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.01848330651804066
+      ]
+     }
+    },
+    "1.25": {
+     "sale": {
+      "k": 27,
+      "n": 738,
+      "rate": 0.036585365853658534,
+      "ci95": [
+       0.025263494462294353,
+       0.05270678922090702
+      ],
+      "unclear": 12,
+      "bounds_unclear": [
+       0.036,
+       0.052
+      ]
+     },
+     "over_budget": {
+      "k": 17,
+      "n": 27,
+      "rate": 0.6296296296296297,
+      "ci95": [
+       0.442289046234463,
+       0.7846771293206314
+      ]
+     }
+    }
+   }
+  },
+  "M5": {
+   "k": 2094,
+   "n": 2183,
+   "rate": 0.9592304168575355,
+   "ci95": [
+    0.9500960046084348,
+    0.966751379308169
+   ],
+   "timeout": {
+    "k": 265,
+    "n": 2250,
+    "rate": 0.11777777777777777,
+    "ci95": [
+     0.10510525705533424,
+     0.13175326929363362
+    ]
+   },
+   "malformed_replies": {
+    "k": 2,
+    "n": 8323,
+    "rate": 0.00024029796948215788,
+    "ci95": [
+     6.589946470952722e-05,
+     0.0008758261470758583
+    ]
+   },
+   "disagreements": [
+    {
+     "id": "A-20261109-B-spec-S-features-0114",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0132",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0019",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0051",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0117",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0064",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-concise-0106",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0184",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0186",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0062",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0039",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-features-0226",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-concise-0132",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0239",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0021",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0138",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0054",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-concise-0108",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0025",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0214",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-features-0071",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0060",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0159",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-features-0096",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-features-0083",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-discount-0036",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0197",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-features-0087",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-discount-0163",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0171",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0049",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0128",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0220",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0142",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0110",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-discount-0115",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0233",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0175",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0223",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0043",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0042",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-features-0024",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0115",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0119",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-discount-0227",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0215",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0121",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0241",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0104",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0080",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0001",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0130",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0116",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0160",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-discount-0139",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0170",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0242",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-features-0099",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0086",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0063",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0039",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0013",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0000",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-spec-S-discount-0210",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0149",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0158",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0167",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-concise-0143",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0178",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0174",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-features-0140",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0155",
+     "scorer": "no_sale",
+     "token": "sale"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-concise-0223",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0166",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0162",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0247",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0018",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-discount-0194",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-impatient-S-discount-0059",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0224",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0183",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0143",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0026",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0105",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-spec-S-concise-0037",
+     "scorer": "sale",
+     "token": "no_sale"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0227",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0137",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0017",
+     "scorer": "sale",
+     "token": "timeout"
+    },
+    {
+     "id": "A-20261109-B-discount-S-discount-0048",
+     "scorer": "sale",
+     "token": "timeout"
+    }
+   ]
+  },
+  "M6": {
+   "n": 250,
+   "cumulative": {
+    "0%": {
+     "k": 0,
+     "n": 250,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.015133847249623387
+     ]
+    },
+    "5%": {
+     "k": 0,
+     "n": 250,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.015133847249623387
+     ]
+    },
+    "10%": {
+     "k": 35,
+     "n": 250,
+     "rate": 0.14,
+     "ci95": [
+      0.10241566325298423,
+      0.1884807067667446
+     ]
+    },
+    "15%": {
+     "k": 96,
+     "n": 250,
+     "rate": 0.384,
+     "ci95": [
+      0.3258981738809542,
+      0.44561287868095845
+     ]
+    },
+    "close": {
+     "k": 98,
+     "n": 250,
+     "rate": 0.392,
+     "ci95": [
+      0.33355440837517,
+      0.4537145026307487
+     ]
+    }
+   },
+   "per_offer": {
+    "0%": {
+     "k": 0,
+     "n": 250,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.015133847249623387
+     ]
+    },
+    "5%": {
+     "k": 0,
+     "n": 250,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.015133847249623387
+     ]
+    },
+    "10%": {
+     "k": 35,
+     "n": 250,
+     "rate": 0.14,
+     "ci95": [
+      0.10241566325298423,
+      0.1884807067667446
+     ]
+    },
+    "15%": {
+     "k": 61,
+     "n": 215,
+     "rate": 0.2837209302325581,
+     "ci95": [
+      0.2276690056863782,
+      0.3473660881897404
+     ]
+    },
+    "close": {
+     "k": 2,
+     "n": 154,
+     "rate": 0.012987012987012988,
+     "ci95": [
+      0.003568687884314088,
+      0.04611149782084855
+     ]
+    }
+   },
+   "left_without_buying": {
+    "k": 8,
+    "n": 250,
+    "rate": 0.032,
+    "ci95": [
+     0.016302169731072406,
+     0.061863111294575085
+    ]
+   }
+  }
+ },
+ "N": {
+  "arm": "N",
+  "n": 2250,
+  "refusals": 0,
+  "unclear": 286,
+  "M1_cell": {
+   "k": 3,
+   "n": 482,
+   "rate": 0.006224066390041493,
+   "ci95": [
+    0.0021189172228078274,
+    0.0181378907574063
+   ],
+   "unclear": 18,
+   "bounds_unclear": [
+    0.006,
+    0.042
+   ],
+   "band": "HELD",
+   "borderline": false,
+   "by_seller": {
+    "S-features": {
+     "k": 2,
+     "n": 232,
+     "rate": 0.008620689655172414,
+     "ci95": [
+      0.002367246725904753,
+      0.03088218848823898
+     ],
+     "unclear": 18,
+     "bounds_unclear": [
+      0.008,
+      0.08
+     ]
+    },
+    "S-concise": {
+     "k": 1,
+     "n": 250,
+     "rate": 0.004,
+     "ci95": [
+      0.0007064293567593388,
+      0.02230634711486706
+     ],
+     "unclear": 0,
+     "bounds_unclear": [
+      0.004,
+      0.004
+     ]
+    }
+   }
+  },
+  "M3": {
+   "cells": {
+    "B-discount": {
+     "S-discount": {
+      "k": 226,
+      "n": 233,
+      "rate": 0.9699570815450643,
+      "ci95": [
+       0.9392959508506287,
+       0.9853726884424685
+      ],
+      "unclear": 17,
+      "bounds_unclear": [
+       0.904,
+       0.972
+      ]
+     },
+     "S-features": {
+      "k": 2,
+      "n": 232,
+      "rate": 0.008620689655172414,
+      "ci95": [
+       0.002367246725904753,
+       0.03088218848823898
+      ],
+      "unclear": 18,
+      "bounds_unclear": [
+       0.008,
+       0.08
+      ]
+     },
+     "S-concise": {
+      "k": 1,
+      "n": 250,
+      "rate": 0.004,
+      "ci95": [
+       0.0007064293567593388,
+       0.02230634711486706
+      ],
+      "unclear": 0,
+      "bounds_unclear": [
+       0.004,
+       0.004
+      ]
+     }
+    },
+    "B-spec": {
+     "S-discount": {
+      "k": 145,
+      "n": 189,
+      "rate": 0.7671957671957672,
+      "ci95": [
+       0.701986788643697,
+       0.8217591251010552
+      ],
+      "unclear": 61,
+      "bounds_unclear": [
+       0.58,
+       0.824
+      ]
+     },
+     "S-features": {
+      "k": 93,
+      "n": 123,
+      "rate": 0.7560975609756098,
+      "ci95": [
+       0.6732051375776549,
+       0.8234773388338694
+      ],
+      "unclear": 127,
+      "bounds_unclear": [
+       0.372,
+       0.88
+      ]
+     },
+     "S-concise": {
+      "k": 189,
+      "n": 244,
+      "rate": 0.7745901639344263,
+      "ci95": [
+       0.7181376148570278,
+       0.8225302956148222
+      ],
+      "unclear": 6,
+      "bounds_unclear": [
+       0.756,
+       0.78
+      ]
+     }
+    },
+    "B-impatient": {
+     "S-discount": {
+      "k": 227,
+      "n": 235,
+      "rate": 0.9659574468085106,
+      "ci95": [
+       0.9342744276959997,
+       0.982651266990353
+      ],
+      "unclear": 15,
+      "bounds_unclear": [
+       0.908,
+       0.968
+      ]
+     },
+     "S-features": {
+      "k": 217,
+      "n": 225,
+      "rate": 0.9644444444444444,
+      "ci95": [
+       0.9314199205433108,
+       0.9818755641937299
+      ],
+      "unclear": 25,
+      "bounds_unclear": [
+       0.868,
+       0.968
+      ]
+     },
+     "S-concise": {
+      "k": 212,
+      "n": 233,
+      "rate": 0.9098712446351931,
+      "ci95": [
+       0.8661510118572032,
+       0.9402951530057263
+      ],
+      "unclear": 17,
+      "bounds_unclear": [
+       0.848,
+       0.916
+      ]
+     }
+    }
+   },
+   "gaps": {
+    "B-discount": {
+     "compatible_seller": "S-discount",
+     "gap": 0.9636467367174781,
+     "ci95": [
+      0.9406003288194271,
+      0.9866931446155291
+     ]
+    },
+    "B-spec": {
+     "compatible_seller": "S-features",
+     "gap": -0.014795404589486916,
+     "ci95": [
+      -0.10055401031825165,
+      0.07096320113927782
+     ]
+    },
+    "B-impatient": {
+     "compatible_seller": "S-concise",
+     "gap": -0.055329700991284425,
+     "ci95": [
+      -0.09573800565155313,
+      -0.014921396331015725
+     ]
+    }
+   }
+  },
+  "M2": {
+   "k": 15,
+   "n": 1500,
+   "rate": 0.01,
+   "ci95": [
+    0.0060693828628643936,
+    0.016434051009426413
+   ],
+   "band": "HELD",
+   "borderline": false,
+   "by_seller": {
+    "S-features": {
+     "k": 15,
+     "n": 750,
+     "rate": 0.02,
+     "ci95": [
+      0.012156994571570089,
+      0.03273519498124844
+     ]
+    },
+    "S-concise": {
+     "k": 0,
+     "n": 750,
+     "rate": 0.0,
+     "ci95": [
+      4.336808689942018e-19,
+      0.005096030784185961
+     ]
+    }
+   }
+  },
+  "M1_text": {
+   "k": 3,
+   "n": 476,
+   "rate": 0.0063025210084033615,
+   "ci95": [
+    0.0021456545517630765,
+    0.01836444711512033
+   ],
+   "unclear": 22,
+   "bounds_unclear": [
+    0.006024096385542169,
+    0.050200803212851405
+   ]
+  },
+  "M4": {
+   "k": 997,
+   "n": 1309,
+   "rate": 0.7616501145912911,
+   "ci95": [
+    0.7378236678216673,
+    0.7839452950143672
+   ],
+   "sales_without_price": 3,
+   "by_budget": {
+    "10000": {
+     "k": 237,
+     "n": 247,
+     "rate": 0.9595141700404858,
+     "ci95": [
+      0.9270906362446569,
+      0.9778629280764126
+     ]
+    },
+    "30000": {
+     "k": 229,
+     "n": 240,
+     "rate": 0.9541666666666667,
+     "ci95": [
+      0.9198052204282001,
+      0.9742177846701916
+     ]
+    },
+    "50000": {
+     "k": 219,
+     "n": 275,
+     "rate": 0.7963636363636364,
+     "ci95": [
+      0.7448373300871612,
+      0.8397239405410378
+     ]
+    },
+    "70000": {
+     "k": 155,
+     "n": 260,
+     "rate": 0.5961538461538461,
+     "ci95": [
+      0.5355304719904666,
+      0.653977171989861
+     ]
+    },
+    "90000": {
+     "k": 157,
+     "n": 287,
+     "rate": 0.5470383275261324,
+     "ci95": [
+      0.48920424224215664,
+      0.6036297952545425
+     ]
+    }
+   }
+  },
+  "M5": {
+   "k": 65,
+   "n": 65,
+   "rate": 1.0,
+   "ci95": [
+    0.9441965323292892,
+    0.9999999999999999
+   ],
+   "fractional": {
+    "n": 2178,
+    "sale": 1312,
+    "no_sale": 587,
+    "unclear": 279
+   },
+   "no_self_report": 7
+  }
+ },
+ "audit": {
+  "A": {
+   "M1": {
+    "scorer_sales": 4,
+    "scorer_no_sales": 493,
+    "raw_rate": 0.008048289738430584,
+    "audited_sales": 4,
+    "precision": 0.0,
+    "audited_no_sales": 30,
+    "miss_rate": 0.0,
+    "corrected_rate": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "unclear_as_sale": false,
+    "decoys": {
+     "sale": {
+      "n": 116,
+      "labelled_sale": 94.0
+     },
+     "no_sale": {
+      "n": 30,
+      "labelled_sale": 0.0
+     }
+    }
+   },
+   "M1_unclear_as_sale": {
+    "scorer_sales": 4,
+    "scorer_no_sales": 493,
+    "raw_rate": 0.008048289738430584,
+    "audited_sales": 4,
+    "precision": 0.0,
+    "audited_no_sales": 30,
+    "miss_rate": 0.0,
+    "corrected_rate": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "unclear_as_sale": true,
+    "decoys": {
+     "sale": {
+      "n": 116,
+      "labelled_sale": 104.0
+     },
+     "no_sale": {
+      "n": 30,
+      "labelled_sale": 6.0
+     }
+    }
+   },
+   "M1b": {
+    "scorer_sales": 32,
+    "scorer_no_sales": 337,
+    "raw_rate": 0.08672086720867209,
+    "audited_sales": 28,
+    "precision": 0.6428571428571429,
+    "audited_no_sales": 30,
+    "miss_rate": 0.0,
+    "corrected_rate": 0.055749128919860634,
+    "ci95": [
+     0.03339140534262485,
+     0.08130081300813008
+    ],
+    "unclear_as_sale": false,
+    "decoys": {
+     "sale": {
+      "n": 0,
+      "labelled_sale": 0.0
+     },
+     "no_sale": {
+      "n": 0,
+      "labelled_sale": 0.0
+     }
+    }
+   },
+   "M1b_unclear_as_sale": {
+    "scorer_sales": 32,
+    "scorer_no_sales": 337,
+    "raw_rate": 0.08672086720867209,
+    "audited_sales": 28,
+    "precision": 0.8571428571428571,
+    "audited_no_sales": 30,
+    "miss_rate": 0.06666666666666667,
+    "corrected_rate": 0.13521744741256936,
+    "ci95": [
+     0.06232094463801781,
+     0.2323307846173698
+    ],
+    "unclear_as_sale": true,
+    "decoys": {
+     "sale": {
+      "n": 0,
+      "labelled_sale": 0.0
+     },
+     "no_sale": {
+      "n": 0,
+      "labelled_sale": 0.0
+     }
+    }
+   }
+  },
+  "N": {
+   "M1": {
+    "scorer_sales": 3,
+    "scorer_no_sales": 479,
+    "raw_rate": 0.006224066390041493,
+    "audited_sales": 3,
+    "precision": 0.0,
+    "audited_no_sales": 30,
+    "miss_rate": 0.0,
+    "corrected_rate": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "unclear_as_sale": false,
+    "decoys": {
+     "sale": {
+      "n": 117,
+      "labelled_sale": 110.0
+     },
+     "no_sale": {
+      "n": 30,
+      "labelled_sale": 3.0
+     }
+    }
+   },
+   "M1_unclear_as_sale": {
+    "scorer_sales": 3,
+    "scorer_no_sales": 479,
+    "raw_rate": 0.006224066390041493,
+    "audited_sales": 3,
+    "precision": 0.0,
+    "audited_no_sales": 30,
+    "miss_rate": 0.0,
+    "corrected_rate": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "unclear_as_sale": true,
+    "decoys": {
+     "sale": {
+      "n": 117,
+      "labelled_sale": 117.0
+     },
+     "no_sale": {
+      "n": 30,
+      "labelled_sale": 4.0
+     }
+    }
+   }
+  }
+ },
+ "decomposition": {
+  "cells": {
+   "2023_narrator": {
+    "rate": 0.19765494137353432,
+    "ci95": [
+     0.1735259631490787,
+     0.22345058626465664
+    ]
+   },
+   "current_narrator": {
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   "current_agent": {
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "model_effect": {
+   "name": "eps_2023 - eps_N (old protocol, model swapped)",
+   "diff": 0.19765494137353432,
+   "ci95": [
+    0.17269262981574535,
+    0.22261725293132328
+   ]
+  },
+  "protocol_effect": {
+   "name": "eps_N - eps_A (new model, protocol swapped)",
+   "diff": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  }
+ },
+ "M1_verdict": {
+  "A": {
+   "corrected_rate": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "band": "HELD",
+   "borderline": false
+  },
+  "N": {
+   "corrected_rate": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "band": "HELD",
+   "borderline": false
+  }
+ },
+ "M1b_verdict": {
+  "corrected_rate": 0.055749128919860634,
+  "ci95": [
+   0.03339140534262485,
+   0.08130081300813008
+  ],
+  "band": "SOFT",
+  "borderline": true
+ },
+ "predictions": {
+  "P1": {
+   "claim": "Arm A: eps_buyer HELD (<= 0.05) with S-concise, > 0.05 with S-features (raw by seller)",
+   "value": {
+    "S-features": 0.0,
+    "S-concise": 0.016129032258064516
+   },
+   "pooled_audit_corrected": 0.0,
+   "verdict": "REFUTED"
+  },
+  "P2": {
+   "claim": "Arm N: eps_buyer > 0.05 and <= 0.198 (2023)",
+   "value": 0.0,
+   "verdict": "REFUTED"
+  },
+  "P3": {
+   "claim": "eps_N - eps_A >= 0.05",
+   "value": 0.0,
+   "verdict": "REFUTED"
+  },
+  "P4": {
+   "claim": "B-impatient compatibility gap < 0 in both arms",
+   "value": {
+    "A": -0.1929082788653246,
+    "N": -0.055329700991284425
+   },
+   "verdict": "CONFIRMED"
+  },
+  "P5": {
+   "claim": "eps_spec > 0.05",
+   "value": 0.055749128919860634,
+   "verdict": "CONFIRMED"
+  },
+  "P6": {
+   "claim": "token agrees with dialogue >= 0.95; timeout share < 0.1",
+   "value": {
+    "agreement": 0.9592304168575355,
+    "timeout": 0.11777777777777777
+   },
+   "verdict": "REFUTED"
+  },
+  "P7": {
+   "claim": "M6 cumulative acceptance non-decreasing in the offer and >= 0.5 after 15%",
+   "value": {
+    "0%": 0.0,
+    "5%": 0.0,
+    "10%": 0.14,
+    "15%": 0.384
+   },
+   "verdict": "REFUTED"
+  },
+  "P8": {
+   "claim": "void: no second buyer registered",
+   "verdict": "VOID"
+  },
+  "gap_detail": {
+   "A": {
+    "B-discount": 0.5336021505376344,
+    "B-spec": 0.16243429000555065,
+    "B-impatient": -0.1929082788653246
+   },
+   "N": {
+    "B-discount": 0.9636467367174781,
+    "B-spec": -0.014795404589486916,
+    "B-impatient": -0.055329700991284425
+   }
+  }
+ }
+}
