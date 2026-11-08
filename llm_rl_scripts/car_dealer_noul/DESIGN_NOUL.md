@@ -222,6 +222,17 @@ confident misreads. The pre-registration must name a = 0.2 or a = 0 as primary (
 before the confirmatory seed is used; the smoke run that showed the trade-off was offline, in the
 scratchpad, with mock agents, and its contrasts were not read.
 
+**Analysis pipeline (2026-11-08).** `analyze_noul.py` (unit = (arm, regime); `plan_noask` paired with
+every regime; Phase 1's 36-type-pair cluster bootstrap and captured fraction reused from
+`analyze_phase1`; contrast families `ask_value`, `decoder`, `vs_oracle`, `type_vs_answer`, `hedge`,
+`chooser`, `text_invariance`; the same pairs in questions per episode and, for decoder pairs, in
+in-episode answer log-loss; selectivity against `ask_optimal_true`; decoder and agent diagnostics),
+`verdicts_noul.py` (P1–P8 as in §4, gates: pipeline, `plan_ask-oracle-0 − plan_noask` reproduces
+Δ\*_menu, oracle decoder text-invariant; `PRIMARY_HEDGE` is the registration's one open constant),
+`render_noul_note.py` (note from the two JSON files, no typed numbers). Tests run the pipeline on
+synthetic records with planted effects and a schema-only pass over the offline smoke run, whose
+contrasts stay unread.
+
 ## 8. Limits named now
 
 - The type space is the six rankings — binning is free, as in 20Q. A user's real counterpart
