@@ -203,6 +203,25 @@ confident-wrong share and log-loss per regime and decoder, plus the decoders' be
 blind-audited items split by the reader's label. It is descriptive — no decoder rule, prompt or
 threshold was changed after reading it — and the registration will cite it from the file.
 
+**Arms and runner (2026-11-08).** `arms_noul.py` (arms, `TextBank`, `NoulCell`, `variant_plan`,
+`play_episode`), `agents_noul.py` (`TextJevPolicy`, `SonnetAgent`), `run_noul.py` (phases, resume by
+episode key, tag check, ceilings). Decisions made while building, all before any registration:
+
+| Decision | Choice | Why |
+|---|---|---|
+| Filter floor | **none** (exact Bayes, `ETA = 0`) | CD-MIS's 1e-3 floor left mass on ruled-out types and made the a = 0 planner ask once more than Phase 1's `exact_ask`; the parity gate (`plan_ask-oracle-0` ≡ `exact_ask`, `plan_noask` ≡ `exact_noask`, decision for decision on the frozen Phase 1 seeds) requires exact Bayes. A confident wrong decode at hedge 0 can then zero the true type and the belief stays put — that arm's honest failure mode, recorded per episode. |
+| Agents' menu belief | updated on answers by `noul_answer` at the registered hedge (`AGENT_MENU_DECODER`) | so `sonnet_agent` / `jev_agent` and `plan_ask-noul_answer-0.2` face identical menus and the contrast isolates the chooser; a menu built from the oracle decoding would hand the agent the answer's meaning through the SAFE / PLAN candidates |
+| Evaluator's reference | `ask_optimal_true` and `decision_regret_true` under the a = 0 oracle at the exact matched belief | one reference for every arm's selectivity and regret, as in CD-MIS |
+| CRN | opponent stream = Phase 1's `(seed, role, opener, i, j, k)`; bank variant = `(seed, cell, repeat, question)` | arm-independent conversations; Phase 1 parity |
+| Agent letter parsing | first standalone capital letter naming an option; retry once; else first option, flagged | mirrors the Jev policy's malformed-Choice fallback |
+
+Open for the registration: **the primary hedge.** Under a 20 % assumed flip rate the planner values
+questions less and asks at a minority of the nodes where the exact planner would; in the `plain`
+regime, where decoding is near-perfect, that is pure cost, while in `oblique` it is insurance against
+confident misreads. The pre-registration must name a = 0.2 or a = 0 as primary (the other is P5)
+before the confirmatory seed is used; the smoke run that showed the trade-off was offline, in the
+scratchpad, with mock agents, and its contrasts were not read.
+
 ## 8. Limits named now
 
 - The type space is the six rankings — binning is free, as in 20Q. A user's real counterpart
