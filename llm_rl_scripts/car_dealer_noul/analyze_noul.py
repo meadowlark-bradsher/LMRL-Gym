@@ -1,6 +1,6 @@
 """Analyze one CD-NOUL-1 Stage 1 result dir (``run_noul.py`` output) into ``analysis.json``.
 
-Reads ``runs.jsonl``, ``summary.json`` and ``ceilings.json``; skips error stubs. The unit of
+Reads ``runs.jsonl`` (or ``runs.jsonl.gz``), ``summary.json`` and ``ceilings.json``; skips error stubs. The unit of
 analysis is an (arm, regime) pair — ``plan_noask`` has the single regime ``none`` and is paired
 with every text regime. Clusters for every paired contrast are the 36 (buyer ranking, seller
 ranking) type pairs (``analyze_phase1.cluster_of``); the paired difference is over cluster means
@@ -25,6 +25,7 @@ positions, retries, tokens).
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import math
 import os
@@ -43,9 +44,16 @@ from .verbalize import REGIMES
 Key = Tuple[str, str]   # (arm, regime)
 
 
+def runs_path(d: str) -> str:
+    """``runs.jsonl`` when present, else ``runs.jsonl.gz`` (the frozen result is committed gzipped)."""
+    plain = os.path.join(d, "runs.jsonl")
+    return plain if os.path.exists(plain) else plain + ".gz"
+
+
 def load_runs(path: str) -> Tuple[List[dict], int]:
     recs, stubs = [], 0
-    with open(path) as f:
+    opener = gzip.open if path.endswith(".gz") else open
+    with opener(path, "rt") as f:
         for line in f:
             if not line.strip():
                 continue
@@ -247,7 +255,7 @@ def analyze(d: str, B: int = 5000, seed: int = 0) -> dict:
     summary = json.load(open(os.path.join(d, "summary.json")))
     ceil_path = os.path.join(d, "ceilings.json")
     ceil = json.load(open(ceil_path)) if os.path.exists(ceil_path) else {"cells": {}}
-    recs, stubs = load_runs(os.path.join(d, "runs.jsonl"))
+    recs, stubs = load_runs(runs_path(d))
     by: Dict[Key, List[dict]] = defaultdict(list)
     for r in recs:
         by[key_of(r)].append(r)

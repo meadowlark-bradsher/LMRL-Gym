@@ -173,3 +173,14 @@ language is templated; the plain-regime bank has low lexical diversity (the mode
 phrasings); 36 type pairs are the whole type space, so cluster intervals have a precision ceiling; the
 Sonnet judge, the verbalizer and the Sonnet agent are the same model family (the `sonnet_answer` decoder
 is included so a Noul-versus-Sonnet gap is read against a same-family judge).
+
+## Post-run disclosures (2026-11-08, after the confirmatory run and the single registered analysis)
+
+- **Storage only.** `results/noul_stage1_20261108/runs.jsonl` is 160 MB, above GitHub's per-file limit, so it is
+  committed as `runs.jsonl.gz` (as the CD-MIS runs are). `analyze_noul.load_runs` was made gzip-aware and
+  `analyze()` reads `runs.jsonl.gz` when `runs.jsonl` is absent. This is an I/O change with no effect on any
+  estimate: `test_regeneration_noul.py` regenerates `analysis.json` from the gzipped runs with the registered
+  command (B = 5000, seed 0, `PYTHONHASHSEED=0`) and asserts it equals the committed file, then regenerates
+  `verdicts.json` and `RESULTS_NOUL.md` likewise.
+- No rule, estimand, prompt, decoder, arm, seed or threshold was changed after the tag. The P1 captured
+  fraction is 0.4996 against the registered minimum of 0.5; the verdict is reported as the code assigned it.
