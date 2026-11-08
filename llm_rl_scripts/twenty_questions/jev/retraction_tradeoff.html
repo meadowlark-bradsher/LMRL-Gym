@@ -245,18 +245,50 @@
   </section>
 
   <section class="col">
-    <p class="kicker">What it points to</p>
-    <h2>Remember what killed each candidate, not just a score</h2>
-    <p>The fix isn't a better threshold — it's more structure. If each crossed-off candidate carries a record of <em>which</em> answer struck it, you can ask the question a single score can't: was this candidate killed by one lonely outlier (revive it) or contradicted again and again (leave it)? That's the difference between a truth unlucky with one flip and a wrong that simply doesn't fit.</p>
-    <p>This is the motivation for a structured belief store with per-candidate "tombstones" — an elimination tied to its cause, reversible by naming that cause. The scalar version here isn't a failure; it's the control that shows why the structure is needed. The next step measures whether that structure buys the resilience <em>without</em> the novelty-detection cost.</p>
-    <div class="callout">
-      <p><strong>The one-line takeaway.</strong> Making elimination reversible with a single tunable score recovers robustness to noise but trades away the ability to spot genuinely new things — because one number can't distinguish an unlucky truth from an ordinary wrong. Telling them apart needs memory of <em>why</em> each candidate was eliminated.</p>
+    <p class="kicker">Why structure alone isn't enough</p>
+    <h2>Remembering what killed each candidate helps — but not where it counts</h2>
+    <p>The obvious fix is more structure: have each crossed-off candidate keep a record of <em>which</em> answer struck it, so you can tell "killed by one lonely outlier" (revive it) from "contradicted again and again" (leave it). That memory is real and useful — and a version built exactly this way fell into the <em>same</em> trap. It revived candidates at the moment of deciding whether to escalate, which is precisely where a resurrected wrong hides the "something new" signal. Structure doesn't help if you spend it in the wrong place.</p>
+  </section>
+
+  <section>
+    <div class="col">
+      <p class="kicker">The fix</p>
+      <h2>Keep the escalation gate hard; make taking-back a quick, direct test</h2>
+      <p>The resolution keeps two jobs apart. The decision to <strong>call the expert</strong> stays strictly hard — it reads the crossed-off list with no take-backs, so it is never fooled and the detector stays sharp. Taking a candidate back is used only to <em>resolve</em>, and only as a <strong>bounded, direct test</strong>: when the list would empty, revive the single most likely flip-victim and immediately ask "is it this one?" — an exact yes/no that noise can't flip. A truly-unlucky truth answers yes and the game is won; a resurrected wrong answers no and is crossed off again. After a few such tests with no hit, you escalate. The gate never sees the take-backs.</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 640 290" role="img" aria-label="Recovery versus detector quality at 10% noise: the scalar and naive-structured take-backs fall into a low-detector band, only the mode switch stays high while recovering">
+        <rect x="64" y="146.9" width="536" height="103.1" fill="var(--hard)" opacity="0.07"/>
+        <line x1="64" y1="250" x2="600" y2="250" stroke="var(--line)"/>
+        <line x1="64" y1="40" x2="64" y2="250" stroke="var(--line)"/>
+        <line x1="64" y1="230.9" x2="600" y2="230.9" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="6 4"/>
+        <text x="596" y="226" text-anchor="end" style="fill:var(--muted);font-family:var(--mono);font-size:10px">chance</text>
+        <text x="58" y="44" text-anchor="end" style="fill:var(--muted);font-family:var(--mono);font-size:11px">1.0</text>
+        <text x="58" y="139" text-anchor="end" style="fill:var(--muted);font-family:var(--mono);font-size:11px">.75</text>
+        <text x="58" y="235" text-anchor="end" style="fill:var(--muted);font-family:var(--mono);font-size:11px">.5</text>
+        <text x="64" y="266" text-anchor="middle" style="fill:var(--muted);font-family:var(--mono);font-size:11px">0</text>
+        <text x="213" y="266" text-anchor="middle" style="fill:var(--muted);font-family:var(--mono);font-size:11px">.05</text>
+        <text x="362" y="266" text-anchor="middle" style="fill:var(--muted);font-family:var(--mono);font-size:11px">.10</text>
+        <text x="511" y="266" text-anchor="middle" style="fill:var(--muted);font-family:var(--mono);font-size:11px">.15</text>
+        <text x="332" y="284" text-anchor="middle" style="fill:var(--muted);font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase">in-pool failure  (lower better →)</text>
+        <text x="18" y="145" text-anchor="middle" transform="rotate(-90 18 145)" style="fill:var(--muted);font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase">detector AUC (↑ better)</text>
+        <text x="300" y="206" text-anchor="middle" style="fill:var(--hard);font-family:var(--body);font-size:11px;opacity:.75">detector blind — the trap</text>
+        <circle cx="180" cy="42" r="5" fill="var(--soft)"/><text x="190" y="46" style="fill:var(--fg);font-family:var(--body);font-size:11px">soft</text>
+        <circle cx="585" cy="73" r="5" fill="var(--hard)"/><text x="593" y="76" style="fill:var(--fg);font-family:var(--body);font-size:11px">hard</text>
+        <circle cx="508" cy="68" r="6.5" fill="#1a9988" stroke="var(--surface)" stroke-width="1.5"/><text x="508" y="55" text-anchor="middle" style="fill:#1a9988;font-family:var(--body);font-size:11px;font-weight:600">mode switch</text>
+        <circle cx="147" cy="207" r="5" fill="#3a46a6"/><text x="157" y="210" style="fill:var(--fg);font-family:var(--body);font-size:11px">scalar take-back</text>
+        <circle cx="91" cy="231" r="5" fill="#b07a16"/><text x="101" y="243" style="fill:var(--fg);font-family:var(--body);font-size:11px">naive structured</text>
+      </svg>
+      <figcaption><strong>Recovery vs. the detector, at 10% noise.</strong> Up-and-left is better: recover more in-pool losses without losing the ability to spot something new. The scalar and naive-structured take-backs sink into the blind band; only the mode switch recovers while staying up with the safe backends. <span style="font-family:var(--mono);font-size:.72rem;opacity:.8">analyze_retraction.py · openworld_retraction_20261108_213525</span></figcaption>
+    </figure>
+    <div class="callout col">
+      <p style="margin-bottom:0"><strong>The one-line takeaway.</strong> Reversibility and novelty-detection collide only when a take-back is allowed to touch the signal that decides to call the human. Keep that decision hard, recover a mis-eliminated candidate by re-asking about it directly and briefly, and you get both — fewer wasted escalations, no confidently wrong answers, and a detector that still works.</p>
     </div>
   </section>
 
   <footer>
     <div class="col">
-      <p>From the open-world Twenty Questions retraction study. Three belief backends through one loop and one noise grid; numbers shown are the measured shape of the trade-off (illustrative single-seed values — the seed-replicated grid and full write-up live with the study). The deterministic stream, backends, and grid all regenerate from committed code: <code>openworld_backends.py</code>, <code>eval_openworld.py --retraction-grid</code>.</p>
+      <p>From the open-world Twenty Questions retraction study — five belief backends through one loop and one noise grid. The line charts show the measured shape of the trade-off; the final scatter is the seed-replicated result (run <code>openworld_retraction_20261108_213525</code>). The stream, backends, and grid all regenerate from committed code: <code>openworld_backends.py</code>, <code>eval_openworld.py --retraction-grid</code>, <code>analyze_retraction.py</code>.</p>
     </div>
   </footer>
 </div>
