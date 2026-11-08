@@ -21,8 +21,9 @@ injected), so there is no import cycle with ``openworld``.
 
 from __future__ import annotations
 
+import math
 from abc import ABC, abstractmethod
-from typing import Dict, Optional, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 from .bed import (GUESS, Hypothesis, LikelihoodModel, Posterior, Question,
                   posterior_update)
@@ -152,9 +153,118 @@ class HardMonotone(BeliefBackend):
         self.survivors -= killed
 
 
-# Registry the loop looks a backend up by name. ``retract`` (the CMBS-aligned
-# reversible backend) is added in the next step; its extension point is here.
+class RetractingElimination(BeliefBackend):
+    """Hard elimination made reversible — the reference ``retract`` backend, and the
+    measurable core of the CMBS un-eliminate op.
+
+    The **strike** rule is exactly ``hard``'s: a surviving known is struck the moment
+    an answer contradicts it (observed-answer likelihood below ``kill``). This is what
+    gives the novelty detector its teeth — a hard, absolute rule empties the survivor
+    set for an out-of-pool secret, which a margin-relative rule (which always keeps
+    the least-bad known) cannot. So on a trusted oracle ``retract`` behaves like
+    ``hard`` exactly: no answer ever contradicts the truth, nothing is revived.
+
+    What ``retract`` adds is **revival**. A running ε-floored log-likelihood
+    ``logL[h]`` is kept for every known and for the catch-all, struck or not, so no
+    information is lost. A struck known is un-eliminated — a logged *revive* — once
+    its accumulated evidence recovers to within ``margin`` bits of the best live
+    hypothesis (a surviving known or the catch-all). Under a noisy answerer a single
+    flip strikes the true object, but the flip is bounded (the ε floor caps it near
+    ``log2 ε`` bits) and the truth is otherwise the best-supported hypothesis, so it
+    is revived; a genuinely wrong known, contradicted on its merits, stays low and is
+    not. A hypothesis struck *this* turn is not revived until the next, so a kill and
+    its revival never thrash in place. The whole state replays from the (question,
+    answer) sequence.
+
+    ``margin`` governs revival only: larger revives more readily (more recovery, more
+    ops), smaller is stricter. Clean behaviour is ``hard``'s for any margin."""
+
+    name = "retract"
+
+    def __init__(self, known_hyps: Sequence[Hypothesis],
+                 by_name: Dict[str, Hypothesis], like: LikelihoodModel,
+                 unknown: str, p_unknown_prior: float, eps: float = 0.05,
+                 margin: float = 2.0, kill: float = 0.5):
+        self.by_name = by_name
+        self.like = like
+        self.U = unknown
+        self.u_prior = p_unknown_prior
+        self.eps = eps
+        self.margin = margin
+        self.kill = kill
+        self.names = [h.name for h in known_hyps]
+        self.logL: Dict[str, float] = {n: 0.0 for n in self.names}
+        self.logL[unknown] = 0.0            # the catch-all runs in the same race
+        self.survivors = set(self.names)
+        self.struck: set = set()
+        self.ops: List[Tuple[str, str]] = []   # append-only ('kill'|'revive', name)
+        self.n_kills = 0
+        self.n_revives = 0
+
+    def _p_obs(self, name: str, answer_yes: bool) -> float:
+        p_yes = self.like(self._q, self.by_name[name])
+        return p_yes if answer_yes else (1.0 - p_yes)
+
+    def _best_alive(self) -> float:
+        vals = [self.logL[n] for n in self.survivors] + [self.logL[self.U]]
+        return max(vals)
+
+    def observe(self, q: Question, answer_yes: bool) -> None:
+        self._q = q
+        # 1. accumulate ε-floored log-likelihood for every known and the catch-all.
+        for n in list(self.names) + [self.U]:
+            p = min(max(self._p_obs(n, answer_yes), self.eps), 1.0 - self.eps)
+            self.logL[n] += math.log2(p)
+        # 2. strike (absolute, hard rule): a surviving known contradicted this answer.
+        new_strikes = {n for n in self.survivors
+                       if self._p_obs(n, answer_yes) < self.kill}
+        for n in new_strikes:
+            self.ops.append(("kill", n))
+            self.n_kills += 1
+        self.survivors -= new_strikes
+        self.struck |= new_strikes
+        # 3. revive previously-struck knowns whose evidence has recovered (not those
+        #    struck this turn -- a kill and its revival never thrash in place).
+        best = self._best_alive()
+        revived = {n for n in (self.struck - new_strikes)
+                   if self.logL[n] >= best - self.margin}
+        for n in revived:
+            self.ops.append(("revive", n))
+            self.n_revives += 1
+        self.struck -= revived
+        self.survivors |= revived
+
+    def _u(self) -> float:
+        # Hard's detector exactly: the catch-all carries the PY mass while a known
+        # survives, and all of it once the knowns are struck. So novelty detection
+        # and commit are identical to `hard`, and revival is the *only* difference.
+        return 1.0 if not self.survivors else self.u_prior
+
+    def distribution(self) -> Posterior:
+        u = self._u()
+        dist: Posterior = {}
+        if self.survivors:
+            share = (1.0 - u) / len(self.survivors)
+            for n in self.survivors:
+                dist[n] = share
+        dist[self.U] = u
+        return dist
+
+    def decision(self, confidence: float) -> Decision:
+        if not self.survivors or self._u() >= confidence:
+            return ("expert", None)
+        if len(self.survivors) == 1:
+            return ("guess", next(iter(self.survivors)))
+        dist = self.distribution()
+        top = max(dist, key=lambda n: dist[n])
+        if top != self.U and dist[top] >= confidence:
+            return ("guess", top)
+        return ("ask", None)
+
+
+# Registry the loop looks a backend up by name.
 BACKENDS: Dict[str, type] = {
     "soft": SoftPosterior,
     "hard": HardMonotone,
+    "retract": RetractingElimination,
 }

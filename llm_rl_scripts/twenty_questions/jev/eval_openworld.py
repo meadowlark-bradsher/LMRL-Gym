@@ -111,6 +111,20 @@ def self_test() -> None:
     hb.observe(cat_q, False)  # "no, it is not that category" contradicts it
     assert true_in.name not in hb.survivors  # struck, and cannot return
 
+    # 7. retract: a struck hypothesis is revived once its evidence recovers.
+    from .openworld_backends import RetractingElimination
+    from collections import namedtuple
+    RQ = namedtuple("RQ", ["kind", "key", "qid"])
+    A = Hypothesis("A", (), "c1"); Bz = Hypothesis("B", (), "c2")
+    rbn = {"A": A, "B": Bz, UNKNOWN: Hypothesis(UNKNOWN, (), UNKNOWN)}
+    tab = {("q1", "A"): 0.05, ("q1", "B"): 0.9, ("q2", "A"): 0.95, ("q2", "B"): 0.05}
+    rlike = lambda q, h: 0.5 if h.name == UNKNOWN else tab[(q.key, h.name)]
+    re = RetractingElimination([A, Bz], rbn, rlike, UNKNOWN, 0.1, margin=10.0)
+    re.observe(RQ("attribute", "q1", "a:q1"), True)   # contradicts A -> A struck
+    assert "A" not in re.survivors and re.n_kills >= 1
+    re.observe(RQ("attribute", "q2", "a:q2"), True)   # supports A, contradicts B
+    assert "A" in re.survivors and re.n_revives >= 1  # A un-eliminated (revived)
+
     print("[self-test] open-world mechanics OK")
     print("  cold-start -> expert; in-pool -> won (p_unk<0.5);",
           "out-of-pool -> expert (p_unk>=0.5)")
@@ -274,6 +288,94 @@ def run_noise_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
     return outpath
 
 
+def run_retraction_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
+                        confidence: float, eps: float, backends: List[str],
+                        levels: List[float], n_noise_seeds: int,
+                        margins: List[float], outdir: str) -> str:
+    """The retraction study: every belief backend through the same stream and the
+    same noise grid, so the only thing that varies within a (level, seed) cell is the
+    belief update. Reports the in-pool failure rate (a knowable secret the backend
+    did not resolve), the detector AUC, the false-positive expert rate, and -- for
+    ``retract`` -- the mean un-eliminate ops per game."""
+    objs = load_hypotheses()
+    matrix = _load_matrix(matrix_path)
+    stream, _ = make_stream(objs, games, zipf_s, seed)
+    seen: set = set()
+    new_flags = []
+    for idx in stream:
+        new_flags.append(objs[idx].name not in seen)
+        seen.add(objs[idx].name)
+    sigma, theta, _ = fit_pitman_yor(new_flags)
+
+    def metrics(records: List[GameRecord]) -> Dict[str, float]:
+        in_pool = [r for r in records if r.in_pool]
+        ipf = sum(1 for r in in_pool if r.outcome != "won")
+        labels = [0 if r.in_pool else 1 for r in records]
+        scores = [r.p_unknown_max for r in records]
+        return {
+            "in_pool": len(in_pool),
+            "in_pool_fail": ipf,
+            "in_pool_fail_rate": ipf / len(in_pool) if in_pool else float("nan"),
+            "auc": auc(scores, labels),
+            "false_positive_calls": sum(1 for r in records if r.false_positive),
+            "won": sum(1 for r in records if r.outcome == "won"),
+            "wrong": sum(1 for r in records if r.outcome == "wrong"),
+            "expert_calls": sum(1 for r in records if r.expert_called),
+            "mean_retractions": sum(r.n_retractions for r in records) / len(records),
+            "mean_questions": sum(r.n_questions for r in records) / len(records),
+        }
+
+    def agg(rows: List[Dict[str, float]], key: str) -> Dict[str, float]:
+        vals = [r[key] for r in rows]
+        return {"mean": sum(vals) / len(vals), "min": min(vals), "max": max(vals)}
+
+    keys = ["in_pool_fail_rate", "auc", "false_positive_calls", "wrong",
+            "expert_calls", "mean_retractions", "mean_questions"]
+    cells = []
+    print("backend      noise  in-pool-fail       AUC     FP   wrong  retract/ep")
+    for bk in backends:
+        # retract is swept over revival margins; soft/hard ignore it.
+        bk_margins = margins if bk == "retract" else [None]
+        for m in bk_margins:
+            for lvl in levels:
+                rows = []
+                nseeds = 1 if lvl == 0.0 else n_noise_seeds
+                for ns in range(1, nseeds + 1):
+                    kw = {"margin": m} if m is not None else {}
+                    recs = run_accumulation(objs, matrix, stream, sigma, theta,
+                                            confidence=confidence, eps=eps,
+                                            oracle_noise=lvl, noise_seed=ns,
+                                            backend=bk, **kw)
+                    rows.append(metrics(recs))
+                a = {k: agg(rows, k) for k in keys}
+                label = bk if m is None else "{}@{:g}".format(bk, m)
+                cells.append({"backend": bk, "margin": m, "oracle_noise": lvl,
+                              "n_noise_seeds": len(rows), "per_seed": rows, "agg": a})
+                print("{:11s} {:4.0f}%  {:.3f} [{:.3f},{:.3f}]  {:.3f}  {:5.1f}  {:5.1f}  {:7.2f}".format(
+                    label, lvl * 100, a["in_pool_fail_rate"]["mean"],
+                    a["in_pool_fail_rate"]["min"], a["in_pool_fail_rate"]["max"],
+                    a["auc"]["mean"], a["false_positive_calls"]["mean"],
+                    a["wrong"]["mean"], a["mean_retractions"]["mean"]))
+
+    stamp = _dt.datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    outpath = os.path.join(outdir, "openworld_retraction_{}".format(stamp))
+    os.makedirs(outpath, exist_ok=True)
+    payload = {
+        "schema": "twenty_questions_openworld_retraction_v1",
+        "created": stamp,
+        "config": {"matrix": os.path.basename(matrix_path), "games": games,
+                   "zipf_s": zipf_s, "seed": seed, "confidence": confidence,
+                   "eps": eps, "backends": backends, "levels": levels,
+                   "n_noise_seeds": n_noise_seeds, "margins": margins},
+        "pitman_yor_fit": {"sigma": sigma, "theta": theta},
+        "cells": cells,
+    }
+    with open(os.path.join(outpath, "summary.json"), "w") as f:
+        json.dump(payload, f, indent=2, sort_keys=True)
+    print("wrote {}".format(outpath))
+    return outpath
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -289,6 +391,11 @@ def main() -> None:
     ap.add_argument("--noise-seed", type=int, default=0)
     ap.add_argument("--noise-grid", action="store_true",
                     help="run the clean + noisy flip-rate grid with seed replicates")
+    ap.add_argument("--retraction-grid", action="store_true",
+                    help="run every belief backend through the noise grid")
+    ap.add_argument("--backends", default="soft,hard,retract")
+    ap.add_argument("--margins", default="1,2,4",
+                    help="revival margins to sweep for the retract backend")
     ap.add_argument("--levels", default="0.0,0.05,0.10")
     ap.add_argument("--noise-seeds", type=int, default=3)
     ap.add_argument("--outdir", default="llm_rl_scripts/twenty_questions/jev/results")
@@ -302,6 +409,14 @@ def main() -> None:
         run_noise_grid(args.matrix, args.games, args.zipf, args.seed,
                        args.confidence, args.eps, levels, args.noise_seeds,
                        args.outdir)
+        return
+    if args.retraction_grid:
+        levels = [float(x) for x in args.levels.split(",")]
+        backends = [b.strip() for b in args.backends.split(",")]
+        margins = [float(x) for x in args.margins.split(",")]
+        run_retraction_grid(args.matrix, args.games, args.zipf, args.seed,
+                            args.confidence, args.eps, backends, levels,
+                            args.noise_seeds, margins, args.outdir)
         return
     run(args.matrix, args.games, args.zipf, args.seed, args.confidence,
         args.eps, args.outdir, oracle_noise=args.oracle_noise,
