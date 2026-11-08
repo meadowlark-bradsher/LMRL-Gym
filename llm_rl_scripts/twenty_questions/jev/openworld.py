@@ -228,7 +228,7 @@ def run_openworld_episode(true_h: Hypothesis,
                           eps: float = 0.05,
                           top_k_guesses: int = 5,
                           backend: str = "soft",
-                          margin: float = 2.0) -> OWEpisode:
+                          margin: float = 2.0, tolerance: int = 1) -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
@@ -239,7 +239,12 @@ def run_openworld_episode(true_h: Hypothesis,
     like = make_openworld_likelihood(matrix, known_hyps, eps=eps)
     bank = build_openworld_bank(known_hyps)
     guess_by_name = {q.key: q for q in bank[GUESS]}
-    kwargs = {"margin": margin} if backend == "retract" else {}
+    if backend == "retract":
+        kwargs = {"margin": margin}
+    elif backend in ("tombstone", "modeswitch"):
+        kwargs = {"tolerance": tolerance}
+    else:
+        kwargs = {}
     bk = BACKENDS[backend](known_hyps, by_name, like, UNKNOWN, p_unknown_prior,
                            eps, **kwargs)
 
@@ -305,7 +310,8 @@ def run_openworld_episode(true_h: Hypothesis,
     return OWEpisode(
         true_name=true_h.name, true_category=true_h.category, in_pool=in_pool,
         outcome=outcome, n_questions=max_questions, p_unknown_max=p_unk_max,
-        p_unknown_final=dist.get(UNKNOWN, 0.0), fire_turn=fire_turn, steps=steps,
+        p_unknown_final=dist.get(UNKNOWN, 0.0), fire_turn=fire_turn,
+        n_retractions=getattr(bk, "n_revives", 0), steps=steps,
     )
 
 
@@ -377,8 +383,8 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      max_questions: int = 20, confidence: float = 0.9,
                      eps: float = 0.05, oracle_threshold: float = 0.5,
                      oracle_noise: float = 0.0, noise_seed: int = 0,
-                     backend: str = "soft", margin: float = 2.0
-                     ) -> List[GameRecord]:
+                     backend: str = "soft", margin: float = 2.0,
+                     tolerance: int = 1) -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
     the discovery curve itself is independent of them. ``oracle_noise > 0`` flips
@@ -407,7 +413,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
         ep = run_openworld_episode(
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
-            backend=backend, margin=margin,
+            backend=backend, margin=margin, tolerance=tolerance,
         )
 
         expert_called = ep.outcome == "expert"

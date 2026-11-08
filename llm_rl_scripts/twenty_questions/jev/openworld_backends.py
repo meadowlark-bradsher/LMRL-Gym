@@ -262,9 +262,225 @@ class RetractingElimination(BeliefBackend):
         return ("ask", None)
 
 
+class TombstoneRetraction(BeliefBackend):
+    """CMBS v0.2.0-aligned structured retraction: per-killer tombstones.
+
+    Where ``retract`` scored each hypothesis with a scalar cumulative log-likelihood
+    and revived on a margin, this backend mirrors CMBS's mask-meet elimination and
+    its reinstate op. Each answer is a mask that eliminates the survivors inconsistent
+    with it. The structure CMBS's op-log keeps — *which* answers eliminated each
+    hypothesis — is tracked here as a per-hypothesis set of **distinct killers** (the
+    question ids that contradicted it). A hypothesis is asserted dead (tombstoned)
+    only when its distinct-killer count exceeds ``tolerance``; below that, each
+    eliminating answer is voided by a logged reinstate — tolerance is a reinstate
+    policy keyed to the killer record, which the default monotone reducer lacks.
+
+    This is the per-killer structure the scalar margin could not express: killer
+    *count* separates a truth struck by one outlier answer (1 killer, kept at T≥1)
+    from a wrong contradicted on its merits (many distinct killers, tombstoned) — the
+    distinction a cumulative score blurs. Detection is ``hard``'s: a novel secret
+    contradicts every known on many questions, so all cross tolerance, the survivors
+    empty, and the catch-all fires the expert.
+
+    ``tolerance`` is the one knob: 0 reproduces ``hard``; higher forgives more
+    outliers."""
+
+    name = "tombstone"
+
+    def __init__(self, known_hyps: Sequence[Hypothesis],
+                 by_name: Dict[str, Hypothesis], like: LikelihoodModel,
+                 unknown: str, p_unknown_prior: float, eps: float = 0.05,
+                 tolerance: int = 1, kill: float = 0.5):
+        self.by_name = by_name
+        self.like = like
+        self.U = unknown
+        self.u_prior = p_unknown_prior
+        self.kill = kill
+        self.R = tolerance        # reinstate iff a tombstoned known has <= R killers
+        self.names = [h.name for h in known_hyps]
+        self.killers: Dict[str, set] = {n: set() for n in self.names}
+        self.live = set(self.names)
+        self.tombstoned: set = set()
+        self.reinstated_once: set = set()
+        self.n_kills = 0
+        self.n_revives = 0        # reinstate (un-eliminate) ops
+
+    @property
+    def survivors(self) -> set:
+        return self.live
+
+    def _u(self) -> float:
+        return 1.0 if not self.live else self.u_prior
+
+    def distribution(self) -> Posterior:
+        u = 1.0 if not self.live else self.u_prior
+        dist: Posterior = {}
+        if self.live:
+            share = (1.0 - u) / len(self.live)
+            for n in self.live:
+                dist[n] = share
+        dist[self.U] = u
+        return dist
+
+    def decision(self, confidence: float) -> Decision:
+        # Hard's detector and commit: a novel secret strikes every known (and the
+        # flip victims cannot be reinstated, below), so the live set empties and the
+        # catch-all fires the expert; an in-pool game collapses to the sole survivor.
+        if not self.live or self.u_prior >= confidence:
+            return ("expert", None)
+        if len(self.live) == 1:
+            return ("guess", next(iter(self.live)))
+        dist = self.distribution()
+        top = max(dist, key=lambda n: dist[n])
+        if top != self.U and dist[top] >= confidence:
+            return ("guess", top)
+        return ("ask", None)
+
+    def observe(self, q: Question, answer_yes: bool) -> None:
+        qid = q.qid
+        # Strike like hard (first contradiction removes), but keep accruing killers
+        # for tombstoned knowns too, so a hypothesis contradicted again while dead
+        # (an ordinary wrong, or a novel-secret mismatch) climbs past the reinstate
+        # bar while a flip-struck truth (consistent after its one killer) stays at it.
+        for n in self.names:
+            p_yes = self.like(q, self.by_name[n])
+            p_obs = p_yes if answer_yes else (1.0 - p_yes)
+            if p_obs < self.kill:
+                # record the distinct killer (the set dedupes) for reinstate
+                # eligibility, but strike on *any* contradiction so a reinstated known
+                # stays killable by the very question that first eliminated it.
+                self.killers[n].add(qid)
+                if n in self.live:
+                    self.live.discard(n)
+                    self.tombstoned.add(n)
+                    self.n_kills += 1
+        # Reinstate, keyed to the killer record: when the live set would empty,
+        # revive the fewest-killer tombstoned known that still has <= R killers and
+        # has not been reinstated before. A flip victim (1 killer, otherwise
+        # consistent) comes back; a genuinely-wrong known (many killers) does not.
+        if not self.live:
+            cands = sorted((len(self.killers[n]), n) for n in self.tombstoned
+                           if n not in self.reinstated_once
+                           and len(self.killers[n]) <= self.R)
+            if cands:
+                _, best = cands[0]
+                self.live.add(best)
+                self.tombstoned.discard(best)
+                self.reinstated_once.add(best)
+                self.n_revives += 1
+
+
+class ModeSwitchedRetraction(BeliefBackend):
+    """The mode switch: `hard`'s elimination and `hard`'s escalation *view*, with a
+    bounded reinstate-and-**test** for resolution only.
+
+    `tombstone` failed by reinstating at the escalation boundary without bound and
+    letting the revived hypothesis stall as an unkillable zombie, so novel secrets'
+    wrongs were guessed and the detector, which reads the empty set, never fired. This
+    backend keeps the two jobs apart:
+
+    * **Escalation / detection stays hard.** The live set is hard-monotone; when it is
+      empty and the reinstate budget is spent, the catch-all fires the expert exactly
+      as `hard`, so the novelty signal is `hard`'s — delayed by at most the budget.
+    * **Reinstate is a bounded hypothesis *test*.** When the live set would empty, up
+      to `tolerance` (=K) times per game, revive the fewest-killer single-contradiction
+      candidate (≤ 1 killer, each known once). A revived candidate is the sole
+      survivor, so the loop tests it with a by-name guess, which is exact and not
+      subject to attribute noise: a flip-struck truth answers *yes* and is recovered
+      (a won game, not a false escalation); a revived wrong answers *no*, is re-struck,
+      and the next candidate (or the expert) follows. After K failed tests the set
+      stays empty and the expert fires. The budget is what bounds the detector cost —
+      a novel secret escalates after K probes instead of being chased forever."""
+
+    name = "modeswitch"
+
+    def __init__(self, known_hyps: Sequence[Hypothesis],
+                 by_name: Dict[str, Hypothesis], like: LikelihoodModel,
+                 unknown: str, p_unknown_prior: float, eps: float = 0.05,
+                 tolerance: int = 3, kill: float = 0.5):
+        self.by_name = by_name
+        self.like = like
+        self.U = unknown
+        self.u_prior = p_unknown_prior
+        self.kill = kill
+        self.K = tolerance        # max reinstate-and-test attempts per game (budget)
+        self.names = [h.name for h in known_hyps]
+        self.killers: Dict[str, set] = {n: set() for n in self.names}
+        self.live = set(self.names)
+        self.tombstoned: set = set()
+        self.reinstated_once: set = set()
+        self.n_kills = 0
+        self.n_revives = 0
+
+    @property
+    def survivors(self) -> set:
+        return self.live
+
+    def _u(self) -> float:
+        return 1.0 if not self.live else self.u_prior
+
+    def distribution(self) -> Posterior:
+        u = 1.0 if not self.live else self.u_prior
+        dist: Posterior = {}
+        if self.live:
+            share = (1.0 - u) / len(self.live)
+            for n in self.live:
+                dist[n] = share
+        dist[self.U] = u
+        return dist
+
+    def decision(self, confidence: float) -> Decision:
+        # Hard's decision: a sole live known is guessed directly. A reinstated
+        # candidate is a sole survivor, so it is tested by a by-name guess next turn.
+        if not self.live or self.u_prior >= confidence:
+            return ("expert", None)
+        if len(self.live) == 1:
+            return ("guess", next(iter(self.live)))
+        dist = self.distribution()
+        top = max(dist, key=lambda n: dist[n])
+        if top != self.U and dist[top] >= confidence:
+            return ("guess", top)
+        return ("ask", None)
+
+    def observe(self, q: Question, answer_yes: bool) -> None:
+        qid = q.qid
+
+        def contradicts(n: str) -> bool:
+            p_yes = self.like(q, self.by_name[n])
+            p_obs = p_yes if answer_yes else (1.0 - p_yes)
+            return p_obs < self.kill
+
+        # Hard strike (on any contradiction, so a reinstated known stays killable).
+        for n in self.names:
+            if contradicts(n):
+                self.killers[n].add(qid)
+                if n in self.live:
+                    self.live.discard(n)
+                    self.tombstoned.add(n)
+                    self.n_kills += 1
+        # Reinstate only at the escalation boundary, bounded to K attempts per game:
+        # revive the fewest-killer single-contradiction candidate. It is a sole
+        # survivor, so the loop immediately *tests* it with a by-name guess (exact,
+        # un-noisy) -- a flip-struck truth answers yes and wins; a revived wrong
+        # answers no and is re-struck. After K failed tests the set stays empty and
+        # the catch-all escalates, so the detector is hard's (just K turns later).
+        if not self.live and self.n_revives < self.K:
+            cands = sorted((len(self.killers[n]), n) for n in self.tombstoned
+                           if n not in self.reinstated_once
+                           and len(self.killers[n]) <= 1)
+            if cands:
+                _, best = cands[0]
+                self.live.add(best)
+                self.tombstoned.discard(best)
+                self.reinstated_once.add(best)
+                self.n_revives += 1
+
+
 # Registry the loop looks a backend up by name.
 BACKENDS: Dict[str, type] = {
     "soft": SoftPosterior,
     "hard": HardMonotone,
     "retract": RetractingElimination,
+    "tombstone": TombstoneRetraction,
+    "modeswitch": ModeSwitchedRetraction,
 }
