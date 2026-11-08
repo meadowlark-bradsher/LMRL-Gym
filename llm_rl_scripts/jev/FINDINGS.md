@@ -48,7 +48,11 @@ bilateral game with a public ASK action (§3.7), where the exact planner takes t
 of asking (ceiling 0.102 normalized units when the focal opens), Jev asked in 0 of
 2555 eligible decisions and sits 0.28 below the planner — the dial's far end. Showing it what its history implies (§3.10) does not move it off that end: the posterior in words buys
 the first selective questions (0.064 per episode) and no gain, and a printed acceptance probability turns the
-walk-outs into give-aways (-0.058 [-0.117, -0.000]).
+walk-outs into give-aways (-0.058 [-0.117, -0.000]). Moving the *same* model to the likelihood seat (§3.12) — its
+`Noul` as p(free-text reply | opponent type), consumed by the exact planner — recovers half the ceiling at the registered
+hedge (captured 0.50 [0.11, 0.89]; 0.78 at a = 0) and beats Jev-as-chooser on identical menus by +0.159 [+0.130, +0.192];
+a frontier general model in the chooser's seat does no better than Jev there (+0.160 [+0.130, +0.191]). The residual
+is a calibration gap on unambiguous text, not a planning gap.
 
 **The sharp sub-pattern** (the most useful result of the study) is that a BED-style
 wrapper provides *two separable things*, and they unlock *different* outcomes:
@@ -691,6 +695,97 @@ profile that serves the common head autonomously and escalates the rare tail. Th
 load-bearing choice is, once again, a single calibration knob at the model boundary (the
 catch-all background), not the planner.
 
+### 3.12 Live Car-Dealer, CD-NOUL-1 — moved from the chooser's seat to the likelihood seat, the same model beats itself by a wide margin; a calibration gap on easy text, not a planning gap, costs half the ceiling
+
+Every live Car-Dealer study so far typed the opponent's answers. CD-NOUL-1 (`llm_rl_scripts/car_dealer_noul/`,
+`DESIGN_NOUL.md`, `PREREGISTRATION_NOUL.md`, tag `prereg-noul1-20261108`, `RESULTS_NOUL.md` rendered from the JSON)
+tests the one step of the §3.5 recipe never exercised in negotiation: **utterance → likelihood**. The registered T1
+kernel opponent of §3.7 still answers truthfully, but its yes/no is **verbalized into free text by `claude-sonnet-5-5`**
+in two regimes — `plain` (unmistakable, nothing beyond the question) and `oblique` (guarded, no outright yes/no, may
+let priorities show, never false) — so the exact ceiling `exact_ask` of §3.7 is preserved. A *decoder* turns the reply
+into p(reply | type) for the exact planner: `oracle` (the typed truth), `regex` (a frozen cue parser — is a model
+needed at all?), `noul_answer` (Jev's `nouls` on "the truthful answer is YES / NO", 2-way), `noul_type` (six `Noul`s,
+one per priority ranking), `sonnet_answer` (a same-family judge). Arms `plan_ask[decoder, a]` at the CD-MIS-2 hedge
+a ∈ {0, 0.2}, `plan_noask`, and two **LLM-as-chooser** agents, `jev_agent` and `sonnet_agent`, choosing by letter on
+the same planner-complete menus (their menu belief decoded by `noul_answer` at a = 0.2, so the contrast isolates the
+chooser). Registered primary: a = 0.2, focal-opens cells, K = 5, seed 20261112.
+
+Three gates were passed before registration: the verbalizer **never lied** (0 contradictions in 120 blind-labelled
+items), `oblique` is oblique (a human recovers the answer from 34 of 60 items and marks 26 unclear; the parser is
+right on 0.125 of the 2,160-item oblique bank and parses nothing on 1,837), and the decoders are **cautious rather
+than wrong** — oblique accuracy regex 0.125 / Noul 0.710 / Sonnet judge 0.808, uninformative 0.850 / 0.258 / 0.374,
+confident-wrong 0.025 / 0.000 / 0.000; on `plain` every decoder is right on all 2,160 items, but Noul's log-loss is
+0.197 bits where the judge's is 0.085 (Noul reads an unambiguous yes at ≈ 0.9, not 1.0). The 6-way `noul_type` puts
+0.243 posterior mass on the true ranking from one oblique reply (uniform 0.167). The confirmatory run: 18,000 episodes
+(25 arm × regime keys at 720), 0 error stubs, both agents well-formed 1.000; cluster bootstrap B = 5000 over the 36
+type pairs; `plan_ask-oracle-0` reproduces the exact ceiling (+0.0643 [+0.0478, +0.0833] vs Δ*_menu 0.0638, all cells)
+and is text-invariant (0.0000) — the a = 0 oracle planner is, decision for decision, §3.7's `exact_ask`.
+
+- **Primary: half the ceiling, and the registered bar missed by four ten-thousandths.** P1 `plan_ask[noul_answer, 0.2]
+  − plan_noask` in `plain`, focal opens, is **+0.0509 [+0.0113, +0.0909]** Y against the exact ceiling 0.1019 —
+  captured **0.4996 [0.11, 0.89]** of Δ*_menu; the registered rule was "> 0 and captured ≥ 0.5", so the coded verdict
+  is *positive but below captured minimum*, and it is reported as coded. The miss decomposes into two parts visible in
+  the secondary arms. First, the **hedge itself**: the *oracle* planner at a = 0.2 captures only 0.76 (+0.0777
+  [+0.0396, +0.1177]) because the hedged kernel devalues questions — it asks at 0.425 of the ASK-optimal nodes where
+  the a = 0 planner asks at 1.000 — and the hedge costs the oracle −0.0235 [−0.0388, −0.0098] in `plain`. Second,
+  **Noul's soft reads**: the remaining gap from the Noul planner to the oracle planner at the same hedge is −0.0267
+  [−0.0436, −0.0116]. Descriptively, the same P1 contrast at a = 0 is **+0.0792 [+0.0448, +0.1144]**, captured 0.78.
+- **The chooser result is the largest effect in the live-game series.** On identical menus, the planner fed by Noul's
+  likelihood beats Jev-as-chooser by **+0.1587 [+0.1295, +0.1919]** (`plain`) and +0.1137 [+0.0774, +0.1536]
+  (`oblique`), and Sonnet-as-chooser by **+0.1597 [+0.1296, +0.1907]** and +0.1196 [+0.0740, +0.1658] (P7, all four
+  confirmed). Both agents sit *below the no-ask planner* by about a full ceiling (jev −0.1078 [−0.1467, −0.0671],
+  sonnet −0.1088 [−0.1462, −0.0678], focal opens, `plain`). Neither asks: Jev at 1 of 700 ASK-optimal decisions, Sonnet
+  at 6 of 703 (`plain`) and 2 of 702 (`oblique`; P6 selectivity +0.0085 [+0.0015, +0.0168] and +0.0028 [+0.0000,
+  +0.0072], confirmed as "< 0.2") — §3.7's zero asks replicated for a frontier general model, not only for Jev. They fail
+  differently: Jev walks out of 0.214 of `plain` episodes (0.308 when it opens) as in §3.7; Sonnet walks out of only
+  0.087 but its decisions carry true regret 0.119 per episode and only 0.173 of them are zero-regret, against 0.667 for
+  the Noul planner and 0.684 for the hedged oracle. Mean Y when the focal opens: Jev 0.4235, Sonnet 0.4225, `plan_noask`
+  0.5313, Noul planner 0.5822, hedged oracle 0.6090, exact oracle 0.6325.
+- **On guarded text a model is needed, and either model will do.** P2 `noul_answer − regex` in `oblique` is **+0.0449
+  [+0.0292, +0.0616]** and P8, the in-episode answer log-loss, **−1.4725 [−2.1028, −0.9257]** bits (both confirmed).
+  The parser is not merely useless on oblique text but harmful: at a = 0 it zeroed the true type in 51 episodes
+  (confident mis-parses meeting an exact filter) and made asking worth −0.0592 [−0.0964, −0.0232] relative to not asking;
+  at a = 0.2 the hedge absorbs the mis-parses (−0.0377 [−0.0773, +0.0007]) — P5's hedge-helps-under-noise, confirmed for
+  both Noul (+0.0326 [+0.0090, +0.0577]) and the parser (+0.0215 [+0.0085, +0.0359]). The same-family Sonnet judge beats
+  the parser by +0.0614 [+0.0381, +0.0862] in `oblique` — a little more than Noul does, from a better-calibrated
+  likelihood (0.584 vs 0.691 bits on the bank).
+- **P3 fails, and the failure is calibration on *easy* text.** In `plain` the Noul planner was predicted to match the
+  parser within δ = 0.02; it is **−0.0267 [−0.0436, −0.0116]** below it (a = 0.2; −0.0220 [−0.0354, −0.0104] at a = 0).
+  The parser is exactly right on every plain reply, so this is the price of Noul's ≈ 0.9 reads: the hedged planners ask
+  the same questions (question contrast +0.0000), but the Noul planner ends with less mass on the true type and reaches
+  agreement in 0.9375 of episodes against the oracle's 0.9819 (walk-outs 0.0625 vs 0.0181); at a = 0 the residual doubt
+  turns 0.040 of unambiguous negotiations into walk-outs where the oracle has none. The Sonnet judge, with 0.085 bits
+  of plain log-loss, loses only −0.0018 [−0.0034, −0.0004] to the oracle at the same hedge. The likelihood seat needs
+  calibration where the text is clear at least as much as discrimination where it is not.
+- **Oblique text still does not pay at the registered hedge.** No answer decoder recovers value over `plan_noask` on
+  guarded replies at a = 0.2: Noul +0.0072 [−0.0324, +0.0457] (captured 0.07), the judge +0.0236 [−0.0172, +0.0631]
+  (0.23), `noul_type` +0.0349 [−0.0023, +0.0708] (0.34), where the hedged oracle would take +0.0777. At a = 0 the soft
+  decodes make asking *negative* over all cells (Noul −0.0605 [−0.0918, −0.0300]; walk rate 0.224): a partial update
+  leaves the exact planner proposing from a belief its policy was not computed for. The hedge therefore cuts both
+  ways — it buys +0.0326 in `oblique` and costs −0.0283 [−0.0470, −0.0103] in `plain` for the same decoder (P5 and its
+  mirror).
+- **Reading the type beats reading the answer when priorities leak (P4, exploratory, confirmed).** `noul_type −
+  noul_answer` in `oblique` is **+0.0277 [+0.0142, +0.0429]**: the oblique verbalizer lets priorities show beyond the
+  yes/no, and six `Noul`s read some of it (top-1 0.43 on the bank). In `plain` the 6-way reading at a = 0.2 matches the
+  hedged oracle's value exactly (vs-oracle +0.0000) while asking fewer questions (−0.18 per focal-open episode) — the
+  type `Noul`s, unlike the answer `Noul`, read an unambiguous reply as decisive.
+- **Honest notes.** The primary verdict stands as coded; the captured interval [0.11, 0.89] is wide because 36 type
+  pairs are the whole cluster space. The opponent never lies and never adapts to the text; only its *answers* are text
+  (its offers are typed). One model family verbalizes the replies, judges them and plays the `sonnet_agent` arm. The a = 0
+  arms are secondaries. The only post-run change is storage (`runs.jsonl` committed gzipped; the loader reads either),
+  disclosed in the registration and pinned by `test_regeneration_noul.py`.
+
+**Role lesson:** the §3.5 division of labour transfers to negotiation with free-text replies. Put in the *chooser's*
+seat, Jev and a frontier general model both ask nothing and finish below a planner that never asks; put in the
+*likelihood* seat — `Noul` as p(reply | type), the posterior and every decision in code — the same Jev recovers half
+the value of inquiry at the registered hedge and three quarters at a = 0, and does so **selectively** (asks at 1.000 of
+ASK-optimal nodes at a = 0, 0.07 elsewhere). The binding constraint has moved from *whether the model will ask* to
+*how calibrated its likelihood is*: §4.5's "`Noul` is no better than a free LLM's" recurs as a 0.197-vs-0.085-bit gap on
+unambiguous text that the exact filter converts into walk-outs, and the fixed hedge that CD-MIS-2 chose for
+*evasive answers* interacts with that softness in opposite directions on clear and guarded text. The next lever is at
+the model boundary again — a hedge, or a temperature, that scales with the decoder's own uncertainty — not in the
+planner.
+
 ## 4. The design patterns
 
 ### 4.1 Propose → Answer → Select
@@ -930,6 +1025,13 @@ when evaluating structured-decision models:
   surviving rankings, not values; the first-position bias is still present in every Jev arm; the focal-opens gain of the belief arm
   (+0.021 [+0.006, +0.036]) is a secondary cell set and the registered primary was negative; the heuristic Phase 2 arms (`C_bonus`), the
   general-LLM adapter, and T2 remain unbuilt.
+- **CD-NOUL-1:** Stage 1 only — the opponent is the typed T1 kernel whose yes/no answers are verbalized by Sonnet 5.5 (it never
+  lies and never adapts to the text; its offers are typed); one model family verbalizes, judges (`sonnet_answer`) and plays
+  (`sonnet_agent`); the primary captured fraction's interval is wide (36 type-pair clusters) and the point sits 0.0004 under the
+  registered 0.5; the hedge is the fixed CD-MIS-2 value and interacts with soft decodes in opposite directions on clear and guarded
+  text — a hedge or temperature that scales with the decoder's own uncertainty is the obvious unregistered follow-up; `noul_type`'s
+  use of leaked priorities in `oblique` is outside the binary-answer ceiling by design; Stage 2 (a live LLM opponent with a
+  strategic brief, the realizer, a `Noul` over offers, the clairvoyant ceiling) is unbuilt and unregistered.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's
@@ -950,7 +1052,8 @@ when evaluating structured-decision models:
 | Live Car-Dealer | merged, complete | selector over a planner-complete shortlist in the bilateral game with ASK | Phase 0: ASK worth 0 at H=2, 0.038 utility at H=4 (exact); Jev: 0/2555 questions, P1 -0.010 [-0.021, -0.002] (ceiling 0.102), gap to planner -0.277 [-0.316, -0.234]; full menu: walks 0.93 |
 | Live Car-Dealer CD-MIS-2 | merged, complete | (scripted) severity sweep; hedged-answer ASK arms vs trusting; true-rate × assumed-rate matrix | E1 `C_ans0.2 − C_naive` +0.084 [+0.062, +0.106] at flip 0.3 (confirmed); `C_naive − B_naive` sign change by 0.2; `B_naive − A_prior` +0.042 [+0.004, +0.079] at noise 0.5; robust filter identical trajectories 1.000 |
 | Live Car-Dealer CD-MIS-1 | merged, complete | (scripted) wrong-model learning vs prior-only, robust filters, true oracle | B_naive − A_prior +0.126 [+0.098, +0.155] under history (negative learning refuted); withholding null; robust filters change 0 decisions; evasive answers: C_naive − B_naive -0.087 [-0.109, -0.063] |
-| Live Car-Dealer CD-SEL-1 | run complete, PR open | selector shown the posterior in words and/or P(accept) per offer (A_prior / B_passive / placebo) | P1 `both − plain` -0.058 [-0.117, -0.000] (registered > 0: negative); walk rate 0.342 → 0.000, SAFE 94%; `pacc − prior` -0.002 [-0.011, +0.007]; belief arm asks 0.064/episode selectively (+0.025 [+0.004, +0.045]), Y +0.004 [-0.007, +0.014] |
+| Live Car-Dealer CD-SEL-1 | merged, complete | selector shown the posterior in words and/or P(accept) per offer (A_prior / B_passive / placebo) | P1 `both − plain` -0.058 [-0.117, -0.000] (registered > 0: negative); walk rate 0.342 → 0.000, SAFE 94%; `pacc − prior` -0.002 [-0.011, +0.007]; belief arm asks 0.064/episode selectively (+0.025 [+0.004, +0.045]), Y +0.004 [-0.007, +0.014] |
+| Live Car-Dealer CD-NOUL-1 | merged, complete | `Noul` = p(free-text reply \| type) likelihood for the exact planner; Jev and Sonnet as choosers on the same menus | P1 `plan_ask[noul_answer, 0.2] − plan_noask` (plain, focal opens) +0.051 [+0.011, +0.091], captured 0.50 [0.11, 0.89] of the 0.102 ceiling (registered ≥ 0.5: below by 0.0004; 0.78 at a = 0); planner − jev_agent +0.159 [+0.130, +0.192], − sonnet_agent +0.160 [+0.130, +0.191]; Noul − regex oblique +0.045 [+0.029, +0.062], plain −0.027 [−0.044, −0.012]; agents ask at ≤ 6/703 ASK-optimal decisions |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
 
 ---
@@ -1084,6 +1187,15 @@ as this report. Named runs/docs used as shorthand in the body:
   `results/live_mis2_20261030/{analysis,verdicts}.json`. CD-SEL-1: shown-information treatments in `jev_policy_live.py`, arm specs in
   `run_phase1.py`, selector pairs and walk-rate contrasts in `analyze_phase1.py`, `verdicts_sel.py`, `render_sel_note.py`, `test_sel.py`;
   `PREREGISTRATION_SEL.md` (tag `prereg-sel-20261030`), `SEL_RESULTS.md`; numbers in `results/live_sel_jev_h4_cq0_20261030/{analysis,verdicts}.json`.
+- **Live Car-Dealer CD-NOUL-1:** package `llm_rl_scripts/car_dealer_noul/` (`verbalize.py` = the Sonnet 5.5 verbalizer bank,
+  `audit.py` = the blind never-lies audit, `decode.py` = the regex / Noul 2-way / Noul 6-way / Sonnet-judge decoders and their
+  matrices, `arms_noul.py` = planner arms over the §3.7 planner with a swappable likelihood, `agents_noul.py` = the two
+  LLM-as-chooser agents, `run_noul.py`, `analyze_noul.py`, `verdicts_noul.py`, `render_noul_note.py`,
+  `test_regeneration_noul.py` = regenerates analysis, verdicts and note from the committed inputs). Docs `DESIGN_NOUL.md`,
+  `PREREGISTRATION_NOUL.md` (tag `prereg-noul1-20261108`, with a post-run disclosure section), `RESULTS_NOUL.md` (rendered
+  from JSON). Bank, blind audit and decoder calibration in `results/noul_bank_20261108/` (`bank.jsonl`, `audit_labels.jsonl`,
+  `audit_report.json`, `matrix_{noul,sonnet}.jsonl`, `decoder_calibration.json`); run numbers in
+  `results/noul_stage1_20261108/{analysis,verdicts}.json` (episodes in `runs.jsonl.gz`).
 
 ### A.4 Experiment design
 
@@ -1223,4 +1335,5 @@ as this report. Named runs/docs used as shorthand in the body:
   and re-run. **SF = Stockfish** (chess engine); **SF depth-1**, **Skill-0**, and
   **UCI_Elo 1320** ("SF-1320") are engine strength settings (the binary floors at
   Elo 1320). The 20Q **T5 oracle** is the paper's trained answerer; its checkpoint is
-  unavailable, hence J/J self-play (§3.5).
+  unavailable, hence J/J self-play (§3.5). **`claude-sonnet-5-5`** (Anthropic, November 2026) is the
+  verbalizer, the `sonnet_answer` judge and the `sonnet_agent` chooser of §3.12.
