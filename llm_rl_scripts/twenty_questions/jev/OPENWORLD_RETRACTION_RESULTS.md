@@ -54,13 +54,13 @@ escalations. The tension was a property of the coupled designs, not of the probl
 Mean over 2 seed replicates, at 10% attribute-flip; run
 `openworld_retraction_20261108_213525`.
 
-| backend | in-pool fail | detector AUC | wrong-guesses | false escalations |
-|---|---:|---:|---:|---:|
-| soft | 0.039 | 0.996 | 60 | 20 |
-| hard | 0.175 | 0.913 | **0** | 325 |
-| retract @margin 4 | 0.028 | 0.563 | 334 | 25 |
-| tombstone @tol 3 | 0.009 | **0.499** | 764 | 6 |
-| **modeswitch @K=3** | **0.149** | **0.926** | **0** | **277** |
+| backend | in-pool fail | detector AUC | wrong-guesses | false escalations | questions/game |
+|---|---:|---:|---:|---:|---:|
+| soft | 0.039 | 0.996 | 60 | 20 | 9.77 |
+| hard | 0.175 | 0.913 | **0** | 325 | **8.82** |
+| retract @margin 4 | 0.028 | 0.563 | 334 | 25 | 10.04 |
+| tombstone @tol 3 | 0.009 | **0.499** | 764 | 6 | 11.14 |
+| **modeswitch @K=3** | **0.149** | **0.926** | **0** | **277** | 9.47 |
 
 `retract` and `tombstone` show the trap: the lowest in-pool failure (0.028, 0.009), but
 AUC at or near the 0.50 chance line and hundreds of wrong guesses. `modeswitch` recovers
@@ -69,6 +69,16 @@ making no wrong guesses** — and with fewer false escalations (277 vs 325), bec
 recovered flip is a won game, not an expert call. At zero noise `modeswitch` is identical
 to `hard`. It is the only reversible backend that stays out of the low-AUC band (see the
 trade-off scatter in `fig_retraction_tradeoff.png`).
+
+The **questions/game** column carries the price a failure-rate-only table hides. `soft`'s
+low in-pool failure is bought with questions: it never eliminates, so it keeps asking to
+drive the posterior down, and at 10% it costs ~1 extra question per game over `hard` (9.77
+vs 8.82) — the same ε-floor mechanism that earns its accuracy. `modeswitch` recovers most
+of `hard`'s failure gap at a *smaller* surcharge (9.47, below `soft`), because its reinstate
+is a single by-name probe, not a sustained reweighting. The naive backends are the worst of
+both: higher question cost (10.04, 11.14) *and* hundreds of wrong guesses. A scorecard for
+this task should therefore require questions-used per game alongside failure rate and AUC,
+as this one now does.
 
 ## 2. Why the scalar and the plain structured backend fail
 
@@ -117,10 +127,13 @@ and manufacture wrong answers).
 
 ## What the scorecard leaves out
 
-Every axis this study measures — in-pool failure, detector AUC, wrong-guesses,
-escalations — is one a graded posterior is good at, and `soft` leads or ties on all of
-them (in-pool 0.039, AUC 0.996, few wrong, few escalations). Read naively, the table
-says "just use `soft`." That reading omits the axis the discrete backends exist for.
+Of the axes this study measures — in-pool failure, detector AUC, wrong-guesses,
+escalations, questions per game — `soft` leads on three: in-pool failure (0.039), AUC
+(0.996), and escalations (20). It does **not** sweep them. It makes 60 wrong guesses where
+`hard` and `modeswitch` make **zero**, and it asks more questions than `hard` (9.77 vs
+8.82). Still, on the headline axes a graded posterior looks strong, and read naively the
+table says "just use `soft`." Even setting the wrong-guess and question-cost gaps aside,
+that reading omits the axis the discrete backends exist for.
 
 `hard`, `retract`, `tombstone`, and `modeswitch` are not chosen for their error rates;
 they are chosen for a **discrete, append-only, replayable audit trail** — the ability
@@ -140,7 +153,7 @@ answer-the-why queries) is the measurement this study did not take.
 
 ## Caveats
 
-* The recovery is modest in magnitude (0.175 → 0.152 at 10%) because most flips strike
+* The recovery is modest in magnitude (0.175 → 0.149 at 10%) because most flips strike
   a truth that reaches the boundary with no cheap single-contradiction signature; the
   *point* is that the recovery is free of detector cost and of wrong answers, which the
   naive backends are not.
