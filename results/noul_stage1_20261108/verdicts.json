@@ -1,0 +1,347 @@
+{
+ "study": "CD-NOUL-1",
+ "delta": 0.02,
+ "primary_hedge": "1/5",
+ "primary_cells": "focal_opens",
+ "captured_min": 0.5,
+ "selectivity_max": 0.2,
+ "gates": {
+  "pipeline": {
+   "error_stubs": 0,
+   "episodes_per_key": {
+    "jev_agent|oblique": 720,
+    "jev_agent|plain": 720,
+    "plan_ask-noul_answer-0|oblique": 720,
+    "plan_ask-noul_answer-0|plain": 720,
+    "plan_ask-noul_answer-0.2|oblique": 720,
+    "plan_ask-noul_answer-0.2|plain": 720,
+    "plan_ask-noul_type-0|oblique": 720,
+    "plan_ask-noul_type-0|plain": 720,
+    "plan_ask-noul_type-0.2|oblique": 720,
+    "plan_ask-noul_type-0.2|plain": 720,
+    "plan_ask-oracle-0|oblique": 720,
+    "plan_ask-oracle-0|plain": 720,
+    "plan_ask-oracle-0.2|oblique": 720,
+    "plan_ask-oracle-0.2|plain": 720,
+    "plan_ask-regex-0|oblique": 720,
+    "plan_ask-regex-0|plain": 720,
+    "plan_ask-regex-0.2|oblique": 720,
+    "plan_ask-regex-0.2|plain": 720,
+    "plan_ask-sonnet_answer-0|oblique": 720,
+    "plan_ask-sonnet_answer-0|plain": 720,
+    "plan_ask-sonnet_answer-0.2|oblique": 720,
+    "plan_ask-sonnet_answer-0.2|plain": 720,
+    "plan_noask|none": 720,
+    "sonnet_agent|oblique": 720,
+    "sonnet_agent|plain": 720
+   },
+   "well_formed": {
+    "jev_agent|oblique": 1.0,
+    "jev_agent|plain": 1.0,
+    "sonnet_agent|oblique": 1.0,
+    "sonnet_agent|plain": 1.0
+   },
+   "pass": true
+  },
+  "oracle_pair_reproduces_ceiling": {
+   "contrast": {
+    "point": 0.06429843304843307,
+    "ci95": [
+     0.04777421652421655,
+     0.08326210826210828
+    ],
+    "n_clusters": 36
+   },
+   "ceiling_delta_menu_Y": 0.06381087747560826,
+   "pass": true
+  },
+  "oracle_decoder_text_invariant": {
+   "contrast": {
+    "point": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n_clusters": 36
+   },
+   "pass": true
+  }
+ },
+ "rules": {
+  "P1": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 (plain) \u2212 plan_noask, focal_opens (PRIMARY)",
+   "prediction": "> 0 and captured fraction of \u0394*_menu \u2265 0.5",
+   "estimate": {
+    "point": 0.05092592592592593,
+    "ci95": [
+     0.01125356125356126,
+     0.0909188034188034
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "positive but below captured minimum",
+   "captured_fraction_of_delta_menu": {
+    "ceiling": 0.10194272056883841,
+    "point": 0.49955431483248874,
+    "ci95": [
+     0.11039102341752903,
+     0.8918616543827577
+    ]
+   },
+   "ceiling_delta_menu_Y": 0.10194272056883841
+  },
+  "P2": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 plan_ask-regex-0.2, oblique, focal_opens",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.04494301994301994,
+    "ci95": [
+     0.02923789173789174,
+     0.06164529914529915
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P3": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 plan_ask-regex-0.2, plain, focal_opens",
+   "prediction": "within \u03b4 = 0.02 of 0",
+   "estimate": {
+    "point": -0.026745014245014243,
+    "ci95": [
+     -0.04358974358974359,
+     -0.011645299145299144
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "not supported"
+  },
+  "P4": {
+   "quantity": "\u0394 Y, plan_ask-noul_type-0.2 \u2212 plan_ask-noul_answer-0.2, oblique, focal_opens",
+   "prediction": "\u2265 0 (exploratory)",
+   "estimate": {
+    "point": 0.027706552706552704,
+    "ci95": [
+     0.01417378917378917,
+     0.04291310541310541
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P5_noul_answer": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 plan_ask-noul_answer-0, oblique, focal_opens",
+   "prediction": "\u2265 0",
+   "estimate": {
+    "point": 0.032621082621082625,
+    "ci95": [
+     0.008974358974358972,
+     0.05765669515669517
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P5_regex": {
+   "quantity": "\u0394 Y, plan_ask-regex-0.2 \u2212 plan_ask-regex-0, oblique, focal_opens",
+   "prediction": "\u2265 0",
+   "estimate": {
+    "point": 0.021474358974358978,
+    "ci95": [
+     0.008511396011396012,
+     0.0358974358974359
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P6_plain": {
+   "quantity": "P(ask | ASK optimal) \u2212 P(ask | legal, not optimal), sonnet_agent, plain",
+   "prediction": "< 0.2 (upper CI bound)",
+   "estimate": {
+    "point": 0.008534850640113799,
+    "ci95": [
+     0.0015174506828528073,
+     0.01675977653631285
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "p_ask_given_optimal": 0.008534850640113799,
+   "p_ask_given_not_optimal": 0.0
+  },
+  "P6_oblique": {
+   "quantity": "P(ask | ASK optimal) \u2212 P(ask | legal, not optimal), sonnet_agent, oblique",
+   "prediction": "< 0.2 (upper CI bound)",
+   "estimate": {
+    "point": 0.002849002849002849,
+    "ci95": [
+     0.0,
+     0.00715307582260372
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed",
+   "p_ask_given_optimal": 0.002849002849002849,
+   "p_ask_given_not_optimal": 0.0
+  },
+  "P7_jev_agent_plain": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 jev_agent, plain, focal_opens",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.15872507122507123,
+    "ci95": [
+     0.12952279202279204,
+     0.19188034188034186
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P7_jev_agent_oblique": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 jev_agent, oblique, focal_opens",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.11374643874643875,
+    "ci95": [
+     0.07735042735042735,
+     0.1535968660968661
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P7_sonnet_agent_plain": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 sonnet_agent, plain, focal_opens",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.15972222222222224,
+    "ci95": [
+     0.12962962962962965,
+     0.19074074074074077
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P7_sonnet_agent_oblique": {
+   "quantity": "\u0394 Y, plan_ask-noul_answer-0.2 \u2212 sonnet_agent, oblique, focal_opens",
+   "prediction": "> 0",
+   "estimate": {
+    "point": 0.11958689458689459,
+    "ci95": [
+     0.07396723646723646,
+     0.16584757834757835
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  },
+  "P8": {
+   "quantity": "\u0394 answer log-loss (bits), plan_ask-noul_answer-0.2 \u2212 plan_ask-regex-0.2, oblique, all cells",
+   "prediction": "< 0",
+   "estimate": {
+    "point": -1.472506524792068,
+    "ci95": [
+     -2.102764435104554,
+     -0.925707859434233
+    ],
+    "n_clusters": 36
+   },
+   "verdict": "confirmed"
+  }
+ },
+ "gates_pass": true,
+ "descriptive": {
+  "P1_other_hedge": {
+   "point": 0.07920227920227921,
+   "ci95": [
+    0.04476495726495726,
+    0.11442307692307693
+   ],
+   "n_clusters": 36
+  },
+  "P2_other_hedge": {
+   "point": 0.033796296296296297,
+   "ci95": [
+    0.0040598290598290575,
+    0.06214387464387464
+   ],
+   "n_clusters": 36
+  },
+  "sonnet_judge_vs_regex_oblique": {
+   "point": 0.06136039886039886,
+   "ci95": [
+    0.03806980056980057,
+    0.08621794871794872
+   ],
+   "n_clusters": 36
+  },
+  "sonnet_judge_vs_noul_oblique": {
+   "point_difference_of_gaps_to_oracle": 0.016417378917378912,
+   "note": "two separately bootstrapped contrasts; no interval"
+  },
+  "oracle_ask_value_plain": {
+   "point": 0.10117521367521368,
+   "ci95": [
+    0.07272079772079772,
+    0.13244301994301994
+   ],
+   "n_clusters": 36
+  },
+  "mean_Y_focal_opens": {
+   "jev_agent|oblique": 0.42475071225071226,
+   "jev_agent|plain": 0.4235042735042735,
+   "plan_ask-noul_answer-0|oblique": 0.5058760683760684,
+   "plan_ask-noul_answer-0|plain": 0.610505698005698,
+   "plan_ask-noul_answer-0.2|oblique": 0.538497150997151,
+   "plan_ask-noul_answer-0.2|plain": 0.5822293447293447,
+   "plan_ask-noul_type-0|oblique": 0.558974358974359,
+   "plan_ask-noul_type-0|plain": 0.6106125356125356,
+   "plan_ask-noul_type-0.2|oblique": 0.5662037037037038,
+   "plan_ask-noul_type-0.2|plain": 0.608974358974359,
+   "plan_ask-oracle-0|oblique": 0.6324786324786325,
+   "plan_ask-oracle-0|plain": 0.6324786324786325,
+   "plan_ask-oracle-0.2|oblique": 0.608974358974359,
+   "plan_ask-oracle-0.2|plain": 0.608974358974359,
+   "plan_ask-regex-0|oblique": 0.4720797720797721,
+   "plan_ask-regex-0|plain": 0.6324786324786325,
+   "plan_ask-regex-0.2|oblique": 0.4935541310541311,
+   "plan_ask-regex-0.2|plain": 0.608974358974359,
+   "plan_ask-sonnet_answer-0|oblique": 0.542094017094017,
+   "plan_ask-sonnet_answer-0|plain": 0.6314102564102564,
+   "plan_ask-sonnet_answer-0.2|oblique": 0.5549145299145299,
+   "plan_ask-sonnet_answer-0.2|plain": 0.6071937321937322,
+   "plan_noask|none": 0.5313034188034188,
+   "sonnet_agent|oblique": 0.4189102564102564,
+   "sonnet_agent|plain": 0.4225071225071225
+  },
+  "questions_per_episode": {
+   "jev_agent|oblique": 0.001388888888888889,
+   "jev_agent|plain": 0.002777777777777778,
+   "plan_ask-noul_answer-0|oblique": 1.6597222222222223,
+   "plan_ask-noul_answer-0|plain": 1.6597222222222223,
+   "plan_ask-noul_answer-0.2|oblique": 0.6263888888888889,
+   "plan_ask-noul_answer-0.2|plain": 0.6208333333333333,
+   "plan_ask-noul_type-0|oblique": 1.6597222222222223,
+   "plan_ask-noul_type-0|plain": 1.6597222222222223,
+   "plan_ask-noul_type-0.2|oblique": 0.6736111111111112,
+   "plan_ask-noul_type-0.2|plain": 0.5319444444444444,
+   "plan_ask-oracle-0|oblique": 1.5597222222222222,
+   "plan_ask-oracle-0|plain": 1.5597222222222222,
+   "plan_ask-oracle-0.2|oblique": 0.6208333333333333,
+   "plan_ask-oracle-0.2|plain": 0.6208333333333333,
+   "plan_ask-regex-0|oblique": 1.6597222222222223,
+   "plan_ask-regex-0|plain": 1.5597222222222222,
+   "plan_ask-regex-0.2|oblique": 0.6972222222222222,
+   "plan_ask-regex-0.2|plain": 0.6208333333333333,
+   "plan_ask-sonnet_answer-0|oblique": 1.6597222222222223,
+   "plan_ask-sonnet_answer-0|plain": 1.6597222222222223,
+   "plan_ask-sonnet_answer-0.2|oblique": 0.6513888888888889,
+   "plan_ask-sonnet_answer-0.2|plain": 0.6208333333333333,
+   "plan_noask|none": 0,
+   "sonnet_agent|oblique": 0.002777777777777778,
+   "sonnet_agent|plain": 0.008333333333333333
+  }
+ }
+}

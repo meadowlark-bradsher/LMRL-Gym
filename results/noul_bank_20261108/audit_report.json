@@ -1,0 +1,40 @@
+{
+  "regimes": {
+    "plain": {
+      "n_audited": 60,
+      "labels": {
+        "yes": 30,
+        "no": 30
+      },
+      "contradictions": [],
+      "regex_accuracy_audited": 1.0,
+      "regex_accuracy_bank": 1.0,
+      "regex_unparsed_bank": 0,
+      "n_bank": 2160,
+      "empty_or_refusal_bank": 0
+    },
+    "oblique": {
+      "n_audited": 60,
+      "labels": {
+        "yes": 12,
+        "unclear": 26,
+        "no": 22
+      },
+      "contradictions": [],
+      "regex_accuracy_audited": 0.08333333333333333,
+      "regex_accuracy_bank": 0.12453703703703704,
+      "regex_unparsed_bank": 1837,
+      "n_bank": 2160,
+      "empty_or_refusal_bank": 0
+    }
+  },
+  "gates": {
+    "plain": {
+      "contradictions_ok": true
+    },
+    "oblique": {
+      "contradictions_ok": true,
+      "oblique_enough": true
+    }
+  }
+}
