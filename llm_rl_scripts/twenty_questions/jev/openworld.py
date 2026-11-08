@@ -228,7 +228,8 @@ def run_openworld_episode(true_h: Hypothesis,
                           eps: float = 0.05,
                           top_k_guesses: int = 5,
                           backend: str = "soft",
-                          margin: float = 2.0, tolerance: int = 1) -> OWEpisode:
+                          margin: float = 2.0, tolerance: int = 1,
+                          observer=None) -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
@@ -292,7 +293,12 @@ def run_openworld_episode(true_h: Hypothesis,
                 steps=steps,
             )
 
+        surv_before = set(getattr(bk, "survivors", ())) if observer is not None else None
         bk.observe(q, ans)
+        if observer is not None:
+            # Non-invasive audit hook: reconstruct the op-log from the public survivor
+            # transition this turn. Backends without a survivor set (soft) report none.
+            observer(turn, q, ans, bk, surv_before)
         pu = bk.distribution().get(UNKNOWN, 0.0)
         if pu > p_unk_max:
             p_unk_max = pu
@@ -384,7 +390,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      eps: float = 0.05, oracle_threshold: float = 0.5,
                      oracle_noise: float = 0.0, noise_seed: int = 0,
                      backend: str = "soft", margin: float = 2.0,
-                     tolerance: int = 1) -> List[GameRecord]:
+                     tolerance: int = 1, observer_factory=None) -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
     the discovery curve itself is independent of them. ``oracle_noise > 0`` flips
@@ -410,11 +416,14 @@ def run_accumulation(objects: Sequence[Hypothesis],
         if k_before == 0:
             p_unknown_prior = 1.0
 
+        obs = observer_factory(list(known)) if observer_factory is not None else None
         ep = run_openworld_episode(
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
-            backend=backend, margin=margin, tolerance=tolerance,
+            backend=backend, margin=margin, tolerance=tolerance, observer=obs,
         )
+        if obs is not None:
+            obs.finish(ep)
 
         expert_called = ep.outcome == "expert"
         false_positive = expert_called and in_pool

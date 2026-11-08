@@ -1,0 +1,323 @@
+{
+  "cells": [
+    {
+      "agg": {
+        "chain_ok_frac": null,
+        "discrete": false,
+        "elim_per_game": 0.0,
+        "games": 2000,
+        "log_cells_per_game": 994.05,
+        "ops_per_game": 0.0,
+        "reinstate_local_frac": null,
+        "reinstate_per_game": 0.0,
+        "replay_exact_frac": null,
+        "verifiable_frac": null,
+        "why_frac": null
+      },
+      "backend": "soft",
+      "margin": null,
+      "oracle_noise": 0.0,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": null,
+        "discrete": false,
+        "elim_per_game": 0.0,
+        "games": 4000,
+        "log_cells_per_game": 1057.46025,
+        "ops_per_game": 0.0,
+        "reinstate_local_frac": null,
+        "reinstate_per_game": 0.0,
+        "replay_exact_frac": null,
+        "verifiable_frac": null,
+        "why_frac": null
+      },
+      "backend": "soft",
+      "margin": null,
+      "oracle_noise": 0.05,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": null,
+        "discrete": false,
+        "elim_per_game": 0.0,
+        "games": 4000,
+        "log_cells_per_game": 1103.63575,
+        "ops_per_game": 0.0,
+        "reinstate_local_frac": null,
+        "reinstate_per_game": 0.0,
+        "replay_exact_frac": null,
+        "verifiable_frac": null,
+        "why_frac": null
+      },
+      "backend": "soft",
+      "margin": null,
+      "oracle_noise": 0.1,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 106.852,
+        "games": 2000,
+        "log_cells_per_game": 106.852,
+        "ops_per_game": 106.852,
+        "reinstate_local_frac": null,
+        "reinstate_per_game": 0.0,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "hard",
+      "margin": null,
+      "oracle_noise": 0.0,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 107.138,
+        "games": 4000,
+        "log_cells_per_game": 107.138,
+        "ops_per_game": 107.138,
+        "reinstate_local_frac": null,
+        "reinstate_per_game": 0.0,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "hard",
+      "margin": null,
+      "oracle_noise": 0.05,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 107.35825,
+        "games": 4000,
+        "log_cells_per_game": 107.35825,
+        "ops_per_game": 107.35825,
+        "reinstate_local_frac": null,
+        "reinstate_per_game": 0.0,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "hard",
+      "margin": null,
+      "oracle_noise": 0.1,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 48.3805,
+        "games": 2000,
+        "log_cells_per_game": 60.4185,
+        "ops_per_game": 60.4185,
+        "reinstate_local_frac": 0.0,
+        "reinstate_per_game": 12.038,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "retract",
+      "margin": 4.0,
+      "oracle_noise": 0.0,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 74.66075,
+        "games": 4000,
+        "log_cells_per_game": 93.4885,
+        "ops_per_game": 93.4885,
+        "reinstate_local_frac": 0.0,
+        "reinstate_per_game": 18.82775,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "retract",
+      "margin": 4.0,
+      "oracle_noise": 0.05,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 74.976,
+        "games": 4000,
+        "log_cells_per_game": 93.92325,
+        "ops_per_game": 93.92325,
+        "reinstate_local_frac": 0.0,
+        "reinstate_per_game": 18.94725,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "retract",
+      "margin": 4.0,
+      "oracle_noise": 0.1,
+      "tolerance": null
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 21.7355,
+        "games": 2000,
+        "log_cells_per_game": 27.157,
+        "ops_per_game": 27.157,
+        "reinstate_local_frac": 1.0,
+        "reinstate_per_game": 5.4215,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "tombstone",
+      "margin": null,
+      "oracle_noise": 0.0,
+      "tolerance": 3
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 21.99025,
+        "games": 4000,
+        "log_cells_per_game": 27.64025,
+        "ops_per_game": 27.64025,
+        "reinstate_local_frac": 1.0,
+        "reinstate_per_game": 5.65,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "tombstone",
+      "margin": null,
+      "oracle_noise": 0.05,
+      "tolerance": 3
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 22.18175,
+        "games": 4000,
+        "log_cells_per_game": 28.0055,
+        "ops_per_game": 28.0055,
+        "reinstate_local_frac": 1.0,
+        "reinstate_per_game": 5.82375,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "tombstone",
+      "margin": null,
+      "oracle_noise": 0.1,
+      "tolerance": 3
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 107.087,
+        "games": 2000,
+        "log_cells_per_game": 107.2945,
+        "ops_per_game": 107.2945,
+        "reinstate_local_frac": 1.0,
+        "reinstate_per_game": 0.2075,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "modeswitch",
+      "margin": null,
+      "oracle_noise": 0.0,
+      "tolerance": 3
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 107.60225,
+        "games": 4000,
+        "log_cells_per_game": 108.05775,
+        "ops_per_game": 108.05775,
+        "reinstate_local_frac": 1.0,
+        "reinstate_per_game": 0.4555,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "modeswitch",
+      "margin": null,
+      "oracle_noise": 0.05,
+      "tolerance": 3
+    },
+    {
+      "agg": {
+        "chain_ok_frac": 1.0,
+        "discrete": true,
+        "elim_per_game": 108.0195,
+        "games": 4000,
+        "log_cells_per_game": 108.68075,
+        "ops_per_game": 108.68075,
+        "reinstate_local_frac": 1.0,
+        "reinstate_per_game": 0.66125,
+        "replay_exact_frac": 1.0,
+        "verifiable_frac": 1.0,
+        "why_frac": 1.0
+      },
+      "backend": "modeswitch",
+      "margin": null,
+      "oracle_noise": 0.1,
+      "tolerance": 3
+    }
+  ],
+  "config": {
+    "backends": [
+      "soft",
+      "hard",
+      "retract",
+      "tombstone",
+      "modeswitch"
+    ],
+    "confidence": 0.9,
+    "eps": 0.05,
+    "games": 2000,
+    "kill": 0.5,
+    "levels": [
+      0.0,
+      0.05,
+      0.1
+    ],
+    "margins": [
+      4.0
+    ],
+    "matrix": "matrix_jev.json",
+    "n_noise_seeds": 2,
+    "seed": 7,
+    "tolerances": [
+      3
+    ],
+    "zipf_s": 1.1
+  },
+  "created": "20261108_233741",
+  "pitman_yor_fit": {
+    "sigma": 0.2,
+    "theta": 20.0
+  },
+  "schema": "twenty_questions_openworld_audit_v1"
+}
