@@ -135,5 +135,6 @@ PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_retraction \
     --dir llm_rl_scripts/twenty_questions/jev/results/openworld_retraction_20261108_213525
 ```
 
-The explainer page `retraction_tradeoff.html` renders the trade-off for a first-time
-reader (it predates `modeswitch` and shows the trap, not yet the resolution).
+The explainer page `retraction_tradeoff.html` renders the whole arc for a first-time
+reader — the trap and the mode-switch resolution, with the good-corner scatter from
+this run.
