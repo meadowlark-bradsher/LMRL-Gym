@@ -1,0 +1,136 @@
+{
+  "plain": {
+    "n": 2160,
+    "oracle": {
+      "n": 2160,
+      "accuracy": 1.0,
+      "uninformative": 0.0,
+      "wrong_confident": 0.0,
+      "logloss_bits": 1.4426957622784505e-06
+    },
+    "regex": {
+      "n": 2160,
+      "accuracy": 1.0,
+      "uninformative": 0.0,
+      "wrong_confident": 0.0,
+      "logloss_bits": 1.4426957622784505e-06
+    },
+    "noul_answer": {
+      "n": 2160,
+      "accuracy": 1.0,
+      "uninformative": 0.0,
+      "wrong_confident": 0.0,
+      "logloss_bits": 0.19717218652611387
+    },
+    "sonnet_answer": {
+      "n": 2160,
+      "accuracy": 1.0,
+      "uninformative": 0.0,
+      "wrong_confident": 0.0,
+      "logloss_bits": 0.084637429299814
+    },
+    "audited": {
+      "oracle": {
+        "n_unclear": 0,
+        "unclear_mean_p_yes": null,
+        "unclear_share_near_half": null,
+        "n_inferred": 60,
+        "inferred_accuracy": 1.0
+      },
+      "regex": {
+        "n_unclear": 0,
+        "unclear_mean_p_yes": null,
+        "unclear_share_near_half": null,
+        "n_inferred": 60,
+        "inferred_accuracy": 1.0
+      },
+      "noul_answer": {
+        "n_unclear": 0,
+        "unclear_mean_p_yes": null,
+        "unclear_share_near_half": null,
+        "n_inferred": 60,
+        "inferred_accuracy": 1.0
+      },
+      "sonnet_answer": {
+        "n_unclear": 0,
+        "unclear_mean_p_yes": null,
+        "unclear_share_near_half": null,
+        "n_inferred": 60,
+        "inferred_accuracy": 1.0
+      }
+    },
+    "noul_type": {
+      "n": 2160,
+      "posterior_on_true_mean": 0.2797973781857644,
+      "top1_accuracy": 0.31666666666666665,
+      "uniform": 0.16666666666666666
+    }
+  },
+  "oblique": {
+    "n": 2160,
+    "oracle": {
+      "n": 2160,
+      "accuracy": 1.0,
+      "uninformative": 0.0,
+      "wrong_confident": 0.0,
+      "logloss_bits": 1.4426957622784505e-06
+    },
+    "regex": {
+      "n": 2160,
+      "accuracy": 0.12453703703703704,
+      "uninformative": 0.850462962962963,
+      "wrong_confident": 0.025,
+      "logloss_bits": 1.348752356865123
+    },
+    "noul_answer": {
+      "n": 2160,
+      "accuracy": 0.7101851851851851,
+      "uninformative": 0.25787037037037036,
+      "wrong_confident": 0.0,
+      "logloss_bits": 0.6907773190915086
+    },
+    "sonnet_answer": {
+      "n": 2160,
+      "accuracy": 0.8083333333333333,
+      "uninformative": 0.3736111111111111,
+      "wrong_confident": 0.0,
+      "logloss_bits": 0.5840099598669866
+    },
+    "audited": {
+      "oracle": {
+        "n_unclear": 26,
+        "unclear_mean_p_yes": 0.6923076923076923,
+        "unclear_share_near_half": 0.0,
+        "n_inferred": 34,
+        "inferred_accuracy": 1.0
+      },
+      "regex": {
+        "n_unclear": 26,
+        "unclear_mean_p_yes": 0.5,
+        "unclear_share_near_half": 1.0,
+        "n_inferred": 34,
+        "inferred_accuracy": 0.6470588235294118
+      },
+      "noul_answer": {
+        "n_unclear": 26,
+        "unclear_mean_p_yes": 0.41935428894472077,
+        "unclear_share_near_half": 0.5769230769230769,
+        "n_inferred": 34,
+        "inferred_accuracy": 0.8823529411764706
+      },
+      "sonnet_answer": {
+        "n_unclear": 26,
+        "unclear_mean_p_yes": 0.4869230769230769,
+        "unclear_share_near_half": 0.9230769230769231,
+        "n_inferred": 34,
+        "inferred_accuracy": 1.0
+      }
+    },
+    "noul_type": {
+      "n": 2160,
+      "posterior_on_true_mean": 0.24338361426214541,
+      "top1_accuracy": 0.4305555555555556,
+      "uniform": 0.16666666666666666
+    }
+  }
+}

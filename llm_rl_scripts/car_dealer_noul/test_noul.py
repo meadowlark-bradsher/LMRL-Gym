@@ -175,3 +175,94 @@ def test_report_counts_contradictions_and_regex_accuracy(tmp_path: Path):
         for item, label in labels.items():
             f.write(json.dumps({"item": item, "label": label}) + "\n")
     assert au.load_labels(lab_path) == labels
+
+
+# ---- decoder matrices ---------------------------------------------------------------------
+
+from LLM_RL.jev.client import JevClient, MockJevBackend  # noqa: E402
+
+
+def _mock_noul(state: str, qid: str, instr: str) -> float:
+    """Reads the fake bank's canned replies: 'Yes, ...' or 'No, ...'."""
+    said_yes = 'replied: "Yes' in state
+    if qid == "yes":
+        return 0.9 if said_yes else 0.1
+    if qid == "no":
+        return 0.1 if said_yes else 0.9
+    # type questions: favour rankings whose first attribute is named in the question
+    return 0.8 if instr.split("are ")[1].split(" >")[0] in state else 0.2
+
+
+class FakeJudge:
+    """Sonnet stand-in: JSON probability from the canned reply; malformed on the first call
+    when asked, to exercise the retry."""
+
+    def __init__(self, malformed_first: bool = False):
+        self.calls = 0
+        self.malformed_first = malformed_first
+
+    def complete(self, system, messages, max_tokens):
+        self.calls += 1
+        if self.malformed_first and self.calls == 1:
+            return Completion(text="I think probably yes.", model="fake", stop_reason="end_turn")
+        p = 0.95 if 'replied: "Yes' in messages[0]["content"] else 0.05
+        return Completion(text=f'{{"p_yes": {p}}}', model="fake", stop_reason="end_turn", input_tokens=5, output_tokens=5)
+
+
+def test_noul_item_reads_both_decoders_from_one_call(tmp_path: Path):
+    rows = _fake_bank(tmp_path, k=1)
+    backend = MockJevBackend(noul_fn=_mock_noul)
+    row = rows[0]
+    out = dc.noul_item(JevClient(backend), row)
+    assert len(backend.calls) == 1 and len(backend.calls[0]["questions"]) == 8
+    assert set(out) >= {"id", "regime", "truthful", "p_yes", "type_vector", "raw"}
+    assert (out["p_yes"] > 0.5) == (row["item"]["truthful"] == "yes")
+    assert len(out["type_vector"]) == 6 and max(out["type_vector"]) == 1.0
+    assert dc.p_yes_two_way(0.0, 0.0) == 0.5 and dc.p_yes_two_way(0.9, 0.1) == pytest.approx(0.9)
+    assert dc.type_vector({dc.ranking_key(r): 0.0 for r in ALL_RANKINGS}) == tuple([1.0] * 6)
+
+
+def test_sonnet_item_parses_json_and_retries_once(tmp_path: Path):
+    rows = _fake_bank(tmp_path, k=1)
+    j = FakeJudge(malformed_first=True)
+    out = dc.sonnet_item(j, rows[0])
+    assert j.calls == 2 and out["raw"]["retried"] and not out["malformed"]
+    assert (out["p_yes"] > 0.5) == (rows[0]["item"]["truthful"] == "yes")
+    assert dc.parse_p_yes('{"p_yes": 0.25}') == 0.25 and dc.parse_p_yes('{"p_yes": 1.5}') is None
+    assert dc.parse_p_yes("no json here") is None
+
+
+def test_build_matrix_is_resumable_and_calibration_reports(tmp_path: Path):
+    rows = _fake_bank(tmp_path, k=1)
+    path = dc.matrix_path(tmp_path, "noul")
+    client = JevClient(MockJevBackend(noul_fn=_mock_noul))
+    assert dc.build_matrix("noul", rows[:10], client, path, workers=3) == 10
+    assert dc.build_matrix("noul", rows, client, path, workers=3) == len(rows) - 10
+    assert dc.build_matrix("noul", rows, client, path) == 0
+    noul = dc.load_matrix(path)
+    assert set(noul) == {r["item"]["id"] for r in rows}
+    spath = dc.matrix_path(tmp_path, "sonnet")
+    dc.build_matrix("sonnet", rows, FakeJudge(), spath, workers=2)
+    rep = dc.calibration(rows, {"noul": noul, "sonnet": dc.load_matrix(spath)})
+    for regime in ("plain", "oblique"):
+        r = rep[regime]
+        assert r["oracle"]["accuracy"] == 1.0 and r["oracle"]["logloss_bits"] < 1e-4
+        assert r["noul_answer"]["accuracy"] == 1.0 and r["sonnet_answer"]["accuracy"] == 1.0
+        assert r["regex"]["accuracy"] == 1.0            # the fake bank answers plainly
+        assert 0 < r["noul_type"]["posterior_on_true_mean"] <= 1
+        assert r["noul_answer"]["logloss_bits"] == pytest.approx(-__import__("math").log2(0.9))
+
+
+def test_calibration_reports_audited_unclear_and_inferred(tmp_path: Path):
+    rows = _fake_bank(tmp_path, k=1)
+    noul = {}
+    for r in rows:
+        noul[r["item"]["id"]] = dc.noul_item(JevClient(MockJevBackend(noul_fn=_mock_noul)), r)
+    ids = [r["item"]["id"] for r in rows if r["item"]["regime"] == "plain"][:6]
+    audit = {ids[0]: "unclear", ids[1]: "unclear", ids[2]: "yes", ids[3]: "no", ids[4]: "yes", ids[5]: "no"}
+    rep = dc.calibration(rows, {"noul": noul}, audit)
+    a = rep["plain"]["audited"]["noul_answer"]
+    assert a["n_unclear"] == 2 and a["n_inferred"] == 4
+    assert a["unclear_share_near_half"] == 0.0            # the mock is confident on every canned reply
+    assert rep["plain"]["audited"]["regex"]["n_inferred"] == 4
+    assert "audited" not in rep["oblique"] or rep["oblique"]["audited"]["noul_answer"]["n_unclear"] == 0

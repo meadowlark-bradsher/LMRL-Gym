@@ -194,6 +194,15 @@ Scale and cost (Stage 1): bank 2,160 Sonnet calls (~$5); decoder matrices 2,160 
 | Audit sample | 60 per regime, balanced 30 yes / 30 no, seed 20261108, labels yes / no / unclear | `audit.py`; thresholds: 0 contradictions in `plain`, ≤ 2 in `oblique`, regex bank accuracy < 0.9 in `oblique` |
 | Regex decoder | earliest yes / no cue wins; unparsed → uninformative (0.5) | a reasonable parser, not a tuned one; its cue lists are frozen before the bank exists |
 
+**Decoder matrices (2026-11-08).** `decode.py build` applied the Noul decoders (one Jev call per
+item carrying the two answer Nouls and the six type Nouls; `p_yes = y/(y+n)`, type vector scaled
+to max 1) and the Sonnet 2-way judge (P(YES) as JSON) to every bank item once;
+`results/noul_bank_20261108/matrix_{noul,sonnet}.jsonl` with provenance (model, prompt hash).
+`decode.py calibration` wrote `decoder_calibration.json`: accuracy, uninformative share,
+confident-wrong share and log-loss per regime and decoder, plus the decoders' behaviour on the
+blind-audited items split by the reader's label. It is descriptive — no decoder rule, prompt or
+threshold was changed after reading it — and the registration will cite it from the file.
+
 ## 8. Limits named now
 
 - The type space is the six rankings — binning is free, as in 20Q. A user's real counterpart

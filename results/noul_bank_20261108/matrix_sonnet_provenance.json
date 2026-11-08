@@ -1,0 +1,8 @@
+{
+  "schema": "cd_noul_decoder_matrix_v1",
+  "decoder": "sonnet",
+  "model": "claude-sonnet-5-5",
+  "n_items": 4320,
+  "prompt_hash": "aea24a833e5c",
+  "built": "2026-11-08"
+}
