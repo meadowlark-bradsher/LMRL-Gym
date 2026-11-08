@@ -117,13 +117,30 @@ def self_test() -> None:
     RQ = namedtuple("RQ", ["kind", "key", "qid"])
     A = Hypothesis("A", (), "c1"); Bz = Hypothesis("B", (), "c2")
     rbn = {"A": A, "B": Bz, UNKNOWN: Hypothesis(UNKNOWN, (), UNKNOWN)}
-    tab = {("q1", "A"): 0.05, ("q1", "B"): 0.9, ("q2", "A"): 0.95, ("q2", "B"): 0.05}
+    tab = {("q1", "A"): 0.05, ("q1", "B"): 0.9, ("q2", "A"): 0.95, ("q2", "B"): 0.05,
+           ("q3", "A"): 0.05, ("q3", "B"): 0.9}
     rlike = lambda q, h: 0.5 if h.name == UNKNOWN else tab[(q.key, h.name)]
     re = RetractingElimination([A, Bz], rbn, rlike, UNKNOWN, 0.1, margin=10.0)
     re.observe(RQ("attribute", "q1", "a:q1"), True)   # contradicts A -> A struck
     assert "A" not in re.survivors and re.n_kills >= 1
     re.observe(RQ("attribute", "q2", "a:q2"), True)   # supports A, contradicts B
     assert "A" in re.survivors and re.n_revives >= 1  # A un-eliminated (revived)
+
+    # 8. tombstone: hard strike (first contradiction removes), reinstate on empty.
+    from .openworld_backends import TombstoneRetraction
+    tb = TombstoneRetraction([A, Bz], rbn, rlike, UNKNOWN, 0.1, tolerance=1)
+    tb.observe(RQ("attribute", "q1", "a:q1"), True)   # contradicts A -> struck
+    assert "A" not in tb.survivors and tb.n_kills >= 1
+    tb.observe(RQ("attribute", "q2", "a:q2"), True)   # contradicts B -> live empties
+    assert tb.survivors and tb.n_revives >= 1         # min-killer known reinstated
+
+    # 9. modeswitch: hard strike + bounded reinstate-and-test on empty.
+    from .openworld_backends import ModeSwitchedRetraction
+    ms = ModeSwitchedRetraction([A, Bz], rbn, rlike, UNKNOWN, 0.1, tolerance=3)
+    ms.observe(RQ("attribute", "q1", "a:q1"), True)   # contradicts A -> struck
+    assert "A" not in ms.survivors
+    ms.observe(RQ("attribute", "q2", "a:q2"), True)   # contradicts B -> empty -> reinstate
+    assert ms.survivors and 1 <= ms.n_revives <= 3    # bounded reinstate fired
 
     print("[self-test] open-world mechanics OK")
     print("  cold-start -> expert; in-pool -> won (p_unk<0.5);",
@@ -291,7 +308,8 @@ def run_noise_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
 def run_retraction_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
                         confidence: float, eps: float, backends: List[str],
                         levels: List[float], n_noise_seeds: int,
-                        margins: List[float], outdir: str) -> str:
+                        margins: List[float], tolerances: List[int],
+                        outdir: str) -> str:
     """The retraction study: every belief backend through the same stream and the
     same noise grid, so the only thing that varies within a (level, seed) cell is the
     belief update. Reports the in-pool failure rate (a knowable secret the backend
@@ -332,26 +350,34 @@ def run_retraction_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
     keys = ["in_pool_fail_rate", "auc", "false_positive_calls", "wrong",
             "expert_calls", "mean_retractions", "mean_questions"]
     cells = []
-    print("backend      noise  in-pool-fail       AUC     FP   wrong  retract/ep")
+    print("backend       noise  in-pool-fail       AUC     FP   wrong  revive/ep")
     for bk in backends:
-        # retract is swept over revival margins; soft/hard ignore it.
-        bk_margins = margins if bk == "retract" else [None]
-        for m in bk_margins:
+        # retract sweeps the revival margin; tombstone/modeswitch sweep their tolerance
+        # (tombstone: reinstate killer bound; modeswitch: reinstate-test budget K).
+        if bk == "retract":
+            knobs = [("margin", m) for m in margins]
+        elif bk in ("tombstone", "modeswitch"):
+            knobs = [("tolerance", int(t)) for t in tolerances]
+        else:
+            knobs = [(None, None)]
+        for kname, kval in knobs:
             for lvl in levels:
                 rows = []
                 nseeds = 1 if lvl == 0.0 else n_noise_seeds
                 for ns in range(1, nseeds + 1):
-                    kw = {"margin": m} if m is not None else {}
+                    kw = {kname: kval} if kname else {}
                     recs = run_accumulation(objs, matrix, stream, sigma, theta,
                                             confidence=confidence, eps=eps,
                                             oracle_noise=lvl, noise_seed=ns,
                                             backend=bk, **kw)
                     rows.append(metrics(recs))
                 a = {k: agg(rows, k) for k in keys}
-                label = bk if m is None else "{}@{:g}".format(bk, m)
-                cells.append({"backend": bk, "margin": m, "oracle_noise": lvl,
-                              "n_noise_seeds": len(rows), "per_seed": rows, "agg": a})
-                print("{:11s} {:4.0f}%  {:.3f} [{:.3f},{:.3f}]  {:.3f}  {:5.1f}  {:5.1f}  {:7.2f}".format(
+                label = bk if kname is None else "{}@{:g}".format(bk, kval)
+                cells.append({"backend": bk, "margin": kval if kname == "margin" else None,
+                              "tolerance": kval if kname == "tolerance" else None,
+                              "oracle_noise": lvl, "n_noise_seeds": len(rows),
+                              "per_seed": rows, "agg": a})
+                print("{:12s} {:4.0f}%  {:.3f} [{:.3f},{:.3f}]  {:.3f}  {:5.1f}  {:5.1f}  {:7.2f}".format(
                     label, lvl * 100, a["in_pool_fail_rate"]["mean"],
                     a["in_pool_fail_rate"]["min"], a["in_pool_fail_rate"]["max"],
                     a["auc"]["mean"], a["false_positive_calls"]["mean"],
@@ -366,7 +392,8 @@ def run_retraction_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
         "config": {"matrix": os.path.basename(matrix_path), "games": games,
                    "zipf_s": zipf_s, "seed": seed, "confidence": confidence,
                    "eps": eps, "backends": backends, "levels": levels,
-                   "n_noise_seeds": n_noise_seeds, "margins": margins},
+                   "n_noise_seeds": n_noise_seeds, "margins": margins,
+                   "tolerances": tolerances},
         "pitman_yor_fit": {"sigma": sigma, "theta": theta},
         "cells": cells,
     }
@@ -396,6 +423,8 @@ def main() -> None:
     ap.add_argument("--backends", default="soft,hard,retract")
     ap.add_argument("--margins", default="1,2,4",
                     help="revival margins to sweep for the retract backend")
+    ap.add_argument("--tolerances", default="1,2",
+                    help="killer tolerances to sweep for the tombstone backend")
     ap.add_argument("--levels", default="0.0,0.05,0.10")
     ap.add_argument("--noise-seeds", type=int, default=3)
     ap.add_argument("--outdir", default="llm_rl_scripts/twenty_questions/jev/results")
@@ -414,9 +443,10 @@ def main() -> None:
         levels = [float(x) for x in args.levels.split(",")]
         backends = [b.strip() for b in args.backends.split(",")]
         margins = [float(x) for x in args.margins.split(",")]
+        tolerances = [int(x) for x in args.tolerances.split(",")]
         run_retraction_grid(args.matrix, args.games, args.zipf, args.seed,
                             args.confidence, args.eps, backends, levels,
-                            args.noise_seeds, margins, args.outdir)
+                            args.noise_seeds, margins, tolerances, args.outdir)
         return
     run(args.matrix, args.games, args.zipf, args.seed, args.confidence,
         args.eps, args.outdir, oracle_noise=args.oracle_noise,
