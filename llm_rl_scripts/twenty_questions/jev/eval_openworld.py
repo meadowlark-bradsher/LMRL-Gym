@@ -91,6 +91,26 @@ def self_test() -> None:
     assert len(bank["category"]) == 17
     assert all(q.key != "Zebra" for q in bank["guess"])  # Zebra (Animals) excluded
 
+    # 6. Belief backends: both run through the same loop; hard elimination strikes
+    #    a contradicted survivor, and out-of-pool still fires the expert.
+    from .openworld_backends import BACKENDS, HardMonotone
+    assert set(BACKENDS) >= {"soft", "hard"}
+    ep_hard_out = run_openworld_episode(animal, known_no_animals, matrix, 0.1,
+                                        oracle, backend="hard")
+    assert ep_hard_out.outcome == "expert", ep_hard_out.outcome
+    ep_hard_in = run_openworld_episode(true_in, known, matrix, 0.1, oracle,
+                                       backend="hard")
+    assert ep_hard_in.outcome in ("won", "expert"), ep_hard_in.outcome
+    # direct: a "no" to a category the survivor belongs to strikes it, monotone.
+    cat_q = next(q for q in build_openworld_bank(known)["category"]
+                 if q.key == true_in.category)
+    by_name = {h.name: h for h in known}
+    hb = HardMonotone(known, by_name, lambda q, h: 1.0 if h.category == q.key else 0.0,
+                      UNKNOWN, 0.1)
+    assert true_in.name in hb.survivors
+    hb.observe(cat_q, False)  # "no, it is not that category" contradicts it
+    assert true_in.name not in hb.survivors  # struck, and cannot return
+
     print("[self-test] open-world mechanics OK")
     print("  cold-start -> expert; in-pool -> won (p_unk<0.5);",
           "out-of-pool -> expert (p_unk>=0.5)")

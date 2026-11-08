@@ -34,6 +34,7 @@ from .bed import (
     expected_info_gain, matrix_oracle, posterior_update, predictive_yes,
     rank_questions,
 )
+from .openworld_backends import BACKENDS
 
 UNKNOWN = "__unknown__"
 UNKNOWN_HYP = Hypothesis(name=UNKNOWN, variants=(), category=UNKNOWN)
@@ -224,88 +225,81 @@ def run_openworld_episode(true_h: Hypothesis,
                           max_questions: int = 20,
                           confidence: float = 0.9,
                           eps: float = 0.05,
-                          top_k_guesses: int = 5) -> OWEpisode:
-    """Play one open-world game. Posterior over known objects + UNKNOWN; EIG
-    argmax selects; the confidence gate either guesses a real object or fires the
-    expert on UNKNOWN."""
+                          top_k_guesses: int = 5,
+                          backend: str = "soft") -> OWEpisode:
+    """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
+    (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
+    the commit loop are shared across backends, so a change of ``backend`` changes
+    only the belief update. The backend's ``decision()`` chooses, at the gate, to ask
+    another question, guess a known object, or fire the expert on UNKNOWN."""
     all_hyps = list(known_hyps) + [UNKNOWN_HYP]
     by_name = {h.name: h for h in all_hyps}
     like = make_openworld_likelihood(matrix, known_hyps, eps=eps)
     bank = build_openworld_bank(known_hyps)
     guess_by_name = {q.key: q for q in bank[GUESS]}
-
-    # Prior: UNKNOWN gets the PY mass, the known objects split the rest uniformly.
-    post: Posterior = {}
-    k = len(known_hyps)
-    rest = 1.0 - p_unknown_prior
-    for h in known_hyps:
-        post[h.name] = rest / k if k else 0.0
-    post[UNKNOWN] = p_unknown_prior if k else 1.0
+    bk = BACKENDS[backend](known_hyps, by_name, like, UNKNOWN, p_unknown_prior, eps)
 
     steps: List[OWStep] = []
-    p_unk_max = post[UNKNOWN]
+    p_unk_max = bk.distribution().get(UNKNOWN, 0.0)
     fire_turn: Optional[int] = None
+    in_pool = true_h.name in guess_by_name
 
     for turn in range(1, max_questions + 1):
-        support = sum(1 for p in post.values() if p > 1e-9)
-        top_name = max(post, key=lambda n: post[n])
-        top_p = post[top_name]
+        dist = bk.distribution()
+        top_name = max(dist, key=lambda n: dist[n])
+        top_p = dist[top_name]
+        decision = bk.decision(confidence)
 
-        committing = top_p >= confidence or support == 1
-        if committing and top_name == UNKNOWN:
+        if decision[0] == "expert":
             if fire_turn is None:
                 fire_turn = turn
             return OWEpisode(
                 true_name=true_h.name, true_category=true_h.category,
-                in_pool=true_h.name in by_name and true_h.name != UNKNOWN,
-                outcome="expert", n_questions=turn - 1, p_unknown_max=p_unk_max,
-                p_unknown_final=post[UNKNOWN], fire_turn=fire_turn, steps=steps,
+                in_pool=in_pool, outcome="expert", n_questions=turn - 1,
+                p_unknown_max=p_unk_max, p_unknown_final=dist.get(UNKNOWN, 0.0),
+                fire_turn=fire_turn, steps=steps,
             )
-        if committing and top_name != UNKNOWN:
-            q = guess_by_name[top_name]
+        if decision[0] == "guess":
+            q = guess_by_name[decision[1]]
         else:
-            cands = candidate_questions(post, bank, top_k_guesses=top_k_guesses)
-            ranked = rank_questions(cands, post, by_name, like)
+            cands = candidate_questions(dist, bank, top_k_guesses=top_k_guesses)
+            ranked = rank_questions(cands, dist, by_name, like)
             q = ranked[0][0]
 
-        eig = expected_info_gain(q, post, by_name, like)
+        eig = expected_info_gain(q, dist, by_name, like)
         ans = oracle(q, true_h)
         steps.append(OWStep(
             turn=turn, qid=q.qid, kind=q.kind, eig=eig, answer_yes=ans,
-            p_unknown_before=post[UNKNOWN], top_name=top_name, top_p=top_p,
+            p_unknown_before=dist.get(UNKNOWN, 0.0), top_name=top_name, top_p=top_p,
         ))
 
         if q.kind == GUESS and ans:
             return OWEpisode(
                 true_name=true_h.name, true_category=true_h.category,
-                in_pool=true_h.name in guess_by_name,
-                outcome="won", n_questions=turn, p_unknown_max=p_unk_max,
-                p_unknown_final=post[UNKNOWN], fire_turn=fire_turn, steps=steps,
+                in_pool=in_pool, outcome="won", n_questions=turn,
+                p_unknown_max=p_unk_max, p_unknown_final=dist.get(UNKNOWN, 0.0),
+                fire_turn=fire_turn, steps=steps,
             )
-        if q.kind == GUESS and not ans:
-            # A wrong by-name guess: the committed real object was not it. Treat
-            # as a mis-commit; mass will have been on a known object, so this is a
-            # "wrong" resolution (only reachable when a known object passed the
-            # gate but the secret differs -- rare, logged honestly).
-            post = posterior_update(post, q, ans, by_name, like, eps=eps)
-            if post[UNKNOWN] > p_unk_max:
-                p_unk_max = post[UNKNOWN]
-            continue
 
-        post = posterior_update(post, q, ans, by_name, like, eps=eps)
-        if post[UNKNOWN] > p_unk_max:
-            p_unk_max = post[UNKNOWN]
-        if fire_turn is None and post[UNKNOWN] >= confidence:
+        bk.observe(q, ans)
+        pu = bk.distribution().get(UNKNOWN, 0.0)
+        if pu > p_unk_max:
+            p_unk_max = pu
+        if q.kind == GUESS and not ans:
+            # A wrong by-name guess: the committed object was not the secret. The
+            # backend has already absorbed the "no"; keep playing.
+            continue
+        if fire_turn is None and pu >= confidence:
             fire_turn = turn + 1  # crosses the gate entering the next turn
 
     # Budget exhausted: expert iff UNKNOWN is on top, else a wrong guess.
-    top_name = max(post, key=lambda n: post[n])
+    dist = bk.distribution()
+    top_name = max(dist, key=lambda n: dist[n])
     outcome = "expert" if top_name == UNKNOWN else "wrong"
     return OWEpisode(
-        true_name=true_h.name, true_category=true_h.category,
-        in_pool=true_h.name in guess_by_name, outcome=outcome,
-        n_questions=max_questions, p_unknown_max=p_unk_max,
-        p_unknown_final=post[UNKNOWN], fire_turn=fire_turn, steps=steps,
+        true_name=true_h.name, true_category=true_h.category, in_pool=in_pool,
+        outcome=outcome, n_questions=max_questions, p_unknown_max=p_unk_max,
+        p_unknown_final=dist.get(UNKNOWN, 0.0), fire_turn=fire_turn, steps=steps,
     )
 
 
@@ -375,7 +369,8 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      sigma: float, theta: float,
                      max_questions: int = 20, confidence: float = 0.9,
                      eps: float = 0.05, oracle_threshold: float = 0.5,
-                     oracle_noise: float = 0.0, noise_seed: int = 0
+                     oracle_noise: float = 0.0, noise_seed: int = 0,
+                     backend: str = "soft"
                      ) -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
@@ -405,6 +400,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
         ep = run_openworld_episode(
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
+            backend=backend,
         )
 
         expert_called = ep.outcome == "expert"
