@@ -169,3 +169,45 @@ def test_cli_refuses_confirmatory_without_tag_and_live_backends(tmp_path):
         rn.main(["--phase", "confirmatory", "--out", str(tmp_path)])
     with pytest.raises(SystemExit):
         rn.main(["--phase", "pilot", "--out", str(tmp_path), "--opponent", "llm"])   # llm opponent needs the live backend
+
+
+@needs_cal
+def test_opponent_question_is_answered_truthfully_and_recorded():
+    """The live opponent may ASK (the kernel never does): the focal answers truthfully, the episode continues,
+    and the raw opponent replies are persisted. Found by the first pilot cell (15/72 stubs)."""
+    import random as _r
+    from llm_rl_scripts.car_dealer_live.opponent import KernelParams, T1Kernel
+    from llm_rl_scripts.car_dealer_live.protocol_live import ASK, new_game
+    from . import opponent_llm as op
+    cal = a2.Calibration(CAL)
+    cell = a2.Stage2Cell(CFG, "buyer", ALL_RANKINGS[0])
+    fallback = T1Kernel("seller", CFG, KernelParams())
+
+    class AskFirstClient:
+        """Picks the first listed ASK on the first move, then plays as the kernel would."""
+        def __init__(self):
+            self.inner, self.n = op.KernelClient(fallback, ALL_RANKINGS[2], _r.Random(1), CFG), 0
+        def bind_state(self, state):
+            self.inner.bind_state(state)
+        def complete(self, system, messages, max_tokens):
+            self.n += 1
+            user = messages[-1]["content"]
+            if self.n == 1:
+                import re
+                label = next(L for L, d in re.findall(r"^\s+([A-Z]{1,2})\. (.*)$", user, re.M) if d.startswith("Ask:"))
+                return op.Completion(f"DECISION: {label}\nSAY: Before anything else, a question.")
+            return self.inner.complete(system, messages, max_tokens)
+
+    class AskOpp(op.KernelOpponent):
+        def move(self, state):
+            self.client.bind_state(state)
+            return op.LLMOpponent.move(self, state)
+
+    opp = AskOpp(AskFirstClient(), "guarded", "seller", ALL_RANKINGS[2], CFG, fallback=fallback, rng=_r.Random(3))
+    dec = a2.Decoders(cal, JevClient(MockJevBackend()), None)
+    rec = a2.play_episode(cell, a2.parse_arm("plan_noask"), "guarded", "seller", ALL_RANKINGS[2], _r.Random(5), opp,
+                          TemplateRealizer(), dec, cal, 0)
+    assert "error" not in rec and rec["opponent_asked"] == 1
+    assert rec["opponent_raw"] and all("reply" in c and "user" not in c for c in rec["opponent_raw"])
+    assert rec["terminal"]["reason"] in ("accept", "walk", "deadline")
+

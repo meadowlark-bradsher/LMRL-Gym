@@ -1,0 +1,122 @@
+{
+ "adopt_fit": true,
+ "brief": "guarded",
+ "fitted_all": {
+  "accept_noise": 0.28108294097900866,
+  "alpha0": "7/10",
+  "beta": 0.02372482579284451,
+  "p_counter": 0.9994068793551789,
+  "p_hold": 0.5,
+  "shortlist": 3
+ },
+ "folds": [
+  {
+   "fitted": {
+    "accept_noise": 0.4091669272101865,
+    "alpha0": "7/10",
+    "beta": 0.02372482579284451,
+    "p_counter": 0.9994068793551789,
+    "p_hold": 0.5,
+    "shortlist": 3
+   },
+   "gain_nats_per_move": 0.003486873959762409,
+   "n_test": 265,
+   "n_train": 630,
+   "seed": 0,
+   "test_mean_ll_fitted": -7.077506330945362,
+   "test_mean_ll_reference": -7.080993204905125,
+   "train_mean_ll": -7.327319568903144,
+   "zero_prob_fitted": 131,
+   "zero_prob_reference": 131
+  },
+  {
+   "fitted": {
+    "accept_noise": 0.321509482831033,
+    "alpha0": "7/10",
+    "beta": 0.02372482579284451,
+    "p_counter": 0.9994068793551789,
+    "p_hold": 0.5,
+    "shortlist": 3
+   },
+   "gain_nats_per_move": 0.008951558910844554,
+   "n_test": 275,
+   "n_train": 620,
+   "seed": 1,
+   "test_mean_ll_fitted": -7.1942468351059,
+   "test_mean_ll_reference": -7.203198394016744,
+   "train_mean_ll": -7.277936679948641,
+   "zero_prob_fitted": 138,
+   "zero_prob_reference": 138
+  },
+  {
+   "fitted": {
+    "accept_noise": 0.2501132759634462,
+    "alpha0": "7/10",
+    "beta": 0.02372482579284451,
+    "p_counter": 0.9994068793551789,
+    "p_hold": 0.5,
+    "shortlist": 3
+   },
+   "gain_nats_per_move": 0.138443604126346,
+   "n_test": 267,
+   "n_train": 628,
+   "seed": 2,
+   "test_mean_ll_fitted": -7.340308177528424,
+   "test_mean_ll_reference": -7.47875178165477,
+   "train_mean_ll": -7.214705681174114,
+   "zero_prob_fitted": 137,
+   "zero_prob_reference": 140
+  }
+ ],
+ "gate_threshold": 0.05,
+ "heldout_gain_nats_per_move": 0.05029401233231765,
+ "mean_ll_fitted_all": -7.2520858996091855,
+ "mean_ll_reference_all": -7.370424747223375,
+ "n_episodes": 288,
+ "n_moves": 895,
+ "reference": {
+  "accept_noise": 0.0,
+  "alpha0": "4/5",
+  "beta": 8.0,
+  "p_counter": 1.0,
+  "p_hold": 1.0,
+  "shortlist": 3
+ },
+ "support_fitted": {
+  "ACCEPT": {
+   "n": 194,
+   "zero": 0
+  },
+  "ASK": {
+   "n": 24,
+   "zero": 24
+  },
+  "PROPOSE": {
+   "n": 623,
+   "zero": 429
+  },
+  "WALK": {
+   "n": 54,
+   "zero": 0
+  }
+ },
+ "support_reference": {
+  "ACCEPT": {
+   "n": 194,
+   "zero": 0
+  },
+  "ASK": {
+   "n": 24,
+   "zero": 24
+  },
+  "PROPOSE": {
+   "n": 623,
+   "zero": 438
+  },
+  "WALK": {
+   "n": 54,
+   "zero": 0
+  }
+ },
+ "zero_prob_reference_all": 462
+}

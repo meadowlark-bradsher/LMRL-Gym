@@ -1,0 +1,122 @@
+{
+ "adopt_fit": false,
+ "brief": "candid",
+ "fitted_all": {
+  "accept_noise": 0.10421524221313073,
+  "alpha0": "4/5",
+  "beta": 0.02372482579284451,
+  "p_counter": 1.0,
+  "p_hold": 1.0,
+  "shortlist": 3
+ },
+ "folds": [
+  {
+   "fitted": {
+    "accept_noise": 0.15158616153129617,
+    "alpha0": "4/5",
+    "beta": 0.02372482579284451,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "gain_nats_per_move": 0.003990801862483401,
+   "n_test": 243,
+   "n_train": 599,
+   "seed": 0,
+   "test_mean_ll_fitted": -7.242819905275455,
+   "test_mean_ll_reference": -7.246810707137939,
+   "train_mean_ll": -7.464497010689325,
+   "zero_prob_fitted": 123,
+   "zero_prob_reference": 123
+  },
+  {
+   "fitted": {
+    "accept_noise": 0.2444951565779836,
+    "alpha0": "579/911",
+    "beta": 0.02372482579284451,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "gain_nats_per_move": -0.026546005432019716,
+   "n_test": 261,
+   "n_train": 581,
+   "seed": 1,
+   "test_mean_ll_fitted": -7.463925878141296,
+   "test_mean_ll_reference": -7.437379872709276,
+   "train_mean_ll": -7.3798801074082645,
+   "zero_prob_fitted": 136,
+   "zero_prob_reference": 136
+  },
+  {
+   "fitted": {
+    "accept_noise": 0.14272240533965544,
+    "alpha0": "4/5",
+    "beta": 0.02372482579284451,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "gain_nats_per_move": 0.01202262643048535,
+   "n_test": 247,
+   "n_train": 595,
+   "seed": 2,
+   "test_mean_ll_fitted": -7.226639730883341,
+   "test_mean_ll_reference": -7.238662357313826,
+   "train_mean_ll": -7.472459305153133,
+   "zero_prob_fitted": 125,
+   "zero_prob_reference": 125
+  }
+ ],
+ "gate_threshold": 0.05,
+ "heldout_gain_nats_per_move": -0.0035108590463503214,
+ "mean_ll_fitted_all": -7.3999716929599435,
+ "mean_ll_reference_all": -7.46883997237908,
+ "n_episodes": 288,
+ "n_moves": 842,
+ "reference": {
+  "accept_noise": 0.0,
+  "alpha0": "4/5",
+  "beta": 8.0,
+  "p_counter": 1.0,
+  "p_hold": 1.0,
+  "shortlist": 3
+ },
+ "support_fitted": {
+  "ACCEPT": {
+   "n": 188,
+   "zero": 3
+  },
+  "ASK": {
+   "n": 45,
+   "zero": 45
+  },
+  "PROPOSE": {
+   "n": 562,
+   "zero": 388
+  },
+  "WALK": {
+   "n": 47,
+   "zero": 0
+  }
+ },
+ "support_reference": {
+  "ACCEPT": {
+   "n": 188,
+   "zero": 3
+  },
+  "ASK": {
+   "n": 45,
+   "zero": 45
+  },
+  "PROPOSE": {
+   "n": 562,
+   "zero": 393
+  },
+  "WALK": {
+   "n": 47,
+   "zero": 0
+  }
+ },
+ "zero_prob_reference_all": 441
+}

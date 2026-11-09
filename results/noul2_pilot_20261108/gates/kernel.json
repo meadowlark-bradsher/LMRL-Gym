@@ -1,0 +1,194 @@
+{
+ "briefs": {
+  "adversarial": {
+   "adopt_fit": true,
+   "fitted_all": {
+    "accept_noise": 0.27272577029633294,
+    "alpha0": "7/10",
+    "beta": 0.02372482579284451,
+    "p_counter": 0.9994068793551789,
+    "p_hold": 0.5,
+    "shortlist": 3
+   },
+   "folds": 3,
+   "heldout_gain_nats_per_move": 0.08908248014471543,
+   "mean_ll_fitted_all": -6.780555364242863,
+   "mean_ll_reference_all": -6.899680146905156,
+   "n_episodes": 288,
+   "n_moves": 880,
+   "reference": {
+    "accept_noise": 0.0,
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "seed": 0,
+   "support_fitted": {
+    "ACCEPT": {
+     "n": 202,
+     "zero": 0
+    },
+    "ASK": {
+     "n": 18,
+     "zero": 18
+    },
+    "PROPOSE": {
+     "n": 615,
+     "zero": 395
+    },
+    "WALK": {
+     "n": 45,
+     "zero": 0
+    }
+   },
+   "support_reference": {
+    "ACCEPT": {
+     "n": 202,
+     "zero": 0
+    },
+    "ASK": {
+     "n": 18,
+     "zero": 18
+    },
+    "PROPOSE": {
+     "n": 615,
+     "zero": 404
+    },
+    "WALK": {
+     "n": 45,
+     "zero": 0
+    }
+   },
+   "zero_prob_reference_all": 422
+  },
+  "candid": {
+   "adopt_fit": false,
+   "fitted_all": {
+    "accept_noise": 0.10421524221313073,
+    "alpha0": "4/5",
+    "beta": 0.02372482579284451,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "folds": 3,
+   "heldout_gain_nats_per_move": -0.0035108590463503214,
+   "mean_ll_fitted_all": -7.3999716929599435,
+   "mean_ll_reference_all": -7.46883997237908,
+   "n_episodes": 288,
+   "n_moves": 842,
+   "reference": {
+    "accept_noise": 0.0,
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "seed": 0,
+   "support_fitted": {
+    "ACCEPT": {
+     "n": 188,
+     "zero": 3
+    },
+    "ASK": {
+     "n": 45,
+     "zero": 45
+    },
+    "PROPOSE": {
+     "n": 562,
+     "zero": 388
+    },
+    "WALK": {
+     "n": 47,
+     "zero": 0
+    }
+   },
+   "support_reference": {
+    "ACCEPT": {
+     "n": 188,
+     "zero": 3
+    },
+    "ASK": {
+     "n": 45,
+     "zero": 45
+    },
+    "PROPOSE": {
+     "n": 562,
+     "zero": 393
+    },
+    "WALK": {
+     "n": 47,
+     "zero": 0
+    }
+   },
+   "zero_prob_reference_all": 441
+  },
+  "guarded": {
+   "adopt_fit": true,
+   "fitted_all": {
+    "accept_noise": 0.28108294097900866,
+    "alpha0": "7/10",
+    "beta": 0.02372482579284451,
+    "p_counter": 0.9994068793551789,
+    "p_hold": 0.5,
+    "shortlist": 3
+   },
+   "folds": 3,
+   "heldout_gain_nats_per_move": 0.05029401233231765,
+   "mean_ll_fitted_all": -7.2520858996091855,
+   "mean_ll_reference_all": -7.370424747223375,
+   "n_episodes": 288,
+   "n_moves": 895,
+   "reference": {
+    "accept_noise": 0.0,
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+   },
+   "seed": 0,
+   "support_fitted": {
+    "ACCEPT": {
+     "n": 194,
+     "zero": 0
+    },
+    "ASK": {
+     "n": 24,
+     "zero": 24
+    },
+    "PROPOSE": {
+     "n": 623,
+     "zero": 429
+    },
+    "WALK": {
+     "n": 54,
+     "zero": 0
+    }
+   },
+   "support_reference": {
+    "ACCEPT": {
+     "n": 194,
+     "zero": 0
+    },
+    "ASK": {
+     "n": 24,
+     "zero": 24
+    },
+    "PROPOSE": {
+     "n": 623,
+     "zero": 438
+    },
+    "WALK": {
+     "n": 54,
+     "zero": 0
+    }
+   },
+   "zero_prob_reference_all": 462
+  }
+ },
+ "threshold_gain_nats_per_move": 0.05
+}
