@@ -25,7 +25,7 @@ from llm_rl_scripts.car_dealer_discrete.game import DEALS_BY_ID, Ranking, utilit
 
 from . import belief_live as bl
 from .opponent import T1Kernel
-from .protocol_live import ACCEPT, ASK, LiveConfig, PublicState, Action, apply, legal_actions, new_game, other
+from .protocol_live import ACCEPT, ASK, LiveConfig, PublicState, Action, apply, legal_actions, new_game, other, truthful_answer
 
 EPS = 1e-9
 
@@ -108,7 +108,9 @@ class Oracle:
             liks = bl.action_likelihoods(self.kernel, state)
             v = 0.0
             for act, (p, post) in bl.branches(belief, liks).items():
-                v += p * self.value(apply(state, act), post)
+                # a widened kernel (p_ask > 0) lets the opponent ask; the focal answers truthfully, as in play
+                ans = truthful_answer(act.question_id, self.focal_ranking) if act.kind == ASK else None
+                v += p * self.value(apply(state, act, ans), post)
         self._v[key] = v
         return v
 

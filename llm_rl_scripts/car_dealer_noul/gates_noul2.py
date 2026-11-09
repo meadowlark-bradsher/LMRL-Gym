@@ -176,10 +176,123 @@ def kernel(d: Path, cfg: LiveConfig, folds: int, seed: int) -> dict:
     return out
 
 
+def split_breakdown(prepared, params, cfg: LiveConfig) -> dict:
+    """Of the logged moves ``params`` gives zero probability at the opponent's TRUE ranking: how many are zero
+    under every ranking (no type evidence; the eta = 0 filter keeps its belief) and how many are positive under
+    some other ranking (a *split*: the eta = 0 filter sets the true ranking's belief to exactly 0 for the rest of
+    the episode). Counted per action kind, with the number of episodes holding at least one split."""
+    from llm_rl_scripts.car_dealer_discrete.game import ALL_RANKINGS
+    from llm_rl_scripts.car_dealer_live.opponent import T1Kernel
+    kernels: Dict[str, T1Kernel] = {}
+    c: Counter = Counter()
+    by_kind: Dict[str, Counter] = defaultdict(Counter)
+    hit, eps = set(), set()
+    for p in prepared:
+        eps.add(p.episode)
+        k = kernels.get(p.role) or kernels.setdefault(p.role, T1Kernel(p.role, cfg, params))
+        vec = [k.distribution(p.state, th).get(p.action, 0.0) for th in ALL_RANKINGS]
+        c["n_moves"] += 1
+        if vec[ALL_RANKINGS.index(p.ranking)] > 0:
+            continue
+        c["zero_at_true"] += 1
+        kind = "split" if any(v > 0 for v in vec) else "zero_all"
+        c[kind] += 1
+        by_kind[p.action.kind][kind] += 1
+        if kind == "split":
+            hit.add(p.episode)
+    for key in ("zero_at_true", "zero_all", "split"):
+        c[key] += 0
+    return {**dict(c), "by_kind": {k: dict(v) for k, v in sorted(by_kind.items())},
+            "episodes_with_split": len(hit), "n_episodes": len(eps)}
+
+
+def ll_on_t1_support(prepared, params, cfg: LiveConfig) -> dict:
+    """Mean log-likelihood of ``params`` over only the moves the registered T1 kernel gives positive probability at
+    the true ranking — a floor-free comparison (the held-out gain against T1 is dominated by T1's FLOOR on the
+    moves outside its support)."""
+    from llm_rl_scripts.car_dealer_live.opponent import T1Kernel
+    import math
+    ref: Dict[str, T1Kernel] = {}
+    ks: Dict[str, T1Kernel] = {}
+    tot, n = 0.0, 0
+    for p in prepared:
+        r = ref.get(p.role) or ref.setdefault(p.role, T1Kernel(p.role, cfg, kf.REFERENCE))
+        if r.distribution(p.state, p.ranking).get(p.action, 0.0) <= 0.0:
+            continue
+        k = ks.get(p.role) or ks.setdefault(p.role, T1Kernel(p.role, cfg, params))
+        tot += math.log(max(k.distribution(p.state, p.ranking).get(p.action, 0.0), kf.FLOOR))
+        n += 1
+    return {"n_moves": n, "mean_ll": tot / max(1, n)}
+
+
+def kernel_wide(d: Path, cfg: LiveConfig, folds: int, seed: int) -> dict:
+    """Gate 4 under the widened family (DESIGN_NOUL2 §3.3a): the same held-out rule against T1 (≥ 0.05 nats
+    per move), plus the split count under T1, the T1-family fit (``kernel.json``) and the widened fit, and the
+    widened fit's mean log-likelihood against the T1-family fit's (descriptive: both are fits to all moves)."""
+    records = kf.load_records(str(d / "opponent_moves.jsonl"))
+    narrow = json.loads((gates_dir(d) / "kernel.json").read_text())["briefs"]
+    out = {"family": "wide", "fit_params": list(kf.FIT_PARAMS_WIDE), "threshold_gain_nats_per_move": kf.GATE_GAIN_NATS,
+           "floor": kf.FLOOR, "briefs": {}}
+    for b in BRIEFS:
+        sub = [r for r in records if r["brief"] == b]
+        if not sub:
+            out["briefs"][b] = {"n_moves": 0}
+            continue
+        rep = kf.heldout_report(sub, cfg, folds=folds, seed=seed, params_to_fit=kf.FIT_PARAMS_WIDE)
+        rep["brief"], rep["family"] = b, "wide"
+        prepared = kf.prepare(sub, cfg)
+        wide = _params_from_json(rep["fitted_all"])
+        t1fit = _params_from_json(narrow[b]["fitted_all"])
+        rep["support_fitted"] = support_breakdown(prepared, wide, cfg)
+        rep["split"] = {"T1": split_breakdown(prepared, kf.REFERENCE, cfg), "t1_family_fit": split_breakdown(prepared, t1fit, cfg),
+                        "wide_fit": split_breakdown(prepared, wide, cfg)}
+        rep["mean_ll_t1_family_fit_all"] = kf.mean_ll(prepared, t1fit, cfg)
+        rep["on_t1_support"] = {"T1": ll_on_t1_support(prepared, kf.REFERENCE, cfg),
+                                "t1_family_fit": ll_on_t1_support(prepared, t1fit, cfg),
+                                "wide_fit": ll_on_t1_support(prepared, wide, cfg)}
+        _dump(rep, gates_dir(d) / f"kernel_fit_wide_{b}.json")
+        out["briefs"][b] = {k: rep[k] for k in ("n_moves", "n_episodes", "heldout_gain_nats_per_move", "adopt_fit", "fitted_all",
+                                                "reference", "mean_ll_fitted_all", "mean_ll_reference_all",
+                                                "mean_ll_t1_family_fit_all", "support_fitted", "split", "on_t1_support")}
+        out["briefs"][b].update({"folds": folds, "seed": seed, "t1_family_fit": narrow[b]["fitted_all"],
+                                 "t1_family_adopt_fit": narrow[b]["adopt_fit"],
+                                 "t1_family_heldout_gain_nats_per_move": narrow[b]["heldout_gain_nats_per_move"]})
+    return out
+
+
+def planner_cost(d: Path, cfg: LiveConfig, brief: str, role: str = "buyer", ranking_index: int = 0) -> dict:
+    """Wall time, memo states and peak memory of one Stage 2 planner (the evaluator reference: 4 oracles, both
+    openers) for one cell, under T1 and under the widened fit of ``brief``. Each kernel is timed in a fresh
+    subprocess so peak RSS is its own. A single-machine measurement: the times are for sizing the run, not results."""
+    import platform
+    W = json.loads((gates_dir(d) / "kernel_wide.json").read_text())
+    code = (
+        "import json, resource, sys, time\n"
+        "from llm_rl_scripts.car_dealer_discrete.game import ALL_RANKINGS\n"
+        "from llm_rl_scripts.car_dealer_noul import arms_noul2 as a2, gates_noul2 as g\n"
+        "from pathlib import Path\n"
+        "cfg = g.config_of(Path(sys.argv[1])); p = a2.params_from_json(json.loads(sys.argv[2]))\n"
+        "t = time.time(); c = a2.Stage2Cell(cfg, sys.argv[3], ALL_RANKINGS[int(sys.argv[4])], fitted=p)\n"
+        "ce = {o: c.ceilings(o) for o in ('buyer', 'seller')}\n"
+        "el = time.time() - t; h = c.reference()\n"
+        "rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\n"
+        "rss = rss / 2**30 if sys.platform == 'darwin' else rss / 2**20\n"
+        "print(json.dumps({'seconds': el, 'peak_rss_gib': rss, 'memo_states': sum(len(h[k]._v) for k in ('ask', 'noask', 'full_ask', 'full_noask'))}))\n")
+    out = {"brief": brief, "role": role, "ranking_index": ranking_index, "machine": platform.platform(), "python": platform.python_version(),
+           "commit": _git_head(), "kernels": {}}
+    for name, params in (("T1", kf.REFERENCE.to_json()), ("wide_fit", W["briefs"][brief]["fitted_all"])):
+        r = subprocess.run([sys.executable, "-c", code, str(d), json.dumps(params), role, str(ranking_index)],
+                           capture_output=True, text=True, check=True, env={**__import__("os").environ, "PYTHONPATH": str(Path.cwd())})
+        out["kernels"][name] = json.loads(r.stdout.strip().splitlines()[-1])
+    out["slowdown"] = out["kernels"]["wide_fit"]["seconds"] / out["kernels"]["T1"]["seconds"]
+    return out
+
+
 def _params_from_json(j: dict):
     from dataclasses import replace
     return replace(kf.REFERENCE, alpha0=Fraction(j["alpha0"]), beta=float(j["beta"]), p_counter=float(j["p_counter"]),
-                   p_hold=float(j["p_hold"]), accept_noise=float(j["accept_noise"]), shortlist=int(j["shortlist"]))
+                   p_hold=float(j["p_hold"]), accept_noise=float(j["accept_noise"]), shortlist=int(j["shortlist"]),
+                   eps_propose=float(j.get("eps_propose", 0.0)), p_ask=float(j.get("p_ask", 0.0)))
 
 
 # ---- gate 5: realizer fidelity ---------------------------------------------------------------------------
@@ -380,6 +493,7 @@ def render(d: Path, probe: Optional[Path] = None) -> str:
     A = json.load((probe / "gates_answers.json").open()) if probe and (probe / "gates_answers.json").exists() else None
     P = json.load((g / "protocol.json").open())
     K = json.load((g / "kernel.json").open()) if (g / "kernel.json").exists() else None
+    W = json.load((g / "kernel_wide.json").open()) if (g / "kernel_wide.json").exists() else None
     R = json.load((g / "realizer_report.json").open()) if (g / "realizer_report.json").exists() else None
     C = json.load((g / "clairvoyant.json").open()) if (g / "clairvoyant.json").exists() else None
     H = json.load((d / "frozen_hashes.json").open()) if (d / "frozen_hashes.json").exists() else {"brief_hash": "n/a", "realizer_hash": "n/a"}
@@ -408,7 +522,15 @@ def render(d: Path, probe: Optional[Path] = None) -> str:
     else:
         L.append("| 2 never-lies audit | contradictions in 60 blind-labelled answers per brief | 0 candid, ≤ 2 guarded; adversarial misleads ≥ 20 % | — | PENDING: the pilot arms never ask, so no opponent answers exist; needs the answer probe |")
         L.append("| 3 guarded is guarded | `regex` accuracy on guarded answers | < 0.9 | — | PENDING (answer probe) |")
-    if K:
+    if W:
+        for b in BRIEFS:
+            k = W["briefs"][b]
+            if k.get("n_moves", 0) == 0:
+                continue
+            L.append(f"| 4 kernel fit (widened family, §3.3a), `{b}` | held-out gain over T1, nats per move ({k['n_moves']} moves, {k['folds']} folds); "
+                     f"T1-family fit {_f(k['t1_family_heldout_gain_nats_per_move'])} (superseded) | ≥ {W['threshold_gain_nats_per_move']} to adopt | "
+                     f"{_f(k['heldout_gain_nats_per_move'])} | {'ADOPT FIT' if k['adopt_fit'] else 'KEEP T1'} |")
+    elif K:
         for b in BRIEFS:
             k = K["briefs"][b]
             if k.get("n_moves", 0) == 0:
@@ -441,7 +563,45 @@ def render(d: Path, probe: Optional[Path] = None) -> str:
                  f"{p['realizer_ok']} / {p['realizer_fallback']} of {p['realizer_calls']} | {p['opponent_asked_episodes']} | {p['input_tokens']} / {p['output_tokens']} |")
     L.append("")
     if K:
-        L.append("## Gate 4 — kernel fit per brief (`kernel_fit.heldout_report`, episode-level held-out split)\n")
+        if W:
+            L.append("## Gate 4 — widened kernel family (`DESIGN_NOUL2.md` §3.3a; `gates_noul2 kernel-wide`, `gates/kernel_wide.json`)\n")
+            L.append("The family adds `eps_propose` (weight on a uniform draw over all legal proposals) and `p_ask` (a type-independent "
+                     "question rate) to the T1 form; both are fitted with the T1 parameters, the rule is unchanged (held-out gain over the "
+                     f"registered T1 ≥ {W['threshold_gain_nats_per_move']} nats per move).\n")
+            L.append("| brief | held-out gain over T1 | adopt | eps_propose | p_ask | α₀ | β | p_counter | p_hold | accept_noise | mean LL widened / T1-family fit / T1 (all moves) |\n|---|---|---|---|---|---|---|---|---|---|---|")
+            for b in BRIEFS:
+                k = W["briefs"][b]
+                if k.get("n_moves", 0) == 0:
+                    continue
+                f = k["fitted_all"]
+                L.append(f"| {b} | {_f(k['heldout_gain_nats_per_move'])} | {'yes' if k['adopt_fit'] else 'no'} | {_f(f.get('eps_propose', 0.0), 3)} | {_f(f.get('p_ask', 0.0), 3)} | "
+                         f"{f['alpha0']} | {_f(f['beta'], 3)} | {_f(f['p_counter'], 3)} | {_f(f['p_hold'], 3)} | {_f(f['accept_noise'], 3)} | "
+                         f"{_f(k['mean_ll_fitted_all'])} / {_f(k['mean_ll_t1_family_fit_all'])} / {_f(k['mean_ll_reference_all'])} |")
+            L.append(f"\nThe held-out gain is dominated by T1's floor ({kf.FLOOR:g}) on the moves outside its support. Floor-free check — mean "
+                     "log-likelihood over only the moves T1 itself supports (all-moves fits, descriptive):\n")
+            L.append("| brief | moves T1 supports | T1 | T1-family fit | widened fit |\n|---|---|---|---|---|")
+            for b in BRIEFS:
+                k = W["briefs"][b]
+                if k.get("n_moves", 0) == 0 or "on_t1_support" not in k:
+                    continue
+                o = k["on_t1_support"]
+                L.append(f"| {b} | {o['T1']['n_moves']} | {_f(o['T1']['mean_ll'])} | {_f(o['t1_family_fit']['mean_ll'])} | {_f(o['wide_fit']['mean_ll'])} |")
+            L.append("\nSplit count (`split_breakdown`): of the moves a kernel gives zero probability at the opponent's true ranking, those zero under "
+                     "every ranking (no type evidence; the η = 0 filter keeps its belief) and those positive under some other ranking (a split: "
+                     "the filter sets the true ranking's belief to 0 for the rest of the episode):\n")
+            L.append("| brief | kernel | zero at true ranking | zero under every ranking | split | split by kind | episodes with a split |\n|---|---|---|---|---|---|---|")
+            names = {"T1": "T1", "t1_family_fit": "T1-family fit", "wide_fit": "widened fit"}
+            for b in BRIEFS:
+                k = W["briefs"][b]
+                if k.get("n_moves", 0) == 0:
+                    continue
+                for key, label in names.items():
+                    sp = k["split"][key]
+                    kinds = ", ".join(f"{kk} {v['split']}" for kk, v in sp["by_kind"].items() if v.get("split")) or "—"
+                    L.append(f"| {b} | {label} | {sp['zero_at_true']} | {sp['zero_all']} | {sp['split']} | {kinds} | {sp['episodes_with_split']} of {sp['n_episodes']} |")
+            L.append("")
+        L.append("## Gate 4 — kernel fit per brief, T1 family" + (" (superseded by §3.3a; kept as the record)" if W else "") +
+                 " (`kernel_fit.heldout_report`, episode-level held-out split)\n")
         L.append("| brief | moves | episodes | mean LL fitted (all) | mean LL T1 (all) | T1 zero-probability moves | held-out gain | adopt | fitted α₀ | β | p_counter | p_hold | accept_noise |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|")
         for b in BRIEFS:
             k = K["briefs"][b]
@@ -472,7 +632,8 @@ def render(d: Path, probe: Optional[Path] = None) -> str:
                      f"cannot propose from any parameter setting (off its aspiration shortlist), so the fit cannot fix them; the fitted β of "
                      f"{_f(k['fitted_all']['beta'], 3)} makes the within-shortlist choice near-uniform, and whatever held-out gain there is comes from "
                      f"accept_noise ({_f(k['fitted_all']['accept_noise'], 3)}) and p_hold ({_f(k['fitted_all']['p_hold'], 3)}). "
-                     "The T1 family is misspecified in support for this opponent; the verdict column applies the registered rule as written.\n")
+                     "The T1 family is misspecified in support for this opponent" + ("; DESIGN_NOUL2 §3.3a widens it (above).\n" if W else
+                     "; the verdict column applies the registered rule as written.\n"))
     if R:
         L.append("## Gate 5 — realizer fidelity (blind judge over the packet; `gates/realizer_packet.jsonl`, key `realizer_key.json`, labels `realizer_labels.jsonl`)\n")
         L.append("| role | judged | recovered | recovery | added commitments | judge unparsed | auto round-trip ok | fallbacks |\n|---|---|---|---|---|---|---|---|")
@@ -531,7 +692,7 @@ def render(d: Path, probe: Optional[Path] = None) -> str:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("step", choices=("protocol", "kernel", "realizer-packet", "realizer-judge", "realizer-report", "clairvoyant", "render"))
+    ap.add_argument("step", choices=("protocol", "kernel", "kernel-wide", "planner-cost", "realizer-packet", "realizer-judge", "realizer-report", "clairvoyant", "render"))
     ap.add_argument("--dir", required=True)
     ap.add_argument("--folds", type=int, default=3)
     ap.add_argument("--seed", type=int, default=0)
@@ -554,6 +715,17 @@ def main(argv=None) -> int:
         rep = kernel(d, cfg, args.folds, args.seed)
         _dump(rep, g / "kernel.json")
         print(json.dumps({b: (v.get("heldout_gain_nats_per_move"), v.get("adopt_fit")) for b, v in rep["briefs"].items()}))
+        return 0
+    if args.step == "planner-cost":
+        rep = planner_cost(d, cfg, "guarded")
+        _dump(rep, g / "planner_cost.json")
+        print(json.dumps(rep))
+        return 0
+    if args.step == "kernel-wide":
+        rep = kernel_wide(d, cfg, args.folds, args.seed)
+        _dump(rep, g / "kernel_wide.json")
+        print(json.dumps({b: (v.get("heldout_gain_nats_per_move"), v.get("adopt_fit"), v.get("split", {}).get("wide_fit", {}).get("split"))
+                          for b, v in rep["briefs"].items()}))
         return 0
     if args.step == "realizer-packet":
         rows = load_rows(d)

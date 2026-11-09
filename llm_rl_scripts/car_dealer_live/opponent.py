@@ -26,6 +26,15 @@ Kernel (parameters in :class:`KernelParams`):
 * **No standing offer, its move:** PROPOSE from the distribution.
 * **Deadline decision:** ACCEPT iff U(d) >= r, else WALK. It never walks early.
 * **Answers:** truthful, flipped with prob ``cfg.answer_noise``.
+
+Widened family (CD-NOUL-2 Phase 0, DESIGN_NOUL2 §3.3a; both default 0 = the kernel above, bit for bit):
+
+* **eps_propose:** at every non-deadline node, mix weight eps onto a uniform draw over ALL legal
+  proposals (every deal), so no proposal has zero probability under any type.
+* **p_ask:** at every non-deadline node with an unasked question, ask with prob p_ask, uniformly over the
+  unasked questions — the same for every type, so an observed opponent question carries no type evidence.
+
+  P(a | θ) = p_ask·U_ask(a) + (1 − p_ask)·[(1 − eps)·P_T1(a | θ) + eps·U_propose(a)]
 """
 
 from __future__ import annotations
@@ -39,7 +48,7 @@ from typing import Dict, List, Optional
 from llm_rl_scripts.car_dealer_discrete.game import ALL_DEALS, DEALS_BY_ID, Deal, Ranking, utility
 
 from .protocol_live import (
-    ACCEPT, ASK, HOLD, PROPOSE, REJECT, WALK, Action, LiveConfig, PublicState, other, truthful_answer,
+    ACCEPT, ASK, HOLD, PROPOSE, REJECT, WALK, Action, LiveConfig, PublicState, legal_actions, other, truthful_answer,
 )
 
 
@@ -51,10 +60,17 @@ class KernelParams:
     accept_noise: float = 0.0           # P(reject an acceptable offer)
     p_hold: float = 1.0                 # hold (vs concede) when own offer stands after being asked
     shortlist: int = 3                  # top-k own-utility candidates proposed from (0 = all)
+    eps_propose: float = 0.0            # widened family: mix weight on a uniform draw over all legal proposals
+    p_ask: float = 0.0                  # widened family: type-independent P(ask), uniform over unasked questions
+
+    WIDE_FIELDS = ("eps_propose", "p_ask")
 
     def to_json(self) -> dict:
         d = asdict(self)
         d["alpha0"] = str(self.alpha0)
+        for k in self.WIDE_FIELDS:      # omitted at the default so every pre-widening JSON (and hash) is unchanged
+            if d[k] == 0.0:
+                del d[k]
         return d
 
 
@@ -125,9 +141,28 @@ class T1Kernel:
                     out[act] = out.get(act, 0.0) + (1.0 - ph) * pr
         else:
             out = dict(self.proposal_distribution(state, ranking))
+        if not state.at_deadline and (self.p.eps_propose > 0 or self.p.p_ask > 0):
+            out = self._widen(state, out)
         total = sum(out.values())
         assert abs(total - 1.0) < 1e-9, total
         self._cache[key] = out
+        return out
+
+    def _widen(self, state: PublicState, core: Dict[Action, float]) -> Dict[Action, float]:
+        legal = legal_actions(state, self.role)
+        props = [a for a in legal if a.kind == PROPOSE]
+        asks = [a for a in legal if a.kind == ASK]
+        out = dict(core)
+        eps = self.p.eps_propose if props else 0.0
+        if eps > 0:
+            out = {a: (1.0 - eps) * p for a, p in out.items()}
+            for a in props:
+                out[a] = out.get(a, 0.0) + eps / len(props)
+        q = self.p.p_ask if asks else 0.0
+        if q > 0:
+            out = {a: (1.0 - q) * p for a, p in out.items()}
+            for a in asks:
+                out[a] = out.get(a, 0.0) + q / len(asks)
         return out
 
     def answer_distribution(self, question_id: str, ranking: Ranking) -> Dict[str, float]:

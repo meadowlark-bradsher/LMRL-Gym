@@ -1,4 +1,4 @@
-# CD-NOUL-2 — the live LLM opponent (Stage 2 plan, 2026-11-08, DRAFT — not registered; §3.1a/§3.1b added after the offline Phase 0 calibration)
+# CD-NOUL-2 — the live LLM opponent (Stage 2 plan, 2026-11-08, DRAFT — not registered; §3.1a/§3.1b added after the offline Phase 0 calibration; §3.3a widened kernel family added 2026-11-09 after the pilot's gate 4)
 
 Follow-on to CD-NOUL-1 Stage 1 (`DESIGN_NOUL.md`, `PREREGISTRATION_NOUL.md` tag `prereg-noul1-20261108`,
 `RESULTS_NOUL.md`, FINDINGS §3.12). Stage 1 kept the registered T1 kernel as the opponent and verbalized only
@@ -99,6 +99,11 @@ adopted for a brief only if it beats T1 in held-out move log-likelihood (§6), a
 both parameter sets. CD-MIS-1 says the planner is robust to kernel misspecification of every kind it swept
 except evasive answers, so the primary is read under the fitted kernel and `plan_ask[noul_answer]` under
 T1 is a secondary arm — the one that says whether the fit mattered.
+
+**Changed in Phase 0 (§3.3a, 2026-11-09):** the pilot showed the T1 form cannot express about half of the live
+opponent's moves, so the fitted family is widened by two parameters — a type-free uniform share ε over all
+legal proposals and a type-independent question rate p_ask — fitted with the five above under the same
+held-out rule.
 
 ### 2.4 The realizer
 
@@ -238,6 +243,38 @@ asking negative in `oblique` at a = 0, −0.061 [−0.092, −0.030] over all ce
 where this scheme can fail — a confident lie decodes as a confident truth and the filter has no floor —
 and that is why `adversarial` is kept, as a secondary, with the fixed hedge beside it.
 
+### 3.3a Phase 0 design change: widened kernel family (2026-11-09, NEG-12)
+
+**Why.** Gate 4 on the pilot (`GATES_NOUL2.md`, `gates/kernel.json`) found the T1 family misspecified in support: the registered T1 kernel gives probability 0 to 441 of 842 (candid), 462 of 895 (guarded), 422 of 880 (adversarial) logged opponent moves — proposals off its aspiration shortlist, which no T1 parameter setting can reach, and every opponent question (T1 never asks). A zero-probability move is harmless to the filter when it is zero under every ranking, but when it is positive under some other ranking the η = 0 filter sets the true ranking's belief to exactly 0 for the rest of the episode. That split count (`gates_noul2.split_breakdown`) was 65 under T1 and 61 under the T1-family fit (candid), 85 under T1 and 76 under the T1-family fit (guarded), 76 under T1 and 67 under the T1-family fit (adversarial), touching 63 of 288, 79 of 288, 71 of 288 episodes under T1 — the confident-wrong elimination Stage 1 saw from the regex parser, now from the kernel. Decided by the user before registration (NEG-12), after the split count.
+
+**What changed.** Two parameters join the T1 form (`opponent.KernelParams`, both default 0 = T1 bit for bit, and omitted from the JSON at 0 so every earlier fit file and hash is unchanged):
+
+    P(a | θ) = p_ask·U_ask(a) + (1 − p_ask)·[(1 − ε)·P_T1(a | θ) + ε·U_propose(a)]   at every non-deadline node
+
+`eps_propose` (ε) puts weight on a uniform draw over all legal proposals, so no proposal is impossible under any type; `p_ask` is a question rate uniform over the unasked questions and the same for every type, so an opponent question carries no type evidence. Deadline nodes are unchanged. Both are fitted jointly with α₀, β, p_counter, p_hold, accept_noise (`kernel_fit.FIT_PARAMS_WIDE`, support parameters searched first; a widened mid-point start). **The gate-4 rule is unchanged**: adopt the fit for a brief iff its held-out gain over the registered T1 is ≥ 0.05 nats per move (3 episode-level folds, seed 0). `oracle.py` gains one additive branch: an opponent ASK is expanded with the focal's truthful answer, as `play_episode` already does live; it is unreachable under any kernel with p_ask = 0. This is the one exception to §7's "nothing in `car_dealer_live` changes behaviour": every existing call path is unchanged (the `car_dealer_live` and `car_dealer_noul` suites pass, including the gate-7 parity test).
+
+**Result** (`gates_noul2 kernel-wide`, `gates/kernel_wide.json`, `gates/kernel_fit_wide_<brief>.json`):
+
+| brief | held-out gain over T1 | adopt | ε | p_ask | β | accept_noise | splits under widened fit | floor-free mean LL on T1-supported moves: T1 / widened |
+|---|---|---|---|---|---|---|---|---|
+| candid | 4.7684 | yes | 0.709 | 0.069 | 0.024 | 0.000 | 3 (ACCEPT 3) | -0.4891 / -1.0523 (401 moves) |
+| guarded | 4.8544 | yes | 0.747 | 0.036 | 0.024 | 0.045 | 0 | -0.4937 / -1.0284 (433 moves) |
+| adversarial | 4.4474 | yes | 0.696 | 0.028 | 0.024 | 0.088 | 0 | -0.5275 / -1.0314 (458 moves) |
+
+Readings:
+
+- The fit is adopted in all three briefs, candid included (under the T1 family candid kept T1). The held-out gain is set by T1's floor (1e-06) on the moves outside its support, so its size says little. On the moves T1 can express the widened fit is **worse** than T1 by 0.50–0.56 nats per move (floor-free column): ε takes mass off the shortlist. The family is adopted because it stops ruling out about half of what the opponent does, not because it predicts the rest better.
+- The fitted ε puts most proposal mass on the type-free uniform component and β sits at the bottom of its search range, so under this family the live opponent's proposals carry little evidence about its ranking: the filter will learn slowly from moves, and questions become the main information source.
+- Proposal and question splits are gone. Residual: acceptances of an offer below the true ranking's aspiration remain outside the family (ε covers proposals only); they are the remaining splits in the table.
+
+**Consequences, open before the tag:**
+
+1. **Gate 6 was measured under T1 planners.** The pilot ran before any fit (`summary.json` `kernel_fits` empty), so Δ_clair = 0.2233 [0.1651, 0.2879] is plan_reveal − plan_noask with the T1 kernel. Under the widened kernel both policies change and Δ_clair is unmeasured; re-establishing gate 6 needs a re-pilot of those two arms under the widened fits.
+2. **Planner cost.** One Stage 2 planner (4 oracles, both openers; `gates_noul2 planner-cost`, `gates/planner_cost.json`, macOS-26.6.2-arm64-arm-64bit) takes 461 s and 3.1 GiB peak under the guarded widened fit against 6 s and 0.1 GiB under T1 (76× slower; 2,472,915 vs 43,490 memo states). The §4 table needs 5 (candid), 5 (guarded), 3 (adversarial) distinct widened planners per cell, 156 over the 12 cells ≈ 20 CPU-hours before any episode, and the runner's per-worker cell cache would hold several such planners at once. The runner must build, use and drop planners cell by cell (or the memo must coarsen) before the run; sizing is part of NEG-16.
+3. **Q8 changes meaning.** `plan_ask-noulcal-adaptive-T1` now contrasts the widened fit with T1 (support and parameters), not a parameter refit.
+4. `run_noul2`'s `ceilings.json` uses a pooled (`*`) fit only; per-brief widened ceilings need wiring (NEG-16).
+
+
 ## 4. Arms
 
 Planner arms share the shortlist menu, the fitted kernel (§2.3) and the realizer; chooser arms see the
@@ -298,8 +335,8 @@ it is a reference, not a truth, and is labelled so.
    of answers — else it is dropped as inert.
 3. **Guarded is guarded.** The `regex` parser's accuracy on the `guarded` pilot answers < 0.9 (Stage 1's
    oblique gate; Stage 1 measured 0.125).
-4. **Kernel fit.** Fitted `KernelParams` beats T1 in held-out move log-likelihood on the pilot by ≥ 0.05
-   nats per move, else T1 is kept for that brief; both pinned.
+4. **Kernel fit.** Fitted `KernelParams` (the widened family of §3.3a) beats T1 in held-out move
+   log-likelihood on the pilot by ≥ 0.05 nats per move, else T1 is kept for that brief; both pinned.
 5. **Realizer fidelity.** Round-trip action recovery ≥ 0.99 and 0 added commitments in 200 realized moves
    per role, judged blind.
 6. **Clairvoyant gap.** Δ_clair = `plan_reveal − plan_noask` ≥ δ on the pilot for `guarded` (focal opens);
@@ -316,7 +353,7 @@ it is a reference, not a truth, and is labelled so.
 Pilot outcome contrasts are not read; only the gates above are.
 
 ## 7. Build plan (`llm_rl_scripts/car_dealer_noul/`, new files; nothing in `car_dealer_live` changes
-behaviour)
+behaviour — except the additive §3.3a kernel parameters and oracle branch, inert at their defaults)
 
 - `opponent_llm.py` — the three briefs, state rendering, lettered legal moves, decision-token parse with
   one retry, default-to-kernel fallback, per-call logging; `MockOpponent` for tests.
@@ -368,5 +405,7 @@ before the tag.
   briefs are prompts, and prompt sensitivity is a named secondary (one paraphrase of `guarded`, if budget
   allows) rather than a swept factor.
 - No common random numbers through a sampled opponent: intervals are wider than Stage 1's at equal K.
+- The widened kernel (§3.3a) is still a parametric guess: its ε share is type-free by construction, and
+  acceptances below the true ranking's aspiration stay outside its support.
 - The `adversarial` brief tests lying only as a secondary; a study of deception detection would need its
   own ceiling and its own registration.
