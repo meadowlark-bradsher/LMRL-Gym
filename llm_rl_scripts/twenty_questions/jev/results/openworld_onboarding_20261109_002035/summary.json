@@ -1,0 +1,419 @@
+{
+  "cells": [
+    {
+      "effort": 0,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 0,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 2,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 290,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 4,
+      "metrics": {
+        "admitted": 141,
+        "auc": 0.9920356371490281,
+        "expert_calls": 141,
+        "onboarding_attrs": 564,
+        "recur_games": 1852,
+        "recur_mean_questions": 11.893088552915767,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9298056155507559,
+        "recur_wrong_rate": 0.07019438444924406
+      },
+      "oracle_noise": 0.0,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 8,
+      "metrics": {
+        "admitted": 142,
+        "auc": 0.995167797136144,
+        "expert_calls": 142,
+        "onboarding_attrs": 1136,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.781553398058252,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.901294498381877,
+        "recur_wrong_rate": 0.09870550161812297
+      },
+      "oracle_noise": 0.0,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 16,
+      "metrics": {
+        "admitted": 146,
+        "auc": 0.9999852226212115,
+        "expert_calls": 149,
+        "onboarding_attrs": 2336,
+        "recur_games": 1854,
+        "recur_mean_questions": 9.52319309600863,
+        "recur_reescalation_rate": 0.0016181229773462784,
+        "recur_resolution_rate": 0.9983818770226537,
+        "recur_wrong_rate": 0.0
+      },
+      "oracle_noise": 0.0,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 44,
+      "metrics": {
+        "admitted": 144,
+        "auc": 0.9997081467689262,
+        "expert_calls": 144,
+        "onboarding_attrs": 6336,
+        "recur_games": 1854,
+        "recur_mean_questions": 8.555555555555555,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 1.0,
+        "recur_wrong_rate": 0.0
+      },
+      "oracle_noise": 0.0,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 0,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 0,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 2,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 290,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 4,
+      "metrics": {
+        "admitted": 142,
+        "auc": 0.9939956272502801,
+        "expert_calls": 144,
+        "onboarding_attrs": 568,
+        "recur_games": 1851,
+        "recur_mean_questions": 11.893571042679632,
+        "recur_reescalation_rate": 0.0010804970286331713,
+        "recur_resolution_rate": 0.9902755267423015,
+        "recur_wrong_rate": 0.00864397622906537
+      },
+      "oracle_noise": 0.1,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 8,
+      "metrics": {
+        "admitted": 140,
+        "auc": 0.9923379290981366,
+        "expert_calls": 140,
+        "onboarding_attrs": 1120,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.968176914778857,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.8926645091693636,
+        "recur_wrong_rate": 0.10733549083063647
+      },
+      "oracle_noise": 0.1,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 16,
+      "metrics": {
+        "admitted": 143,
+        "auc": 0.9962327637156044,
+        "expert_calls": 166,
+        "onboarding_attrs": 2288,
+        "recur_games": 1851,
+        "recur_mean_questions": 10.526742301458672,
+        "recur_reescalation_rate": 0.01242571582928147,
+        "recur_resolution_rate": 0.9616423554835224,
+        "recur_wrong_rate": 0.02593192868719611
+      },
+      "oracle_noise": 0.1,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 44,
+      "metrics": {
+        "admitted": 141,
+        "auc": 0.9958591150545795,
+        "expert_calls": 166,
+        "onboarding_attrs": 6204,
+        "recur_games": 1852,
+        "recur_mean_questions": 9.695464362850972,
+        "recur_reescalation_rate": 0.013498920086393088,
+        "recur_resolution_rate": 0.9551835853131749,
+        "recur_wrong_rate": 0.03131749460043196
+      },
+      "oracle_noise": 0.1,
+      "policy": "diagnostic"
+    },
+    {
+      "effort": 0,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 0,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "random"
+    },
+    {
+      "effort": 2,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 290,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "random"
+    },
+    {
+      "effort": 4,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 580,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "random"
+    },
+    {
+      "effort": 8,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 1160,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "random"
+    },
+    {
+      "effort": 16,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 2320,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.0,
+      "policy": "random"
+    },
+    {
+      "effort": 44,
+      "metrics": {
+        "admitted": 144,
+        "auc": 0.9997081467689262,
+        "expert_calls": 144,
+        "onboarding_attrs": 6336,
+        "recur_games": 1854,
+        "recur_mean_questions": 8.555555555555555,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 1.0,
+        "recur_wrong_rate": 0.0
+      },
+      "oracle_noise": 0.0,
+      "policy": "random"
+    },
+    {
+      "effort": 0,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 0,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "random"
+    },
+    {
+      "effort": 2,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 290,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "random"
+    },
+    {
+      "effort": 4,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 580,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "random"
+    },
+    {
+      "effort": 8,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 1160,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "random"
+    },
+    {
+      "effort": 16,
+      "metrics": {
+        "admitted": 145,
+        "auc": 0.9998411431780231,
+        "expert_calls": 145,
+        "onboarding_attrs": 2320,
+        "recur_games": 1854,
+        "recur_mean_questions": 11.651564185544768,
+        "recur_reescalation_rate": 0.0,
+        "recur_resolution_rate": 0.9978425026968716,
+        "recur_wrong_rate": 0.002157497303128371
+      },
+      "oracle_noise": 0.1,
+      "policy": "random"
+    },
+    {
+      "effort": 44,
+      "metrics": {
+        "admitted": 141,
+        "auc": 0.9958591150545795,
+        "expert_calls": 166,
+        "onboarding_attrs": 6204,
+        "recur_games": 1852,
+        "recur_mean_questions": 9.695464362850972,
+        "recur_reescalation_rate": 0.013498920086393088,
+        "recur_resolution_rate": 0.9551835853131749,
+        "recur_wrong_rate": 0.03131749460043196
+      },
+      "oracle_noise": 0.1,
+      "policy": "random"
+    }
+  ],
+  "config": {
+    "confidence": 0.9,
+    "efforts": [
+      0,
+      2,
+      4,
+      8,
+      16,
+      44
+    ],
+    "eps": 0.05,
+    "games": 2000,
+    "levels": [
+      0.0,
+      0.1
+    ],
+    "matrix": "matrix_jev.json",
+    "n_attributes": 44,
+    "policies": [
+      "diagnostic",
+      "random"
+    ],
+    "seed": 7,
+    "zipf_s": 1.1
+  },
+  "created": "20261109_002035",
+  "pitman_yor_fit": {
+    "sigma": 0.2,
+    "theta": 20.0
+  },
+  "schema": "twenty_questions_openworld_onboarding_v1"
+}

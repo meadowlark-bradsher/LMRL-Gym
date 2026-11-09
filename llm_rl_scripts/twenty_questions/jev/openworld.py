@@ -229,7 +229,7 @@ def run_openworld_episode(true_h: Hypothesis,
                           top_k_guesses: int = 5,
                           backend: str = "soft",
                           margin: float = 2.0, tolerance: int = 1,
-                          observer=None) -> OWEpisode:
+                          observer=None, like_matrix=None) -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
@@ -237,7 +237,10 @@ def run_openworld_episode(true_h: Hypothesis,
     another question, guess a known object, or fire the expert on UNKNOWN."""
     all_hyps = list(known_hyps) + [UNKNOWN_HYP]
     by_name = {h.name: h for h in all_hyps}
-    like = make_openworld_likelihood(matrix, known_hyps, eps=eps)
+    # Belief uses ``like_matrix`` when supplied (ENV-704: a partially-elicited row for a
+    # newly-onboarded object), the true ``matrix`` otherwise; the oracle is independent.
+    like = make_openworld_likelihood(like_matrix if like_matrix is not None else matrix,
+                                     known_hyps, eps=eps)
     bank = build_openworld_bank(known_hyps)
     guess_by_name = {q.key: q for q in bank[GUESS]}
     if backend == "retract":
