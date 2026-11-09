@@ -1,0 +1,57 @@
+{
+ "frozen_at": "2026-11-08T17:41:21",
+ "head": "9a48b2d",
+ "working_tree_dirty": true,
+ "brief_hash": "611ad7ac429a",
+ "briefs": [
+  "candid",
+  "guarded",
+  "adversarial"
+ ],
+ "realizer_hash": "0694a14552e1",
+ "offer_prompt_hash": "da0fa1e578fb",
+ "stage1_prompt_hash": "aea24a833e5c",
+ "calibration_noul2_sha16": "8bd3b80cbf98aa5b",
+ "map": {
+  "name": "platt",
+  "clamp": 0.95
+ },
+ "opponent_model": "claude-sonnet-5-5",
+ "opponent_max_tokens": [
+  1500,
+  3000
+ ],
+ "realizer_max_tokens": [
+  400,
+  1200
+ ],
+ "arms": [
+  "plan_noask",
+  "plan_reveal"
+ ],
+ "repeats": 1,
+ "relaunch": {
+  "attempt": 2,
+  "aborted_attempt_1": {
+   "brief_hash": "b066713a6362",
+   "opponent_max_tokens": [
+    700,
+    2000
+   ],
+   "episodes": 72,
+   "stubs": 15,
+   "stub_cause": "opponent ASK moves hit apply() without an answer (focal answer path missing)",
+   "opponent_calls": 166,
+   "retried": 85,
+   "retry_cause": "first-call budget 700 tokens truncated the reasoning before the DECISION line",
+   "fixes": [
+    "focal answers the opponent's questions truthfully (typed)",
+    "raw opponent/realizer replies persisted per episode",
+    "first-call budget 1500 (retry 3000)",
+    "brief asks for brief reasoning"
+   ],
+   "kept_at": "scratchpad/noul2_pilot_attempt1_aborted"
+  }
+ },
+ "note": "Phase 0 pilot (NEG-10): gate quantities only are read; outcome contrasts are not."
+}

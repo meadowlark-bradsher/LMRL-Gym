@@ -1,0 +1,81 @@
+{
+  "env": "live-car-dealer-v0.1",
+  "design": "CD-NOUL-2",
+  "config": {
+    "env": "live-car-dealer-v0.1",
+    "regime": "easy",
+    "reservation": "2/5",
+    "horizon": 4,
+    "ask_cost": "0",
+    "answer_noise": "0"
+  },
+  "reference_kernel": {
+    "alpha0": "4/5",
+    "beta": 8.0,
+    "p_counter": 1.0,
+    "accept_noise": 0.0,
+    "p_hold": 1.0,
+    "shortlist": 3
+  },
+  "kernel_fits": {},
+  "arms": [
+    "plan_noask",
+    "plan_reveal"
+  ],
+  "briefs": [
+    "candid",
+    "guarded",
+    "adversarial"
+  ],
+  "opponent": "llm",
+  "realizer": "llm",
+  "calibration": {
+    "path": "results/noul_bank_20261108/calibration_noul2.json",
+    "map": "platt",
+    "clamp": 0.95,
+    "noulcal_T_b": [
+      3.6209534719522556,
+      1.9726300413042706
+    ]
+  },
+  "agent_menu": [
+    "noulcal",
+    "adaptive"
+  ],
+  "filter_eta": 0.0,
+  "brief_hash": "611ad7ac429a",
+  "offer_prompt_hash": "da0fa1e578fb",
+  "roles": [
+    "buyer",
+    "seller"
+  ],
+  "openers": [
+    "buyer",
+    "seller"
+  ],
+  "focal_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "opp_types": [
+    "p/w/d",
+    "p/d/w",
+    "w/p/d",
+    "w/d/p",
+    "d/p/w",
+    "d/w/p"
+  ],
+  "repeats": 1,
+  "seed": 20261120,
+  "sonnet_model": "claude-sonnet-5-5",
+  "episodes_written": 864,
+  "episodes_resumed": 0,
+  "error_stubs": 0,
+  "opponent_moves_logged": 2617,
+  "workers": 6,
+  "elapsed_s": 3393.18
+}

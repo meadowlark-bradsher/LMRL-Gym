@@ -29,8 +29,8 @@ from llm_rl_scripts.car_dealer_live.protocol_live import (ACCEPT, ASK, HOLD, PRO
                                                           PublicState, legal_actions, other, truthful_answer)
 
 MODEL = "claude-sonnet-5-5"
-MAX_TOKENS = 700
-RETRY_MAX_TOKENS = 2000
+MAX_TOKENS = 1500
+RETRY_MAX_TOKENS = 3000
 BRIEFS = ("candid", "guarded", "adversarial")
 
 # ---- briefs (frozen text; the registration pins ``brief_hash``) ------------------------------------
@@ -45,7 +45,7 @@ Rules: the two of you share a budget of {horizon} opportunities; every proposal 
 
 {answers}
 
-Format. At your turn, think as much as you like, then end with exactly one line
+Format. At your turn, reason briefly (a few sentences at most), then end with exactly one line
 DECISION: <label>
 naming one of the listed moves by its label (a letter, or two letters), followed by one line
 SAY: <what you say to the {other}, one to three sentences>

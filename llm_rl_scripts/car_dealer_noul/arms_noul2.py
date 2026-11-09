@@ -325,7 +325,10 @@ def play_episode(cell: Stage2Cell, arm: Arm, brief: str, opener: str, opp_rankin
                 lik_own = tuple(l * v for l, v in zip(lik_own, vec))
                 offer_decodes.append({"event": len(state.events), "action": act.key, "type_vector": list(vec),
                                       "p_true_before": belief[true_idx]})
-            state = apply(state, act)
+            # the live opponent may ask the focal a question (the kernel never does): the focal answers
+            # truthfully and typed — its own candour is not under test (DESIGN_NOUL2 §10)
+            focal_answer = truthful_answer(act.question_id, cell.ranking) if act.kind == ASK else None
+            state = apply(state, act, focal_answer)
             if lik_ref is not None:
                 true_b = bl.posterior(true_b, lik_ref) if sum(p * l for p, l in zip(true_b, lik_ref)) > 0 else true_b
             belief = fm.update(belief, lik_own, spec)
@@ -424,4 +427,8 @@ def play_episode(cell: Stage2Cell, arm: Arm, brief: str, opener: str, opp_rankin
         "decode_logloss_bits": [-math.log2(max(d["decode"]["p_true_after"], 1e-300)) for d in decisions if d["decode"]],
         "confident_wrong_reads": sum(1 for d in decisions if d["decode"] and d["decode"]["confident_wrong"]),
         "opponent": opp_infos, "realizer_calls": real_infos, "offer_decodes": offer_decodes,
+        "opponent_asked": sum(1 for e in state.events if e.actor == opp_role and e.action.kind == ASK),
+        # every model call's raw reply, for the audits (prompts are reconstructible from the frozen brief + state)
+        "opponent_raw": [{k: v for k, v in c.items() if k != "user"} for c in getattr(opponent, "calls", [])],
+        "realizer_raw": [{"reply": c["reply"], "ok": c["ok"], "reasons": c["reasons"]} for c in getattr(realizer, "calls", [])],
     }
