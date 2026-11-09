@@ -9,7 +9,7 @@ planner (`LiveConfig.answer_noise_by_q`); `+offer` multiplies a `noul_offer` typ
 PROPOSE / REJECT / HOLD words into the move update; the planner's kernel is the fitted one or `-T1`; and
 `plan_reveal` is the clairvoyant reference (belief = point mass on the true ranking).
 
-Arm grammar: ``plan_ask-<decoder>[+offer]-<hedge>[-T1][-template]`` with decoder ∈ {oracle, regex, noul,
+Arm grammar: ``plan_ask-<decoder>[+offer]-<hedge>[-T1][-template][-noclamp]`` with decoder ∈ {oracle, regex, noul,
 noulcal, sonnet}, hedge ∈ {0, 0.2, adaptive} (`adaptive` only with noul / noulcal / sonnet; `0` is for the
 parity gate); ``plan_noask``; ``plan_reveal``; ``jev_agent``; ``sonnet_agent``.
 
@@ -60,7 +60,7 @@ BRIEF_REGIME = {"candid": "plain", "guarded": "oblique", "adversarial": "oblique
 DEFAULT_MAP, DEFAULT_CLAMP = "platt", 0.95                                          # §3.1a recommendation; registration decides
 OFFER_TEMPER = 1.0
 
-_ARM_RE = re.compile(r"^plan_ask-(" + "|".join(DECODERS) + r")(\+offer)?-(0|0\.2|adaptive)(-T1)?(-template)?$")
+_ARM_RE = re.compile(r"^plan_ask-(" + "|".join(DECODERS) + r")(\+offer)?-(0|0\.2|adaptive)(-T1)?(-template)?(-noclamp)?$")
 
 
 @dataclass(frozen=True)
@@ -72,6 +72,7 @@ class Arm:
     hedge: Optional[str] = None
     kernel: str = "fitted"        # fitted | T1
     realizer: str = "llm"         # llm | template
+    clamp: bool = True            # False = the c = 1 secondary (§3.1b): reads enter the filter unclipped
 
     @property
     def asks(self) -> bool:
@@ -88,23 +89,27 @@ def parse_arm(name: str) -> Arm:
     m = _ARM_RE.match(name)
     if not m:
         raise ValueError(f"unknown arm {name!r}")
-    decoder, offer, hedge, t1, template = m.group(1), bool(m.group(2)), m.group(3), bool(m.group(4)), bool(m.group(5))
+    decoder, offer, hedge, t1, template, noclamp = (m.group(1), bool(m.group(2)), m.group(3), bool(m.group(4)), bool(m.group(5)),
+                                                    bool(m.group(6)))
+    if noclamp and hedge != "adaptive":
+        raise ValueError(f"{name}: -noclamp applies to the adaptive hedge only")
     if hedge == "adaptive" and decoder not in ADAPTIVE_DECODERS:
         raise ValueError(f"{name}: the adaptive hedge needs a calibrated decoder ({', '.join(ADAPTIVE_DECODERS)})")
     if hedge == "0" and decoder != "oracle":
         raise ValueError(f"{name}: hedge 0 is the parity gate's and is allowed with the oracle decoder only")
-    return Arm(name, PLAN_ASK, decoder, offer, hedge, "T1" if t1 else "fitted", "template" if template else "llm")
+    return Arm(name, PLAN_ASK, decoder, offer, hedge, "T1" if t1 else "fitted", "template" if template else "llm", not noclamp)
 
 
 def design_arms() -> List[str]:
     """The §4 table (without the parity-gate arm)."""
     return ["plan_ask-noulcal-adaptive", "plan_ask-noulcal-0.2", "plan_ask-noul-adaptive", "plan_ask-sonnet-adaptive",
             "plan_ask-regex-0.2", "plan_ask-noulcal+offer-adaptive", "plan_ask-noulcal-adaptive-T1",
-            "plan_ask-noulcal-adaptive-template", PLAN_NOASK, PLAN_REVEAL, SONNET_AGENT, JEV_AGENT]
+            "plan_ask-noulcal-adaptive-template", "plan_ask-noulcal-adaptive-noclamp", PLAN_NOASK, PLAN_REVEAL, SONNET_AGENT, JEV_AGENT]
 
 
 ARM_BRIEFS = {"plan_ask-noulcal-adaptive": BRIEFS, "plan_ask-noulcal-0.2": BRIEFS, PLAN_NOASK: BRIEFS, PLAN_REVEAL: BRIEFS,
-              "plan_ask-noulcal-adaptive-T1": ("guarded",), "plan_ask-noulcal-adaptive-template": ("guarded",)}
+              "plan_ask-noulcal-adaptive-T1": ("guarded",), "plan_ask-noulcal-adaptive-template": ("guarded",),
+              "plan_ask-noulcal-adaptive-noclamp": ("guarded",)}
 
 
 def briefs_for(arm_name: str, briefs: Tuple[str, ...]) -> List[str]:
@@ -136,10 +141,10 @@ class Calibration:
             return float(c["temperature"]), float(c["bias"])
         return 1.0, 0.0
 
-    def read(self, decoder: str, p_raw: float) -> float:
+    def read(self, decoder: str, p_raw: float, clamp: Optional[float] = None) -> float:
         T, b = self.params(decoder)
         p = cn.read(p_raw, T, b)
-        c = self.spec.clamp
+        c = self.spec.clamp if clamp is None else clamp
         return min(max(p, 1.0 - c), c)
 
     def noise_map(self, decoder: str, brief: str) -> Tuple[Tuple[str, Fraction], ...]:
@@ -228,7 +233,8 @@ class Decoders:
     def __init__(self, calibration: Calibration, jev_client=None, sonnet_client=None):
         self.cal, self.jev, self.sonnet = calibration, jev_client, sonnet_client
 
-    def p_yes(self, decoder: str, role: str, question_id: str, reply: str, truthful: str) -> Tuple[float, dict]:
+    def p_yes(self, decoder: str, role: str, question_id: str, reply: str, truthful: str,
+              clamp: Optional[float] = None) -> Tuple[float, dict]:
         q = BANK_BY_ID[question_id]
         if decoder == "oracle":
             return dc.oracle_p_yes(truthful), {"p_raw": dc.oracle_p_yes(truthful)}
@@ -239,7 +245,7 @@ class Decoders:
             qs = {k: v for k, v in dc.noul_questions(role, q.text).items() if k in ("yes", "no")}
             raw = self.jev.nouls(dc.context_state(role, q.text, reply), qs)
             p_raw = dc.p_yes_two_way(raw["yes"], raw["no"])
-            p = self.cal.read("noulcal", p_raw) if decoder == "noulcal" else p_raw
+            p = self.cal.read("noulcal", p_raw, clamp) if decoder == "noulcal" else p_raw
             return p, {"p_raw": p_raw, "raw": raw}
         if decoder == "sonnet":
             messages = [{"role": "user", "content": dc.sonnet_user(role, q.text, reply)}]
@@ -251,7 +257,7 @@ class Decoders:
                 p_raw = dc.parse_p_yes(r.text)
                 malformed = p_raw is None
             p_raw = 0.5 if p_raw is None else p_raw
-            c = self.cal.spec.clamp
+            c = self.cal.spec.clamp if clamp is None else clamp
             return min(max(p_raw, 1.0 - c), c), {"p_raw": p_raw, "malformed": malformed, "reply": r.text[:200]}
         raise ValueError(decoder)
 
@@ -377,7 +383,7 @@ def play_episode(cell: Stage2Cell, arm: Arm, brief: str, opener: str, opp_rankin
             true_b = bl.posterior(true_b, bl.answer_likelihoods(ref["kernel"], act.question_id)[truthful])
             dcode = arm.decoder if arm.kind == PLAN_ASK else AGENT_MENU_DECODER
             hedge = arm.hedge if arm.kind == PLAN_ASK else AGENT_MENU_HEDGE
-            p, read = decoders.p_yes(dcode, opp_role, act.question_id, reply, truthful)
+            p, read = decoders.p_yes(dcode, opp_role, act.question_id, reply, truthful, clamp=None if arm.clamp else 1.0)
             lik = answer_likelihood(act.question_id, p, hedge)
             before = belief[true_idx]
             belief = fm.update(belief, lik, spec)
@@ -401,7 +407,7 @@ def play_episode(cell: Stage2Cell, arm: Arm, brief: str, opener: str, opp_rankin
     b_rank, s_rank = (cell.ranking, opp_ranking) if focal == "buyer" else (opp_ranking, cell.ranking)
     return {
         "arm": arm.name, "kind": arm.kind, "decoder": arm.decoder, "hedge": arm.hedge, "offer": arm.offer, "kernel": arm.kernel,
-        "realizer": arm.realizer, "brief": brief, "focal": focal, "opener": opener, "focal_ranking": list(cell.ranking), "repeat": repeat,
+        "realizer": arm.realizer, "clamp": arm.clamp, "brief": brief, "focal": focal, "opener": opener, "focal_ranking": list(cell.ranking), "repeat": repeat,
         "private_truth_evaluator_only": {"opp_ranking": list(opp_ranking)},
         "decisions": decisions, "n_decisions": len(decisions),
         "questions_asked": n_ask, "proposals_made": sum(1 for e in state.events if e.actor == focal and e.action.kind == PROPOSE),

@@ -1,4 +1,4 @@
-# CD-NOUL-2 — the live LLM opponent (Stage 2 plan, 2026-11-08, DRAFT — not registered; §3.1a added after the offline Phase 0 calibration)
+# CD-NOUL-2 — the live LLM opponent (Stage 2 plan, 2026-11-08, DRAFT — not registered; §3.1a/§3.1b added after the offline Phase 0 calibration)
 
 Follow-on to CD-NOUL-1 Stage 1 (`DESIGN_NOUL.md`, `PREREGISTRATION_NOUL.md` tag `prereg-noul1-20261108`,
 `RESULTS_NOUL.md`, FINDINGS §3.12). Stage 1 kept the registered T1 kernel as the opponent and verbalized only
@@ -197,6 +197,23 @@ What this changes in the design (decisions for the registration, listed with a r
 `decode.calibrated_p_yes` is the pure-temperature read; `calibrate_noul.read(p, T, b)` the Platt read; the
 registration pins (T, b, c) per decoder × brief and the a_q vectors computed under the same map.
 
+### 3.1b Decision (2026-11-08, NEG-9)
+
+Taken as recommended, and binding for the registration unless the Phase 0 pilot's gate 9 fails:
+
+- **Map:** the Platt map (slope and intercept fit pooled on the frozen Stage 1 Noul matrix,
+  `calibration_noul2.json` → `decoders.noul.candidates.platt`) for both `candid` and `guarded` (and for
+  `adversarial` where run). `MapSpec(name="platt")`.
+- **Clamp:** every adaptive read is clipped to [0.05, 0.95] (c = 0.95) before it enters the filter.
+- **Secondary:** `plan_ask-noulcal-adaptive-noclamp` (c = 1), `guarded` only, so the clamp's cost and
+  protection are measured rather than assumed.
+- **Gate 9** (added to §6): on the `candid` pilot's blind-audited answers the Platt-mapped, clamped read
+  produces 0 confident-wrong reads (p' > 0.9 against a truthful NO, or < 0.1 against a truthful YES); on
+  `guarded` the count is reported against the bank's expectation. If gate 9 fails on `candid`, the fallback
+  is the `safe` temperature for `candid` and the decision is re-taken before the tag.
+- The a_q vectors of §3.2 are computed under the same Platt map (`candidates.platt.a_q`), per brief via
+  the regime map `candid → plain`, `guarded` / `adversarial` → `oblique`.
+
 ### 3.2 Uncertainty-scaled hedge (`a = adaptive`)
 
 Stage 1 used one flip rate a in two places: the planner's ASK branch (the hedged kernel's
@@ -237,6 +254,7 @@ chooser is isolated).
 | `plan_ask-noulcal+offer-adaptive` | `noul_answer+cal` × `noul_offer` | adaptive | candid, guarded | the second likelihood |
 | `plan_ask-noulcal-adaptive-T1` | `noul_answer+cal` | adaptive | guarded | registered T1 kernel instead of the fit |
 | `plan_ask-noulcal-adaptive-template` | `noul_answer+cal` | adaptive | guarded | templated text instead of the realizer |
+| `plan_ask-noulcal-adaptive-noclamp` | `noul_answer+cal` | adaptive, c = 1 | guarded | the read clamp's effect (§3.1b) |
 | `plan_noask` | — | — | all | reference |
 | `plan_reveal` | — | — | all | clairvoyant ceiling |
 | `sonnet_agent` | menu belief only | — | candid, guarded | LLM-as-chooser |
@@ -289,8 +307,11 @@ it is a reference, not a truth, and is labelled so.
 7. **Parity.** With a scripted T1 opponent, templated text and the `oracle` decoder, the Stage 2 runner
    reproduces Stage 1's `plan_ask-oracle-0` decisions exactly; the per-question noise map with all
    entries equal reproduces the global hedge exactly.
-8. **Calibration constants.** The temperature of §3.1 and the a_q vectors of §3.2 are computed from the
+8. **Calibration constants.** The Platt map of §3.1b and the a_q vectors of §3.2 are computed from the
    frozen Stage 1 matrices by a committed script and their values are in the registration.
+9. **No confident-wrong reads on candid text.** On the `candid` pilot's blind-audited answers the chosen map
+   (Platt, clamp 0.95) produces 0 confident-wrong reads; on `guarded` the count is reported against the
+   bank's expectation (§3.1b).
 
 Pilot outcome contrasts are not read; only the gates above are.
 
@@ -318,9 +339,9 @@ Stage 1's `sonnet_agent` spent 940,323 input and 453,302 output tokens on 1,131 
 `plain`), i.e. about $6.4 per 720 episodes at $2 / $10 per MTok, in ~90 minutes sequential. A Stage 2
 episode makes 2–4 opponent calls, 2–4 realizer calls and 1–3 decoder calls (Jev ~0.1 s, free of Sonnet
 cost; the Sonnet judge arm adds one call per answer). Estimate ≈ $12–15 and ~2 h per 720 episodes
-sequential; the §4 table is 26 (arm, brief) pairs → 18,720 episodes at K = 5 ≈ $310–390 and ~52 h
-sequential, ~6.5 h with 8 cell-parallel workers. If that is over budget the registered cut is K = 3 (432
-episodes per pair, 11,232 episodes, ≈ $190–235) with the chooser arms kept at K = 5; the cut is decided
+sequential; the §4 table is 27 (arm, brief) pairs → 19,440 episodes at K = 5 ≈ $325–405 and ~54 h
+sequential, ~7 h with 8 cell-parallel workers. If that is over budget the registered cut is K = 3 (432
+episodes per pair, 11,664 episodes, ≈ $195–245) with the chooser arms kept at K = 5; the cut is decided
 before the tag.
 
 ## 9. Sequence
