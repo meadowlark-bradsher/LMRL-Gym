@@ -103,9 +103,20 @@ def play_game(true_h: Hypothesis, pool: Sequence[Hypothesis],
 
 def run_cell(objs, matrix, N: int, T: int, q_flip: float, policy: str, knob: float,
              games: int, confidence: float, eps: float, pool_seed: int,
-             stream_seed: int) -> Dict[str, float]:
+             stream_seed: int, cat_span=None) -> Dict[str, float]:
     prng = random.Random(pool_seed)
-    pool = prng.sample(list(objs), N)
+    if cat_span:
+        # Concentrate the pool into the ``cat_span`` largest categories, so category
+        # questions barely narrow and the planner must lean on attribute questions --
+        # more corruptible decision points per game (the flatter-category regime).
+        by_cat: Dict[str, list] = {}
+        for h in objs:
+            by_cat.setdefault(h.category, []).append(h)
+        top_cats = sorted(by_cat, key=lambda c: -len(by_cat[c]))[:cat_span]
+        candidates = [h for c in top_cats for h in by_cat[c]]
+    else:
+        candidates = list(objs)
+    pool = prng.sample(candidates, N)
     by_name = {h.name: h for h in pool}
     bank = build_question_bank(pool)
     like = make_likelihood(matrix)
@@ -150,13 +161,16 @@ def run_grid(matrix_path: str, games: int, confidence: float, eps: float,
     print("regime        policy      knob     acc    human_q/g   q/g")
     for reg in regimes:
         N, T, q = reg["N"], reg["T"], reg["q"]
-        tag = "N{}_T{}_q{:g}".format(N, T, q)
+        span = reg.get("cat_span")
+        tag = "N{}_T{}_q{:g}".format(N, T, q) + ("_cat{}".format(span) if span else "_catAll")
         for policy in policies:
             for knob in knob_sweep(policy, N):
                 m = run_cell(objs, matrix, N, T, q, policy, knob, games, confidence,
                              eps, pool_seed=reg.get("pool_seed", 11),
-                             stream_seed=reg.get("stream_seed", 7))
+                             stream_seed=reg.get("stream_seed", 7),
+                             cat_span=reg.get("cat_span"))
                 cells.append({"regime": tag, "N": N, "T": T, "q": q,
+                              "cat_span": reg.get("cat_span"),
                               "policy": policy, "knob": knob, "metrics": m})
                 print("{:12s}  {:10s}  {:5.2f}  {:.3f}    {:6.2f}    {:5.2f}".format(
                     tag, policy, knob, m["accuracy"], m["human_q_per_game"],
@@ -183,6 +197,29 @@ DEFAULT_REGIMES = [
 ]
 DEFAULT_POLICIES = ["cheap_only", "human_all", "random", "first", "entropy", "margin",
                     "voi_eig"]
+
+# ENV-704-B follow-on: hold N and T fixed, vary only the category span, so the pool goes
+# from spread across all 17 categories (category questions narrow fast) to concentrated in
+# the 2 largest (category questions barely narrow -> attribute-heavy, more decision points).
+CONCENTRATED_REGIMES = [
+    {"N": 24, "T": 12, "q": 0.15, "cat_span": None, "label": "broad"},
+    {"N": 24, "T": 12, "q": 0.15, "cat_span": 4, "label": "concentrated-4"},
+    {"N": 24, "T": 12, "q": 0.15, "cat_span": 2, "label": "concentrated-2"},
+    {"N": 24, "T": 12, "q": 0.25, "cat_span": None, "label": "broad-q25"},
+    {"N": 24, "T": 12, "q": 0.25, "cat_span": 4, "label": "concentrated-4-q25"},
+    {"N": 24, "T": 12, "q": 0.25, "cat_span": 2, "label": "concentrated-2-q25"},
+]
+CONCENTRATED_POLICIES = ["cheap_only", "human_all", "random", "first", "voi_eig"]
+
+# ENV-704-B follow-on, the scaling axis: hold the pool broad (all categories) and grow N
+# with a tight budget, so attribute decision points multiply. Tests whether the targeting
+# edge (first vs random at matched spend) widens or narrows as decision points grow.
+SCALING_REGIMES = [
+    {"N": 40, "T": 10, "q": 0.20, "cat_span": None, "label": "N40"},
+    {"N": 80, "T": 12, "q": 0.20, "cat_span": None, "label": "N80"},
+    {"N": 120, "T": 14, "q": 0.20, "cat_span": None, "label": "N120"},
+]
+SCALING_POLICIES = ["cheap_only", "human_all", "random", "first"]
 
 
 # --------------------------------------------------------------------------- #
@@ -225,6 +262,10 @@ def main() -> None:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--run", action="store_true")
+    ap.add_argument("--concentrated", action="store_true",
+                    help="ENV-704-B follow-on: vary category span at fixed N, T")
+    ap.add_argument("--scaling", action="store_true",
+                    help="ENV-704-B follow-on: grow N (broad pool) with tight budget")
     ap.add_argument("--matrix", default="llm_rl_scripts/twenty_questions/jev/matrix_jev.json")
     ap.add_argument("--games", type=int, default=1000)
     ap.add_argument("--confidence", type=float, default=0.9)
@@ -236,8 +277,14 @@ def main() -> None:
         self_test()
         return
     if args.run:
-        run_grid(args.matrix, args.games, args.confidence, args.eps, DEFAULT_REGIMES,
-                 DEFAULT_POLICIES, args.out)
+        if args.scaling:
+            regimes, policies = SCALING_REGIMES, SCALING_POLICIES
+        elif args.concentrated:
+            regimes, policies = CONCENTRATED_REGIMES, CONCENTRATED_POLICIES
+        else:
+            regimes, policies = DEFAULT_REGIMES, DEFAULT_POLICIES
+        run_grid(args.matrix, args.games, args.confidence, args.eps, regimes,
+                 policies, args.out)
         return
     ap.error("pass --self-test or --run")
 

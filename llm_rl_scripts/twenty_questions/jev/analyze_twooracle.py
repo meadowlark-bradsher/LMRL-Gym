@@ -43,6 +43,34 @@ def _point(cells, regime, policy):
     return pts[0] if pts else (0.0, float("nan"))
 
 
+def interp(curve, x: float) -> float:
+    """Linear interpolation of accuracy at human-spend x along a (spend, acc) curve."""
+    if not curve:
+        return float("nan")
+    if x <= curve[0][0]:
+        return curve[0][1]
+    if x >= curve[-1][0]:
+        return curve[-1][1]
+    for (x0, y0), (x1, y1) in zip(curve, curve[1:]):
+        if x0 <= x <= x1:
+            t = 0.0 if x1 == x0 else (x - x0) / (x1 - x0)
+            return y0 + t * (y1 - y0)
+    return curve[-1][1]
+
+
+def matched_edge(cells, regime, floor_acc):
+    """Max accuracy edge of `first` over `random` at matched human spend. `random`'s
+    curve is anchored at (0, floor) so interpolation is defined from zero spend."""
+    rand = [(0.0, floor_acc)] + policy_curve(cells, regime, "random")
+    first = policy_curve(cells, regime, "first")
+    best = None
+    for h, a in first:
+        edge = a - interp(rand, h)
+        if best is None or edge > best[2]:
+            best = (h, a, edge)
+    return best                                   # (spend, first_acc, edge) or None
+
+
 def report(path: str) -> None:
     data = load(path)
     cells = data["cells"]
@@ -69,6 +97,10 @@ def report(path: str) -> None:
             best = max((a for _, a in under), default=float("nan"))
             sweep = " ".join("{:.2f}:{:.3f}".format(h, a) for h, a in curve)
             print("   {:9s}  {:.3f}                     {}".format(policy, best, sweep))
+        me = matched_edge(cells, regime, floor[1]) if "first" in policies else None
+        if me is not None:
+            print("   >> first-over-random edge at matched spend: {:+.3f} "
+                  "(at {:.2f} human/g, first acc {:.3f})".format(me[2], me[0], me[1]))
     print("=" * 74)
     _figure(path, data)
 
@@ -86,9 +118,11 @@ def _figure(path: str, data: dict) -> None:
     policies = data["config"]["policies"]
     thresh = [p for p in policies if p not in ("cheap_only", "human_all")]
     regimes = regime_tags(data)
-    # the two hard regimes are the interesting ones; show up to two panels.
-    show = [r for r in regimes if "T10" in r] or regimes[:2]
-    show = show[:2]
+    # show the regimes with real VOI room (ceiling - floor > 0.02), up to three panels.
+    roomy = [r for r in regimes
+             if (_point(cells, r, "human_all")[1] - _point(cells, r, "cheap_only")[1])
+             > 0.02]
+    show = (roomy or regimes)[:3]
     pcol = {"random": "#999999", "entropy": "#b07a16", "margin": "#3a46a6",
             "voi_eig": "#1a9988"}
     mk = {"random": "x", "entropy": "^", "margin": "s", "voi_eig": "o"}

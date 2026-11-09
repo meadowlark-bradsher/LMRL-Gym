@@ -72,12 +72,45 @@ resolves. When the budget is tight and the pool large, fidelity is decisive (B's
 gap), and the right way to spend a scarce truthful-answer budget is **early and small**,
 front-loaded by EIG.
 
+## Follow-on: does the targeting edge widen with more decision points?
+
+The headline result raised a question: is the small `first`-over-`random` edge an artefact
+of the hard regime asking only ~1.64 attribute questions per game (few decision points to
+mis-target)? Two ways to add decision points were tested.
+
+**Concentrating categories is the wrong lever — it backfires** (run
+`twooracle_20261109_015225`, fixed N=24, T=12). Restricting the pool to the top-k largest
+categories *reduces* attribute decision points: the broad pool (all 17 categories) spends
+1.28 human queries/game at the ceiling, but concentrating into 4 categories drops that to
+0.27 (games become trivial, floor 1.000) and into 2 categories to 0.87. "Flatter
+categories" via concentration shrinks effective diversity and makes games *easier* — the
+opposite of the intent.
+
+**Scaling a broad pool is the right lever, and the edge does widen — modestly** (run
+`twooracle_20261109_014246`, broad pool, q=0.20, 1000 games). Growing N under a tight
+budget multiplies attribute decision points, and at a matched spend of one human query per
+game, `first@1`'s edge over `random` grows:
+
+| regime | attr q/game | floor | ceiling | first@1 @1.0/g | random @1.0/g | edge |
+|---|---:|---:|---:|---:|---:|---:|
+| N=40, T=10 | 1.64 | 0.666 | 0.812 | 0.765 | 0.757 | **+0.008** |
+| N=80, T=12 | 2.05 | 0.678 | 0.865 | 0.797 | 0.772 | **+0.025** |
+| N=120, T=14 | 2.23 | 0.700 | 0.903 | 0.826 | 0.797 | **+0.029** |
+
+So the hypothesis is directionally confirmed: more decision points give front-loading more
+room, and the edge roughly triples from N=40 to N=120. But it stays **small** (≤0.03) — the
+"how many human queries" lever still dominates "which". The ENV-704-B rule holds and
+sharpens: pay early and sparingly; in a larger pool *where* you spend the first query
+matters a little more, but the dominant decision remains how many you buy. (A confounded
+first pass, comparing `first@1` to `random` at *unmatched* spend, had suggested the edge
+*narrows* with N — the matched-spend interpolation is what shows the real, widening trend;
+a caution worth recording.)
+
 ## Caveats
 
-* The targeting edge is small because the hard regime asks only ~1.64 attribute questions
-  per game — few decision points to mis-target. A regime with flatter categories or larger
-  within-category pools (more attribute questions per game) would widen `first`'s advantage
-  over `random`; this is the natural next sweep.
+* The scaling edges are modest and carry ~±0.02 sampling noise at 1000 games/cell, so read
+  the *trend* (widening with N) rather than the individual gaps; a larger-sample rerun
+  would tighten them.
 * The threshold policies' bang-bang behaviour is a methodological finding, not a bug: a
   per-turn score with little spread at the decision points cannot be thresholded into an
   intermediate policy, so a **budget** policy (`first@B`) is the right tool for a matched
@@ -92,6 +125,11 @@ PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.twooracle_20q --self-
 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.twooracle_20q --run --games 1500
 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_twooracle \
     --dir llm_rl_scripts/twenty_questions/jev/results/twooracle_20261109_011300
+# follow-on sweeps:
+PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.twooracle_20q --run --scaling --games 1000
+PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.twooracle_20q --run --concentrated --games 1500
+PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_twooracle \
+    --dir llm_rl_scripts/twenty_questions/jev/results/twooracle_20261109_014246   # scaling
 ```
 
 `--self-test` asserts `human_all` equals a truthful run, `cheap_only ≤ human_all`, accuracy
