@@ -1,0 +1,799 @@
+{
+ "schema": "calibration_noul2-v1",
+ "eps": 0.001,
+ "confident": 0.9,
+ "max_noise": 0.49,
+ "t_range": [
+  0.05,
+  50.0
+ ],
+ "questions": [
+  "top:price",
+  "top:warranty",
+  "top:delivery",
+  "above:price>warranty",
+  "above:price>delivery",
+  "above:warranty>delivery",
+  "bottom:price",
+  "bottom:warranty",
+  "bottom:delivery"
+ ],
+ "inputs": {
+  "matrix_noul.jsonl": "3e29647b3f413ec3",
+  "matrix_sonnet.jsonl": "fa06ca4b8523105a"
+ },
+ "decoders": {
+  "noul": {
+   "n": 4320,
+   "temperature_pooled": 2.068895391963827,
+   "temperature_by_regime": {
+    "plain": 49.99999999999999,
+    "oblique": 1.558849959273507
+   },
+   "logloss_bits": {
+    "pooled": {
+     "raw": 0.44397475280881127,
+     "calibrated": 0.35949491504304687
+    },
+    "plain": {
+     "raw": 0.19717218652611387,
+     "calibrated": 0.04055961898412173
+    },
+    "oblique": {
+     "raw": 0.6907773190915086,
+     "calibrated": 0.678430211101972
+    }
+   },
+   "accuracy": {
+    "plain": 1.0,
+    "oblique": 0.7101851851851851
+   },
+   "wrong_confident": {
+    "plain": {
+     "raw": 0,
+     "calibrated": 0
+    },
+    "oblique": {
+     "raw": 0,
+     "calibrated": 18
+    }
+   },
+   "expected_error": {
+    "plain": {
+     "raw": 0.12487117186636362,
+     "calibrated": 0.02713127145729202
+    },
+    "oblique": {
+     "raw": 0.2889728596584903,
+     "calibrated": 0.18265379049289754
+    }
+   },
+   "a_q": {
+    "plain": {
+     "top:price": 0.039082605017064856,
+     "top:warranty": 0.03359625081004251,
+     "top:delivery": 0.028190847675599633,
+     "above:price>warranty": 0.02642607249027624,
+     "above:price>delivery": 0.018829730144653365,
+     "above:warranty>delivery": 0.010618476854935475,
+     "bottom:price": 0.04540402996695043,
+     "bottom:warranty": 0.018501939587003875,
+     "bottom:delivery": 0.02353149056910179
+    },
+    "oblique": {
+     "top:price": 0.10823209277786151,
+     "top:warranty": 0.14090983623254172,
+     "top:delivery": 0.12974531852413787,
+     "above:price>warranty": 0.21987402309906331,
+     "above:price>delivery": 0.21432293799436308,
+     "above:warranty>delivery": 0.20063094652383384,
+     "bottom:price": 0.2112143450763266,
+     "bottom:warranty": 0.20557289337871407,
+     "bottom:delivery": 0.21338172082923587
+    }
+   },
+   "a_q_raw": {
+    "plain": {
+     "top:price": 0.15955498371674934,
+     "top:warranty": 0.14176893137027688,
+     "top:delivery": 0.13453824864948516,
+     "above:price>warranty": 0.12357989978701146,
+     "above:price>delivery": 0.10648603876073297,
+     "above:warranty>delivery": 0.08110332683939697,
+     "bottom:price": 0.14239585558034695,
+     "bottom:warranty": 0.11324807523361245,
+     "bottom:delivery": 0.12116518685966038
+    },
+    "oblique": {
+     "top:price": 0.22677368462247907,
+     "top:warranty": 0.25096722986070463,
+     "top:delivery": 0.23724763286620132,
+     "above:price>warranty": 0.31705804420077716,
+     "above:price>delivery": 0.314873360054315,
+     "above:warranty>delivery": 0.2871722698260692,
+     "bottom:price": 0.3326758916420235,
+     "bottom:warranty": 0.31429487631780156,
+     "bottom:delivery": 0.31969274753604093
+    }
+   },
+   "candidates": {
+    "raw": {
+     "temperature": 1.0,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.44397475280881127,
+      "plain": 0.19717218652611387,
+      "oblique": 0.6907773190915086
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.711574074074074
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 0
+     },
+     "expected_error": {
+      "plain": 0.12487117186636362,
+      "oblique": 0.2889728596584903
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.15955498371674934,
+       "top:warranty": 0.14176893137027688,
+       "top:delivery": 0.13453824864948516,
+       "above:price>warranty": 0.12357989978701146,
+       "above:price>delivery": 0.10648603876073297,
+       "above:warranty>delivery": 0.08110332683939697,
+       "bottom:price": 0.14239585558034695,
+       "bottom:warranty": 0.11324807523361245,
+       "bottom:delivery": 0.12116518685966038
+      },
+      "oblique": {
+       "top:price": 0.22677368462247907,
+       "top:warranty": 0.25096722986070463,
+       "top:delivery": 0.23724763286620132,
+       "above:price>warranty": 0.31705804420077716,
+       "above:price>delivery": 0.314873360054315,
+       "above:warranty>delivery": 0.2871722698260692,
+       "bottom:price": 0.3326758916420235,
+       "bottom:warranty": 0.31429487631780156,
+       "bottom:delivery": 0.31969274753604093
+      }
+     }
+    },
+    "pooled": {
+     "temperature": 2.068895391963827,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.35949491504304687,
+      "plain": 0.04055961898412173,
+      "oblique": 0.678430211101972
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.711574074074074
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 18
+     },
+     "expected_error": {
+      "plain": 0.02713127145729202,
+      "oblique": 0.18265379049289754
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.039082605017064856,
+       "top:warranty": 0.03359625081004251,
+       "top:delivery": 0.028190847675599633,
+       "above:price>warranty": 0.02642607249027624,
+       "above:price>delivery": 0.018829730144653365,
+       "above:warranty>delivery": 0.010618476854935475,
+       "bottom:price": 0.04540402996695043,
+       "bottom:warranty": 0.018501939587003875,
+       "bottom:delivery": 0.02353149056910179
+      },
+      "oblique": {
+       "top:price": 0.10823209277786151,
+       "top:warranty": 0.14090983623254172,
+       "top:delivery": 0.12974531852413787,
+       "above:price>warranty": 0.21987402309906331,
+       "above:price>delivery": 0.21432293799436308,
+       "above:warranty>delivery": 0.20063094652383384,
+       "bottom:price": 0.2112143450763266,
+       "bottom:warranty": 0.20557289337871407,
+       "bottom:delivery": 0.21338172082923587
+      }
+     }
+    },
+    "oblique_fit": {
+     "temperature": 1.558849959273507,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.3733377055271836,
+      "plain": 0.08363716715632051,
+      "oblique": 0.6630382438980467
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.711574074074074
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 4
+     },
+     "expected_error": {
+      "plain": 0.05494742880801549,
+      "oblique": 0.2227830937909417
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.07611793516505803,
+       "top:warranty": 0.06553777956224066,
+       "top:delivery": 0.05869870404705595,
+       "above:price>warranty": 0.054656847324086495,
+       "above:price>delivery": 0.042554309219514856,
+       "above:warranty>delivery": 0.027554751224440455,
+       "bottom:price": 0.07548941081750801,
+       "bottom:warranty": 0.04342708634066762,
+       "bottom:delivery": 0.05049003557156728
+      },
+      "oblique": {
+       "top:price": 0.15005620519567925,
+       "top:warranty": 0.1798964774973582,
+       "top:delivery": 0.16808735227179428,
+       "above:price>warranty": 0.2574522621573758,
+       "above:price>delivery": 0.25316288823585514,
+       "above:warranty>delivery": 0.23139799433323266,
+       "bottom:price": 0.2615557319807153,
+       "bottom:warranty": 0.24826941477160033,
+       "bottom:delivery": 0.2551695176748641
+      }
+     }
+    },
+    "safe": {
+     "temperature": 1.1738551244626194,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.41257274115311765,
+      "plain": 0.14988399297749036,
+      "oblique": 0.675261489328745
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.711574074074074
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 0
+     },
+     "expected_error": {
+      "plain": 0.0962909292099533,
+      "oblique": 0.2651075135023218
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.12686644528713656,
+       "top:warranty": 0.11115643881238367,
+       "top:delivery": 0.10382851126542483,
+       "above:price>warranty": 0.0955903534193587,
+       "above:price>delivery": 0.07981023668821316,
+       "above:warranty>delivery": 0.05773431725085444,
+       "bottom:price": 0.11560412821460965,
+       "bottom:warranty": 0.08402580795091398,
+       "bottom:delivery": 0.09200212400068468
+      },
+      "oblique": {
+       "top:price": 0.19820946202587814,
+       "top:warranty": 0.22458079139297285,
+       "top:delivery": 0.21146167388346385,
+       "above:price>warranty": 0.29578340019711824,
+       "above:price>delivery": 0.2929080096647978,
+       "above:warranty>delivery": 0.2663330760397804,
+       "bottom:price": 0.3086134286725049,
+       "bottom:warranty": 0.29106974331374597,
+       "bottom:delivery": 0.29700803633063433
+      }
+     }
+    },
+    "platt": {
+     "temperature": 3.6209534719522556,
+     "bias": 1.9726300413042706,
+     "logloss_bits": {
+      "pooled": 0.26146152533986194,
+      "plain": 0.0028531572294122343,
+      "oblique": 0.5200698934503116
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.8148148148148148
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 17
+     },
+     "expected_error": {
+      "plain": 0.0016673762420583397,
+      "oblique": 0.16923609403958642
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.004938913878357122,
+       "top:warranty": 0.002146884274416625,
+       "top:delivery": 0.0019662227188480155,
+       "above:price>warranty": 0.0005453506530815461,
+       "above:price>delivery": 0.0003070506966121736,
+       "above:warranty>delivery": 0.00011116508050013904,
+       "bottom:price": 0.0028196244167938466,
+       "bottom:warranty": 0.0009769701858119702,
+       "bottom:delivery": 0.0011942042741036195
+      },
+      "oblique": {
+       "top:price": 0.13798939931708668,
+       "top:warranty": 0.11648636193077373,
+       "top:delivery": 0.1274557457599333,
+       "above:price>warranty": 0.1928354599620869,
+       "above:price>delivery": 0.186852422441361,
+       "above:warranty>delivery": 0.08346983092394744,
+       "bottom:price": 0.2798394825207385,
+       "bottom:warranty": 0.22150847665211423,
+       "bottom:delivery": 0.1766876668482362
+      }
+     }
+    },
+    "platt_oblique": {
+     "temperature": 3.469199278237376,
+     "bias": 1.8935564897683768,
+     "logloss_bits": {
+      "pooled": 0.26166144520731505,
+      "plain": 0.0034399981948331584,
+      "oblique": 0.5198828922197969
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.8148148148148148
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 14
+     },
+     "expected_error": {
+      "plain": 0.0021252850663136488,
+      "oblique": 0.17422095365826684
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.006102625879420774,
+       "top:warranty": 0.002769720797862217,
+       "top:delivery": 0.0025433942235456824,
+       "above:price>warranty": 0.0007384505679266646,
+       "above:price>delivery": 0.00042480629067210673,
+       "above:warranty>delivery": 0.00015891957829433425,
+       "bottom:price": 0.0035132504461161183,
+       "bottom:warranty": 0.0013015352616492504,
+       "bottom:delivery": 0.001574862551335688
+      },
+      "oblique": {
+       "top:price": 0.14264271146378837,
+       "top:warranty": 0.1213738924057154,
+       "top:delivery": 0.1318330299620637,
+       "above:price>warranty": 0.1982364411761165,
+       "above:price>delivery": 0.19246941816927093,
+       "above:warranty>delivery": 0.08789253509994563,
+       "bottom:price": 0.2849514712858609,
+       "bottom:warranty": 0.22665980274566364,
+       "bottom:delivery": 0.18192928061597655
+      }
+     }
+    }
+   },
+   "confident_wrong_ids_pooled_oblique": [
+    "oblique|buyer|above:price>delivery|warranty>price>delivery|09",
+    "oblique|buyer|above:price>delivery|warranty>price>delivery|10",
+    "oblique|buyer|above:price>delivery|warranty>price>delivery|12",
+    "oblique|buyer|above:price>delivery|warranty>price>delivery|17",
+    "oblique|buyer|above:price>warranty|delivery>price>warranty|12",
+    "oblique|buyer|above:price>warranty|delivery>price>warranty|15",
+    "oblique|buyer|top:delivery|delivery>price>warranty|15",
+    "oblique|buyer|top:delivery|delivery>warranty>price|08",
+    "oblique|buyer|top:price|price>warranty>delivery|06",
+    "oblique|buyer|top:price|price>warranty>delivery|17",
+    "oblique|buyer|top:warranty|warranty>delivery>price|02",
+    "oblique|seller|above:warranty>delivery|warranty>delivery>price|09",
+    "oblique|seller|top:delivery|delivery>warranty>price|07",
+    "oblique|seller|top:delivery|delivery>warranty>price|13",
+    "oblique|seller|top:price|price>delivery>warranty|06",
+    "oblique|seller|top:price|price>delivery>warranty|11",
+    "oblique|seller|top:price|price>warranty>delivery|15",
+    "oblique|seller|top:price|price>warranty>delivery|17"
+   ]
+  },
+  "sonnet": {
+   "n": 4320,
+   "temperature_pooled": 3.9316232473981545,
+   "temperature_by_regime": {
+    "plain": 49.99999999999999,
+    "oblique": 3.931248892832119
+   },
+   "logloss_bits": {
+    "pooled": {
+     "raw": 0.3343236945834003,
+     "calibrated": 0.19836474275397867
+    },
+    "plain": {
+     "raw": 0.08463742929981401,
+     "calibrated": 0.001443720255026934
+    },
+    "oblique": {
+     "raw": 0.5840099598669866,
+     "calibrated": 0.3952857652529304
+    }
+   },
+   "accuracy": {
+    "plain": 1.0,
+    "oblique": 0.8083333333333333
+   },
+   "wrong_confident": {
+    "plain": {
+     "raw": 0,
+     "calibrated": 0
+    },
+    "oblique": {
+     "raw": 0,
+     "calibrated": 18
+    }
+   },
+   "expected_error": {
+    "plain": {
+     "raw": 0.05673611111111112,
+     "calibrated": 3.812600929040898e-05
+    },
+    "oblique": {
+     "raw": 0.3003148148148148,
+     "calibrated": 0.13312298632095854
+    }
+   },
+   "a_q": {
+    "plain": {
+     "top:price": 6.709204098218024e-05,
+     "top:warranty": 5.0725237248691246e-05,
+     "top:delivery": 3.7108743508182475e-05,
+     "above:price>warranty": 2.3534634432008948e-05,
+     "above:price>delivery": 4.127092420297208e-05,
+     "above:warranty>delivery": 3.186362823741018e-05,
+     "bottom:price": 1.8511928876526975e-05,
+     "bottom:warranty": 3.9019326356901864e-05,
+     "bottom:delivery": 3.400761976880681e-05
+    },
+    "oblique": {
+     "top:price": 0.09179760777679533,
+     "top:warranty": 0.06666742808035778,
+     "top:delivery": 0.0787118645834317,
+     "above:price>warranty": 0.22513541519115865,
+     "above:price>delivery": 0.19542105330304962,
+     "above:warranty>delivery": 0.14917322180655104,
+     "bottom:price": 0.13332990629585373,
+     "bottom:warranty": 0.14218882741994981,
+     "bottom:delivery": 0.11568155243147912
+    }
+   },
+   "a_q_raw": {
+    "plain": {
+     "top:price": 0.060791666666666674,
+     "top:warranty": 0.06266666666666668,
+     "top:delivery": 0.05383333333333334,
+     "above:price>warranty": 0.052291666666666674,
+     "above:price>delivery": 0.05658333333333334,
+     "above:warranty>delivery": 0.055291666666666656,
+     "bottom:price": 0.04779166666666667,
+     "bottom:warranty": 0.06254166666666668,
+     "bottom:delivery": 0.05883333333333334
+    },
+    "oblique": {
+     "top:price": 0.24466666666666667,
+     "top:warranty": 0.26025,
+     "top:delivery": 0.24320833333333333,
+     "above:price>warranty": 0.37437499999999996,
+     "above:price>delivery": 0.3545,
+     "above:warranty>delivery": 0.3078333333333333,
+     "bottom:price": 0.33075,
+     "bottom:warranty": 0.29291666666666666,
+     "bottom:delivery": 0.29433333333333334
+    }
+   },
+   "candidates": {
+    "raw": {
+     "temperature": 1.0,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.3343236945834003,
+      "plain": 0.08463742929981401,
+      "oblique": 0.5840099598669866
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.8300925925925926
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 0
+     },
+     "expected_error": {
+      "plain": 0.05673611111111112,
+      "oblique": 0.3003148148148148
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.060791666666666674,
+       "top:warranty": 0.06266666666666668,
+       "top:delivery": 0.05383333333333334,
+       "above:price>warranty": 0.052291666666666674,
+       "above:price>delivery": 0.05658333333333334,
+       "above:warranty>delivery": 0.055291666666666656,
+       "bottom:price": 0.04779166666666667,
+       "bottom:warranty": 0.06254166666666668,
+       "bottom:delivery": 0.05883333333333334
+      },
+      "oblique": {
+       "top:price": 0.24466666666666667,
+       "top:warranty": 0.26025,
+       "top:delivery": 0.24320833333333333,
+       "above:price>warranty": 0.37437499999999996,
+       "above:price>delivery": 0.3545,
+       "above:warranty>delivery": 0.3078333333333333,
+       "bottom:price": 0.33075,
+       "bottom:warranty": 0.29291666666666666,
+       "bottom:delivery": 0.29433333333333334
+      }
+     }
+    },
+    "pooled": {
+     "temperature": 3.9316232473981545,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.19836474275397867,
+      "plain": 0.001443720255026934,
+      "oblique": 0.3952857652529304
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.8300925925925926
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 18
+     },
+     "expected_error": {
+      "plain": 3.812600929040898e-05,
+      "oblique": 0.13312298632095854
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 6.709204098218024e-05,
+       "top:warranty": 5.0725237248691246e-05,
+       "top:delivery": 3.7108743508182475e-05,
+       "above:price>warranty": 2.3534634432008948e-05,
+       "above:price>delivery": 4.127092420297208e-05,
+       "above:warranty>delivery": 3.186362823741018e-05,
+       "bottom:price": 1.8511928876526975e-05,
+       "bottom:warranty": 3.9019326356901864e-05,
+       "bottom:delivery": 3.400761976880681e-05
+      },
+      "oblique": {
+       "top:price": 0.09179760777679533,
+       "top:warranty": 0.06666742808035778,
+       "top:delivery": 0.0787118645834317,
+       "above:price>warranty": 0.22513541519115865,
+       "above:price>delivery": 0.19542105330304962,
+       "above:warranty>delivery": 0.14917322180655104,
+       "bottom:price": 0.13332990629585373,
+       "bottom:warranty": 0.14218882741994981,
+       "bottom:delivery": 0.11568155243147912
+      }
+     }
+    },
+    "oblique_fit": {
+     "temperature": 3.931248892832119,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.1983647433455232,
+      "plain": 0.0014437226211637883,
+      "oblique": 0.39528576406988264
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.8300925925925926
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 18
+     },
+     "expected_error": {
+      "plain": 3.8159180767026075e-05,
+      "oblique": 0.1331315652476314
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 6.714624628753481e-05,
+       "top:warranty": 5.076840897086683e-05,
+       "top:delivery": 3.714023953931194e-05,
+       "above:price>warranty": 2.35565887344851e-05,
+       "above:price>delivery": 4.1305789172993005e-05,
+       "above:warranty>delivery": 3.1892460996347275e-05,
+       "bottom:price": 1.8529322065753967e-05,
+       "bottom:warranty": 3.905492935011957e-05,
+       "bottom:delivery": 3.403864178582212e-05
+      },
+      "oblique": {
+       "top:price": 0.09180428684322521,
+       "top:warranty": 0.06667608119500817,
+       "top:delivery": 0.07872013423958336,
+       "above:price>warranty": 0.22514416904796988,
+       "above:price>delivery": 0.19542895918547373,
+       "above:warranty>delivery": 0.14918000207242044,
+       "bottom:price": 0.13334179194746928,
+       "bottom:warranty": 0.142197728877709,
+       "bottom:delivery": 0.11569093381982354
+      }
+     }
+    },
+    "safe": {
+     "temperature": 2.2091038673820287,
+     "bias": 0.0,
+     "logloss_bits": {
+      "pooled": 0.21925333131949012,
+      "plain": 0.003729493766878944,
+      "oblique": 0.43477716887210127
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.8300925925925926
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 0
+     },
+     "expected_error": {
+      "plain": 0.00249435393799905,
+      "oblique": 0.19405892722414533
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 0.003217898267698816,
+       "top:warranty": 0.0030207454585800494,
+       "top:delivery": 0.002297396885174518,
+       "above:price>warranty": 0.001989595016024758,
+       "above:price>delivery": 0.0025153415871446315,
+       "above:warranty>delivery": 0.0023387722571838756,
+       "bottom:price": 0.0016685732034075935,
+       "bottom:warranty": 0.0028554905664881403,
+       "bottom:delivery": 0.002545372200289066
+      },
+      "oblique": {
+       "top:price": 0.14052853748670213,
+       "top:warranty": 0.13325788409799869,
+       "top:delivery": 0.136986653917098,
+       "above:price>warranty": 0.28455257732739764,
+       "above:price>delivery": 0.254805635488071,
+       "above:warranty>delivery": 0.20239395479135405,
+       "bottom:price": 0.21389425885779895,
+       "bottom:warranty": 0.19854202154694706,
+       "bottom:delivery": 0.1815688215039404
+      }
+     }
+    },
+    "platt": {
+     "temperature": 5.613692932814289,
+     "bias": 1.3294501740153324,
+     "logloss_bits": {
+      "pooled": 0.16207776322244474,
+      "plain": 0.0014434168696687186,
+      "oblique": 0.3227121095752208
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.899537037037037
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 13
+     },
+     "expected_error": {
+      "plain": 8.111527151036854e-07,
+      "oblique": 0.09988304433065154
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 9.0908846744879e-07,
+       "top:warranty": 1.112787454431524e-06,
+       "top:delivery": 3.4940983326018473e-07,
+       "above:price>warranty": 1.4525318296185635e-07,
+       "above:price>delivery": 4.878144635146229e-07,
+       "above:warranty>delivery": 1.8821529486494058e-07,
+       "bottom:price": 1.6884045768037054e-07,
+       "bottom:warranty": 2.139875806642e-06,
+       "bottom:delivery": 1.7990894751288796e-06
+      },
+      "oblique": {
+       "top:price": 0.06849250672841686,
+       "top:warranty": 0.04934141024978618,
+       "top:delivery": 0.059259537768790845,
+       "above:price>warranty": 0.13014677718886952,
+       "above:price>delivery": 0.1118844392607857,
+       "above:warranty>delivery": 0.09747037359477666,
+       "bottom:price": 0.1288183266937387,
+       "bottom:warranty": 0.14841727246117223,
+       "bottom:delivery": 0.1051167550295272
+      }
+     }
+    },
+    "platt_oblique": {
+     "temperature": 5.613692906079417,
+     "bias": 1.329450177960908,
+     "logloss_bits": {
+      "pooled": 0.16207776322245504,
+      "plain": 0.0014434168696687186,
+      "oblique": 0.3227121095752413
+     },
+     "accuracy": {
+      "plain": 1.0,
+      "oblique": 0.899537037037037
+     },
+     "wrong_confident": {
+      "plain": 0,
+      "oblique": 13
+     },
+     "expected_error": {
+      "plain": 8.111527667578523e-07,
+      "oblique": 0.09988304468336197
+     },
+     "a_q": {
+      "plain": {
+       "top:price": 9.090885209121887e-07,
+       "top:warranty": 1.11278752550258e-06,
+       "top:delivery": 3.4940985425508916e-07,
+       "above:price>warranty": 1.452531926490814e-07,
+       "above:price>delivery": 4.878144918530711e-07,
+       "above:warranty>delivery": 1.8821530651828397e-07,
+       "bottom:price": 1.6884046947010112e-07,
+       "bottom:warranty": 2.139875947108474e-06,
+       "bottom:delivery": 1.7990895925518017e-06
+      },
+      "oblique": {
+       "top:price": 0.06849250691302172,
+       "top:warranty": 0.04934141071465707,
+       "top:delivery": 0.059259538174180705,
+       "above:price>warranty": 0.13014677725309287,
+       "above:price>delivery": 0.11188443935436414,
+       "above:warranty>delivery": 0.09747037364128087,
+       "bottom:price": 0.12881832752813097,
+       "bottom:warranty": 0.14841727306044308,
+       "bottom:delivery": 0.1051167555110863
+      }
+     }
+    }
+   },
+   "confident_wrong_ids_pooled_oblique": [
+    "oblique|buyer|bottom:delivery|price>warranty>delivery|15",
+    "oblique|buyer|bottom:price|delivery>warranty>price|10",
+    "oblique|buyer|bottom:price|warranty>delivery>price|07",
+    "oblique|buyer|bottom:price|warranty>delivery>price|18",
+    "oblique|buyer|bottom:warranty|price>delivery>warranty|09",
+    "oblique|buyer|bottom:warranty|price>delivery>warranty|13",
+    "oblique|buyer|bottom:warranty|price>delivery>warranty|17",
+    "oblique|buyer|bottom:warranty|price>delivery>warranty|19",
+    "oblique|buyer|top:delivery|delivery>warranty>price|08",
+    "oblique|buyer|top:price|price>warranty>delivery|04",
+    "oblique|seller|bottom:delivery|price>warranty>delivery|16",
+    "oblique|seller|bottom:delivery|warranty>price>delivery|01",
+    "oblique|seller|bottom:delivery|warranty>price>delivery|12",
+    "oblique|seller|bottom:warranty|price>delivery>warranty|09",
+    "oblique|seller|bottom:warranty|price>delivery>warranty|13",
+    "oblique|seller|top:delivery|delivery>warranty>price|07",
+    "oblique|seller|top:price|price>delivery>warranty|11",
+    "oblique|seller|top:warranty|warranty>price>delivery|19"
+   ]
+  }
+ }
+}

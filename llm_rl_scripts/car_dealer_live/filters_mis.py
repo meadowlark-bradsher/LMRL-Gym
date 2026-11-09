@@ -38,9 +38,21 @@ class FilterSpec:
     eta: float = 1e-3            # background mixture weight
     tau: float = 1.0             # likelihood tempering
     answer_noise: float = 0.0    # assumed answer flip rate (hedged answer model; 0 = truthful)
+    # CD-NOUL-2: optional per-question flip rates ((question_id, rate), ...); None = the global rate
+    answer_noise_by_q: Optional[Tuple[Tuple[str, float], ...]] = None
+
+    def noise_for(self, question_id: str) -> float:
+        if self.answer_noise_by_q:
+            for q, a in self.answer_noise_by_q:
+                if q == question_id:
+                    return a
+        return self.answer_noise
 
     def to_json(self) -> dict:
-        return {"name": self.name, "update": self.update, "eta": self.eta, "tau": self.tau, "answer_noise": self.answer_noise}
+        out = {"name": self.name, "update": self.update, "eta": self.eta, "tau": self.tau, "answer_noise": self.answer_noise}
+        if self.answer_noise_by_q:
+            out["answer_noise_by_q"] = {q: a for q, a in self.answer_noise_by_q}
+        return out
 
 
 FILTERS = {
@@ -72,7 +84,7 @@ def answer_likelihood(assumed: T1Kernel, question_id: str, answer: str, spec: Fi
     """Per-type effective likelihood of an answer. ``assumed`` is the agent's (truthful) kernel; a hedged
     spec mixes in its assumed flip rate before the background floor is applied."""
     p_model = bl.answer_likelihoods(assumed, question_id)[answer]
-    a = spec.answer_noise
+    a = spec.noise_for(question_id)
     if a > 0:
         p_model = tuple((1.0 - a) * p + a * (1.0 - p) for p in p_model)
     return effective_likelihood(p_model, 0.5, spec.eta)

@@ -49,14 +49,27 @@ class LiveConfig:
     horizon: int = 4                       # shared opportunities
     ask_cost: Fraction = Fraction(0)       # charged to the asker, utility units
     answer_noise: Fraction = Fraction(0)   # P(untruthful answer)
+    # CD-NOUL-2: optional per-question flip rates ((question_id, rate), ...); a question not listed
+    # uses ``answer_noise``. None (the default) is byte-for-byte the pre-Stage-2 behaviour.
+    answer_noise_by_q: Optional[Tuple[Tuple[str, Fraction], ...]] = None
 
     @property
     def reservation(self) -> Fraction:
         return RESERVATIONS[self.regime]
 
+    def noise_for(self, question_id: str) -> Fraction:
+        if self.answer_noise_by_q:
+            for q, a in self.answer_noise_by_q:
+                if q == question_id:
+                    return a
+        return self.answer_noise
+
     def to_json(self) -> dict:
-        return {"env": ENV_VERSION, "regime": self.regime, "reservation": str(self.reservation),
-                "horizon": self.horizon, "ask_cost": str(self.ask_cost), "answer_noise": str(self.answer_noise)}
+        out = {"env": ENV_VERSION, "regime": self.regime, "reservation": str(self.reservation),
+               "horizon": self.horizon, "ask_cost": str(self.ask_cost), "answer_noise": str(self.answer_noise)}
+        if self.answer_noise_by_q:
+            out["answer_noise_by_q"] = {q: str(a) for q, a in self.answer_noise_by_q}
+        return out
 
 
 @dataclass(frozen=True)
