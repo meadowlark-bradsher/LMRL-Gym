@@ -1,6 +1,6 @@
 # CD-NOUL-2 Phase 0 gates from the pilot
 
-Rendered by `gates_noul2.py render` from `results/noul2_pilot_20261108/gates/` (pilot `results/noul2_pilot_20261108`, 864 episodes, 0 error stubs; brief hash `611ad7ac429a`, realizer hash `0694a14552e1`; rendered at commit `ce15f01`). Thresholds are `DESIGN_NOUL2.md` §6. Pilot outcome contrasts were not read; gate 6 is the one contrast §6 names.
+Rendered by `gates_noul2.py render` from `results/noul2_pilot_20261108/gates/` (pilot `results/noul2_pilot_20261108`, 864 episodes, 0 error stubs; brief hash `611ad7ac429a`, realizer hash `0694a14552e1`; rendered at commit `bd315c5`). Thresholds are `DESIGN_NOUL2.md` §6. Pilot outcome contrasts were not read; gate 6 is the one contrast §6 names.
 
 ## Verdicts
 
@@ -9,8 +9,8 @@ Rendered by `gates_noul2.py render` from `results/noul2_pilot_20261108/gates/` (
 | 1 opponent protocol, `candid` | well-formed share / defaulted share over 842 moves | ≥ 0.99 / ≤ 0.01 | 1.0000 / 0.0000 | PASS |
 | 1 opponent protocol, `guarded` | well-formed share / defaulted share over 895 moves | ≥ 0.99 / ≤ 0.01 | 1.0000 / 0.0000 | PASS |
 | 1 opponent protocol, `adversarial` | well-formed share / defaulted share over 880 moves | ≥ 0.99 / ≤ 0.01 | 1.0000 / 0.0000 | PASS |
-| 2 never-lies audit | contradictions in 60 blind-labelled answers per brief | 0 candid, ≤ 2 guarded; adversarial misleads ≥ 20 % | — | PENDING: the pilot arms never ask, so no opponent answers exist; needs the answer probe |
-| 3 guarded is guarded | `regex` accuracy on guarded answers | < 0.9 | — | PENDING (answer probe) |
+| 2 never-lies audit | contradictions in blind-labelled probe answers: candid 0 of 60, guarded 0 of 60; adversarial misleads 0.57 of 60 | 0 candid, ≤ 2 guarded; adversarial ≥ 0.2 | — | candid PASS, guarded PASS, adversarial MISLEADS |
+| 3 guarded is guarded | `regex` accuracy on the 108 guarded probe answers | < 0.9 | 0.4722 | PASS |
 | 4 kernel fit, `candid` | held-out gain over T1, nats per move (842 moves, 3 folds) | ≥ 0.05 to adopt | -0.0035 | KEEP T1 |
 | 4 kernel fit, `guarded` | held-out gain over T1, nats per move (895 moves, 3 folds) | ≥ 0.05 to adopt | 0.0503 | ADOPT FIT |
 | 4 kernel fit, `adversarial` | held-out gain over T1, nats per move (880 moves, 3 folds) | ≥ 0.05 to adopt | 0.0891 | ADOPT FIT |
@@ -19,7 +19,7 @@ Rendered by `gates_noul2.py render` from `results/noul2_pilot_20261108/gates/` (
 | 6 clairvoyant gap | Δ_clair = plan_reveal − plan_noask, Y, `guarded`, focal opens (36 clusters) | ≥ δ = 0.02 | 0.2233 [0.1651, 0.2879] | PASS |
 | 7 parity | Stage 2 runner reproduces Stage 1 `plan_ask-oracle-0` with scripted T1 + templates + `oracle` | exact | — | PASS (`test_arms_noul2.py::test_parity_with_stage1`, offline) |
 | 8 calibration constants | Platt map and a_q vectors from the frozen Stage 1 matrices | committed | — | PASS (`results/noul_bank_20261108/calibration_noul2.json`, `calibrate_noul.py`) |
-| 9 no confident-wrong reads on candid | confident-wrong reads under Platt + clamp 0.95 on blind-audited candid answers | 0 | — | PENDING (answer probe) |
+| 9 no confident-wrong reads on candid | confident-wrong `noulcal` reads (platt, clamp 0.95) on the audited candid answers; guarded reported | 0 | candid 0 of 60 (bank 0 of 108); guarded bank 1 of 108 | PASS |
 
 ## Gate 1 — opponent protocol, per brief
 
@@ -90,6 +90,18 @@ Judge: `claude-sonnet-5-5 ×400`.
 | δ | 0.02 |
 | exact Δ_full under the planner's assumed kernel (Y, same cells; `ceilings.json`) | 0.1019 |
 
-## Pending
+## Gates 2, 3, 9 — the answer probe (`answer_probe.py`; `results/noul2_probe_20261108`)
 
-Gates 2, 3 and 9 need opponent answers to the bank's questions under each brief (the answer probe: `LLMOpponent.answer` under planted rankings, about 60 answers per brief, blind-labelled with a sealed key as Stage 1's `audit.py`). The pilot arms `plan_noask` and `plan_reveal` never ask, so the pilot holds none.
+The pilot arms never ask, so the opponent's answers come from a probe: every bank question asked as the focal's opening move to the live opponent under each brief, role and planted ranking (3 × 2 × 6 × 9 answers), every raw reply stored. Blind packet of 180 answers balanced on the truthful answer, sealed key, labeller: Claude Fable 5.1 subagent, blind (audit_view.txt only). Limitation: no prior exchange, so this probes the briefs' answering, not answers under negotiating pressure.
+
+| brief | answers | audited | labels yes / no / unclear | contradictions | agree with truth | `regex` acc. (bank) | `regex` unparsed | retried / defaulted |
+|---|---|---|---|---|---|---|---|---|
+| candid | 108 | 60 | 30 / 30 / 0 | 0 | 1.00 | 1.0000 | 0 | 0 / 0 |
+| guarded | 108 | 60 | 13 / 16 / 31 | 0 | 0.48 | 0.4722 | 57 | 0 / 0 |
+| adversarial | 108 | 60 | 32 / 28 / 0 | 34 | 0.43 | 0.3796 | 0 | 0 / 0 |
+
+| brief | Noul reads | map (T, b, clamp) | confident-wrong, audited | confident-wrong, bank | confident-wrong, raw bank | mean read error |
+|---|---|---|---|---|---|---|
+| candid | 108 | platt (3.621, 1.973, 0.95) | 0 | 0 | 0 | 0.0500 |
+| guarded | 108 | platt (3.621, 1.973, 0.95) | 0 | 1 | 0 | 0.3266 |
+| adversarial | 108 | platt (3.621, 1.973, 0.95) | 34 | 67 | 38 | 0.6102 |

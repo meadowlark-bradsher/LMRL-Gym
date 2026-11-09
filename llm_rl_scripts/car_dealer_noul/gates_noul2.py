@@ -375,8 +375,9 @@ def _git_head() -> str:
         return "unknown"
 
 
-def render(d: Path) -> str:
+def render(d: Path, probe: Optional[Path] = None) -> str:
     g = gates_dir(d)
+    A = json.load((probe / "gates_answers.json").open()) if probe and (probe / "gates_answers.json").exists() else None
     P = json.load((g / "protocol.json").open())
     K = json.load((g / "kernel.json").open()) if (g / "kernel.json").exists() else None
     R = json.load((g / "realizer_report.json").open()) if (g / "realizer_report.json").exists() else None
@@ -395,8 +396,18 @@ def render(d: Path) -> str:
         p = P["briefs"][b]
         L.append(f"| 1 opponent protocol, `{b}` | well-formed share / defaulted share over {p['calls']} moves | ≥ {WELL_FORMED_MIN} / ≤ {DEFAULTED_MAX} | "
                  f"{_f(p['well_formed_share'])} / {_f(p['defaulted_share'])} | {'PASS' if p['passes'] else 'FAIL'} |")
-    L.append("| 2 never-lies audit | contradictions in 60 blind-labelled answers per brief | 0 candid, ≤ 2 guarded; adversarial misleads ≥ 20 % | — | PENDING: the pilot arms never ask, so no opponent answers exist; needs the answer probe |")
-    L.append("| 3 guarded is guarded | `regex` accuracy on guarded answers | < 0.9 | — | PENDING (answer probe) |")
+    if A:
+        c, gd, ad = A["briefs"]["candid"], A["briefs"]["guarded"], A["briefs"]["adversarial"]
+        G = A["gates"]
+        L.append(f"| 2 never-lies audit | contradictions in blind-labelled probe answers: candid {len(c['contradictions'])} of {c['n_audited']}, "
+                 f"guarded {len(gd['contradictions'])} of {gd['n_audited']}; adversarial misleads {_f(ad['contradiction_share'], 2)} of {ad['n_audited']} | "
+                 f"0 candid, ≤ 2 guarded; adversarial ≥ 0.2 | — | candid {'PASS' if G['2_candid_never_lies'] else 'FAIL'}, guarded {'PASS' if G['2_guarded_never_lies'] else 'FAIL'}, "
+                 f"adversarial {'MISLEADS' if G['2_adversarial_misleads'] else 'INERT'} |")
+        L.append(f"| 3 guarded is guarded | `regex` accuracy on the {gd['n_bank']} guarded probe answers | < 0.9 | {_f(gd['regex_accuracy_bank'])} | "
+                 f"{'PASS' if G['3_guarded_is_guarded'] else 'FAIL'} |")
+    else:
+        L.append("| 2 never-lies audit | contradictions in 60 blind-labelled answers per brief | 0 candid, ≤ 2 guarded; adversarial misleads ≥ 20 % | — | PENDING: the pilot arms never ask, so no opponent answers exist; needs the answer probe |")
+        L.append("| 3 guarded is guarded | `regex` accuracy on guarded answers | < 0.9 | — | PENDING (answer probe) |")
     if K:
         for b in BRIEFS:
             k = K["briefs"][b]
@@ -414,7 +425,13 @@ def render(d: Path) -> str:
                  f"{_f(C['point'])} [{_f(C['ci95'][0])}, {_f(C['ci95'][1])}] | {'PASS' if C['passes'] else 'FAIL'} |")
     L.append("| 7 parity | Stage 2 runner reproduces Stage 1 `plan_ask-oracle-0` with scripted T1 + templates + `oracle` | exact | — | PASS (`test_arms_noul2.py::test_parity_with_stage1`, offline) |")
     L.append("| 8 calibration constants | Platt map and a_q vectors from the frozen Stage 1 matrices | committed | — | PASS (`results/noul_bank_20261108/calibration_noul2.json`, `calibrate_noul.py`) |")
-    L.append("| 9 no confident-wrong reads on candid | confident-wrong reads under Platt + clamp 0.95 on blind-audited candid answers | 0 | — | PENDING (answer probe) |")
+    if A and "noul" in A["briefs"]["candid"]:
+        cn, gn_ = A["briefs"]["candid"]["noul"], A["briefs"]["guarded"].get("noul", {})
+        L.append(f"| 9 no confident-wrong reads on candid | confident-wrong `noulcal` reads ({cn['map']}, clamp {cn['clamp']}) on the audited candid answers; guarded reported | 0 | "
+                 f"candid {len(cn['confident_wrong_audited'])} of {A['briefs']['candid']['n_audited']} (bank {len(cn['confident_wrong_bank'])} of {cn['n_read']}); "
+                 f"guarded bank {len(gn_.get('confident_wrong_bank', []))} of {gn_.get('n_read', 0)} | {'PASS' if A['gates'].get('9_candid_no_confident_wrong') else 'FAIL'} |")
+    else:
+        L.append("| 9 no confident-wrong reads on candid | confident-wrong reads under Platt + clamp 0.95 on blind-audited candid answers | 0 | — | PENDING (answer probe) |")
     L.append("")
     L.append("## Gate 1 — opponent protocol, per brief\n")
     L.append("| brief | episodes | opponent moves | well-formed | retried | defaulted | stop end_turn | realizer calls ok / fallback | opponent asked (episodes) | tokens in / out |\n|---|---|---|---|---|---|---|---|---|---|")
@@ -481,10 +498,32 @@ def render(d: Path) -> str:
         L.append(f"| δ | {C['delta']} |")
         L.append(f"| exact Δ_full under the planner's assumed kernel (Y, same cells; `ceilings.json`) | {_f(C['exact_delta_full_Y_under_assumed_kernel'])} |")
         L.append("")
-    L.append("## Pending\n")
-    L.append("Gates 2, 3 and 9 need opponent answers to the bank's questions under each brief (the answer probe: "
-             "`LLMOpponent.answer` under planted rankings, about 60 answers per brief, blind-labelled with a sealed key as Stage 1's `audit.py`). "
-             "The pilot arms `plan_noask` and `plan_reveal` never ask, so the pilot holds none.\n")
+    if A:
+        L.append("## Gates 2, 3, 9 — the answer probe (`answer_probe.py`; `" + str(probe) + "`)\n")
+        L.append("The pilot arms never ask, so the opponent's answers come from a probe: every bank question asked as the focal's opening move "
+                 "to the live opponent under each brief, role and planted ranking (3 × 2 × 6 × 9 answers), every raw reply stored. "
+                 f"Blind packet of {sum(v['n_audited'] for v in A['briefs'].values())} answers balanced on the truthful answer, sealed key, labeller: "
+                 f"{A.get('labeller') or 'unrecorded'}. Limitation: no prior exchange, so this probes the briefs' answering, not answers under negotiating pressure.\n")
+        L.append("| brief | answers | audited | labels yes / no / unclear | contradictions | agree with truth | `regex` acc. (bank) | `regex` unparsed | retried / defaulted |\n|---|---|---|---|---|---|---|---|---|")
+        for b in BRIEFS:
+            v = A["briefs"][b]
+            lab = v["labels"]
+            L.append(f"| {b} | {v['n_bank']} | {v['n_audited']} | {lab.get('yes', 0)} / {lab.get('no', 0)} / {lab.get('unclear', 0)} | {len(v['contradictions'])} | "
+                     f"{_f(v['agree_share'], 2)} | {_f(v['regex_accuracy_bank'])} | {v['regex_unparsed_bank']} | {v['protocol']['retried']} / {v['protocol']['defaulted']} |")
+        if "noul" in A["briefs"]["candid"]:
+            L.append("\n| brief | Noul reads | map (T, b, clamp) | confident-wrong, audited | confident-wrong, bank | confident-wrong, raw bank | mean read error |\n|---|---|---|---|---|---|---|")
+            for b in BRIEFS:
+                v = A["briefs"][b].get("noul")
+                if not v:
+                    continue
+                L.append(f"| {b} | {v['n_read']} | {v['map']} ({_f(v['T'], 3)}, {_f(v['b'], 3)}, {v['clamp']}) | {len(v['confident_wrong_audited'])} | "
+                         f"{len(v['confident_wrong_bank'])} | {len(v['confident_wrong_raw_bank'])} | {_f(v['mean_read_error'])} |")
+        L.append("")
+    else:
+        L.append("## Pending\n")
+        L.append("Gates 2, 3 and 9 need opponent answers to the bank's questions under each brief (the answer probe: "
+                 "`LLMOpponent.answer` under planted rankings, about 60 answers per brief, blind-labelled with a sealed key as Stage 1's `audit.py`). "
+                 "The pilot arms `plan_noask` and `plan_reveal` never ask, so the pilot holds none.\n")
     return "\n".join(L)
 
 
@@ -501,6 +540,7 @@ def main(argv=None) -> int:
     ap.add_argument("--backend", default="fake", choices=("fake", "anthropic"))
     ap.add_argument("--B", type=int, default=5000)
     ap.add_argument("--out", default=None, help="render: path of the Markdown note")
+    ap.add_argument("--probe-dir", default=None, help="render: answer-probe dir whose gates_answers.json fills gates 2, 3, 9")
     args = ap.parse_args(argv)
     d = Path(args.dir)
     g = gates_dir(d)
@@ -558,7 +598,7 @@ def main(argv=None) -> int:
         _dump(rep, g / "clairvoyant.json")
         print(json.dumps({k: rep[k] for k in ("point", "ci95", "n_clusters", "passes")}))
         return 0
-    text = render(d)
+    text = render(d, Path(args.probe_dir) if args.probe_dir else None)
     out = Path(args.out) if args.out else d / "GATES_NOUL2.md"
     out.write_text(text)
     print(f"rendered {out}")
