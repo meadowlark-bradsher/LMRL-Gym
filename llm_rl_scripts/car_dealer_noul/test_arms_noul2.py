@@ -34,7 +34,10 @@ def test_arm_grammar():
     assert (a.kind, a.decoder, a.offer, a.hedge, a.kernel, a.realizer) == ("plan_ask", "noulcal", True, "adaptive", "T1", "template")
     assert a2.parse_arm("plan_ask-regex-0.2").kernel == "fitted" and a2.parse_arm("plan_reveal").kind == "plan_reveal"
     assert a2.parse_arm("sonnet_agent").decoder == a2.AGENT_MENU_DECODER
-    for bad in ("plan_ask-regex-adaptive", "plan_ask-noul-0", "plan_ask-noul_type-0.2", "plan_ask-oracle-0.2-T2"):
+    nc = a2.parse_arm("plan_ask-noulcal-adaptive-noclamp")
+    assert nc.clamp is False and a2.parse_arm("plan_ask-noulcal-adaptive").clamp is True
+    assert a2.briefs_for("plan_ask-noulcal-adaptive-noclamp", ("candid", "guarded", "adversarial")) == ["guarded"]
+    for bad in ("plan_ask-regex-adaptive", "plan_ask-noul-0", "plan_ask-noul_type-0.2", "plan_ask-oracle-0.2-T2", "plan_ask-noulcal-0.2-noclamp"):
         with pytest.raises(ValueError):
             a2.parse_arm(bad)
     for name in a2.design_arms():
@@ -55,6 +58,7 @@ def test_calibration_map_and_noise_maps():
     nm = cal.noise_map("noulcal", "guarded")
     assert len(nm) == 9 and all(Fraction(0) <= a < Fraction(1, 2) for _, a in nm)
     assert sum(a for _, a in cal.noise_map("noulcal", "guarded")) > sum(a for _, a in cal.noise_map("noulcal", "candid"))
+    assert cal.read("noulcal", 0.999, clamp=1.0) > 0.95                      # the -noclamp arm's read is unclipped
     raw = a2.Calibration(CAL, a2.MapSpec("raw", 1.0))
     assert raw.read("noulcal", 0.2) == pytest.approx(0.2) and raw.read("noulcal", 0.999) == pytest.approx(0.999)
 
