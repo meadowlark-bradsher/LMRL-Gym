@@ -1,0 +1,21 @@
+{
+ "brief": "guarded",
+ "commit": "2f70e7d",
+ "kernels": {
+  "T1": {
+   "memo_states": 43490,
+   "peak_rss_gib": 0.1380767822265625,
+   "seconds": 6.061496019363403
+  },
+  "wide_fit": {
+   "memo_states": 2472915,
+   "peak_rss_gib": 3.0955657958984375,
+   "seconds": 461.39942717552185
+  }
+ },
+ "machine": "macOS-26.6.2-arm64-arm-64bit",
+ "python": "3.12.7",
+ "ranking_index": 0,
+ "role": "buyer",
+ "slowdown": 76.11972781992843
+}

@@ -162,7 +162,8 @@ class Calibration:
 
 def params_from_json(d: dict) -> KernelParams:
     return KernelParams(alpha0=Fraction(d["alpha0"]), beta=float(d["beta"]), p_counter=float(d["p_counter"]),
-                        accept_noise=float(d["accept_noise"]), p_hold=float(d["p_hold"]), shortlist=int(d["shortlist"]))
+                        accept_noise=float(d["accept_noise"]), p_hold=float(d["p_hold"]), shortlist=int(d["shortlist"]),
+                        eps_propose=float(d.get("eps_propose", 0.0)), p_ask=float(d.get("p_ask", 0.0)))
 
 
 class Stage2Cell:

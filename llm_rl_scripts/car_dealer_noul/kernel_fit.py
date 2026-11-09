@@ -32,8 +32,14 @@ from llm_rl_scripts.car_dealer_live.protocol_live import ASK, PROPOSE, Action, E
 
 FLOOR = 1e-6                      # probability floor for a move the kernel gives zero mass (counted)
 GATE_GAIN_NATS = 0.05             # DESIGN_NOUL2 §6 gate 4
-BOUNDS = {"alpha0": None, "beta": (0.0, 40.0), "p_counter": (0.0, 1.0), "p_hold": (0.0, 1.0), "accept_noise": (0.0, 0.5)}
+BOUNDS = {"alpha0": None, "beta": (0.0, 40.0), "p_counter": (0.0, 1.0), "p_hold": (0.0, 1.0), "accept_noise": (0.0, 0.5),
+          "eps_propose": (0.0, 1.0), "p_ask": (0.0, 0.5)}
 FIT_PARAMS = ("alpha0", "beta", "p_counter", "p_hold", "accept_noise")
+# widened family (DESIGN_NOUL2 §3.3a): the support parameters first, so the shape parameters are searched
+# against a likelihood no longer dominated by the zero-probability floor
+WIDE_PARAMS = ("eps_propose", "p_ask")
+FIT_PARAMS_WIDE = WIDE_PARAMS + FIT_PARAMS
+FAMILIES = {"t1": FIT_PARAMS, "wide": FIT_PARAMS_WIDE}
 ALPHA_DENOM = 1000
 
 
@@ -162,7 +168,13 @@ def mid_start(cfg: LiveConfig, reference: KernelParams = REFERENCE) -> KernelPar
 
 
 def fit_best(prepared: Sequence[Prepared], cfg: LiveConfig, reference: KernelParams = REFERENCE, **kw) -> Tuple[KernelParams, float]:
-    cands = [fit(prepared, cfg, reference, **kw), fit(prepared, cfg, mid_start(cfg, reference), **kw)]
+    mid = mid_start(cfg, reference)
+    ptf = kw.get("params_to_fit", FIT_PARAMS)
+    if "eps_propose" in ptf:
+        mid = replace(mid, eps_propose=0.2)
+    if "p_ask" in ptf:
+        mid = replace(mid, p_ask=0.02)
+    cands = [fit(prepared, cfg, reference, **kw), fit(prepared, cfg, mid, **kw)]
     return max(cands, key=lambda c: c[1])
 
 
@@ -217,13 +229,15 @@ def main(argv=None) -> int:
     ap.add_argument("--horizon", type=int, default=4)
     ap.add_argument("--folds", type=int, default=3)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--family", choices=sorted(FAMILIES), default="t1", help="t1 = registered form; wide = §3.3a")
     args = ap.parse_args(argv)
     cfg = LiveConfig(regime=args.regime, horizon=args.horizon, ask_cost=Fraction(0))
     recs = load_records(args.records)
     if args.brief:
         recs = [r for r in recs if r.get("brief") == args.brief]
-    rep = heldout_report(recs, cfg, folds=args.folds, seed=args.seed)
+    rep = heldout_report(recs, cfg, folds=args.folds, seed=args.seed, params_to_fit=FAMILIES[args.family])
     rep["brief"] = args.brief
+    rep["family"] = args.family
     with open(args.out, "w") as f:
         json.dump(rep, f, indent=1)
     print(f"{len(recs)} moves, {rep['n_episodes']} episodes; fitted {rep['fitted_all']}; held-out gain "

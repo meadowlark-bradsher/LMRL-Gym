@@ -117,3 +117,23 @@ def test_pilot_gate_files_regenerate():
     assert skipped == Counter()
     key = json.load((PILOT / "gates" / "realizer_key.json").open())
     assert gn.build_packet(moves)["key"] == key                       # the sealed key regenerates from the run
+
+
+@needs_pilot
+def test_pilot_kernel_wide_counts_regenerate():
+    """The widened gate 4 file (DESIGN_NOUL2 §3.3a): the split counts and the floor-free likelihoods regenerate
+    exactly from the stored fitted parameters, the widened fit clears the gate in every brief, and it leaves no
+    proposal outside its support."""
+    W = json.load((PILOT / "gates" / "kernel_wide.json").open())
+    cfg = gn.config_of(PILOT)
+    records = kf.load_records(str(PILOT / "opponent_moves.jsonl"))
+    for b in gn.BRIEFS:
+        k = W["briefs"][b]
+        prepared = kf.prepare([r for r in records if r["brief"] == b], cfg)
+        wide = gn._params_from_json(k["fitted_all"])
+        t1fit = gn._params_from_json(k["t1_family_fit"])
+        assert gn.split_breakdown(prepared, kf.REFERENCE, cfg) == k["split"]["T1"]
+        assert gn.split_breakdown(prepared, t1fit, cfg) == k["split"]["t1_family_fit"]
+        assert gn.split_breakdown(prepared, wide, cfg) == k["split"]["wide_fit"]
+        assert gn.ll_on_t1_support(prepared, wide, cfg) == k["on_t1_support"]["wide_fit"]
+        assert k["adopt_fit"] and k["support_fitted"]["PROPOSE"]["zero"] == 0 and k["support_fitted"]["ASK"]["zero"] == 0
