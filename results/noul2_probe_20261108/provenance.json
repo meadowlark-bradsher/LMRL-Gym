@@ -1,0 +1,24 @@
+{
+ "design": "CD-NOUL-2 answer probe",
+ "model": "claude-sonnet-5-5",
+ "briefs": [
+  "candid",
+  "guarded",
+  "adversarial"
+ ],
+ "brief_hash": "611ad7ac429a",
+ "noul_prompt_hash": "aea24a833e5c",
+ "config": {
+  "env": "live-car-dealer-v0.1",
+  "regime": "easy",
+  "reservation": "2/5",
+  "horizon": 4,
+  "ask_cost": "0",
+  "answer_noise": "0"
+ },
+ "n_rows": 324,
+ "n_written": 324,
+ "seed": 20261108,
+ "context": "focal opens with the question; no prior exchange",
+ "elapsed_s": 167.3
+}

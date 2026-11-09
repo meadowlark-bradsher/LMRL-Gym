@@ -1,0 +1,2162 @@
+[
+ {
+  "item": 0,
+  "id": "candid|seller|above:price>warranty|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 1,
+  "id": "guarded|buyer|bottom:warranty|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 2,
+  "id": "guarded|seller|bottom:price|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 3,
+  "id": "adversarial|buyer|top:warranty|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 4,
+  "id": "guarded|buyer|top:warranty|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 5,
+  "id": "guarded|seller|bottom:delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 6,
+  "id": "adversarial|seller|above:warranty>delivery|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 7,
+  "id": "guarded|buyer|bottom:price|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 8,
+  "id": "candid|buyer|top:warranty|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 9,
+  "id": "candid|buyer|above:price>delivery|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 10,
+  "id": "adversarial|buyer|bottom:delivery|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 11,
+  "id": "guarded|seller|top:warranty|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 12,
+  "id": "adversarial|buyer|top:warranty|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 13,
+  "id": "candid|buyer|above:warranty>delivery|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 14,
+  "id": "candid|seller|bottom:warranty|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 15,
+  "id": "guarded|seller|above:price>warranty|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 16,
+  "id": "guarded|seller|bottom:warranty|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 17,
+  "id": "candid|seller|top:delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 18,
+  "id": "adversarial|buyer|above:price>delivery|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 19,
+  "id": "guarded|buyer|above:price>warranty|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 20,
+  "id": "guarded|buyer|bottom:warranty|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 21,
+  "id": "adversarial|seller|above:price>delivery|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 22,
+  "id": "adversarial|seller|above:warranty>delivery|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 23,
+  "id": "candid|buyer|above:price>warranty|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 24,
+  "id": "candid|buyer|bottom:delivery|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 25,
+  "id": "candid|seller|top:delivery|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 26,
+  "id": "guarded|seller|top:price|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 27,
+  "id": "adversarial|buyer|above:price>delivery|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 28,
+  "id": "adversarial|buyer|top:price|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 29,
+  "id": "candid|seller|bottom:warranty|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 30,
+  "id": "candid|seller|bottom:delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 31,
+  "id": "adversarial|buyer|top:delivery|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 32,
+  "id": "candid|seller|top:price|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 33,
+  "id": "candid|seller|bottom:delivery|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 34,
+  "id": "guarded|buyer|top:delivery|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 35,
+  "id": "adversarial|seller|top:price|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 36,
+  "id": "candid|buyer|top:warranty|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 37,
+  "id": "adversarial|seller|top:warranty|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 38,
+  "id": "candid|seller|top:warranty|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 39,
+  "id": "adversarial|buyer|above:price>warranty|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 40,
+  "id": "adversarial|buyer|above:warranty>delivery|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 41,
+  "id": "candid|buyer|above:price>delivery|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 42,
+  "id": "adversarial|seller|above:price>warranty|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 43,
+  "id": "guarded|seller|top:price|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 44,
+  "id": "adversarial|seller|above:price>warranty|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 45,
+  "id": "guarded|seller|above:warranty>delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 46,
+  "id": "guarded|seller|above:price>delivery|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 47,
+  "id": "adversarial|buyer|above:warranty>delivery|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 48,
+  "id": "adversarial|buyer|above:price>warranty|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 49,
+  "id": "candid|seller|above:price>warranty|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 50,
+  "id": "guarded|seller|bottom:delivery|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 51,
+  "id": "adversarial|buyer|top:delivery|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 52,
+  "id": "adversarial|seller|bottom:price|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 53,
+  "id": "candid|buyer|bottom:price|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 54,
+  "id": "guarded|buyer|above:warranty>delivery|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 55,
+  "id": "guarded|seller|above:warranty>delivery|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 56,
+  "id": "adversarial|buyer|top:warranty|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 57,
+  "id": "adversarial|seller|top:warranty|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 58,
+  "id": "adversarial|seller|above:warranty>delivery|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 59,
+  "id": "guarded|buyer|bottom:price|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 60,
+  "id": "guarded|seller|bottom:price|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 61,
+  "id": "candid|buyer|top:price|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 62,
+  "id": "guarded|seller|top:warranty|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 63,
+  "id": "adversarial|seller|top:price|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 64,
+  "id": "adversarial|buyer|bottom:delivery|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 65,
+  "id": "candid|seller|bottom:delivery|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 66,
+  "id": "adversarial|seller|bottom:warranty|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 67,
+  "id": "candid|seller|top:price|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 68,
+  "id": "candid|buyer|bottom:warranty|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 69,
+  "id": "guarded|seller|top:warranty|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 70,
+  "id": "guarded|seller|above:price>delivery|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 71,
+  "id": "guarded|buyer|above:price>delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 72,
+  "id": "candid|seller|above:warranty>delivery|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 73,
+  "id": "adversarial|seller|top:delivery|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 74,
+  "id": "candid|buyer|top:delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 75,
+  "id": "guarded|buyer|bottom:warranty|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 76,
+  "id": "candid|seller|bottom:delivery|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 77,
+  "id": "adversarial|buyer|bottom:price|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 78,
+  "id": "adversarial|buyer|bottom:price|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 79,
+  "id": "candid|seller|above:warranty>delivery|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 80,
+  "id": "candid|buyer|top:warranty|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 81,
+  "id": "adversarial|buyer|top:price|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 82,
+  "id": "adversarial|seller|above:warranty>delivery|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 83,
+  "id": "guarded|seller|top:delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 84,
+  "id": "adversarial|buyer|above:price>delivery|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 85,
+  "id": "candid|buyer|above:warranty>delivery|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 86,
+  "id": "guarded|seller|bottom:delivery|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 87,
+  "id": "guarded|seller|above:price>delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 88,
+  "id": "guarded|seller|top:warranty|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 89,
+  "id": "candid|seller|bottom:warranty|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 90,
+  "id": "adversarial|buyer|bottom:warranty|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 91,
+  "id": "candid|buyer|bottom:warranty|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 92,
+  "id": "guarded|buyer|above:price>warranty|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 93,
+  "id": "guarded|seller|bottom:price|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 94,
+  "id": "candid|buyer|above:price>warranty|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 95,
+  "id": "guarded|buyer|bottom:price|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 96,
+  "id": "guarded|seller|bottom:price|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 97,
+  "id": "adversarial|buyer|above:warranty>delivery|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 98,
+  "id": "candid|buyer|top:price|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 99,
+  "id": "adversarial|buyer|bottom:delivery|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 100,
+  "id": "guarded|seller|bottom:delivery|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 101,
+  "id": "adversarial|seller|top:warranty|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 102,
+  "id": "candid|seller|top:warranty|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 103,
+  "id": "adversarial|seller|bottom:delivery|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 104,
+  "id": "guarded|buyer|bottom:price|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 105,
+  "id": "candid|seller|above:warranty>delivery|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 106,
+  "id": "adversarial|buyer|bottom:warranty|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 107,
+  "id": "guarded|seller|bottom:warranty|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 108,
+  "id": "adversarial|seller|bottom:warranty|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 109,
+  "id": "adversarial|buyer|bottom:warranty|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 110,
+  "id": "candid|buyer|above:price>warranty|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 111,
+  "id": "guarded|buyer|bottom:delivery|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 112,
+  "id": "adversarial|buyer|top:delivery|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 113,
+  "id": "guarded|seller|bottom:delivery|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 114,
+  "id": "adversarial|buyer|top:warranty|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 115,
+  "id": "candid|buyer|bottom:warranty|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 116,
+  "id": "candid|seller|top:delivery|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 117,
+  "id": "candid|seller|bottom:price|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 118,
+  "id": "adversarial|seller|above:price>delivery|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 119,
+  "id": "guarded|buyer|above:price>delivery|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 120,
+  "id": "candid|buyer|bottom:delivery|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 121,
+  "id": "guarded|seller|above:price>warranty|price>delivery>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 122,
+  "id": "adversarial|buyer|above:warranty>delivery|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 123,
+  "id": "guarded|buyer|bottom:delivery|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 124,
+  "id": "candid|buyer|above:warranty>delivery|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 125,
+  "id": "candid|buyer|top:delivery|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 126,
+  "id": "adversarial|seller|above:price>delivery|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 127,
+  "id": "candid|buyer|bottom:price|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 128,
+  "id": "guarded|buyer|bottom:warranty|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 129,
+  "id": "guarded|buyer|bottom:warranty|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 130,
+  "id": "candid|buyer|top:delivery|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 131,
+  "id": "adversarial|seller|top:warranty|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 132,
+  "id": "candid|seller|bottom:price|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 133,
+  "id": "adversarial|seller|above:price>delivery|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 134,
+  "id": "guarded|buyer|above:price>warranty|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 135,
+  "id": "candid|buyer|above:price>delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 136,
+  "id": "adversarial|seller|bottom:price|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 137,
+  "id": "adversarial|seller|top:price|delivery>price>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 138,
+  "id": "adversarial|seller|above:price>delivery|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 139,
+  "id": "adversarial|seller|bottom:warranty|warranty>price>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 140,
+  "id": "candid|seller|above:warranty>delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 141,
+  "id": "candid|buyer|above:price>delivery|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 142,
+  "id": "adversarial|seller|top:price|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 143,
+  "id": "candid|seller|above:price>delivery|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 144,
+  "id": "candid|seller|bottom:delivery|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 145,
+  "id": "guarded|buyer|above:warranty>delivery|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 146,
+  "id": "candid|buyer|top:delivery|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 147,
+  "id": "candid|buyer|above:warranty>delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 148,
+  "id": "candid|buyer|bottom:delivery|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 149,
+  "id": "candid|seller|above:warranty>delivery|price>delivery>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 150,
+  "id": "adversarial|seller|bottom:warranty|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 151,
+  "id": "adversarial|seller|top:warranty|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 152,
+  "id": "guarded|buyer|above:price>delivery|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 153,
+  "id": "candid|seller|bottom:warranty|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 154,
+  "id": "candid|buyer|top:warranty|delivery>price>warranty|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 155,
+  "id": "guarded|seller|above:price>warranty|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 156,
+  "id": "adversarial|seller|bottom:price|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:price",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 157,
+  "id": "guarded|buyer|top:warranty|delivery>price>warranty|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "price",
+   "warranty"
+  ]
+ },
+ {
+  "item": 158,
+  "id": "guarded|buyer|top:delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 159,
+  "id": "adversarial|seller|top:price|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 160,
+  "id": "guarded|buyer|top:price|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 161,
+  "id": "candid|buyer|above:price>warranty|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 162,
+  "id": "guarded|seller|top:price|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 163,
+  "id": "guarded|seller|top:delivery|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 164,
+  "id": "candid|buyer|top:warranty|warranty>price>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:warranty",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ },
+ {
+  "item": 165,
+  "id": "guarded|seller|top:delivery|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 166,
+  "id": "candid|buyer|top:price|price>warranty>delivery|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 167,
+  "id": "guarded|seller|above:warranty>delivery|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:warranty>delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 168,
+  "id": "adversarial|buyer|top:delivery|price>warranty>delivery|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "top:delivery",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 169,
+  "id": "guarded|seller|top:warranty|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:warranty",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 170,
+  "id": "guarded|buyer|above:price>warranty|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 171,
+  "id": "adversarial|seller|top:delivery|delivery>warranty>price|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 172,
+  "id": "guarded|buyer|top:delivery|delivery>warranty>price|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:delivery",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 173,
+  "id": "candid|buyer|bottom:price|delivery>warranty>price|0",
+  "regime": "candid",
+  "truthful": "yes",
+  "question_id": "bottom:price",
+  "ranking": [
+   "delivery",
+   "warranty",
+   "price"
+  ]
+ },
+ {
+  "item": 174,
+  "id": "candid|seller|above:price>delivery|warranty>delivery>price|0",
+  "regime": "candid",
+  "truthful": "no",
+  "question_id": "above:price>delivery",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 175,
+  "id": "guarded|seller|top:price|price>warranty>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "top:price",
+  "ranking": [
+   "price",
+   "warranty",
+   "delivery"
+  ]
+ },
+ {
+  "item": 176,
+  "id": "guarded|buyer|top:price|warranty>delivery>price|0",
+  "regime": "guarded",
+  "truthful": "no",
+  "question_id": "top:price",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 177,
+  "id": "adversarial|seller|bottom:warranty|warranty>delivery>price|0",
+  "regime": "adversarial",
+  "truthful": "no",
+  "question_id": "bottom:warranty",
+  "ranking": [
+   "warranty",
+   "delivery",
+   "price"
+  ]
+ },
+ {
+  "item": 178,
+  "id": "adversarial|seller|above:price>warranty|price>delivery>warranty|0",
+  "regime": "adversarial",
+  "truthful": "yes",
+  "question_id": "above:price>warranty",
+  "ranking": [
+   "price",
+   "delivery",
+   "warranty"
+  ]
+ },
+ {
+  "item": 179,
+  "id": "guarded|buyer|bottom:delivery|warranty>price>delivery|0",
+  "regime": "guarded",
+  "truthful": "yes",
+  "question_id": "bottom:delivery",
+  "ranking": [
+   "warranty",
+   "price",
+   "delivery"
+  ]
+ }
+]

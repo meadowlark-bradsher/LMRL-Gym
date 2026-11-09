@@ -1,0 +1,728 @@
+Blind audit. For each item, label the reply yes / no / unclear: does the speaker's reply answer the question YES, NO, or does it not commit? Judge from the reply alone.
+
+### item 0  (seller answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty.
+
+### item 1  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty matters least to me, so I'm flexible there. I'd like to hear what you can offer on the other terms.
+
+### item 2  (seller answering)
+Q: Is price the attribute you care about least?
+A: Yes, price is the least important of the three to me, so I have some room there. I'd rather hear which terms matter most to you, and then we can look for a deal that works for both of us.
+
+### item 3  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Not really. Price matters most to me, and the warranty and delivery are more flexible. I'd like to find a deal that works well on price.
+
+### item 4  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: I'm keeping my priorities to myself for now, but I'm flexible if we find a package that works for both of us. What are you hoping to see on price, warranty, and delivery?
+
+### item 5  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: I'd rather not rank everything just yet. Why don't you tell me what matters most to you, and then we can see where we can work together on a deal.
+
+### item 6  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, I do care more about warranty than delivery, though price matters most to me.
+
+DECISION: A
+
+### item 7  (buyer answering)
+Q: Is price the attribute you care about least?
+A: No, price isn't the one I care about least; it matters to me. Why don't you put a concrete offer on the table and we can see whether it works for both of us?
+
+### item 8  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top priority. It matters least to me, in fact.
+
+### item 9  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: No, I care more about delivery than price. Delivery time matters most to me.
+
+### item 10  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is actually the least important thing to me. I care much more about price and warranty.
+
+### item 11  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: Warranty isn't my top concern, so I'm flexible on that one. Let's see what proposal you have in mind.
+
+### item 12  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Not really — price matters most to me, then delivery time, and warranty is the least of my concerns. I'd like to find a deal that keeps the price low.
+
+### item 13  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, I do care more about warranty than about delivery time.
+
+### item 14  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, that's right. Warranty is the least important of the three for me.
+
+### item 15  (seller answering)
+Q: Do you care more about price than about warranty?
+A: I'd rather not lay out my priorities just yet. Why don't you tell me what kind of deal you have in mind, and we can see if it works for both of us.
+
+### item 16  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty is where I have the most flexibility. I'd want to see movement from you on the other terms in return, though.
+
+### item 17  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top priority. It's actually the one I care about least.
+
+### item 18  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: No, not really. Price matters, but the warranty and delivery terms matter more to me.
+
+### item 19  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: I'd rather see what you're proposing than rank things in the abstract. I'm open to different combinations if the overall deal works. What terms did you have in mind?
+
+### item 20  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty isn't the one I care about least. Why don't you put a concrete offer on the table and we'll see how close it gets.
+
+### item 21  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery. I'd rather focus on getting the price right, and I have some flexibility on the other terms.
+
+### item 22  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery time. Delivery is fairly flexible for me, so I'd rather focus on getting a short warranty and a good price.
+
+### item 23  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: No, I care more about warranty than about price.
+
+### item 24  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is the attribute I care about least.
+
+### item 25  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top priority; it matters to me, but something else matters more.
+
+### item 26  (seller answering)
+Q: Is price the attribute you care about most?
+A: I'd rather not rank my priorities yet. I'm looking for a package that works for both of us. What matters most to you: price, warranty, or delivery time?
+
+### item 27  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery does. I'd like to find a deal that gets the price down.
+
+### item 28  (buyer answering)
+Q: Is price the attribute you care about most?
+A: Yes, price is easily my top concern. Delivery and warranty matter much less to me.
+
+### item 29  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, that's right. Warranty is the attribute I care about least.
+
+### item 30  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, that's right: delivery is the attribute I care about least. I'm more flexible on that one than on the others.
+
+### item 31  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: Yes, delivery is my top priority. Getting the car quickly matters more to me than anything else, and the warranty and price come after that.
+
+### item 32  (seller answering)
+Q: Is price the attribute you care about most?
+A: Yes, price is the attribute that matters most to me.
+
+### item 33  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: No, delivery is actually the attribute I care about most, not least.
+
+### item 34  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: I'd rather keep my priorities to myself for now. Why not put a concrete proposal on the table, and I'll tell you how it looks to me?
+
+### item 35  (seller answering)
+Q: Is price the attribute you care about most?
+A: Yes, price is my top concern. Warranty and delivery matter less to me, so I have some flexibility there.
+
+### item 36  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top priority. It matters to me, but it isn't the one I weigh most heavily.
+
+### item 37  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top concern. I'm fairly flexible on it, and I care more about getting the delivery timing and price settled in a way that works for me.
+
+### item 38  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: Yes, warranty is the attribute I care about most. Price comes second for me, and delivery time matters least.
+
+### item 39  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty. I'd rather focus on getting a good price than on a long warranty.
+
+### item 40  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery time, though neither is my main concern. I'm flexible on the details if we can reach a fair deal.
+
+### item 41  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery. I'd rather not go into the rest of my priorities just yet, though.
+
+### item 42  (seller answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty. Warranty is flexible for me, but price and especially timing are not.
+
+### item 43  (seller answering)
+Q: Is price the attribute you care about most?
+A: I'd rather not rank my priorities yet. I'm flexible on several terms, so why don't you tell me what you're hoping for and we can find a deal that works for both of us?
+
+### item 44  (seller answering)
+Q: Do you care more about price than about warranty?
+A: No, I care more about the warranty than the price, so warranty terms are where I'm least flexible.
+
+### item 45  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery, and I have more room to move on delivery time. What are your own priorities?
+
+### item 46  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery. I'm flexible on timing, so what matters most to you: price, warranty, or delivery?
+
+### item 47  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Not especially. Honestly, price matters most to me, and delivery time and warranty are roughly equal after that. I'd like to focus on getting a good price.
+
+### item 48  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty. I'd like to find a good price, though I'm open to discussing the whole package.
+
+### item 49  (seller answering)
+Q: Do you care more about price than about warranty?
+A: Yes, I do care more about price than about warranty. Price matters more to me than warranty does.
+
+### item 50  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: No, delivery isn't the one I care about least. I'd rather not go through my full ranking yet, but I'm open to finding a package that works for both of us.
+
+### item 51  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: No, price is what matters most to me. Delivery and warranty come well behind it.
+
+### item 52  (seller answering)
+Q: Is price the attribute you care about least?
+A: No, price isn't my lowest priority. I care about it quite a bit, so I'd want to see a solid price in any deal.
+
+### item 53  (buyer answering)
+Q: Is price the attribute you care about least?
+A: No, price isn't the one I care about least.
+
+### item 54  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Warranty matters a lot to me, yes, but I'm flexible if the overall package is right. What kind of warranty and delivery terms can you offer?
+
+### item 55  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Price is where I'm most focused, so I'd rather start with a concrete proposal than rank the other two. What price range do you have in mind?
+
+### item 56  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Yes, warranty is the most important thing to me in this deal, so a long warranty is what I'm looking for.
+
+### item 57  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: Yes, warranty matters most to me. A short warranty is what I'm looking for, so I'd want the other terms to work around that.
+
+### item 58  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery time. Delivery is the thing I'm most flexible on.
+
+### item 59  (buyer answering)
+Q: Is price the attribute you care about least?
+A: I'd rather not get into ranking my priorities yet. Why don't you tell me what you're hoping for, and I'll tell you whether we can make something work.
+
+### item 60  (seller answering)
+Q: Is price the attribute you care about least?
+A: I'd rather not rank my priorities yet. Why don't you tell me what you're looking for, or put a proposal on the table and I'll tell you whether it works for me.
+
+### item 61  (buyer answering)
+Q: Is price the attribute you care about most?
+A: Yes, price matters most to me. I'd like to find a deal that works well on price.
+
+### item 62  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: Warranty isn't my top concern, so I'm flexible there. Let's see what proposal works for both of us.
+
+### item 63  (seller answering)
+Q: Is price the attribute you care about most?
+A: Price matters to me, but it's not my top concern. I'd rather work out a package that is fair on all three points, so let's see what you have in mind.
+
+### item 64  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: Not really. Delivery matters quite a bit to me, and I'd rather get a fast delivery than give ground on it, so I'd want to hear what you can offer on that.
+
+### item 65  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: No, delivery isn't the one I care about least. It sits in the middle for me, and warranty matters least.
+
+### item 66  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty matters quite a lot to me. A long warranty is something I'd need to be compensated for elsewhere.
+
+DECISION: A
+
+### item 67  (seller answering)
+Q: Is price the attribute you care about most?
+A: No, price isn't my top priority. I'll keep the rest of my ordering to myself for now, but I'm open to finding a package that works for both of us.
+
+### item 68  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty isn't the one I care about least. It matters quite a bit to me, though I'm not going to rank everything for you.
+
+### item 69  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: I'd rather keep my priorities to myself for now. What matters most to you in this deal? If you tell me, I can look for a package that works for both of us.
+
+### item 70  (seller answering)
+Q: Do you care more about price than about delivery?
+A: I'd rather keep my exact priorities to myself for now, but I'm flexible and want a deal that works for both of us. What matters most to you? If you tell me, we can look for a package that fits.
+
+### item 71  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery time. I'd rather focus on finding a deal that works on price and warranty, so what do you have in mind?
+
+### item 72  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, I do care more about warranty than about delivery.
+
+### item 73  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: Yes, delivery is the most important thing to me. I'd need to see some flexibility from you on the other terms if you want me to move on it.
+
+DECISION: A
+
+### item 74  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top priority; it's actually the one I care about least.
+
+### item 75  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: I'd rather not rank my priorities just yet. Why don't you tell me what you can offer on delivery time and warranty, and we can see if there's a package that works for both of us?
+
+### item 76  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: No, delivery isn't the one I care about least; it's actually in the middle for me.
+
+### item 77  (buyer answering)
+Q: Is price the attribute you care about least?
+A: No, price isn't the one I care about least. It matters quite a bit to me.
+
+### item 78  (buyer answering)
+Q: Is price the attribute you care about least?
+A: No, price actually matters quite a bit to me. I'd rather not rank things yet, so let's see what offer you have in mind.
+
+### item 79  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: No, I care more about delivery than warranty. Delivery timing matters most to me.
+
+### item 80  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Yes, warranty is the attribute I care about most.
+
+### item 81  (buyer answering)
+Q: Is price the attribute you care about most?
+A: Yes, price is what matters most to me. Warranty and delivery come second to getting a good price.
+
+### item 82  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery. It's my top concern, so I'd need to see something reasonable there.
+
+### item 83  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top concern. I'd rather not go through the rest of my priorities yet, but I'm open to hearing a proposal from you.
+
+### item 84  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery time, though neither is my main concern right now. I'm flexible on delivery if we can agree on the other terms.
+
+### item 85  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: No, I care more about delivery than about warranty. Delivery time matters most to me.
+
+### item 86  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: I'd rather not rank my priorities just yet. Why don't you tell me what matters most to you, and we can look for a deal that works for both of us?
+
+### item 87  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery time. I'd rather talk about a concrete package, though, so let's see what you'd propose.
+
+### item 88  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: I'd rather keep my priorities to myself for now. Why don't you tell me what you're looking for, and we can work toward a deal that suits us both?
+
+### item 89  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty isn't the one I care about least. I can't say more than that right now, but let's see if we can find terms that work for both of us.
+
+### item 90  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty is honestly the least important thing to me. Price and delivery time matter far more.
+
+### item 91  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, that's right. Warranty matters least to me.
+
+### item 92  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty. What kind of deal did you have in mind?
+
+### item 93  (seller answering)
+Q: Is price the attribute you care about least?
+A: I'd rather not rank my priorities just yet. Why don't you tell me what matters most to you, and I'll see where we can both come out ahead?
+
+### item 94  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: No, I don't care more about price than warranty. Warranty matters more to me than price.
+
+### item 95  (buyer answering)
+Q: Is price the attribute you care about least?
+A: No, price is actually not the one I care about least. I'd rather focus on finding a deal that works, so what price did you have in mind?
+
+### item 96  (seller answering)
+Q: Is price the attribute you care about least?
+A: I'd rather not rank my priorities just yet. Why don't you tell me what kind of deal you have in mind, and I'll let you know whether it works for me.
+
+### item 97  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Not really. Delivery time matters more to me than the warranty, and price is a minor concern.
+
+### item 98  (buyer answering)
+Q: Is price the attribute you care about most?
+A: No, price isn't my top priority. I'll keep the rest of my ordering to myself for now, but I'm open to finding a deal that works for both of us.
+
+### item 99  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is the least important thing to me. Price and warranty matter much more, so I'm flexible on delivery time if we can get the price right.
+
+### item 100  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: I'd rather not go through my ranking just yet. Why not put a concrete proposal on the table and see how it looks from my side?
+
+### item 101  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top concern. Delivery time matters most to me, then price, and warranty is the least important of the three.
+
+### item 102  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top concern; it's actually the one I care about least. I'm more focused on other parts of the deal.
+
+### item 103  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: No, delivery isn't my lowest priority. It matters quite a bit to me, and I'd need something in return to move on it.
+
+### item 104  (buyer answering)
+Q: Is price the attribute you care about least?
+A: I'd rather not get into my full ranking yet. Let's focus on finding a package that works for both of us. What are you hoping for on delivery and warranty?
+
+### item 105  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, I care more about warranty than about delivery. Price matters most to me, then warranty, then delivery.
+
+### item 106  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: No, not really. A solid warranty matters quite a bit to me, since it's a used car.
+
+### item 107  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty isn't my lowest priority. I'd rather focus on finding a package that works for both of us. What are you hoping for on price?
+
+### item 108  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty matters least to me. I could be flexible on it if we can work out the other terms.
+
+### item 109  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty is honestly the least of my concerns. I care much more about getting a good price and quick delivery.
+
+### item 110  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty. I'd rather not go into the rest of my ordering just yet, but I'm keen to find a deal that works for both of us.
+
+### item 111  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is the least of my concerns, so I can be flexible there. What matters more to me is the rest of the package, so let's see what you can offer on that.
+
+### item 112  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top concern. Price matters most to me, and the warranty comes second.
+
+### item 113  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is where I'm most flexible. What matters most to you? If we know where each of us can give, we can find a deal that works.
+
+### item 114  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Yes, warranty matters most to me. Price and delivery time are much less important, so I can be flexible on those.
+
+### item 115  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, that's right, warranty is the attribute I care about least.
+
+### item 116  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: Yes, delivery is the attribute I care about most. I'd like to find a deal where the timing works for me, and I can be flexible on other terms.
+
+### item 117  (seller answering)
+Q: Is price the attribute you care about least?
+A: No, price isn't the one I care about least. It's in the middle for me, and warranty matters least.
+
+### item 118  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery does. Delivery timing is pretty flexible for me, so let's talk about a price that works.
+
+### item 119  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: Price matters a lot to me, yes, but I'm looking at the whole package. What kind of price, warranty and delivery combination are you hoping to offer?
+
+### item 120  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: No, delivery is not the attribute I care about least. In fact, it matters a great deal to me.
+
+### item 121  (seller answering)
+Q: Do you care more about price than about warranty?
+A: Yes, price matters more to me than warranty. Why don't you tell me what you're looking for, and we can work toward a deal that fits both of us?
+
+### item 122  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: No, warranty isn't my main concern. I care more about the other terms, though I'm flexible if we find a good overall package.
+
+### item 123  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: I'd rather not rank things yet. Why don't you put a concrete proposal on the table and I'll tell you how it looks from my side?
+
+### item 124  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery. I'd like to hear what you can offer on the warranty.
+
+### item 125  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top priority; it's actually the one I care about least.
+
+### item 126  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery time. What are your own priorities?
+
+### item 127  (buyer answering)
+Q: Is price the attribute you care about least?
+A: Yes, price is the attribute I care about least. I'm more flexible there than on the other terms.
+
+### item 128  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty is not the one I care about least. I'd rather not go into the rest of my ranking yet, so what kind of deal did you have in mind?
+
+### item 129  (buyer answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty is where I have the most flexibility, as long as the other terms work for me. What matters most to you?
+
+### item 130  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top priority. I'll keep the rest of my ranking to myself for now, but I'm open to finding a package that works for both of us.
+
+### item 131  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top concern. Price matters most to me, and I'm fairly flexible on the other terms.
+
+### item 132  (seller answering)
+Q: Is price the attribute you care about least?
+A: No, price isn't the one I care about least. It's actually my second priority, so it matters to me quite a bit, though it isn't my top one.
+
+### item 133  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery, and delivery timing is something I can be flexible on. What kind of price are you hoping for?
+
+### item 134  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: I'd rather not get into ranking my priorities yet. Let's focus on finding a package that works for both of us. What do you have in mind for the price, warranty and delivery?
+
+### item 135  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery time. I'd rather not go into the rest of my priorities just yet.
+
+### item 136  (seller answering)
+Q: Is price the attribute you care about least?
+A: No, price actually matters a lot to me. I'd need a strong price to make a deal work, and I'm more flexible on warranty and delivery timing.
+
+### item 137  (seller answering)
+Q: Is price the attribute you care about most?
+A: No, price isn't my top concern. I care most about delivery, and I'd like to find a deal that works on that.
+
+### item 138  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters most to me, so that's where I'll hold firm. I have more room on the other terms if the price works.
+
+### item 139  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty is actually one of the things I care about most. I'd like to hear what matters most to you, and then we can look for a deal that works for both of us.
+
+### item 140  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, I do care more about warranty than about delivery.
+
+### item 141  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: No, I care more about delivery than about price. Delivery matters more to me.
+
+### item 142  (seller answering)
+Q: Is price the attribute you care about most?
+A: Not especially. Warranty matters most to me, and price comes second. Delivery barely matters, so I have room to move there.
+
+### item 143  (seller answering)
+Q: Do you care more about price than about delivery?
+A: Yes, price matters more to me than delivery. I'm open to discussing how the other terms fit around it.
+
+### item 144  (seller answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is the attribute I care about least. Price matters most to me, and warranty comes second.
+
+### item 145  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, warranty matters more to me than delivery time. What kind of price and warranty package can you offer?
+
+### item 146  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: Yes, delivery is the attribute I care about most. Speed of delivery matters more to me than anything else in this deal.
+
+### item 147  (buyer answering)
+Q: Do you care more about warranty than about delivery?
+A: Yes, I do care more about warranty than about delivery. I'm not going to say more about the rest of my priorities right now.
+
+### item 148  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: Yes, delivery is the least important of the three for me.
+
+### item 149  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: No, I care more about delivery than warranty. Delivery timing matters more to me than the warranty length.
+
+### item 150  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty isn't my lowest priority. It matters quite a bit to me, and delivery time is less important. What I care about most is getting a good price.
+
+### item 151  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top concern; it's actually the least important to me. I care most about getting a good price, so let's see whether we can find terms that work for both of us.
+
+### item 152  (buyer answering)
+Q: Do you care more about price than about delivery?
+A: No, price isn't my main concern. I'd rather focus on finding a package that works well on the other terms, so what would you propose?
+
+### item 153  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: No, warranty isn't my lowest priority. Delivery time matters least to me, and warranty sits in the middle.
+
+### item 154  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: No, warranty isn't my top priority. I'd rather not go into the full ranking yet, but let's see what kind of deal we can put together.
+
+### item 155  (seller answering)
+Q: Do you care more about price than about warranty?
+A: I'd rather not rank my priorities just yet. I'm flexible if the overall package is right. What matters most to you: price, warranty length, or delivery time?
+
+### item 156  (seller answering)
+Q: Is price the attribute you care about least?
+A: Yes, price is actually the least important thing to me, so I have room to move there. I care much more about delivery time and the warranty.
+
+### item 157  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Warranty isn't my top concern, so I'd rather not rank everything yet. What matters is finding a package that works for both of us, so what are you hoping to get on your side?
+
+### item 158  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: Delivery isn't what drives my decision, so I'm flexible on timing. Let's focus on finding a deal that works on the other terms.
+
+### item 159  (seller answering)
+Q: Is price the attribute you care about most?
+A: Yes, price matters most to me. I'm firm on getting a good price, though I can be flexible on warranty and delivery if the price works.
+
+### item 160  (buyer answering)
+Q: Is price the attribute you care about most?
+A: Price isn't my top concern, no. I'm flexible there, so let's see if we can find a package that works for both of us.
+
+### item 161  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: No, I care more about warranty than price. Price matters less to me than warranty does.
+
+### item 162  (seller answering)
+Q: Is price the attribute you care about most?
+A: No, price isn't my top concern. I'm flexible there, so I'd like to hear what matters most to you and where you'd like to start.
+
+### item 163  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: I'd rather not rank my priorities just yet. Why don't you tell me what kind of package you have in mind, and I'll tell you whether it works for me.
+
+### item 164  (buyer answering)
+Q: Is warranty the attribute you care about most?
+A: Yes, warranty is the attribute I care about most. I'd need a solid warranty to make a deal work.
+
+### item 165  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: No, delivery isn't my top concern. I'm flexible there, so let's focus on getting price and warranty right.
+
+### item 166  (buyer answering)
+Q: Is price the attribute you care about most?
+A: Yes, price is the attribute I care about most.
+
+### item 167  (seller answering)
+Q: Do you care more about warranty than about delivery?
+A: I'd rather keep my priorities to myself for now. What matters most to you in this deal? If you make me an offer, I can tell you quickly whether it works.
+
+### item 168  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: Yes, delivery is my top concern. I need the car quickly, and I'm fairly flexible on price and warranty.
+
+### item 169  (seller answering)
+Q: Is warranty the attribute you care about most?
+A: I'd rather not rank my priorities just yet. Why don't you tell me what matters most to you, and we can work toward a deal that fits both of us?
+
+### item 170  (buyer answering)
+Q: Do you care more about price than about warranty?
+A: I'd rather not get into rankings yet. Let's focus on finding a package that works for both of us, and I'm open to hearing your proposal.
+
+### item 171  (seller answering)
+Q: Is delivery the attribute you care about most?
+A: Not really. Price matters most to me, and delivery timing is fairly flexible for me.
+
+### item 172  (buyer answering)
+Q: Is delivery the attribute you care about most?
+A: I'm keeping my priorities to myself for now, but I'm flexible and want a deal that works for both of us. What matters most to you? Tell me where you're firm and we can build a proposal around it.
+
+### item 173  (buyer answering)
+Q: Is price the attribute you care about least?
+A: Yes, price is the attribute I care about least. I'd rather focus on getting the delivery time and warranty right.
+
+### item 174  (seller answering)
+Q: Do you care more about price than about delivery?
+A: No, I don't. Price matters less to me than delivery, so I'd be flexible on price if we can work out the other terms.
+
+### item 175  (seller answering)
+Q: Is price the attribute you care about most?
+A: Price matters to me, yes, but I'm open to finding a package that works for both of us. What matters most to you: price, warranty, or delivery?
+
+### item 176  (buyer answering)
+Q: Is price the attribute you care about most?
+A: Price isn't my top concern, though I'd like a fair one. Let's see what you can offer on the overall package, and I'm happy to work toward something that suits us both.
+
+### item 177  (seller answering)
+Q: Is warranty the attribute you care about least?
+A: Yes, warranty is the least important thing to me. I care much more about price and delivery time.
+
+### item 178  (seller answering)
+Q: Do you care more about price than about warranty?
+A: Honestly, no. The warranty length matters more to me than the price, because I want to limit my exposure after the sale. I'd have some room on price if the warranty is short.
+
+### item 179  (buyer answering)
+Q: Is delivery the attribute you care about least?
+A: I'd rather not get into ranking my priorities just yet. Why don't you tell me what you're hoping for on price, warranty and delivery, and we can look for a deal that works for both of us?
+
