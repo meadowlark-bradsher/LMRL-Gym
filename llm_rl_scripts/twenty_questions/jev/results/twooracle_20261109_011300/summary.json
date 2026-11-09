@@ -1,0 +1,1133 @@
+{
+  "cells": [
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.0,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 6.252
+      },
+      "policy": "cheap_only",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.0,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "human_all",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.1,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.10466666666666667,
+        "questions_per_game": 6.150666666666667
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.2,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.20466666666666666,
+        "questions_per_game": 6.104666666666667
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.4,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.398,
+        "questions_per_game": 5.962
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.6,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.602,
+        "questions_per_game": 5.814
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.85,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.852,
+        "questions_per_game": 5.642
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 1,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 2,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 3,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 4,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 3.673638880654258,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 3.0253496664211537,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 2.1609640474436813,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 1.2965784284662087,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.4321928094887363,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.01,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.03,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.08,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.2,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.5,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.9,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 6.252
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.7,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.5,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.3,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 20,
+      "T": 20,
+      "knob": 0.1,
+      "metrics": {
+        "accuracy": 1.0,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 5.524
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N20_T20_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.0,
+      "metrics": {
+        "accuracy": 0.7106666666666667,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 7.500666666666667
+      },
+      "policy": "cheap_only",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.0,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "human_all",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.1,
+      "metrics": {
+        "accuracy": 0.7133333333333334,
+        "games": 1500,
+        "human_q_per_game": 0.16733333333333333,
+        "questions_per_game": 7.425333333333334
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.2,
+      "metrics": {
+        "accuracy": 0.7313333333333333,
+        "games": 1500,
+        "human_q_per_game": 0.326,
+        "questions_per_game": 7.3966666666666665
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.4,
+      "metrics": {
+        "accuracy": 0.754,
+        "games": 1500,
+        "human_q_per_game": 0.654,
+        "questions_per_game": 7.281333333333333
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.6,
+      "metrics": {
+        "accuracy": 0.78,
+        "games": 1500,
+        "human_q_per_game": 1.002,
+        "questions_per_game": 7.148
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.85,
+      "metrics": {
+        "accuracy": 0.8033333333333333,
+        "games": 1500,
+        "human_q_per_game": 1.402,
+        "questions_per_game": 7.046
+      },
+      "policy": "random",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 1,
+      "metrics": {
+        "accuracy": 0.7886666666666666,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 7.096
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 2,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 3,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 4,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "first",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 4.523638880654258,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 3.7253496664211534,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 2.6609640474436813,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 1.5965784284662088,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.5321928094887363,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.01,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.03,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.08,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.2,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.5,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.9,
+      "metrics": {
+        "accuracy": 0.7106666666666667,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 7.500666666666667
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.7,
+      "metrics": {
+        "accuracy": 0.7106666666666667,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 7.500666666666667
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.5,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.3,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.1,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.15,
+      "regime": "N40_T10_q0.15"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.0,
+      "metrics": {
+        "accuracy": 0.6293333333333333,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 7.847333333333333
+      },
+      "policy": "cheap_only",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.0,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "human_all",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.1,
+      "metrics": {
+        "accuracy": 0.6313333333333333,
+        "games": 1500,
+        "human_q_per_game": 0.17066666666666666,
+        "questions_per_game": 7.808
+      },
+      "policy": "random",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.2,
+      "metrics": {
+        "accuracy": 0.658,
+        "games": 1500,
+        "human_q_per_game": 0.3313333333333333,
+        "questions_per_game": 7.734
+      },
+      "policy": "random",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.4,
+      "metrics": {
+        "accuracy": 0.718,
+        "games": 1500,
+        "human_q_per_game": 0.658,
+        "questions_per_game": 7.54
+      },
+      "policy": "random",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.6,
+      "metrics": {
+        "accuracy": 0.7526666666666667,
+        "games": 1500,
+        "human_q_per_game": 1.004,
+        "questions_per_game": 7.294666666666667
+      },
+      "policy": "random",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.85,
+      "metrics": {
+        "accuracy": 0.7906666666666666,
+        "games": 1500,
+        "human_q_per_game": 1.4066666666666667,
+        "questions_per_game": 7.104
+      },
+      "policy": "random",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 1,
+      "metrics": {
+        "accuracy": 0.7613333333333333,
+        "games": 1500,
+        "human_q_per_game": 1.0,
+        "questions_per_game": 7.223333333333334
+      },
+      "policy": "first",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 2,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "first",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 3,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "first",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 4,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "first",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 4.523638880654258,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 3.7253496664211534,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 2.6609640474436813,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 1.5965784284662088,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.5321928094887363,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "entropy",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.01,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.03,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.08,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.2,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.5,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "margin",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.9,
+      "metrics": {
+        "accuracy": 0.6293333333333333,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 7.847333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.7,
+      "metrics": {
+        "accuracy": 0.6293333333333333,
+        "games": 1500,
+        "human_q_per_game": 0.0,
+        "questions_per_game": 7.847333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.5,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.3,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    },
+    {
+      "N": 40,
+      "T": 10,
+      "knob": 0.1,
+      "metrics": {
+        "accuracy": 0.818,
+        "games": 1500,
+        "human_q_per_game": 1.6353333333333333,
+        "questions_per_game": 6.953333333333333
+      },
+      "policy": "voi_eig",
+      "q": 0.25,
+      "regime": "N40_T10_q0.25"
+    }
+  ],
+  "config": {
+    "confidence": 0.9,
+    "eps": 0.05,
+    "games": 1500,
+    "matrix": "matrix_jev.json",
+    "policies": [
+      "cheap_only",
+      "human_all",
+      "random",
+      "first",
+      "entropy",
+      "margin",
+      "voi_eig"
+    ],
+    "regimes": [
+      {
+        "N": 20,
+        "T": 20,
+        "label": "easy",
+        "q": 0.15
+      },
+      {
+        "N": 40,
+        "T": 10,
+        "label": "hard",
+        "q": 0.15
+      },
+      {
+        "N": 40,
+        "T": 10,
+        "label": "hard-q25",
+        "q": 0.25
+      }
+    ]
+  },
+  "created": "20261109_011300",
+  "schema": "twenty_questions_twooracle_v1"
+}
