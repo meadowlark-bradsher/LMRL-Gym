@@ -46,8 +46,8 @@ Rules: the two of you share a budget of {horizon} opportunities; every proposal 
 {answers}
 
 Format. At your turn, think as much as you like, then end with exactly one line
-DECISION: <letter>
-naming one of the listed moves, followed by one line
+DECISION: <label>
+naming one of the listed moves by its label (a letter, or two letters), followed by one line
 SAY: <what you say to the {other}, one to three sentences>
 When you are only answering a question, reply with the SAY: line alone."""
 
@@ -160,11 +160,16 @@ def describe(action: Action) -> str:
             HOLD: "Hold your standing proposal", WALK: "Walk away"}[action.kind]
 
 
+# up to 39 moves can be legal (27 proposals + 9 questions + accept / reject / hold / walk): one- then two-letter labels
+LABELS = list(string.ascii_uppercase) + [a + b for a in string.ascii_uppercase[:2] for b in string.ascii_uppercase]
+
+
 def lettered(legal: List[Action], rng: Optional[random.Random]) -> Dict[str, Action]:
     acts = sorted(legal, key=lambda a: a.key)
     if rng is not None:
         rng.shuffle(acts)
-    return {letter: a for letter, a in zip(string.ascii_uppercase, acts)}
+    assert len(acts) <= len(LABELS)
+    return {label: a for label, a in zip(LABELS, acts)}
 
 
 def moves_text(letters: Dict[str, Action]) -> str:
@@ -173,16 +178,18 @@ def moves_text(letters: Dict[str, Action]) -> str:
 
 # ---- parsing ---------------------------------------------------------------------------------------
 
-_DECISION_RE = re.compile(r"^\s*`?\s*DECISION\s*:\s*\(?([A-Z])\)?\s*`?\s*\.?\s*$", re.M)
+_DECISION_RE = re.compile(r"^\s*`?\s*DECISION\s*:\s*\(?([A-Z]{1,2})\)?\s*`?\s*\.?\s*$", re.M)
 _SAY_RE = re.compile(r"^\s*`?\s*SAY\s*:\s*(.*)$", re.M | re.S)
 
 
-def parse_reply(text: str, letters: str) -> Tuple[Optional[str], str]:
-    """(decision letter or None, what was said). The LAST well-formed DECISION line counts; the SAY text
-    runs from the SAY tag to the end of the reply, trailing fences stripped."""
+def parse_reply(text: str, letters) -> Tuple[Optional[str], str]:
+    """(decision label or None, what was said). ``letters`` is the collection of valid labels (a string of
+    single letters or any iterable of labels). The LAST well-formed DECISION line counts; the SAY text runs
+    from the SAY tag to the end of the reply, trailing fences stripped."""
+    valid = set(letters)
     letter = None
     for m in _DECISION_RE.finditer(text):
-        if m.group(1) in letters:
+        if m.group(1) in valid:
             letter = m.group(1)
     say = ""
     m = _SAY_RE.search(text)
@@ -240,11 +247,11 @@ class LLMOpponent:
         user = (state_text(state, self.role, self.cfg, self.said, self.heard) + "\n\nYour legal moves:\n" +
                 moves_text(letters) + "\n\nChoose one move and say something to the " + other(self.role) + ".")
         reply = self._complete(user, MAX_TOKENS)
-        letter, say = parse_reply(reply.text, "".join(letters))
+        letter, say = parse_reply(reply.text, list(letters))
         retried = False
         if letter is None:
             reply = self._complete(user, RETRY_MAX_TOKENS)
-            letter, say = parse_reply(reply.text, "".join(letters))
+            letter, say = parse_reply(reply.text, list(letters))
             retried = True
         defaulted = letter is None
         action = letters[letter] if letter is not None else self.fallback.sample(state, self.ranking, self.rng)
@@ -314,7 +321,7 @@ class KernelClient:
             qid = next(q.id for q in BANK_BY_ID.values() if q.text == m.group(1))
             return Completion(f"SAY: {truthful_answer(qid, self.ranking).capitalize()}.")
         # a move: recover the lettered keys from the prompt and pick the kernel's sample among them
-        keys = dict(re.findall(r"^\s+([A-Z])\. (.*)$", user, re.M))
+        keys = dict(re.findall(r"^\s+([A-Z]{1,2})\. (.*)$", user, re.M))
         # the kernel needs the state; ``KernelOpponent`` binds it before each move
         if self._state is None:
             raise RuntimeError("KernelClient.bind_state(state) must be called before a move")

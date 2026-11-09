@@ -31,8 +31,8 @@ SYSTEM = """You put one negotiating move into words for the {role} in a negotiat
 Say only what the move says. If the move proposes a deal, propose exactly that deal and no other. If it asks a question, ask that question (you may rephrase it, but it must ask the same thing). If it accepts, rejects, holds or walks away, say so plainly. Never mention probabilities, likelihoods, odds, percentages or what you believe about the {other}'s priorities; never offer or hint at any other deal or concession.
 
 Reply with exactly one line
-DECISION: <letter>
-repeating the letter of the move you were given, followed by one line
+DECISION: <label>
+repeating the label of the move you were given, followed by one line
 SAY: <your words>"""
 
 FORBIDDEN = ("probab", "likel", "odds", "percent", "%", "chance", "i believe you", "i think you care", "your priorit")
@@ -61,7 +61,7 @@ def other_deal_mentioned(say: str, action: Action) -> Optional[str]:
     return None
 
 
-def check(reply_text: str, expected_letter: str, letters: str, action: Action) -> Tuple[bool, List[str], str]:
+def check(reply_text: str, expected_letter: str, letters, action: Action) -> Tuple[bool, List[str], str]:
     letter, say = parse_reply(reply_text, letters)
     reasons = []
     if letter != expected_letter:
@@ -104,11 +104,11 @@ class Realizer:
         user = (state_text(state, self.role, self.cfg, said, heard) + "\n\nThe legal moves:\n" + moves_text(letters) +
                 f"\n\nThe move to put into words is {expected}. Say it.")
         reply = self.client.complete(self.system, [{"role": "user", "content": user}], MAX_TOKENS)
-        ok, reasons, say = check(reply.text, expected, "".join(letters), action)
+        ok, reasons, say = check(reply.text, expected, list(letters), action)
         retried = False
         if not ok:
             reply = self.client.complete(self.system, [{"role": "user", "content": user}], RETRY_MAX_TOKENS)
-            ok, reasons, say = check(reply.text, expected, "".join(letters), action)
+            ok, reasons, say = check(reply.text, expected, list(letters), action)
             retried = True
         self.calls.append({"user": user, "reply": reply.text, "ok": ok, "reasons": reasons})
         text = say if ok else template_text(action)
@@ -134,9 +134,9 @@ class EchoClient:
         from .opponent_llm import Completion
         self.calls += 1
         user = messages[-1]["content"]
-        m = re.search(r"The move to put into words is ([A-Z])\.", user)
+        m = re.search(r"The move to put into words is ([A-Z]{1,2})\.", user)
         letter = m.group(1)
-        desc = dict(re.findall(r"^\s+([A-Z])\. (.*)$", user, re.M))[letter]
+        desc = dict(re.findall(r"^\s+([A-Z]{1,2})\. (.*)$", user, re.M))[letter]
         say = {"good": f"Here is my position: {desc.lower()}.",
                "bad_letter": None, "leak": "I'd say there's a 70% chance you care most about price.",
                "other_deal": f"{desc.lower()}, or failing that P0-W0-D0."}[self.mode]

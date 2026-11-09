@@ -173,6 +173,11 @@ def test_parse_reply_and_answer():
     assert op.parse_reply("DECISION: Q\nSAY: hi", "ABC") == (None, "hi")
     assert op.parse_reply("DECISION: A\nDECISION: B\nSAY: two lines\nof speech", "ABC") == ("B", "two lines\nof speech")
     assert op.parse_reply("just words", "ABC") == (None, "")
+    assert op.parse_reply("DECISION: AB\nSAY: two letters", ["A", "B", "AB"]) == ("AB", "two letters")
+    assert op.parse_reply("DECISION: AB\nSAY: x", "AB") == (None, "x")          # a string of single letters has no 'AB'
+    from llm_rl_scripts.car_dealer_live.protocol_live import legal_actions, new_game
+    letters = op.lettered(legal_actions(new_game(CFG, "seller"), "seller"), None)
+    assert len(letters) > 26 and "AA" in letters
     assert op.parse_answer('SAY: "Price matters to me."') == "Price matters to me."
     assert op.parse_answer("Honestly, I'd rather not say.") == "Honestly, I'd rather not say."
 
