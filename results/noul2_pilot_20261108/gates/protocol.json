@@ -1,0 +1,73 @@
+{
+ "briefs": {
+  "adversarial": {
+   "calls": 880,
+   "defaulted": 0,
+   "defaulted_share": 0.0,
+   "episodes": 288,
+   "input_tokens": 1358592,
+   "kind_answer": 0,
+   "kind_move": 880,
+   "opponent_asked_episodes": 18,
+   "output_tokens": 506485,
+   "passes": true,
+   "realizer_calls": 777,
+   "realizer_fallback": 0,
+   "realizer_ok": 777,
+   "realizer_retried": 0,
+   "retried": 0,
+   "retried_share": 0.0,
+   "stop_end_turn": 880,
+   "well_formed": 880,
+   "well_formed_share": 1.0
+  },
+  "candid": {
+   "calls": 842,
+   "defaulted": 0,
+   "defaulted_share": 0.0,
+   "episodes": 288,
+   "input_tokens": 1303461,
+   "kind_answer": 0,
+   "kind_move": 842,
+   "opponent_asked_episodes": 45,
+   "output_tokens": 496896,
+   "passes": true,
+   "realizer_calls": 751,
+   "realizer_fallback": 0,
+   "realizer_ok": 751,
+   "realizer_retried": 0,
+   "retried": 0,
+   "retried_share": 0.0,
+   "stop_end_turn": 842,
+   "well_formed": 842,
+   "well_formed_share": 1.0
+  },
+  "guarded": {
+   "calls": 895,
+   "defaulted": 0,
+   "defaulted_share": 0.0,
+   "episodes": 288,
+   "input_tokens": 1394752,
+   "kind_answer": 0,
+   "kind_move": 895,
+   "opponent_asked_episodes": 24,
+   "output_tokens": 516313,
+   "passes": true,
+   "realizer_calls": 791,
+   "realizer_fallback": 0,
+   "realizer_ok": 791,
+   "realizer_retried": 0,
+   "retried": 0,
+   "retried_share": 0.0,
+   "stop_end_turn": 895,
+   "well_formed": 895,
+   "well_formed_share": 1.0
+  }
+ },
+ "episodes": 864,
+ "passes": true,
+ "threshold": {
+  "defaulted_max": 0.01,
+  "well_formed_min": 0.99
+ }
+}

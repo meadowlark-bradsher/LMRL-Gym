@@ -1,0 +1,17 @@
+{
+ "B": 5000,
+ "brief": "guarded",
+ "cell_set": "focal_opens",
+ "ci95": [
+  0.16506410256410256,
+  0.2879273504273504
+ ],
+ "delta": 0.02,
+ "exact_delta_full_Y_under_assumed_kernel": 0.10194272056883841,
+ "n_clusters": 36,
+ "n_episodes": 144,
+ "passes": true,
+ "point": 0.2232905982905983,
+ "seed": 0,
+ "y_scale": 0.6
+}

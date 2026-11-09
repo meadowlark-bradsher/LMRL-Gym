@@ -1,0 +1,58 @@
+{
+ "all_realized_moves": {
+  "auto_ok": 2319,
+  "fallback": 0,
+  "moves": 2319,
+  "skipped_episodes": 0
+ },
+ "by_kind": {
+  "ACCEPT": {
+   "added": 0,
+   "n": 25,
+   "recovered": 25
+  },
+  "PROPOSE": {
+   "added": 0,
+   "n": 209,
+   "recovered": 209
+  },
+  "REJECT": {
+   "added": 0,
+   "n": 166,
+   "recovered": 166
+  }
+ },
+ "judge": "claude-sonnet-5-5 \u00d7400",
+ "passes": true,
+ "roles": {
+  "buyer": {
+   "added_commitments": 0,
+   "added_items": [],
+   "auto_ok": 200,
+   "fallbacks": 0,
+   "missed_items": [],
+   "n_judged": 200,
+   "passes": true,
+   "recovered": 200,
+   "recovery": 1.0,
+   "unparsed_judgements": 0
+  },
+  "seller": {
+   "added_commitments": 0,
+   "added_items": [],
+   "auto_ok": 200,
+   "fallbacks": 0,
+   "missed_items": [],
+   "n_judged": 200,
+   "passes": true,
+   "recovered": 200,
+   "recovery": 1.0,
+   "unparsed_judgements": 0
+  }
+ },
+ "threshold": {
+  "added_max": 0,
+  "n_per_role": 200,
+  "recovery_min": 0.99
+ }
+}
