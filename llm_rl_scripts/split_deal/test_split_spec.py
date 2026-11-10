@@ -10,7 +10,7 @@ from fractions import Fraction
 import pytest
 
 from .game import ITEMS, TOTAL, Instance, Question, answer, bank, canonical_instances, outside_option, y_units
-from .spec_numbers import BEGIN, END, compute, instance_numbers, render_block
+from .spec_numbers import BEGIN, END, compute, instance_numbers, pair_constraints, render_block
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 REL = "results/split_spec_20261110/spec_numbers.json"
@@ -69,6 +69,15 @@ def test_structural_bounds():
         assert r["bank_classes"] <= r["n_types"] and r["largest_class"] >= 1
         # a pair needs joint value >= 12 for both sides to clear the hard outside option of 5.5
         assert r["pairs_with_deal"]["hard"] <= r["pairs_integrative"]
+        # a conflict-free pair shares no valued kind, so it fails the value-pair constraints
+        assert r["pairs_conflict_free"] + r["pairs_constrained"] <= n
+        assert r["pairs_conflict_free"] <= r["pairs_with_deal"]["hard"]
+
+
+def test_pair_constraints():
+    assert pair_constraints((1, 2, 1), (0, 5, 0))                 # hats valued by both, nothing dead
+    assert not pair_constraints((10, 0, 0), (0, 5, 0))            # balls worthless to both
+    assert not pair_constraints((10, 0, 0), (0, 2, 2))            # no kind valued by both
 
 
 @pytest.mark.skipif(not os.path.exists(OUT), reason="spec numbers missing")

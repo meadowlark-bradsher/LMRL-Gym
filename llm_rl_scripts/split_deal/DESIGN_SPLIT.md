@@ -1,9 +1,9 @@
-# Split Deal — a two-sided negotiation game with exact oracles (game spec v0.1, 2026-11-10, DRAFT — nothing registered, no oracle built)
+# Split Deal — a two-sided negotiation game with exact oracles (game spec v0.2, 2026-11-10 — design decisions of §10 settled; nothing registered, no oracle built)
 
 Jira NEG-28, under the redesign epic NEG-25. This note fixes the game, its protocols, the three oracle
 layers that score it, and the offline gates that come before any live call. It computes no decision value:
 the words-value bar in §7 is stated here so that the L1 sweep (NEG-30) is read against a number chosen
-before it ran. "Split Deal" is a working name.
+before it ran. Study prefix SD; the gates of §7 are SD-W, SD-D and SD-R.
 
 ## 1. Why a new game
 
@@ -35,7 +35,11 @@ Two sides, A (the focal side) and B, split a public pool of items of three kinds
   kinds there are nine instances (table below).
 - **Type.** A side's private per-unit value for each kind: non-negative integers with
   Σ count × value = 10. The whole pool is worth 10 to every type, so the type set of an instance is
-  finite and common knowledge. Types are drawn independently and uniformly for the two sides.
+  finite and common knowledge. Types are drawn independently and uniformly for the two sides. A
+  *sensitivity prior* restricts the draw to pairs where no kind is worthless to both sides and some kind
+  is valued by both (the value-pair constraints recalled from Deal or No Deal, §8). It is reported beside
+  the primary prior and never gates anything: under it a side's own type is evidence about the other's,
+  which is information no question paid for.
 - **Allocation.** A gets a[k] units of kind k, B gets the rest. U_A = v_A · a, U_B = v_B · (counts − a).
 - **Outside option.** Disagreement pays each side d = 10 r, public and equal for both, with the Car
   Dealer regimes kept for comparability: easy r = 2/5 (d = 4), hard r = 11/20 (d = 5.5, so a side needs
@@ -47,26 +51,26 @@ Two sides, A (the focal side) and B, split a public pool of items of three kinds
 Definitions are in `game.py`; the numbers below are pinned by `test_split_spec.py`.
 
 <!-- spec-numbers:begin -->
-_Rendered by `spec_numbers.py render` from `results/split_spec_20261110/spec_numbers.json` (`split-deal-spec-v0.1`). Counts by enumeration; no decision value is computed._
+_Rendered by `spec_numbers.py render` from `results/split_spec_20261110/spec_numbers.json` (`split-deal-spec-v0.2`). Counts by enumeration; no decision value is computed._
 
-| counts | types | allocations | answer patterns (12 questions) | largest unresolved class | type pairs | integrative pairs | mean best joint value | pairs with a deal, easy | pairs with a deal, hard |
-|---|---|---|---|---|---|---|---|---|---|
-| 1-1-3 | 26 | 16 | 20 | 4 | 676 | 0.96 | 14.78 | 0.93 | 0.72 |
-| 1-2-2 | 21 | 18 | 17 | 2 | 441 | 0.95 | 14.95 | 0.98 | 0.78 |
-| 1-1-4 | 21 | 20 | 15 | 4 | 441 | 0.95 | 14.83 | 0.93 | 0.66 |
-| 1-2-3 | 14 | 24 | 13 | 2 | 196 | 0.93 | 14.92 | 0.95 | 0.79 |
-| 2-2-2 | 21 | 27 | 15 | 2 | 441 | 0.95 | 14.95 | 1.00 | 0.80 |
-| 1-1-5 | 18 | 24 | 12 | 4 | 324 | 0.94 | 14.91 | 0.90 | 0.63 |
-| 1-2-4 | 12 | 30 | 11 | 2 | 144 | 0.92 | 15.06 | 0.97 | 0.78 |
-| 1-3-3 | 10 | 32 | 10 | 1 | 100 | 0.90 | 14.86 | 0.91 | 0.84 |
-| 2-2-3 | 9 | 36 | 7 | 2 | 81 | 0.89 | 14.99 | 1.00 | 0.74 |
+| counts | types | allocations | answer patterns (12 questions) | largest unresolved class | type pairs | integrative pairs | mean best joint value | pairs with a deal, easy | pairs with a deal, hard | pairs meeting the value-pair constraints | conflict-free pairs |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1-1-3 | 26 | 16 | 20 | 4 | 676 | 0.96 | 14.78 | 0.93 | 0.72 | 0.76 | 0.02 |
+| 1-2-2 | 21 | 18 | 17 | 2 | 441 | 0.95 | 14.95 | 0.98 | 0.78 | 0.71 | 0.07 |
+| 1-1-4 | 21 | 20 | 15 | 4 | 441 | 0.95 | 14.83 | 0.93 | 0.66 | 0.67 | 0.02 |
+| 1-2-3 | 14 | 24 | 13 | 2 | 196 | 0.93 | 14.92 | 0.95 | 0.79 | 0.68 | 0.05 |
+| 2-2-2 | 21 | 27 | 15 | 2 | 441 | 0.95 | 14.95 | 1.00 | 0.80 | 0.71 | 0.07 |
+| 1-1-5 | 18 | 24 | 12 | 4 | 324 | 0.94 | 14.91 | 0.90 | 0.63 | 0.51 | 0.09 |
+| 1-2-4 | 12 | 30 | 11 | 2 | 144 | 0.92 | 15.06 | 0.97 | 0.78 | 0.58 | 0.07 |
+| 1-3-3 | 10 | 32 | 10 | 1 | 100 | 0.90 | 14.86 | 0.91 | 0.84 | 0.69 | 0.00 |
+| 2-2-3 | 9 | 36 | 7 | 2 | 81 | 0.89 | 14.99 | 1.00 | 0.74 | 0.43 | 0.07 |
 
-Across the 9 instances: 9–26 types and 16–36 allocations per instance; 2844 type pairs in all, of which 0.95 are integrative (best joint value above 10), mean best joint value 14.89; a mutually acceptable allocation exists for 0.95 of pairs in easy and 0.73 in hard (pair-weighted).
+Across the 9 instances: 9–26 types and 16–36 allocations per instance; 2844 type pairs in all, of which 0.95 are integrative (best joint value above 10), mean best joint value 14.89; a mutually acceptable allocation exists for 0.95 of pairs in easy and 0.73 in hard; 0.68 of pairs meet the value-pair constraints of the sensitivity prior, and 0.05 are conflict-free (both sides can have their full 10). All shares pair-weighted.
 <!-- spec-numbers:end -->
 
 What the table says about the three requirements. The type space is larger than the old six in every
-instance (the types column), though only modestly so in the two smallest; whether those two stay in the
-family is decision 6 in §10. Almost every pair of types has integrative potential, so there is value to create, and in the
+instance (the types column), though only modestly so in the two smallest, which are kept so that the
+family spans a range of type counts (§7). Almost every pair of types has integrative potential, so there is value to create, and in the
 hard regime a deal exists *only* through an integrative allocation (both sides need 6 of a pool worth 10
 to each). A deal is not guaranteed to exist: where it does not, the right move is to walk, and
 recognising that is part of the task.
@@ -109,8 +113,13 @@ rules decide B's moves and its only words are answers.
 
 1. **Talk.** Alternating talk turns, A first, Q each. The mover ASKs or PASSes. The asked side ANSWERs
    truthfully or DECLINEs, as the information structure (§4.3) allows. Lies are out of scope for v0.
-2. **Final stage.** The proposer is drawn after the talk: A with public probability π, default 1/2. The
-   proposer makes one binding offer or walks; the responder accepts iff its utility is at least d.
+2. **Final stage.** The proposer is drawn after the talk: A with public probability π. Primary π = 1/2;
+   π = 1/4 and 3/4 are reported as sensitivity, and π = 1 is protocol 4.1. The proposer makes one binding
+   offer or walks; the responder accepts iff its utility is at least d.
+
+The draw comes after the talk on purpose. If the proposer were announced first, the proposer would have
+nothing to hide and the responder nothing to learn, reciprocal exchange would have nothing to trade, and
+the game would collapse to 4.1 with a responder who may decline.
 
 Each side now wants to know the other's values, to make a good offer if it proposes, and wants its own
 values unknown, because an uninformed proposer must leave room in its offer and an informed one need not.
@@ -195,19 +204,31 @@ The live arrangement this spec is meant to support, to be designed only after §
 
 ## 7. Offline gates before any live spend
 
-**Gate W (NEG-30), the words-value bar.** Primary configuration: protocol 4.1, easy regime, Q = 3, ask
-cost 0, truthful answers, the nine instances weighted equally. Three questions and one offer is four
-focal moves, the H = 4 of the live Car Dealer protocol.
+**Gate SD-W (NEG-30), the words-value bar.** Primary configuration: protocol 4.1, easy regime, Q = 3, ask
+cost 0, truthful answers, independent uniform types, the nine instances weighted equally. Three questions
+and one offer is four focal moves, the H = 4 of the live Car Dealer protocol. With W = D_words(3):
 
-> **Go iff D_words(3) ≥ 0.08 Y.**
+> **W ≥ 0.10 Y: go.** A live study is worth designing.
+>
+> **0.08 ≤ W < 0.10 Y: conditional.** Offline work may continue; live spend needs a power calculation
+> showing that the planned primary contrast has an expected 95 % half-width below W / 2, so that capturing
+> half the ceiling is separable from zero.
+>
+> **W < 0.08 Y: no-go** in this configuration.
 
-Why 0.08. Stage 1's primary contrast was +0.0509 [+0.0113, +0.0909] against a ceiling of 0.1019 Y
-(`RESULTS_NOUL.md`, P1): positive, but with a half-width of about 0.04 Y it could not show that half the
-ceiling was captured. A ceiling of 0.08 Y puts half-capture at 0.04 Y, which at that precision is only
-just separable from zero. So 0.08 is a floor below which a live study is not worth designing, not a
-guarantee of power. The old game's one-sided ceiling of 0.043 Y fails it clearly. A game that only just
-passes needs a tighter primary contrast than Stage 1's, and the power calculation for that belongs to
-NEG-33. The bar is a judgment, not a derived quantity.
+Why these numbers. Stage 1's primary contrast was +0.0509 [+0.0113, +0.0909] against a ceiling of
+0.1019 Y (`RESULTS_NOUL.md`, P1): positive, but with a half-width of about 0.04 Y the captured share came
+out at 50 % [11 %, 89 %] and could not show that half the ceiling was captured. So a ceiling near 0.10 Y
+is where a design of Stage 1's size can show a positive effect and no more; below it even that needs a
+larger sample, which is why the lower tier asks for the calculation up front. 0.08 Y is the floor: there
+half-capture is 0.04 Y, about Stage 1's half-width. The old game's one-sided ceiling of 0.043 Y fails
+clearly. "Go" means a live study is worth designing; its registration still needs its own power
+calculation (NEG-33). The tiers are a judgment about detectability, not a derived quantity.
+
+**The one fallback.** The hard regime is read with the same configuration and the same tiers. If easy is
+a no-go and hard is not, hard becomes the primary regime as a recorded revision of this note, and any
+write-up says the regime was the fallback. If easy is conditional, easy stays primary whatever hard shows.
+No other configuration may be promoted after the sweep.
 
 Reported with the gate, and read as stated here:
 
@@ -219,12 +240,15 @@ Reported with the gate, and read as stated here:
   one-sided sweep (with asks minus offers only). If the gate passes but this number at h = 0 is below
   0.04 Y, the words matter *because* offers are scarce: the live protocol must then keep the single-offer
   rule, and any write-up must say the result is conditional on it.
-- **No-go.** The game is revised (candidates: a fourth item kind, a coarser bank, the hard regime as
-  primary) as a new spec version with its own bar stated before its sweep. The primary configuration is
-  not switched after the fact.
+- **Type count.** W per instance against the instance's number of types. The complaint about Car Dealer
+  was that its model was too simple; nine instances from 9 to 26 types read on that directly. If W does
+  not rise with type count, type count was not the problem.
+- **Sensitivity prior.** Every value above under the value-pair constraints of §2.
+- **No-go in both regimes.** The game is revised (candidates: a fourth item kind, a coarser bank) as a
+  new spec version with its own bar stated before its sweep.
 
-**Gate D (NEG-31), the dilemma map.** Not a go/no-go, a set of predictions written before the computation,
-at π = 1/2 under optimal play by A1:
+**Gate SD-D (NEG-31), the dilemma map.** Not a go/no-go, a set of predictions written before the
+computation, at π = 1/2 under optimal play by A1 (π = 1/4 and 3/4 reported beside it):
 
 - D1. Joint efficiency rises with disclosure: E(T2) ≥ E(T1) ≥ E(T0).
 - D2. Being known costs the focal side: Y_A(T2) < Y_A(T1), the difference being (1 − π) times A's lost
@@ -238,9 +262,10 @@ Any of these may fail. D3 failing in both regimes would mean this game has no ne
 its rules, and the two-way motivation would need a different mechanism (for example a private outside
 option) before a live study is worth designing.
 
-**Gate R (NEG-32), the reader on human language.** Needs an explicit go, since it is the first API spend.
-Before any live counterpart: calibration and posterior mass on the true type when the likelihood reader
-is run over Deal or No Deal and CaSiNo dialogues, whose true values and priorities are recorded.
+**Gate SD-R (NEG-32), the reader on human language.** Needs an explicit go, since it is the first API
+spend. Before any live counterpart: calibration and posterior mass on the true type when the likelihood
+reader is run over Deal or No Deal and CaSiNo dialogues, whose true values and priorities are recorded.
+Corpus dialogues are scored under the corpus's own prior, whatever §2 uses.
 
 ## 8. Relation to existing games
 
@@ -251,9 +276,10 @@ NEG-27 checks each statement against the source, and none of the design above de
   items, integer values worth 10 on the whole pool for each side, a dialogue and then a single final
   selection with nothing for a mismatch. Split Deal departs from it in four ways: a positive outside option instead of zero, bank
   questions instead of free chat, one binding offer with accept or reject instead of simultaneous entry,
-  and independent uniform types with none of the paper's constraints on value pairs.
+  and independent uniform types as the primary prior, with the paper's constraints on value pairs kept
+  only as the sensitivity prior of §2.
 - **CaSiNo** has three kinds, three units each and three priority levels: six orderings per side, the
-  same size as the old game. It is a language corpus for gate R, not a game shape to adopt.
+  same size as the old game. It is a language corpus for gate SD-R, not a game shape to adopt.
 - **NegMAS** computes Pareto and Nash statistics for explicit utility functions. It is used as an
   independent check on L0 and later as a source of standard opponents (NEG-34); the belief programs are
   ours, because NegMAS scenarios are single profile pairs with no type prior and its protocol has no
@@ -268,19 +294,20 @@ Lying answers (NEG-22). Free-form proposals during the talk, which a reacting co
 back into tests. Private or unequal outside options. More than three item kinds. Counterpart types
 outside the modelled set (NEG-21). More than two parties.
 
-## 10. Decisions that are Meadowlark's
+## 10. Decisions (settled by Meadowlark, 2026-11-10, before any decision value was computed)
 
-1. The name, and whether the package is `llm_rl_scripts/split_deal`.
-2. The primary configuration of gate W (easy, Q = 3) and the 0.08 Y bar. Both must be settled before
-   NEG-30 runs.
-3. Independent uniform types, or Deal or No Deal's constraints on value pairs (which correlate the two
-   sides' types and would make A's own type informative about B's).
-4. Proposer drawn after the talk (default) or announced before it.
-5. Whether the hard regime, where every deal is integrative, should be primary instead of easy.
-6. Whether the two smallest instances (1-3-3 and 2-2-3) stay in the family or the family is cut to seven.
+| # | Question | Decision | Where |
+|---|---|---|---|
+| 1 | Name and package | "Split Deal", `llm_rl_scripts/split_deal`, study prefix SD | title |
+| 2 | Primary configuration and bar of gate SD-W | Q = 3; two tiers: go at 0.10 Y, conditional from 0.08 Y with a power calculation, no-go below | §7 |
+| 3 | Type prior | Independent uniform is primary; the value-pair constraints are a reported sensitivity prior | §2, §7 |
+| 4 | When the proposer is known | Drawn after the talk; π = 1/2 primary, 1/4 and 3/4 reported | §4.2 |
+| 5 | Primary regime | Easy; hard is the one pre-named fallback | §7 |
+| 6 | The two smallest instances (1-3-3, 2-2-3) | Kept; W against type count is a reported diagnostic | §7 |
 
 ## 11. Work order
 
-NEG-27 (verify the outside sources) can run alongside. Then NEG-29 (L0) and NEG-30 (L1 and gate W), both
-offline. NEG-31 (L2 and gate D) only if gate W passes. NEG-32 (gate R) needs a go. NEG-33 decides whether
-to register a live study.
+NEG-27 (verify the outside sources) can run alongside. Then NEG-29 (L0) and NEG-30 (L1 and gate SD-W),
+both offline. NEG-31 (L2 and gate SD-D) only if SD-W is go or conditional, in easy or in the fallback.
+NEG-32 (gate SD-R) needs a go. NEG-33 decides whether to register a live study, and owns the power
+calculation the conditional tier asks for.

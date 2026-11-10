@@ -1,5 +1,5 @@
 {
- "spec": "split-deal-spec-v0.1",
+ "spec": "split-deal-spec-v0.2",
  "total": 10,
  "regimes": {
   "easy": "2/5",
@@ -24,7 +24,9 @@
    "pairs_with_deal": {
     "easy": 626,
     "hard": 484
-   }
+   },
+   "pairs_constrained": 513,
+   "pairs_conflict_free": 14
   },
   {
    "instance": "1-2-2",
@@ -44,7 +46,9 @@
    "pairs_with_deal": {
     "easy": 432,
     "hard": 344
-   }
+   },
+   "pairs_constrained": 312,
+   "pairs_conflict_free": 30
   },
   {
    "instance": "1-1-4",
@@ -64,7 +68,9 @@
    "pairs_with_deal": {
     "easy": 409,
     "hard": 290
-   }
+   },
+   "pairs_constrained": 296,
+   "pairs_conflict_free": 10
   },
   {
    "instance": "1-2-3",
@@ -84,7 +90,9 @@
    "pairs_with_deal": {
     "easy": 187,
     "hard": 154
-   }
+   },
+   "pairs_constrained": 134,
+   "pairs_conflict_free": 10
   },
   {
    "instance": "2-2-2",
@@ -104,7 +112,9 @@
    "pairs_with_deal": {
     "easy": 441,
     "hard": 354
-   }
+   },
+   "pairs_constrained": 312,
+   "pairs_conflict_free": 30
   },
   {
    "instance": "1-1-5",
@@ -124,7 +134,9 @@
    "pairs_with_deal": {
     "easy": 292,
     "hard": 204
-   }
+   },
+   "pairs_constrained": 166,
+   "pairs_conflict_free": 28
   },
   {
    "instance": "1-2-4",
@@ -144,7 +156,9 @@
    "pairs_with_deal": {
     "easy": 140,
     "hard": 112
-   }
+   },
+   "pairs_constrained": 84,
+   "pairs_conflict_free": 10
   },
   {
    "instance": "1-3-3",
@@ -164,7 +178,9 @@
    "pairs_with_deal": {
     "easy": 91,
     "hard": 84
-   }
+   },
+   "pairs_constrained": 69,
+   "pairs_conflict_free": 0
   },
   {
    "instance": "2-2-3",
@@ -184,8 +200,10 @@
    "pairs_with_deal": {
     "easy": 81,
     "hard": 60
-   }
+   },
+   "pairs_constrained": 35,
+   "pairs_conflict_free": 6
   }
  ],
- "commit": "eec3089"
+ "commit": "132c297"
 }

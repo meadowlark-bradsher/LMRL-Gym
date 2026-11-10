@@ -22,8 +22,14 @@ import sys
 
 from .game import REGIMES, TOTAL, Instance, bank, canonical_instances, outside_option, signature
 
-SPEC_VERSION = "split-deal-spec-v0.1"
+SPEC_VERSION = "split-deal-spec-v0.2"
 BEGIN, END = "<!-- spec-numbers:begin -->", "<!-- spec-numbers:end -->"
+
+
+def pair_constraints(va, vb) -> bool:
+    """The value-pair constraints of the sensitivity prior (`DESIGN_SPLIT.md` §2): no kind is worthless
+    to both sides, and some kind is valued by both."""
+    return (not any(x == 0 and y == 0 for x, y in zip(va, vb))) and any(x > 0 and y > 0 for x, y in zip(va, vb))
 
 
 def instance_numbers(inst: Instance) -> dict:
@@ -31,20 +37,22 @@ def instance_numbers(inst: Instance) -> dict:
     classes = collections.Counter(signature(inst, v, qs) for v in types)
     u_own = {v: [inst.utility(v, a) for a in allocs] for v in types}                 # as the focal side
     u_rest = {v: [inst.utility(v, inst.rest(a)) for a in allocs] for v in types}     # as the counterpart
-    integrative, joint_sum = 0, 0
+    integrative, joint_sum, constrained, conflict_free = 0, 0, 0, 0
     with_deal = {g: 0 for g in REGIMES}
     for va in types:
         for vb in types:
             joint = [x + y for x, y in zip(u_own[va], u_rest[vb])]
             joint_sum += max(joint)
             integrative += max(joint) > TOTAL
+            conflict_free += max(joint) == 2 * TOTAL
+            constrained += pair_constraints(va, vb)
             for g in REGIMES:
                 d = outside_option(g)
                 with_deal[g] += any(x >= d and y >= d for x, y in zip(u_own[va], u_rest[vb]))
     return {"instance": inst.key, "counts": list(inst.counts), "n_types": len(types), "n_allocations": len(allocs),
             "n_questions": len(qs), "bank_classes": len(classes), "largest_class": max(classes.values()),
             "n_pairs": len(types) ** 2, "pairs_integrative": integrative, "max_joint_sum": joint_sum,
-            "pairs_with_deal": with_deal}
+            "pairs_with_deal": with_deal, "pairs_constrained": constrained, "pairs_conflict_free": conflict_free}
 
 
 def compute() -> dict:
@@ -78,16 +86,19 @@ def render_block(doc: dict, path: str) -> str:
            f"_Rendered by `spec_numbers.py render` from `{path}` (`{doc['spec']}`). Counts by enumeration; "
            "no decision value is computed._", "",
            "| counts | types | allocations | answer patterns (12 questions) | largest unresolved class | "
-           "type pairs | integrative pairs | mean best joint value | pairs with a deal, easy | pairs with a deal, hard |",
-           "|---|---|---|---|---|---|---|---|---|---|"]
+           "type pairs | integrative pairs | mean best joint value | pairs with a deal, easy | pairs with a deal, hard | "
+           "pairs meeting the value-pair constraints | conflict-free pairs |",
+           "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     tot = collections.Counter()
     for r in rows:
         n = r["n_pairs"]
         out.append(f"| {r['instance']} | {r['n_types']} | {r['n_allocations']} | {r['bank_classes']} | "
                    f"{r['largest_class']} | {n} | {r['pairs_integrative'] / n:.2f} | {r['max_joint_sum'] / n:.2f} | "
-                   f"{r['pairs_with_deal']['easy'] / n:.2f} | {r['pairs_with_deal']['hard'] / n:.2f} |")
+                   f"{r['pairs_with_deal']['easy'] / n:.2f} | {r['pairs_with_deal']['hard'] / n:.2f} | "
+                   f"{r['pairs_constrained'] / n:.2f} | {r['pairs_conflict_free'] / n:.2f} |")
         tot.update({"n": n, "int": r["pairs_integrative"], "joint": r["max_joint_sum"],
-                    "easy": r["pairs_with_deal"]["easy"], "hard": r["pairs_with_deal"]["hard"]})
+                    "easy": r["pairs_with_deal"]["easy"], "hard": r["pairs_with_deal"]["hard"],
+                    "con": r["pairs_constrained"], "free": r["pairs_conflict_free"]})
     n = tot["n"]
     types = [r["n_types"] for r in rows]
     allocs = [r["n_allocations"] for r in rows]
@@ -96,7 +107,9 @@ def render_block(doc: dict, path: str) -> str:
             f"allocations per instance; {n} type pairs in all, of which {tot['int'] / n:.2f} are integrative "
             f"(best joint value above {doc['total']}), mean best joint value {tot['joint'] / n:.2f}; a mutually "
             f"acceptable allocation exists for {tot['easy'] / n:.2f} of pairs in easy and {tot['hard'] / n:.2f} "
-            "in hard (pair-weighted).", END]
+            f"in hard; {tot['con'] / n:.2f} of pairs meet the value-pair constraints of the sensitivity prior, "
+            f"and {tot['free'] / n:.2f} are conflict-free (both sides can have their full {doc['total']}). "
+            "All shares pair-weighted.", END]
     return "\n".join(out)
 
 
