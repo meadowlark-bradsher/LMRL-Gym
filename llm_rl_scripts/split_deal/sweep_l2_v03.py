@@ -353,7 +353,7 @@ def render(doc: dict, path: str) -> str:
           f"(E(T3) {E['T3']:.4f})."]
     for key, label in (("D2", "D2′"), ("D2_lo", "D2′-lo"), ("D2_hi", "hi-level A (reported, not predicted)")):
         d = x[key]
-        L.append(f"- **{label}** {yes(d['holds']) if key != 'D2_hi' else ''}: Y_A(T1) {d['YA_T1']:.4f}, "
+        L.append(f"- **{label}**{' ' + yes(d['holds']) if key != 'D2_hi' else ''}: Y_A(T1) {d['YA_T1']:.4f}, "
                  f"Y_A(T2) {d['YA_T2']:.4f}; A's information rent as responder {d['lost_rent']:+.4f}"
                  f"{'' if d['identity_exact'] else ' (the (1 − π) identity does NOT hold exactly)'}.")
     for key, label in (("D3", "D3′ (B0 asks by EIG, the registered reading)"),
@@ -370,8 +370,20 @@ def render(doc: dict, path: str) -> str:
           f"- Choosing what to answer (T3) against always answering (T2): Y_A "
           f"{arms['T3']['all']['YA'] - arms['T2']['all']['YA']:+.4f}, Y_B "
           f"{arms['T3']['all']['YB'] - arms['T2']['all']['YB']:+.4f}, E "
-          f"{arms['T3']['all']['E'] - arms['T2']['all']['E']:+.4f}.", "",
-          "## Registered consequences", ""]
+          f"{arms['T3']['all']['E'] - arms['T2']['all']['E']:+.4f}.", ""]
+    ctl = g["control"]
+    with_high = x["D2_lo"]["YA_T2"] - x["D2_lo"]["YA_T1"]
+    without = ctl["YA_T2_lo"] - ctl["YA_T1_lo"]
+    reading = (f"Against the control (descriptive): being known is worth {with_high:+.4f} Y to a lo-level A with HIGH "
+               f"in the bank and {without:+.4f} Y without it. ")
+    if without > with_high:
+        reading += (f"Adding HIGH lowers it by {without - with_high:.4f} Y, in the direction the mechanism predicts "
+                    "(the difference also includes B0 spending a question on the level rather than on values), "
+                    + ("but not below zero: the value information disclosed alongside still outweighs it, so the "
+                       "rent stays negative." if with_high > 0 else "and below zero: the rent is positive."))
+    else:
+        reading += "Adding HIGH does not lower it."
+    L += [reading, "", "## Registered consequences", ""]
     cons = []
     if not v["D2'-lo"]:
         cons.append("**D2′-lo fails.** Registered: \"a private d does not make disclosure costly against B0, and the "
@@ -393,7 +405,8 @@ def render(doc: dict, path: str) -> str:
     if v["D4'"]:
         cons.append("**D4′ holds.** Registered: \"Against B0, a low-level A hides by declining at no cost. That finding "
                     "is specific to B0. A counterpart that reads declines (B2) would remove it.\"")
-    L += (cons or ["None of the registered conditions is met."]) + [""]
+    for c in cons or ["None of the registered conditions is met."]:
+        L += [c, ""]
     L += ["## D4′ by round", "",
           "Answered / decisions at B0's HIGH in T3, by A's level. First by the round in which B0 asks HIGH on its "
           "T2 path (the instance's column in `DESIGN_SPLIT_V03.md` §3), then by the round of the decision on the "
