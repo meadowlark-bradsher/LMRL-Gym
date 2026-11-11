@@ -73,10 +73,13 @@ holds at every hash seed.
 Stress runs call `require_hash_seed()` and refuse to start without a pinned
 seed.
 
-**Not fixed here.** Sorting the survivor sets would make the backends
-hash-independent, but it would replace the committed values with a different
-draw. That decision belongs to the owner of the cited numbers (§3.11, the
-retraction, audit and onboarding notes), not to ST-0.
+**Fixed since (2026-11-11).** The survivor-set backends now read survivors in
+the fixed `known_hyps` order, and the retraction and audit grids were redrawn
+(`OPENWORLD_RETRACTION_RESULTS.md`, *Redraw*). The table above describes the first
+draw: `hard`'s questions/game is now 8.774, and `modeswitch@3`'s is 9.437. Both
+are below the hash-seed range, because admission order acts as a popularity
+tie-break (`tie_order_probe.py`). The committed gate now checks every retraction
+cell, not only `soft`. `hash_spread.json` is a record of the old code.
 
 ## Finding 2 — the discrete backends loop on a repeated question when the novelty prior is large
 
