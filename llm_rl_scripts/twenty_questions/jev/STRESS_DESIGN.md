@@ -100,6 +100,12 @@ committed §3.11 clean run (146 distinct, 144 expert, 0 false-positive, 1854 won
 2 wrong) and the retraction grid `openworld_retraction_20261108_213525` must reproduce
 bit-for-bit.
 
+**Built: see `STRESS_ST0.md`.** As built, the gate is split in two, because the
+survivor-set backends' committed values depend on Python's string-hash order and
+cannot be reproduced exactly. The build also found a repeat-question loop in the
+discrete backends at catch-all priors ≥ 0.15, which affects ST-1 and ST-3 as
+drafted.
+
 * **ST-0a — pool generator** (`stress_generator.py`). Makes new objects with realistic
   attribute structure from the real matrix. A new object picks a category (weighted by
   real category size) and a parent object in it. Each of its 44 cells is then

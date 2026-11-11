@@ -1,0 +1,387 @@
+{
+  "closed_pool": [
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.02,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.05,
+      "repeated": 0.02666666666666667,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.1,
+      "repeated": 0.02666666666666667,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.15,
+      "repeated": 0.08666666666666667,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.2,
+      "repeated": 0.22,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.25,
+      "repeated": 0.35333333333333333,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.02,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.05,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.1,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.15,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.2,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "soft",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.25,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.02,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.05,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.1,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.15,
+      "repeated": 0.5666666666666667,
+      "won": 0.43333333333333335
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.2,
+      "repeated": 0.9266666666666666,
+      "won": 0.07333333333333333
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.25,
+      "repeated": 0.96,
+      "won": 0.04
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.02,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.05,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.1,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.15,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.2,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "hard",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.25,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.02,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.05,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.1,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.15,
+      "repeated": 0.5666666666666667,
+      "won": 0.43333333333333335
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.2,
+      "repeated": 0.9266666666666666,
+      "won": 0.07333333333333333
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": false,
+      "prior": 0.25,
+      "repeated": 0.96,
+      "won": 0.04
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.02,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.05,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.1,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.15,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.2,
+      "repeated": 0.0,
+      "won": 1.0
+    },
+    {
+      "backend": "modeswitch",
+      "games": 150,
+      "no_repeat": true,
+      "prior": 0.25,
+      "repeated": 0.0,
+      "won": 1.0
+    }
+  ],
+  "committed_stream_hard": {
+    "games": 2000,
+    "hits": [
+      {
+        "in_pool": true,
+        "k_known": 15,
+        "outcome": "expert",
+        "prior": 0.6571428571428571
+      },
+      {
+        "in_pool": true,
+        "k_known": 15,
+        "outcome": "expert",
+        "prior": 0.6388888888888888
+      },
+      {
+        "in_pool": false,
+        "k_known": 16,
+        "outcome": "expert",
+        "prior": 0.5948717948717949
+      },
+      {
+        "in_pool": false,
+        "k_known": 17,
+        "outcome": "expert",
+        "prior": 0.585
+      },
+      {
+        "in_pool": true,
+        "k_known": 18,
+        "outcome": "expert",
+        "prior": 0.5488372093023256
+      },
+      {
+        "in_pool": true,
+        "k_known": 18,
+        "outcome": "expert",
+        "prior": 0.5363636363636364
+      },
+      {
+        "in_pool": true,
+        "k_known": 18,
+        "outcome": "expert",
+        "prior": 0.5244444444444445
+      },
+      {
+        "in_pool": true,
+        "k_known": 18,
+        "outcome": "expert",
+        "prior": 0.4916666666666667
+      },
+      {
+        "in_pool": true,
+        "k_known": 18,
+        "outcome": "expert",
+        "prior": 0.4816326530612245
+      },
+      {
+        "in_pool": true,
+        "k_known": 21,
+        "outcome": "expert",
+        "prior": 0.3611940298507463
+      },
+      {
+        "in_pool": true,
+        "k_known": 23,
+        "outcome": "expert",
+        "prior": 0.34647887323943666
+      },
+      {
+        "in_pool": true,
+        "k_known": 23,
+        "outcome": "expert",
+        "prior": 0.3416666666666667
+      },
+      {
+        "in_pool": true,
+        "k_known": 31,
+        "outcome": "expert",
+        "prior": 0.27872340425531916
+      },
+      {
+        "in_pool": true,
+        "k_known": 31,
+        "outcome": "expert",
+        "prior": 0.27578947368421053
+      }
+    ],
+    "prior_max": 0.6571428571428571,
+    "prior_min": 0.27578947368421053,
+    "repeat_games": 14,
+    "repeat_in_pool_expert": 12,
+    "won": 1842
+  },
+  "hashseed": "0"
+}
