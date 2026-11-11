@@ -146,7 +146,21 @@ call.
 
 1. ~~Settle §6.~~ Done 2026-11-10.
 2. ~~Freeze §5 with the settled wording.~~ Done 2026-11-10.
-3. Run SD3-W (L1) and SD3-D (L2) against B0, with HIGH and without it (the control): the existing sweeps on
-   `PrivateTables`, plus the per-level-pair, common-scale and HIGH-round columns.
+3. ~~Run SD3-W (L1) and SD3-D (L2) against B0, with HIGH and without it (the control).~~ Done 2026-11-10; see §8.
 4. Then design B2 and register its predictions; then B2 and the CFR check.
 5. Gate SD-R (corpus reading, NEG-32) is unchanged and still needs an explicit go.
+
+## 8. Outcome (2026-11-10)
+
+Verdicts only; every number is in the rendered notes, which regenerate from their JSON.
+
+- **SD3-W: go** (`SWEEP_SPLIT_V03_L1.md`, from `results/split_v03_l1_20261110/sweep.json`). The scarcity check
+  fired again: with free re-offers the words add almost nothing, so the words value is conditional on the single
+  binding offer, as in v0.2.
+- **SD3-D** (`SWEEP_SPLIT_V03_L2.md`, from `results/split_v03_l2_20261110/sweep.json`): D1′ holds, D2′ fails,
+  D2′-lo fails, D3′ fails, D4′ holds, D5′ holds. Being known still raises a lo-level A's value against B0. The
+  2 × 2 game has no dilemma: mutual disclosure beats mutual withholding for both. But question by question, a
+  lo-level A declines HIGH more often than not, and a hi-level A mostly answers it.
+- **Registered consequences that apply:** those of D2′-lo failing, D3′ failing and D4′ holding. All three point to
+  the same next rung: B2, a counterpart that reads declines, before any other change to the game. B2 is designed
+  next, with its predictions registered before it runs (decision 7).
