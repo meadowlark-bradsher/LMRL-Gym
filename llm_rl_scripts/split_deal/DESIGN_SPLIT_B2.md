@@ -151,14 +151,34 @@ A3's true type leaves K; and the D1′–D3′ readings with B2.
 | 5 | B2's answering | fixed by the structure, as for B0 | B2 chooses |
 | 6 | Structures and scope | primary (13-question bank, A1 as built, π = 1/2): T0–T3 and the 2 × 2, all nine instances, both pairings; each sensitivity runs T2, T3 and the 2 × 2 only | every structure everywhere; T2, T3 and the 2 × 2 only |
 | 7 | Predictions to register | K1–K5 with K3's support rule, the T2 comparison named in K2 and K4, and decision 3's consequence | as drafted; drop K5 |
-| 8 | Runtime pilot | allowed on 2-2-3 before the run, printing seconds only, values discarded unread; the run plan is fixed from it; no instance is ever dropped for cost | no pilot; pilot with a dropping order |
+| 8 | Runtime pilot | allowed on 2-2-3 before the run, printing seconds only, values discarded unread; the run plan is fixed from it; no instance is ever dropped for cost. Extended 2026-11-10 (below) | no pilot; pilot with a dropping order |
 
 ## 8. Work order
 
 1. ~~Settle §7 and freeze §6.~~ Done 2026-11-10.
 2. Build B2, B2-d, A1′ and A3 as programs beside `twosided.Program`. Test them against naive literal simulations on
    2-2-3, and check the two by-construction inequalities of §5 and that rollouts realise the computed values.
-3. Run the seconds-only pilot on 2-2-3 and fix the run plan (decision 8).
+3. Run the seconds-only pilot on 2-2-3 and fix the run plan (decision 8). Done on 2-2-3; extended to 1-1-3 (below).
 4. Commit the code with the operational reading in its docstring, then run gate SD3-K, then commit the results.
 5. Then the CFR check on the smallest instance.
 6. Gate SD-R (corpus reading, NEG-32) is unchanged and still needs an explicit go.
+
+## 9. Pilot extension (2026-11-10, at Meadowlark's request)
+
+The decision-8 pilot on 2-2-3 (18 types) took 545 s for its 32 jobs, of which the T3 jobs took 46–76 s each
+(`sweep_k.py pilot`). That does not fix a run plan for the other instances: B2 and A3 carry B2's belief and A3's
+belief beside the public state, so their cost need not grow in step with the type count. The pilot is therefore
+extended by one job: the primary T3 job on the largest instance, 1-1-3 (52 types), run by `sweep_k.py probe`. It
+reports seconds per pairing and peak memory only, and discards the outcomes unread, under the same rules as
+decision 8. A watchdog stops it if its peak memory passes 12 GiB (the machine has 18 GiB) and reports how far it
+got. Its result fixes the run plan. It does not change the scope of decision 6: no instance is dropped for cost.
+
+**Result (seconds and memory only).** The primary T3 job on 1-1-3 took 573 s with a peak of 1.29 GiB: A1/B0 7 s,
+A1/B2 108 s, A1/B2-d 1 s, A3/B2 456 s. That is about 7.5 times the same job on 2-2-3 (76 s), and memory is not a
+constraint.
+
+**Run plan, fixed from it.** All 288 jobs (nine instances × the 32 jobs of decision 6), each in a fresh process,
+largest instances first, on 8 workers. That keeps worst-case memory near 8 × 1.3 GiB of the machine's 18 GiB. If
+every job on 1-1-3 scales like its T3 job, that instance's 32 jobs take about 70 minutes in series, and the whole
+run should take roughly an hour of wall time. That estimate is an extrapolation from two timings, not a
+measurement. The run goes in the background; no instance is dropped whatever it takes.
