@@ -51,6 +51,15 @@ class BeliefBackend(ABC):
         """Fold one answer into the belief."""
 
 
+def _in_order(names: Sequence[str], members: set) -> List[str]:
+    """``members`` in the fixed ``known_hyps`` order. The survivor-set backends keep
+    membership in a ``set`` of names, whose iteration order follows Python's string
+    hash (``PYTHONHASHSEED``); every iteration that can feed a tie-break (the
+    distribution's key order, read by ``max`` and by ``candidate_questions``' stable
+    sort) goes through this instead, so a run does not depend on the hash seed."""
+    return [n for n in names if n in members]
+
+
 def _uniform_known_prior(known_hyps: Sequence[Hypothesis], unknown: str,
                          p_unknown_prior: float) -> Posterior:
     post: Posterior = {}
@@ -117,7 +126,8 @@ class HardMonotone(BeliefBackend):
         self.U = unknown
         self.u_prior = p_unknown_prior
         self.kill = kill
-        self.survivors = {h.name for h in known_hyps}
+        self.names = [h.name for h in known_hyps]
+        self.survivors = set(self.names)
 
     def _u(self) -> float:
         return 1.0 if not self.survivors else self.u_prior
@@ -127,7 +137,7 @@ class HardMonotone(BeliefBackend):
         dist: Posterior = {}
         if self.survivors:
             share = (1.0 - u) / len(self.survivors)
-            for n in self.survivors:
+            for n in _in_order(self.names, self.survivors):
                 dist[n] = share
         dist[self.U] = u
         return dist
@@ -145,7 +155,7 @@ class HardMonotone(BeliefBackend):
 
     def observe(self, q: Question, answer_yes: bool) -> None:
         killed = set()
-        for n in self.survivors:
+        for n in _in_order(self.names, self.survivors):
             p_yes = self.like(q, self.by_name[n])
             p_obs = p_yes if answer_yes else (1.0 - p_yes)
             if p_obs < self.kill:
@@ -218,7 +228,7 @@ class RetractingElimination(BeliefBackend):
         # 2. strike (absolute, hard rule): a surviving known contradicted this answer.
         new_strikes = {n for n in self.survivors
                        if self._p_obs(n, answer_yes) < self.kill}
-        for n in new_strikes:
+        for n in _in_order(self.names, new_strikes):
             self.ops.append(("kill", n))
             self.n_kills += 1
         self.survivors -= new_strikes
@@ -228,7 +238,7 @@ class RetractingElimination(BeliefBackend):
         best = self._best_alive()
         revived = {n for n in (self.struck - new_strikes)
                    if self.logL[n] >= best - self.margin}
-        for n in revived:
+        for n in _in_order(self.names, revived):
             self.ops.append(("revive", n))
             self.n_revives += 1
         self.struck -= revived
@@ -245,7 +255,7 @@ class RetractingElimination(BeliefBackend):
         dist: Posterior = {}
         if self.survivors:
             share = (1.0 - u) / len(self.survivors)
-            for n in self.survivors:
+            for n in _in_order(self.names, self.survivors):
                 dist[n] = share
         dist[self.U] = u
         return dist
@@ -317,7 +327,7 @@ class TombstoneRetraction(BeliefBackend):
         dist: Posterior = {}
         if self.live:
             share = (1.0 - u) / len(self.live)
-            for n in self.live:
+            for n in _in_order(self.names, self.live):
                 dist[n] = share
         dist[self.U] = u
         return dist
@@ -424,7 +434,7 @@ class ModeSwitchedRetraction(BeliefBackend):
         dist: Posterior = {}
         if self.live:
             share = (1.0 - u) / len(self.live)
-            for n in self.live:
+            for n in _in_order(self.names, self.live):
                 dist[n] = share
         dist[self.U] = u
         return dist

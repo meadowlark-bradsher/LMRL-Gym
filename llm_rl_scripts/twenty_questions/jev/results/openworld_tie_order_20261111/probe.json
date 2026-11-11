@@ -1,0 +1,291 @@
+{
+  "cell": {
+    "games": 2000,
+    "modeswitch_tolerance": 3,
+    "noise_seeds": [
+      1,
+      2
+    ],
+    "oracle_noise": 0.1,
+    "seed": 7,
+    "zipf_s": 1.1
+  },
+  "mean_over_noise_seeds": {
+    "hard admission": {
+      "auc": 0.9128411727327806,
+      "false_positive_calls": 324.5,
+      "in_pool_fail_rate": 0.1750269687162891,
+      "mean_questions": 8.774000000000001,
+      "wrong": 0.0
+    },
+    "hard alpha": {
+      "auc": 0.9128411727327806,
+      "false_positive_calls": 324.5,
+      "in_pool_fail_rate": 0.1750269687162891,
+      "mean_questions": 8.8225,
+      "wrong": 0.0
+    },
+    "hard reversed": {
+      "auc": 0.9128411727327806,
+      "false_positive_calls": 324.5,
+      "in_pool_fail_rate": 0.1750269687162891,
+      "mean_questions": 9.08775,
+      "wrong": 0.0
+    },
+    "modeswitch admission": {
+      "auc": 0.926137119297779,
+      "false_positive_calls": 276.5,
+      "in_pool_fail_rate": 0.14913700107874867,
+      "mean_questions": 9.43675,
+      "wrong": 0.0
+    },
+    "modeswitch alpha": {
+      "auc": 0.926137119297779,
+      "false_positive_calls": 276.5,
+      "in_pool_fail_rate": 0.14913700107874867,
+      "mean_questions": 9.48525,
+      "wrong": 0.0
+    },
+    "modeswitch reversed": {
+      "auc": 0.926137119297779,
+      "false_positive_calls": 276.5,
+      "in_pool_fail_rate": 0.14913700107874867,
+      "mean_questions": 9.7505,
+      "wrong": 0.0
+    }
+  },
+  "per_seed": [
+    [
+      [
+        "admission",
+        "hard",
+        1
+      ],
+      {
+        "auc": 0.9104897223330526,
+        "expert_calls": 479,
+        "false_positive_calls": 333,
+        "in_pool": 1854,
+        "in_pool_fail": 333,
+        "in_pool_fail_rate": 0.1796116504854369,
+        "mean_questions": 8.715,
+        "mean_retractions": 0.0,
+        "won": 1521,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "admission",
+        "hard",
+        2
+      ],
+      {
+        "auc": 0.9151926231325087,
+        "expert_calls": 462,
+        "false_positive_calls": 316,
+        "in_pool": 1854,
+        "in_pool_fail": 316,
+        "in_pool_fail_rate": 0.1704422869471413,
+        "mean_questions": 8.833,
+        "mean_retractions": 0.0,
+        "won": 1538,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "admission",
+        "modeswitch",
+        1
+      ],
+      {
+        "auc": 0.9246132021102097,
+        "expert_calls": 428,
+        "false_positive_calls": 282,
+        "in_pool": 1854,
+        "in_pool_fail": 282,
+        "in_pool_fail_rate": 0.15210355987055016,
+        "mean_questions": 9.39,
+        "mean_retractions": 0.675,
+        "won": 1572,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "admission",
+        "modeswitch",
+        2
+      ],
+      {
+        "auc": 0.9276610364853483,
+        "expert_calls": 417,
+        "false_positive_calls": 271,
+        "in_pool": 1854,
+        "in_pool_fail": 271,
+        "in_pool_fail_rate": 0.14617044228694714,
+        "mean_questions": 9.4835,
+        "mean_retractions": 0.6505,
+        "won": 1583,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "alpha",
+        "hard",
+        1
+      ],
+      {
+        "auc": 0.9104897223330526,
+        "expert_calls": 479,
+        "false_positive_calls": 333,
+        "in_pool": 1854,
+        "in_pool_fail": 333,
+        "in_pool_fail_rate": 0.1796116504854369,
+        "mean_questions": 8.761,
+        "mean_retractions": 0.0,
+        "won": 1521,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "alpha",
+        "hard",
+        2
+      ],
+      {
+        "auc": 0.9151926231325087,
+        "expert_calls": 462,
+        "false_positive_calls": 316,
+        "in_pool": 1854,
+        "in_pool_fail": 316,
+        "in_pool_fail_rate": 0.1704422869471413,
+        "mean_questions": 8.884,
+        "mean_retractions": 0.0,
+        "won": 1538,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "alpha",
+        "modeswitch",
+        1
+      ],
+      {
+        "auc": 0.9246132021102097,
+        "expert_calls": 428,
+        "false_positive_calls": 282,
+        "in_pool": 1854,
+        "in_pool_fail": 282,
+        "in_pool_fail_rate": 0.15210355987055016,
+        "mean_questions": 9.436,
+        "mean_retractions": 0.675,
+        "won": 1572,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "alpha",
+        "modeswitch",
+        2
+      ],
+      {
+        "auc": 0.9276610364853483,
+        "expert_calls": 417,
+        "false_positive_calls": 271,
+        "in_pool": 1854,
+        "in_pool_fail": 271,
+        "in_pool_fail_rate": 0.14617044228694714,
+        "mean_questions": 9.5345,
+        "mean_retractions": 0.6505,
+        "won": 1583,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "reversed",
+        "hard",
+        1
+      ],
+      {
+        "auc": 0.9104897223330526,
+        "expert_calls": 479,
+        "false_positive_calls": 333,
+        "in_pool": 1854,
+        "in_pool_fail": 333,
+        "in_pool_fail_rate": 0.1796116504854369,
+        "mean_questions": 9.026,
+        "mean_retractions": 0.0,
+        "won": 1521,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "reversed",
+        "hard",
+        2
+      ],
+      {
+        "auc": 0.9151926231325087,
+        "expert_calls": 462,
+        "false_positive_calls": 316,
+        "in_pool": 1854,
+        "in_pool_fail": 316,
+        "in_pool_fail_rate": 0.1704422869471413,
+        "mean_questions": 9.1495,
+        "mean_retractions": 0.0,
+        "won": 1538,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "reversed",
+        "modeswitch",
+        1
+      ],
+      {
+        "auc": 0.9246132021102097,
+        "expert_calls": 428,
+        "false_positive_calls": 282,
+        "in_pool": 1854,
+        "in_pool_fail": 282,
+        "in_pool_fail_rate": 0.15210355987055016,
+        "mean_questions": 9.701,
+        "mean_retractions": 0.675,
+        "won": 1572,
+        "wrong": 0
+      }
+    ],
+    [
+      [
+        "reversed",
+        "modeswitch",
+        2
+      ],
+      {
+        "auc": 0.9276610364853483,
+        "expert_calls": 417,
+        "false_positive_calls": 271,
+        "in_pool": 1854,
+        "in_pool_fail": 271,
+        "in_pool_fail_rate": 0.14617044228694714,
+        "mean_questions": 9.8,
+        "mean_retractions": 0.6505,
+        "won": 1583,
+        "wrong": 0
+      }
+    ]
+  ],
+  "runtime": {
+    "python": "3.9.21",
+    "pythonhashseed": "0"
+  }
+}
