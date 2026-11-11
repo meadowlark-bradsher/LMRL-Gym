@@ -204,6 +204,7 @@ class Program:
     def rollout(self, b: int) -> dict:
         SB, SA, declined, owed = self.t.full, self.t.full, frozenset(), True
         decisions = []                                   # (question, answered, strict)
+        rounds = []                                      # the round (1..Q) of each decision
         r, phase = self.q, "A"
         while r > 0:
             _, choice = self.step(r, phase, SB, SA, declined, owed)
@@ -219,6 +220,7 @@ class Program:
                         v_ans = self.value(r - 1, "A", SB, self._told(SA, j), declined, True)
                         v_dec = self.value(r - 1, "A", SB, SA, declined | {j}, False)
                         decisions.append((j, bool(choice), v_ans != v_dec))
+                        rounds.append(self.q - r + 1)
                     if choice:
                         SA, owed = self._told(SA, j), True
                     else:
@@ -227,4 +229,5 @@ class Program:
         k_a = self.me.final(SB)[1]
         a_deal = k_a if (k_a is not None and (self.t.acc[k_a] >> b) & 1) else None
         b_deal = self.a_takes(self.s.offer(b, SA))
-        return {"SB": SB, "SA": SA, "a_deal": a_deal, "b_deal": b_deal, "decisions": decisions}
+        return {"SB": SB, "SA": SA, "a_deal": a_deal, "b_deal": b_deal, "decisions": decisions,
+                "decision_rounds": rounds}
