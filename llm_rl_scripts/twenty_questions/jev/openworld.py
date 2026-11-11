@@ -209,13 +209,15 @@ class OWEpisode:
     true_name: str
     true_category: str
     in_pool: bool                # secret was in H_known at the start
-    outcome: str                 # "won" | "expert" | "wrong" | "exhausted"
+    outcome: str                 # "won" | "expert" | "wrong" | "false_confirm"
     n_questions: int
     p_unknown_max: float
     p_unknown_final: float
     fire_turn: Optional[int]     # turn UNKNOWN first crossed the gate, else None
     n_retractions: int = 0       # un-eliminate ops (retract backend); 0 otherwise
     steps: List[OWStep] = field(default_factory=list)
+    n_live_final: int = -1       # live knowns when the budget ran out (survivor
+                                 # backends only; -1 otherwise)
 
 
 def run_openworld_episode(true_h: Hypothesis,
@@ -229,12 +231,20 @@ def run_openworld_episode(true_h: Hypothesis,
                           top_k_guesses: int = 5,
                           backend: str = "soft",
                           margin: float = 2.0, tolerance: int = 1,
-                          observer=None, like_matrix=None) -> OWEpisode:
+                          observer=None, like_matrix=None,
+                          no_repeat: bool = False) -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
     only the belief update. The backend's ``decision()`` chooses, at the gate, to ask
-    another question, guess a known object, or fire the expert on UNKNOWN."""
+    another question, guess a known object, or fire the expert on UNKNOWN.
+
+    ``no_repeat`` (default off, as in ``bed.run_episode``) drops already-asked
+    questions from the EIG candidates. The survivor-set backends hold UNKNOWN's
+    mass at the prior, so with a large prior a question that splits UNKNOWN from
+    the knowns keeps its EIG and is asked again every turn; ``STRESS_ST0.md``
+    measures where that starts. A gate-forced guess (the reinstate test) is
+    never filtered."""
     all_hyps = list(known_hyps) + [UNKNOWN_HYP]
     by_name = {h.name: h for h in all_hyps}
     # Belief uses ``like_matrix`` when supplied (ENV-704: a partially-elicited row for a
@@ -253,6 +263,7 @@ def run_openworld_episode(true_h: Hypothesis,
                            eps, **kwargs)
 
     steps: List[OWStep] = []
+    asked_qids: set = set()
     p_unk_max = bk.distribution().get(UNKNOWN, 0.0)
     fire_turn: Optional[int] = None
     in_pool = true_h.name in guess_by_name
@@ -277,20 +288,28 @@ def run_openworld_episode(true_h: Hypothesis,
             q = guess_by_name[decision[1]]
         else:
             cands = candidate_questions(dist, bank, top_k_guesses=top_k_guesses)
+            if no_repeat:
+                cands = [c for c in cands if c.qid not in asked_qids] or cands
             ranked = rank_questions(cands, dist, by_name, like)
             q = ranked[0][0]
 
         eig = expected_info_gain(q, dist, by_name, like)
         ans = oracle(q, true_h)
+        asked_qids.add(q.qid)
         steps.append(OWStep(
             turn=turn, qid=q.qid, kind=q.kind, eig=eig, answer_yes=ans,
             p_unknown_before=dist.get(UNKNOWN, 0.0), top_name=top_name, top_p=top_p,
         ))
 
         if q.kind == GUESS and ans:
+            # A "yes" ends the game. It is a win only if the named object is the
+            # secret; an answerer that confirms the wrong name (ST-0c, noisy guess
+            # channels) produces a false_confirm. Exact oracles never do.
             return OWEpisode(
                 true_name=true_h.name, true_category=true_h.category,
-                in_pool=in_pool, outcome="won", n_questions=turn,
+                in_pool=in_pool,
+                outcome="won" if q.key == true_h.name else "false_confirm",
+                n_questions=turn,
                 p_unknown_max=p_unk_max, p_unknown_final=dist.get(UNKNOWN, 0.0),
                 fire_turn=fire_turn, n_retractions=getattr(bk, "n_revives", 0),
                 steps=steps,
@@ -321,6 +340,7 @@ def run_openworld_episode(true_h: Hypothesis,
         outcome=outcome, n_questions=max_questions, p_unknown_max=p_unk_max,
         p_unknown_final=dist.get(UNKNOWN, 0.0), fire_turn=fire_turn,
         n_retractions=getattr(bk, "n_revives", 0), steps=steps,
+        n_live_final=len(bk.survivors) if hasattr(bk, "survivors") else -1,
     )
 
 
@@ -393,12 +413,20 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      eps: float = 0.05, oracle_threshold: float = 0.5,
                      oracle_noise: float = 0.0, noise_seed: int = 0,
                      backend: str = "soft", margin: float = 2.0,
-                     tolerance: int = 1, observer_factory=None) -> List[GameRecord]:
+                     tolerance: int = 1, observer_factory=None,
+                     oracle: Optional[OracleModel] = None,
+                     no_repeat: bool = False) -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
     the discovery curve itself is independent of them. ``oracle_noise > 0`` flips
-    attribute answers at that rate (the realistic, noisy-answerer stress)."""
-    if oracle_noise > 0.0:
+    attribute answers at that rate (the realistic, noisy-answerer stress).
+    ``oracle`` replaces the built-in answerer entirely (the ST-0b answer channels,
+    ``stress_oracles.py``); if it has ``begin_game``, that is called before each
+    game."""
+    if oracle is not None:
+        if oracle_noise > 0.0:
+            raise ValueError("pass oracle_noise or oracle, not both")
+    elif oracle_noise > 0.0:
         oracle = noisy_matrix_oracle(matrix, oracle_noise, noise_seed,
                                      threshold=oracle_threshold)
     else:
@@ -407,8 +435,11 @@ def run_accumulation(objects: Sequence[Hypothesis],
     known_set: set = set()
     seen_counts: Dict[str, int] = {}
     records: List[GameRecord] = []
+    begin_game = getattr(oracle, "begin_game", None)
 
     for g, idx in enumerate(stream):
+        if begin_game is not None:
+            begin_game(g)
         true_h = objects[idx]
         n_before = g
         k_before = len(known)
@@ -424,6 +455,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
             backend=backend, margin=margin, tolerance=tolerance, observer=obs,
+            no_repeat=no_repeat,
         )
         if obs is not None:
             obs.finish(ep)

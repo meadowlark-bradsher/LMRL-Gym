@@ -1,0 +1,423 @@
+{
+  "hashseeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "rows": [
+    {
+      "auc": 0.9104897223330526,
+      "backend": "hard",
+      "expert_calls": 479,
+      "false_positive_calls": 333,
+      "hashseed": 0,
+      "in_pool": 1854,
+      "in_pool_fail": 333,
+      "in_pool_fail_rate": 0.1796116504854369,
+      "mean_questions": 8.745,
+      "mean_retractions": 0.0,
+      "noise_seed": 1,
+      "won": 1521,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9151926231325087,
+      "backend": "hard",
+      "expert_calls": 462,
+      "false_positive_calls": 316,
+      "hashseed": 0,
+      "in_pool": 1854,
+      "in_pool_fail": 316,
+      "in_pool_fail_rate": 0.1704422869471413,
+      "mean_questions": 8.8735,
+      "mean_retractions": 0.0,
+      "noise_seed": 2,
+      "won": 1538,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9246132021102097,
+      "backend": "modeswitch",
+      "expert_calls": 428,
+      "false_positive_calls": 282,
+      "hashseed": 0,
+      "in_pool": 1854,
+      "in_pool_fail": 282,
+      "in_pool_fail_rate": 0.15210355987055016,
+      "mean_questions": 9.4275,
+      "mean_retractions": 0.675,
+      "noise_seed": 1,
+      "won": 1572,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9276610364853483,
+      "backend": "modeswitch",
+      "expert_calls": 417,
+      "false_positive_calls": 271,
+      "hashseed": 0,
+      "in_pool": 1854,
+      "in_pool_fail": 271,
+      "in_pool_fail_rate": 0.14617044228694714,
+      "mean_questions": 9.533,
+      "mean_retractions": 0.6505,
+      "noise_seed": 2,
+      "won": 1583,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9104897223330526,
+      "backend": "hard",
+      "expert_calls": 479,
+      "false_positive_calls": 333,
+      "hashseed": 1,
+      "in_pool": 1854,
+      "in_pool_fail": 333,
+      "in_pool_fail_rate": 0.1796116504854369,
+      "mean_questions": 8.8155,
+      "mean_retractions": 0.0,
+      "noise_seed": 1,
+      "won": 1521,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9151926231325087,
+      "backend": "hard",
+      "expert_calls": 462,
+      "false_positive_calls": 316,
+      "hashseed": 1,
+      "in_pool": 1854,
+      "in_pool_fail": 316,
+      "in_pool_fail_rate": 0.1704422869471413,
+      "mean_questions": 8.9385,
+      "mean_retractions": 0.0,
+      "noise_seed": 2,
+      "won": 1538,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9246132021102097,
+      "backend": "modeswitch",
+      "expert_calls": 428,
+      "false_positive_calls": 282,
+      "hashseed": 1,
+      "in_pool": 1854,
+      "in_pool_fail": 282,
+      "in_pool_fail_rate": 0.15210355987055016,
+      "mean_questions": 9.445,
+      "mean_retractions": 0.675,
+      "noise_seed": 1,
+      "won": 1572,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9276610364853483,
+      "backend": "modeswitch",
+      "expert_calls": 417,
+      "false_positive_calls": 271,
+      "hashseed": 1,
+      "in_pool": 1854,
+      "in_pool_fail": 271,
+      "in_pool_fail_rate": 0.14617044228694714,
+      "mean_questions": 9.552,
+      "mean_retractions": 0.6505,
+      "noise_seed": 2,
+      "won": 1583,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9102126464807673,
+      "backend": "hard",
+      "expert_calls": 480,
+      "false_positive_calls": 334,
+      "hashseed": 2,
+      "in_pool": 1854,
+      "in_pool_fail": 334,
+      "in_pool_fail_rate": 0.18015102481121897,
+      "mean_questions": 8.806,
+      "mean_retractions": 0.0,
+      "noise_seed": 1,
+      "won": 1520,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9151926231325087,
+      "backend": "hard",
+      "expert_calls": 462,
+      "false_positive_calls": 316,
+      "hashseed": 2,
+      "in_pool": 1854,
+      "in_pool_fail": 316,
+      "in_pool_fail_rate": 0.1704422869471413,
+      "mean_questions": 8.9415,
+      "mean_retractions": 0.0,
+      "noise_seed": 2,
+      "won": 1538,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9243361262579244,
+      "backend": "modeswitch",
+      "expert_calls": 429,
+      "false_positive_calls": 283,
+      "hashseed": 2,
+      "in_pool": 1854,
+      "in_pool_fail": 283,
+      "in_pool_fail_rate": 0.15264293419633226,
+      "mean_questions": 9.4325,
+      "mean_retractions": 0.677,
+      "noise_seed": 1,
+      "won": 1571,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9279381123376336,
+      "backend": "modeswitch",
+      "expert_calls": 416,
+      "false_positive_calls": 270,
+      "hashseed": 2,
+      "in_pool": 1854,
+      "in_pool_fail": 270,
+      "in_pool_fail_rate": 0.14563106796116504,
+      "mean_questions": 9.546,
+      "mean_retractions": 0.6495,
+      "noise_seed": 2,
+      "won": 1584,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9104897223330526,
+      "backend": "hard",
+      "expert_calls": 479,
+      "false_positive_calls": 333,
+      "hashseed": 3,
+      "in_pool": 1854,
+      "in_pool_fail": 333,
+      "in_pool_fail_rate": 0.1796116504854369,
+      "mean_questions": 8.788,
+      "mean_retractions": 0.0,
+      "noise_seed": 1,
+      "won": 1521,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9151926231325087,
+      "backend": "hard",
+      "expert_calls": 462,
+      "false_positive_calls": 316,
+      "hashseed": 3,
+      "in_pool": 1854,
+      "in_pool_fail": 316,
+      "in_pool_fail_rate": 0.1704422869471413,
+      "mean_questions": 8.901,
+      "mean_retractions": 0.0,
+      "noise_seed": 2,
+      "won": 1538,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9246132021102097,
+      "backend": "modeswitch",
+      "expert_calls": 428,
+      "false_positive_calls": 282,
+      "hashseed": 3,
+      "in_pool": 1854,
+      "in_pool_fail": 282,
+      "in_pool_fail_rate": 0.15210355987055016,
+      "mean_questions": 9.438,
+      "mean_retractions": 0.675,
+      "noise_seed": 1,
+      "won": 1572,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9276610364853483,
+      "backend": "modeswitch",
+      "expert_calls": 417,
+      "false_positive_calls": 271,
+      "hashseed": 3,
+      "in_pool": 1854,
+      "in_pool_fail": 271,
+      "in_pool_fail_rate": 0.14617044228694714,
+      "mean_questions": 9.531,
+      "mean_retractions": 0.6505,
+      "noise_seed": 2,
+      "won": 1583,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9104897223330526,
+      "backend": "hard",
+      "expert_calls": 479,
+      "false_positive_calls": 333,
+      "hashseed": 4,
+      "in_pool": 1854,
+      "in_pool_fail": 333,
+      "in_pool_fail_rate": 0.1796116504854369,
+      "mean_questions": 8.79,
+      "mean_retractions": 0.0,
+      "noise_seed": 1,
+      "won": 1521,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9151926231325087,
+      "backend": "hard",
+      "expert_calls": 462,
+      "false_positive_calls": 316,
+      "hashseed": 4,
+      "in_pool": 1854,
+      "in_pool_fail": 316,
+      "in_pool_fail_rate": 0.1704422869471413,
+      "mean_questions": 8.9135,
+      "mean_retractions": 0.0,
+      "noise_seed": 2,
+      "won": 1538,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9246132021102097,
+      "backend": "modeswitch",
+      "expert_calls": 428,
+      "false_positive_calls": 282,
+      "hashseed": 4,
+      "in_pool": 1854,
+      "in_pool_fail": 282,
+      "in_pool_fail_rate": 0.15210355987055016,
+      "mean_questions": 9.443,
+      "mean_retractions": 0.675,
+      "noise_seed": 1,
+      "won": 1572,
+      "wrong": 0
+    },
+    {
+      "auc": 0.9276610364853483,
+      "backend": "modeswitch",
+      "expert_calls": 417,
+      "false_positive_calls": 271,
+      "hashseed": 4,
+      "in_pool": 1854,
+      "in_pool_fail": 271,
+      "in_pool_fail_rate": 0.14617044228694714,
+      "mean_questions": 9.545,
+      "mean_retractions": 0.6505,
+      "noise_seed": 2,
+      "won": 1583,
+      "wrong": 0
+    }
+  ],
+  "seed_mean_range": {
+    "hard.auc": {
+      "max": 0.9128411727327806,
+      "min": 0.912702634806638,
+      "per_hashseed": [
+        0.9128411727327806,
+        0.9128411727327806,
+        0.912702634806638,
+        0.9128411727327806,
+        0.9128411727327806
+      ]
+    },
+    "hard.false_positive_calls": {
+      "max": 325,
+      "min": 324.5,
+      "per_hashseed": [
+        324.5,
+        324.5,
+        325,
+        324.5,
+        324.5
+      ]
+    },
+    "hard.in_pool_fail_rate": {
+      "max": 0.17529665587918014,
+      "min": 0.1750269687162891,
+      "per_hashseed": [
+        0.1750269687162891,
+        0.1750269687162891,
+        0.17529665587918014,
+        0.1750269687162891,
+        0.1750269687162891
+      ]
+    },
+    "hard.mean_questions": {
+      "max": 8.876999999999999,
+      "min": 8.809249999999999,
+      "per_hashseed": [
+        8.809249999999999,
+        8.876999999999999,
+        8.87375,
+        8.8445,
+        8.85175
+      ]
+    },
+    "hard.wrong": {
+      "max": 0,
+      "min": 0,
+      "per_hashseed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "modeswitch.auc": {
+      "max": 0.926137119297779,
+      "min": 0.926137119297779,
+      "per_hashseed": [
+        0.926137119297779,
+        0.926137119297779,
+        0.926137119297779,
+        0.926137119297779,
+        0.926137119297779
+      ]
+    },
+    "modeswitch.false_positive_calls": {
+      "max": 276.5,
+      "min": 276.5,
+      "per_hashseed": [
+        276.5,
+        276.5,
+        276.5,
+        276.5,
+        276.5
+      ]
+    },
+    "modeswitch.in_pool_fail_rate": {
+      "max": 0.14913700107874867,
+      "min": 0.14913700107874867,
+      "per_hashseed": [
+        0.14913700107874867,
+        0.14913700107874867,
+        0.14913700107874867,
+        0.14913700107874867,
+        0.14913700107874867
+      ]
+    },
+    "modeswitch.mean_questions": {
+      "max": 9.4985,
+      "min": 9.48025,
+      "per_hashseed": [
+        9.48025,
+        9.4985,
+        9.489249999999998,
+        9.4845,
+        9.494
+      ]
+    },
+    "modeswitch.wrong": {
+      "max": 0,
+      "min": 0,
+      "per_hashseed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}
