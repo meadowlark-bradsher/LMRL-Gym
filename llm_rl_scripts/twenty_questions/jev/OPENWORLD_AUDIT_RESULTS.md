@@ -21,10 +21,15 @@ Mean over 2 seed replicates at 10% attribute-flip; run `openworld_audit_20261108
 | backend | discrete | ops/game | log cells/game | replay-exact | verifiable | answer-why | reinstate-local |
 |---|:--:|---:|---:|:--:|:--:|:--:|:--:|
 | soft | no | 0.0 | 1103.6 | — | — | — | — |
-| hard | yes | 107.4 | 107.4 | 1.000 | 1.000 | 1.000 | — |
+| hard | yes | 107.2 | 107.2 | 1.000 | 1.000 | 1.000 | — |
 | retract @4 | yes | 93.9 | 93.9 | 1.000 | 1.000 | 1.000 | **0.000** |
 | tombstone @3 | yes | 28.0 | 28.0 | 1.000 | 1.000 | 1.000 | **1.000** |
-| modeswitch @3 | yes | 108.7 | 108.7 | 1.000 | 1.000 | 1.000 | **1.000** |
+| modeswitch @3 | yes | 108.5 | 108.5 | 1.000 | 1.000 | 1.000 | **1.000** |
+
+Redrawn 2026-11-11 with the survivor sets read in fixed `known_hyps` order, so the
+grid no longer depends on `PYTHONHASHSEED` (`OPENWORLD_RETRACTION_RESULTS.md`, *Redraw*).
+Only ops/game moved: `hard` 107.4 → 107.2, `modeswitch` 108.7 → 108.5, `retract`
+93.92 → 93.91. Every audit fraction is unchanged.
 
 Read against the ENV-702 scorecard, where `soft` had the best in-pool failure (0.039)
 and AUC (0.996): here `soft` scores **nothing**. It keeps no survivor set, so it induces
@@ -115,7 +120,8 @@ Self-test then grid:
 
 ```
 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.audit_openworld --self-test
-PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.audit_openworld --run \
+PYTHONHASHSEED=0 PYTHONPATH=. /opt/miniconda3/envs/LLM_RL/bin/python \
+    -m llm_rl_scripts.twenty_questions.jev.audit_openworld --run \
     --games 2000 --backends soft,hard,retract,tombstone,modeswitch \
     --levels 0.0,0.05,0.10 --noise-seeds 2 --margins 4 --tolerances 3
 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_audit \

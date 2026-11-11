@@ -221,9 +221,9 @@
           "min": 0.006472491909385114
         },
         "mean_questions": {
-          "max": 8.644,
-          "mean": 8.644,
-          "min": 8.644
+          "max": 8.59,
+          "mean": 8.59,
+          "min": 8.59
         },
         "mean_retractions": {
           "max": 0.0,
@@ -248,7 +248,7 @@
           "in_pool": 1854,
           "in_pool_fail": 12,
           "in_pool_fail_rate": 0.006472491909385114,
-          "mean_questions": 8.644,
+          "mean_questions": 8.59,
           "mean_retractions": 0.0,
           "won": 1842,
           "wrong": 0
@@ -279,9 +279,9 @@
           "min": 0.09870550161812297
         },
         "mean_questions": {
-          "max": 8.771,
-          "mean": 8.731000000000002,
-          "min": 8.691
+          "max": 8.7215,
+          "mean": 8.6805,
+          "min": 8.6395
         },
         "mean_retractions": {
           "max": 0.0,
@@ -306,7 +306,7 @@
           "in_pool": 1854,
           "in_pool_fail": 188,
           "in_pool_fail_rate": 0.10140237324703344,
-          "mean_questions": 8.691,
+          "mean_questions": 8.6395,
           "mean_retractions": 0.0,
           "won": 1666,
           "wrong": 0
@@ -318,7 +318,7 @@
           "in_pool": 1854,
           "in_pool_fail": 183,
           "in_pool_fail_rate": 0.09870550161812297,
-          "mean_questions": 8.771,
+          "mean_questions": 8.7215,
           "mean_retractions": 0.0,
           "won": 1671,
           "wrong": 0
@@ -349,9 +349,9 @@
           "min": 0.1704422869471413
         },
         "mean_questions": {
-          "max": 8.881,
-          "mean": 8.81925,
-          "min": 8.7575
+          "max": 8.833,
+          "mean": 8.774000000000001,
+          "min": 8.715
         },
         "mean_retractions": {
           "max": 0.0,
@@ -376,7 +376,7 @@
           "in_pool": 1854,
           "in_pool_fail": 333,
           "in_pool_fail_rate": 0.1796116504854369,
-          "mean_questions": 8.7575,
+          "mean_questions": 8.715,
           "mean_retractions": 0.0,
           "won": 1521,
           "wrong": 0
@@ -388,7 +388,7 @@
           "in_pool": 1854,
           "in_pool_fail": 316,
           "in_pool_fail_rate": 0.1704422869471413,
-          "mean_questions": 8.881,
+          "mean_questions": 8.833,
           "mean_retractions": 0.0,
           "won": 1538,
           "wrong": 0
@@ -419,9 +419,9 @@
           "min": 0.007021650087770626
         },
         "mean_questions": {
-          "max": 8.8125,
-          "mean": 8.8125,
-          "min": 8.8125
+          "max": 8.768,
+          "mean": 8.768,
+          "min": 8.768
         },
         "mean_retractions": {
           "max": 3.4445,
@@ -446,7 +446,7 @@
           "in_pool": 1709,
           "in_pool_fail": 12,
           "in_pool_fail_rate": 0.007021650087770626,
-          "mean_questions": 8.8125,
+          "mean_questions": 8.768,
           "mean_retractions": 3.4445,
           "won": 1697,
           "wrong": 198
@@ -457,39 +457,39 @@
     {
       "agg": {
         "auc": {
-          "max": 0.6753936007031816,
-          "mean": 0.6748066817745157,
-          "min": 0.6742197628458498
+          "max": 0.6742197628458498,
+          "mean": 0.6725699224418488,
+          "min": 0.6709200820378477
         },
         "expert_calls": {
           "max": 211,
-          "mean": 211.0,
-          "min": 211
+          "mean": 207.5,
+          "min": 204
         },
         "false_positive_calls": {
           "max": 112,
-          "mean": 110.5,
-          "min": 109
+          "mean": 108.0,
+          "min": 104
         },
         "in_pool_fail_rate": {
           "max": 0.06492753623188406,
-          "mean": 0.06421896442079192,
-          "min": 0.06351039260969978
+          "mean": 0.0627755464069351,
+          "min": 0.06062355658198614
         },
         "mean_questions": {
-          "max": 9.033,
-          "mean": 9.0115,
-          "min": 8.99
+          "max": 8.9925,
+          "mean": 8.9755,
+          "min": 8.9585
         },
         "mean_retractions": {
-          "max": 4.5615,
-          "mean": 4.141249999999999,
+          "max": 4.6745,
+          "mean": 4.19775,
           "min": 3.721
         },
         "wrong": {
           "max": 176,
-          "mean": 171.5,
-          "min": 167
+          "mean": 172.5,
+          "min": 169
         }
       },
       "backend": "retract",
@@ -498,16 +498,16 @@
       "oracle_noise": 0.05,
       "per_seed": [
         {
-          "auc": 0.6753936007031816,
-          "expert_calls": 211,
-          "false_positive_calls": 109,
+          "auc": 0.6709200820378477,
+          "expert_calls": 204,
+          "false_positive_calls": 104,
           "in_pool": 1732,
-          "in_pool_fail": 110,
-          "in_pool_fail_rate": 0.06351039260969978,
-          "mean_questions": 8.99,
-          "mean_retractions": 4.5615,
-          "won": 1622,
-          "wrong": 167
+          "in_pool_fail": 105,
+          "in_pool_fail_rate": 0.06062355658198614,
+          "mean_questions": 8.9585,
+          "mean_retractions": 4.6745,
+          "won": 1627,
+          "wrong": 169
         },
         {
           "auc": 0.6742197628458498,
@@ -516,7 +516,7 @@
           "in_pool": 1725,
           "in_pool_fail": 112,
           "in_pool_fail_rate": 0.06492753623188406,
-          "mean_questions": 9.033,
+          "mean_questions": 8.9925,
           "mean_retractions": 3.721,
           "won": 1613,
           "wrong": 176
@@ -527,38 +527,38 @@
     {
       "agg": {
         "auc": {
-          "max": 0.7059514941947476,
-          "mean": 0.6999013896184125,
-          "min": 0.6938512850420774
+          "max": 0.6938512850420774,
+          "mean": 0.6868143506621547,
+          "min": 0.679777416282232
         },
         "expert_calls": {
           "max": 304,
-          "mean": 303.0,
-          "min": 302
+          "mean": 297.0,
+          "min": 290
         },
         "false_positive_calls": {
           "max": 195,
-          "mean": 192.0,
-          "min": 189
+          "mean": 189.5,
+          "min": 184
         },
         "in_pool_fail_rate": {
           "max": 0.11269208878770631,
-          "mean": 0.11066279682381314,
-          "min": 0.10863350485991996
+          "mean": 0.10929395509791726,
+          "min": 0.10589582140812821
         },
         "mean_questions": {
-          "max": 9.207,
-          "mean": 9.157,
-          "min": 9.107
+          "max": 9.1905,
+          "mean": 9.18,
+          "min": 9.1695
         },
         "mean_retractions": {
-          "max": 4.4365,
-          "mean": 4.22775,
-          "min": 4.019
+          "max": 4.671,
+          "mean": 4.55375,
+          "min": 4.4365
         },
         "wrong": {
-          "max": 139,
-          "mean": 138.0,
+          "max": 148,
+          "mean": 142.5,
           "min": 137
         }
       },
@@ -574,22 +574,22 @@
           "in_pool": 1757,
           "in_pool_fail": 198,
           "in_pool_fail_rate": 0.11269208878770631,
-          "mean_questions": 9.207,
+          "mean_questions": 9.1695,
           "mean_retractions": 4.4365,
           "won": 1559,
           "wrong": 137
         },
         {
-          "auc": 0.7059514941947476,
-          "expert_calls": 302,
-          "false_positive_calls": 189,
-          "in_pool": 1749,
-          "in_pool_fail": 190,
-          "in_pool_fail_rate": 0.10863350485991996,
-          "mean_questions": 9.107,
-          "mean_retractions": 4.019,
-          "won": 1559,
-          "wrong": 139
+          "auc": 0.679777416282232,
+          "expert_calls": 290,
+          "false_positive_calls": 184,
+          "in_pool": 1747,
+          "in_pool_fail": 185,
+          "in_pool_fail_rate": 0.10589582140812821,
+          "mean_questions": 9.1905,
+          "mean_retractions": 4.671,
+          "won": 1562,
+          "wrong": 148
         }
       ],
       "tolerance": null
@@ -617,9 +617,9 @@
           "min": 0.007159904534606206
         },
         "mean_questions": {
-          "max": 8.846,
-          "mean": 8.846,
-          "min": 8.846
+          "max": 8.8415,
+          "mean": 8.8415,
+          "min": 8.8415
         },
         "mean_retractions": {
           "max": 5.7025,
@@ -644,7 +644,7 @@
           "in_pool": 1676,
           "in_pool_fail": 12,
           "in_pool_fail_rate": 0.007159904534606206,
-          "mean_questions": 8.846,
+          "mean_questions": 8.8415,
           "mean_retractions": 5.7025,
           "won": 1664,
           "wrong": 238
@@ -655,39 +655,39 @@
     {
       "agg": {
         "auc": {
-          "max": 0.6491358361984874,
-          "mean": 0.6476316671682605,
-          "min": 0.6461274981380337
+          "max": 0.6586793623381195,
+          "mean": 0.6539075992683034,
+          "min": 0.6491358361984874
         },
         "expert_calls": {
           "max": 209,
-          "mean": 204.0,
-          "min": 199
+          "mean": 203.0,
+          "min": 197
         },
         "false_positive_calls": {
           "max": 116,
-          "mean": 110.0,
-          "min": 104
+          "mean": 107.5,
+          "min": 99
         },
         "in_pool_fail_rate": {
           "max": 0.06851742468989959,
-          "mean": 0.06491908970344036,
-          "min": 0.06132075471698113
+          "mean": 0.06342783432491444,
+          "min": 0.05833824395992929
         },
         "mean_questions": {
-          "max": 9.1825,
-          "mean": 9.17175,
-          "min": 9.161
+          "max": 9.1605,
+          "mean": 9.149000000000001,
+          "min": 9.1375
         },
         "mean_retractions": {
-          "max": 6.1725,
-          "mean": 6.02275,
+          "max": 5.9245,
+          "mean": 5.89875,
           "min": 5.873
         },
         "wrong": {
           "max": 214,
-          "mean": 211.5,
-          "min": 209
+          "mean": 209.5,
+          "min": 205
         }
       },
       "backend": "retract",
@@ -696,16 +696,16 @@
       "oracle_noise": 0.05,
       "per_seed": [
         {
-          "auc": 0.6461274981380337,
-          "expert_calls": 199,
-          "false_positive_calls": 104,
-          "in_pool": 1696,
-          "in_pool_fail": 104,
-          "in_pool_fail_rate": 0.06132075471698113,
-          "mean_questions": 9.161,
-          "mean_retractions": 6.1725,
-          "won": 1592,
-          "wrong": 209
+          "auc": 0.6586793623381195,
+          "expert_calls": 197,
+          "false_positive_calls": 99,
+          "in_pool": 1697,
+          "in_pool_fail": 99,
+          "in_pool_fail_rate": 0.05833824395992929,
+          "mean_questions": 9.1375,
+          "mean_retractions": 5.9245,
+          "won": 1598,
+          "wrong": 205
         },
         {
           "auc": 0.6491358361984874,
@@ -714,7 +714,7 @@
           "in_pool": 1693,
           "in_pool_fail": 116,
           "in_pool_fail_rate": 0.06851742468989959,
-          "mean_questions": 9.1825,
+          "mean_questions": 9.1605,
           "mean_retractions": 5.873,
           "won": 1577,
           "wrong": 214
@@ -745,9 +745,9 @@
           "min": 0.10813953488372093
         },
         "mean_questions": {
-          "max": 9.505,
-          "mean": 9.3405,
-          "min": 9.176
+          "max": 9.4995,
+          "mean": 9.31925,
+          "min": 9.139
         },
         "mean_retractions": {
           "max": 6.7425,
@@ -772,7 +772,7 @@
           "in_pool": 1720,
           "in_pool_fail": 186,
           "in_pool_fail_rate": 0.10813953488372093,
-          "mean_questions": 9.505,
+          "mean_questions": 9.4995,
           "mean_retractions": 6.7425,
           "won": 1534,
           "wrong": 174
@@ -784,7 +784,7 @@
           "in_pool": 1727,
           "in_pool_fail": 193,
           "in_pool_fail_rate": 0.1117544875506659,
-          "mean_questions": 9.176,
+          "mean_questions": 9.139,
           "mean_retractions": 5.4885,
           "won": 1534,
           "wrong": 172
@@ -874,12 +874,12 @@
         },
         "mean_questions": {
           "max": 10.2465,
-          "mean": 9.9665,
-          "min": 9.6865
+          "mean": 9.95225,
+          "min": 9.658
         },
         "mean_retractions": {
-          "max": 23.9625,
-          "mean": 18.835749999999997,
+          "max": 23.9465,
+          "mean": 18.82775,
           "min": 13.709
         },
         "wrong": {
@@ -912,8 +912,8 @@
           "in_pool": 1675,
           "in_pool_fail": 35,
           "in_pool_fail_rate": 0.020895522388059702,
-          "mean_questions": 9.6865,
-          "mean_retractions": 23.9625,
+          "mean_questions": 9.658,
+          "mean_retractions": 23.9465,
           "won": 1640,
           "wrong": 261
         }
@@ -923,39 +923,39 @@
     {
       "agg": {
         "auc": {
-          "max": 0.587134723097045,
-          "mean": 0.562910155398,
+          "max": 0.5876950061648981,
+          "mean": 0.5631902969319266,
           "min": 0.538685587698955
         },
         "expert_calls": {
-          "max": 104,
-          "mean": 94.0,
+          "max": 103,
+          "mean": 93.5,
           "min": 84
         },
         "false_positive_calls": {
           "max": 27,
-          "mean": 25.0,
-          "min": 23
+          "mean": 24.5,
+          "min": 22
         },
         "in_pool_fail_rate": {
-          "max": 0.028863499699338546,
-          "mean": 0.027799031835665455,
+          "max": 0.027059530968129887,
+          "mean": 0.026897047470061122,
           "min": 0.02673456397199236
         },
         "mean_questions": {
-          "max": 10.0905,
-          "mean": 10.04225,
+          "max": 10.0945,
+          "mean": 10.04425,
           "min": 9.994
         },
         "mean_retractions": {
-          "max": 22.74,
-          "mean": 18.8985,
+          "max": 22.8315,
+          "mean": 18.94425,
           "min": 15.057
         },
         "wrong": {
           "max": 387,
-          "mean": 334.0,
-          "min": 281
+          "mean": 333.0,
+          "min": 279
         }
       },
       "backend": "retract",
@@ -976,16 +976,16 @@
           "wrong": 387
         },
         {
-          "auc": 0.587134723097045,
-          "expert_calls": 104,
-          "false_positive_calls": 23,
+          "auc": 0.5876950061648981,
+          "expert_calls": 103,
+          "false_positive_calls": 22,
           "in_pool": 1663,
-          "in_pool_fail": 48,
-          "in_pool_fail_rate": 0.028863499699338546,
-          "mean_questions": 10.0905,
-          "mean_retractions": 22.74,
-          "won": 1615,
-          "wrong": 281
+          "in_pool_fail": 45,
+          "in_pool_fail_rate": 0.027059530968129887,
+          "mean_questions": 10.0945,
+          "mean_retractions": 22.8315,
+          "won": 1618,
+          "wrong": 279
         }
       ],
       "tolerance": null
@@ -1013,9 +1013,9 @@
           "min": 0.004962779156327543
         },
         "mean_questions": {
-          "max": 9.5345,
-          "mean": 9.5345,
-          "min": 9.5345
+          "max": 9.511,
+          "mean": 9.511,
+          "min": 9.511
         },
         "mean_retractions": {
           "max": 2.1495,
@@ -1040,7 +1040,7 @@
           "in_pool": 1612,
           "in_pool_fail": 8,
           "in_pool_fail_rate": 0.004962779156327543,
-          "mean_questions": 9.5345,
+          "mean_questions": 9.511,
           "mean_retractions": 2.1495,
           "won": 1604,
           "wrong": 311
@@ -1071,9 +1071,9 @@
           "min": 0.04667081518357187
         },
         "mean_questions": {
-          "max": 10.059,
-          "mean": 10.0485,
-          "min": 10.038
+          "max": 10.058,
+          "mean": 10.05,
+          "min": 10.042
         },
         "mean_retractions": {
           "max": 2.8185,
@@ -1098,7 +1098,7 @@
           "in_pool": 1614,
           "in_pool_fail": 79,
           "in_pool_fail_rate": 0.04894671623296159,
-          "mean_questions": 10.038,
+          "mean_questions": 10.042,
           "mean_retractions": 2.7315,
           "won": 1535,
           "wrong": 377
@@ -1110,7 +1110,7 @@
           "in_pool": 1607,
           "in_pool_fail": 75,
           "in_pool_fail_rate": 0.04667081518357187,
-          "mean_questions": 10.059,
+          "mean_questions": 10.058,
           "mean_retractions": 2.8185,
           "won": 1532,
           "wrong": 382
@@ -1141,9 +1141,9 @@
           "min": 0.09023024268823895
         },
         "mean_questions": {
-          "max": 10.545,
-          "mean": 10.499500000000001,
-          "min": 10.454
+          "max": 10.5215,
+          "mean": 10.489,
+          "min": 10.4565
         },
         "mean_retractions": {
           "max": 3.3825,
@@ -1168,7 +1168,7 @@
           "in_pool": 1616,
           "in_pool_fail": 147,
           "in_pool_fail_rate": 0.09096534653465346,
-          "mean_questions": 10.454,
+          "mean_questions": 10.4565,
           "mean_retractions": 3.334,
           "won": 1469,
           "wrong": 442
@@ -1180,7 +1180,7 @@
           "in_pool": 1607,
           "in_pool_fail": 145,
           "in_pool_fail_rate": 0.09023024268823895,
-          "mean_questions": 10.545,
+          "mean_questions": 10.5215,
           "mean_retractions": 3.3825,
           "won": 1462,
           "wrong": 453
@@ -1409,9 +1409,9 @@
           "min": 0.006472491909385114
         },
         "mean_questions": {
-          "max": 8.7075,
-          "mean": 8.7075,
-          "min": 8.7075
+          "max": 8.6605,
+          "mean": 8.6605,
+          "min": 8.6605
         },
         "mean_retractions": {
           "max": 0.0705,
@@ -1436,7 +1436,7 @@
           "in_pool": 1854,
           "in_pool_fail": 12,
           "in_pool_fail_rate": 0.006472491909385114,
-          "mean_questions": 8.7075,
+          "mean_questions": 8.6605,
           "mean_retractions": 0.0705,
           "won": 1842,
           "wrong": 0
@@ -1467,9 +1467,9 @@
           "min": 0.09546925566343042
         },
         "mean_questions": {
-          "max": 8.919,
-          "mean": 8.8825,
-          "min": 8.846
+          "max": 8.8775,
+          "mean": 8.838249999999999,
+          "min": 8.799
         },
         "mean_retractions": {
           "max": 0.1595,
@@ -1494,7 +1494,7 @@
           "in_pool": 1854,
           "in_pool_fail": 182,
           "in_pool_fail_rate": 0.09816612729234088,
-          "mean_questions": 8.846,
+          "mean_questions": 8.799,
           "mean_retractions": 0.1595,
           "won": 1672,
           "wrong": 0
@@ -1506,7 +1506,7 @@
           "in_pool": 1854,
           "in_pool_fail": 177,
           "in_pool_fail_rate": 0.09546925566343042,
-          "mean_questions": 8.919,
+          "mean_questions": 8.8775,
           "mean_retractions": 0.156,
           "won": 1677,
           "wrong": 0
@@ -1537,9 +1537,9 @@
           "min": 0.16882416396979505
         },
         "mean_questions": {
-          "max": 9.0975,
-          "mean": 9.0395,
-          "min": 8.9815
+          "max": 9.0565,
+          "mean": 9.00175,
+          "min": 8.947
         },
         "mean_retractions": {
           "max": 0.232,
@@ -1564,7 +1564,7 @@
           "in_pool": 1854,
           "in_pool_fail": 327,
           "in_pool_fail_rate": 0.17637540453074432,
-          "mean_questions": 8.9815,
+          "mean_questions": 8.947,
           "mean_retractions": 0.232,
           "won": 1527,
           "wrong": 0
@@ -1576,7 +1576,7 @@
           "in_pool": 1854,
           "in_pool_fail": 313,
           "in_pool_fail_rate": 0.16882416396979505,
-          "mean_questions": 9.0975,
+          "mean_questions": 9.0565,
           "mean_retractions": 0.2235,
           "won": 1541,
           "wrong": 0
@@ -1607,9 +1607,9 @@
           "min": 0.006472491909385114
         },
         "mean_questions": {
-          "max": 8.8465,
-          "mean": 8.8465,
-          "min": 8.8465
+          "max": 8.7995,
+          "mean": 8.7995,
+          "min": 8.7995
         },
         "mean_retractions": {
           "max": 0.2095,
@@ -1634,7 +1634,7 @@
           "in_pool": 1854,
           "in_pool_fail": 12,
           "in_pool_fail_rate": 0.006472491909385114,
-          "mean_questions": 8.8465,
+          "mean_questions": 8.7995,
           "mean_retractions": 0.2095,
           "won": 1842,
           "wrong": 0
@@ -1665,9 +1665,9 @@
           "min": 0.08036677454153182
         },
         "mean_questions": {
-          "max": 9.212,
-          "mean": 9.181999999999999,
-          "min": 9.152
+          "max": 9.1705,
+          "mean": 9.13775,
+          "min": 9.105
         },
         "mean_retractions": {
           "max": 0.4655,
@@ -1692,7 +1692,7 @@
           "in_pool": 1854,
           "in_pool_fail": 162,
           "in_pool_fail_rate": 0.08737864077669903,
-          "mean_questions": 9.152,
+          "mean_questions": 9.105,
           "mean_retractions": 0.4655,
           "won": 1692,
           "wrong": 0
@@ -1704,7 +1704,7 @@
           "in_pool": 1854,
           "in_pool_fail": 149,
           "in_pool_fail_rate": 0.08036677454153182,
-          "mean_questions": 9.212,
+          "mean_questions": 9.1705,
           "mean_retractions": 0.449,
           "won": 1705,
           "wrong": 0
@@ -1735,9 +1735,9 @@
           "min": 0.14617044228694714
         },
         "mean_questions": {
-          "max": 9.5245,
-          "mean": 9.474499999999999,
-          "min": 9.4245
+          "max": 9.4835,
+          "mean": 9.43675,
+          "min": 9.39
         },
         "mean_retractions": {
           "max": 0.675,
@@ -1762,7 +1762,7 @@
           "in_pool": 1854,
           "in_pool_fail": 282,
           "in_pool_fail_rate": 0.15210355987055016,
-          "mean_questions": 9.4245,
+          "mean_questions": 9.39,
           "mean_retractions": 0.675,
           "won": 1572,
           "wrong": 0
@@ -1774,7 +1774,7 @@
           "in_pool": 1854,
           "in_pool_fail": 271,
           "in_pool_fail_rate": 0.14617044228694714,
-          "mean_questions": 9.5245,
+          "mean_questions": 9.4835,
           "mean_retractions": 0.6505,
           "won": 1583,
           "wrong": 0
@@ -1813,10 +1813,14 @@
     ],
     "zipf_s": 1.1
   },
-  "created": "20261108_213525",
+  "created": "20261111_165936",
   "pitman_yor_fit": {
     "sigma": 0.2,
     "theta": 20.0
+  },
+  "runtime": {
+    "python": "3.9.21",
+    "pythonhashseed": "0"
   },
   "schema": "twenty_questions_openworld_retraction_v1"
 }

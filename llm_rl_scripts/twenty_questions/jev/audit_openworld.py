@@ -33,6 +33,7 @@ import datetime as _dt
 import hashlib
 import json
 import os
+import sys
 from typing import Dict, List, Optional, Sequence
 
 from .bed import Hypothesis, Question, load_hypotheses
@@ -275,6 +276,9 @@ def run_audit(matrix_path: str, games: int, zipf_s: float, seed: int,
     payload = {
         "schema": "twenty_questions_openworld_audit_v1",
         "created": stamp,
+        # Interpreter + hash seed: float sums differ across Pythons (3.9 is the record).
+        "runtime": {"python": sys.version.split()[0],
+                    "pythonhashseed": os.environ.get("PYTHONHASHSEED")},
         "config": {"matrix": os.path.basename(matrix_path), "games": games,
                    "zipf_s": zipf_s, "seed": seed, "confidence": confidence,
                    "eps": eps, "kill": kill, "backends": backends, "levels": levels,

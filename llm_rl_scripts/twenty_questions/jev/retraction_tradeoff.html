@@ -134,7 +134,7 @@
         <span><span class="sw" style="border-color:var(--accent);border-top-style:dashed"></span>retract (cautious)</span>
         <span><span class="sw" style="border-color:var(--accent)"></span>retract (generous)</span>
       </div>
-      <svg viewBox="0 0 640 290" role="img" aria-label="In-pool failure rate versus answer-noise for four methods; hard rises steeply to 0.18, soft stays near 0.045, retract between">
+      <svg viewBox="0 0 640 290" role="img" aria-label="In-pool failure rate versus answer-noise for four methods; hard rises steeply to 0.18, soft stays near 0.04, retract between">
         <line class="ax" x1="64" y1="250" x2="600" y2="250"/>
         <line class="ax" x1="64" y1="30" x2="64" y2="250"/>
         <line class="grid" x1="64" y1="195" x2="600" y2="195"/>
@@ -150,14 +150,14 @@
         <text class="tk" x="600" y="266" text-anchor="middle">10%</text>
         <text class="tt" x="332" y="284" text-anchor="middle">answers flipped</text>
         <text class="tt" x="18" y="140" text-anchor="middle" transform="rotate(-90 18 140)">in-pool failure</text>
-        <polyline fill="none" stroke="var(--soft)" stroke-width="2.6" stroke-linejoin="round" points="64,250 332,223.6 600,200.5"/>
-        <polyline fill="none" stroke="var(--hard)" stroke-width="2.6" stroke-linejoin="round" points="64,243.4 332,138.9 600,52"/>
-        <polyline fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round" points="64,242.3 332,182.9 600,125.7"/>
-        <polyline fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linejoin="round" points="64,242.3 332,229.1 600,220.3"/>
-        <circle cx="600" cy="52" r="3.4" fill="var(--hard)"/>
-        <circle cx="600" cy="220.3" r="3.4" fill="var(--accent)"/>
-        <circle cx="600" cy="200.5" r="3.4" fill="var(--soft)"/>
-        <text class="tk" x="592" y="48" text-anchor="end" fill="var(--hard)">.18</text>
+        <polyline fill="none" stroke="var(--soft)" stroke-width="2.6" stroke-linejoin="round" points="64,250 332,224.8 600,206.6"/>
+        <polyline fill="none" stroke="var(--hard)" stroke-width="2.6" stroke-linejoin="round" points="64,242.9 332,139.9 600,57.5"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round" points="64,242.3 332,180.9 600,129.8"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linejoin="round" points="64,242.3 332,228.3 600,220.4"/>
+        <circle cx="600" cy="57.5" r="3.4" fill="var(--hard)"/>
+        <circle cx="600" cy="220.4" r="3.4" fill="var(--accent)"/>
+        <circle cx="600" cy="206.6" r="3.4" fill="var(--soft)"/>
+        <text class="tk" x="592" y="53.5" text-anchor="end" fill="var(--hard)">.18</text>
       </svg>
       <figcaption>Lower is better. At 10% noise <span class="mono">hard</span> fails on ~18% of findable secrets; generous <span class="mono">retract</span> recovers almost all of that, back down near <span class="mono">soft</span>. So far, retraction looks like a free win.</figcaption>
     </figure>
@@ -174,11 +174,11 @@
         <svg viewBox="0 0 340 250" role="img" aria-label="In-pool failures at 10 percent noise fall as the take-back dial widens">
           <line class="ax" x1="54" y1="210" x2="320" y2="210"/>
           <line class="ax" x1="54" y1="26" x2="54" y2="210"/>
-          <rect x="78" y="91.3" width="48" height="118.7" rx="2" fill="var(--soft)"/>
-          <rect x="155" y="96.6" width="48" height="113.4" rx="2" fill="var(--soft)"/>
-          <rect x="232" y="181.6" width="48" height="28.4" rx="2" fill="var(--soft)"/>
-          <text class="tk" x="102" y="86" text-anchor="middle">.113</text>
-          <text class="tk" x="179" y="91" text-anchor="middle">.108</text>
+          <rect x="78" y="95.2" width="48" height="114.8" rx="2" fill="var(--soft)"/>
+          <rect x="155" y="94.5" width="48" height="115.5" rx="2" fill="var(--soft)"/>
+          <rect x="232" y="181.7" width="48" height="28.3" rx="2" fill="var(--soft)"/>
+          <text class="tk" x="102" y="90" text-anchor="middle">.109</text>
+          <text class="tk" x="179" y="89" text-anchor="middle">.110</text>
           <text class="tk" x="256" y="176" text-anchor="middle">.027</text>
           <text class="tk" x="102" y="224" text-anchor="middle">1</text>
           <text class="tk" x="179" y="224" text-anchor="middle">2</text>
@@ -276,7 +276,7 @@
         <circle cx="180" cy="42" r="5" fill="var(--soft)"/><text x="190" y="46" style="fill:var(--fg);font-family:var(--body);font-size:11px">soft</text>
         <circle cx="585" cy="73" r="5" fill="var(--hard)"/><text x="593" y="76" style="fill:var(--fg);font-family:var(--body);font-size:11px">hard</text>
         <circle cx="508" cy="68" r="6.5" fill="#1a9988" stroke="var(--surface)" stroke-width="1.5"/><text x="508" y="55" text-anchor="middle" style="fill:#1a9988;font-family:var(--body);font-size:11px;font-weight:600">mode switch</text>
-        <circle cx="147" cy="207" r="5" fill="#3a46a6"/><text x="157" y="210" style="fill:var(--fg);font-family:var(--body);font-size:11px">scalar take-back</text>
+        <circle cx="144" cy="207" r="5" fill="#3a46a6"/><text x="154" y="210" style="fill:var(--fg);font-family:var(--body);font-size:11px">scalar take-back</text>
         <circle cx="91" cy="231" r="5" fill="#b07a16"/><text x="101" y="243" style="fill:var(--fg);font-family:var(--body);font-size:11px">naive structured</text>
       </svg>
       <figcaption><strong>Recovery vs. the detector, at 10% noise.</strong> Up-and-left is better: recover more in-pool losses without losing the ability to spot something new. The scalar and naive-structured take-backs sink into the blind band; only the mode switch recovers while staying up with the safe backends. <span style="font-family:var(--mono);font-size:.72rem;opacity:.8">analyze_retraction.py · openworld_retraction_20261108_213525</span></figcaption>
@@ -288,7 +288,7 @@
 
   <footer>
     <div class="col">
-      <p>From the open-world Twenty Questions retraction study — five belief backends through one loop and one noise grid. The line charts show the measured shape of the trade-off; the final scatter is the seed-replicated result (run <code>openworld_retraction_20261108_213525</code>). The stream, backends, and grid all regenerate from committed code: <code>openworld_backends.py</code>, <code>eval_openworld.py --retraction-grid</code>, <code>analyze_retraction.py</code>.</p>
+      <p>From the open-world Twenty Questions retraction study — five belief backends through one loop and one noise grid. Every chart is drawn from run <code>openworld_retraction_20261108_213525</code> (mean over 2 noise seeds; survivor ties broken in fixed <code>known_hyps</code> order, so the run does not depend on Python's hash seed). The stream, backends, and grid all regenerate from committed code: <code>openworld_backends.py</code>, <code>eval_openworld.py --retraction-grid</code>, <code>analyze_retraction.py</code>.</p>
     </div>
   </footer>
 </div>

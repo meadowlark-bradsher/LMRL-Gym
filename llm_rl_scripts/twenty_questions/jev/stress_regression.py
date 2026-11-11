@@ -1,4 +1,4 @@
-"""ST-0 regression gate: the stress-test infrastructure must not move any result.
+"""Regression gate: changes to the open-world loop must not move any committed result.
 
     # both gates (~10 min on 12 cores); run under the LLM_RL env (Python 3.9):
     PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.stress_regression
@@ -9,18 +9,21 @@
 
 Two gates, both offline:
 
-* **committed** -- the hash-independent part of the committed record must
-  reproduce exactly: every game record of the §3.11 clean arm
-  (``results/openworld_20261108_161009/records.json``) and every per-seed
-  metric of the ``soft`` cells of the retraction grid
-  (``results/openworld_retraction_20261108_213525``). Needs Python 3.9 (the
-  ``LLM_RL`` env); 3.12's compensated float ``sum`` moves ``soft`` by an ulp.
+* **committed** -- the committed record must reproduce exactly: every game
+  record of the §3.11 clean arm (``results/openworld_20261108_161009/records.json``)
+  and every per-seed metric of every cell of the retraction grid
+  (``results/openworld_retraction_20261108_213525``), all five backends. Needs
+  Python 3.9 (the ``LLM_RL`` env); 3.12's compensated float ``sum`` moves
+  ``soft`` by an ulp. The survivor-set backends iterate in ``known_hyps`` order,
+  so the result must not depend on ``PYTHONHASHSEED``; run the gate under two
+  seeds to check that. (Before that fix their committed values were one draw
+  over Python's string-hash order; the grid was redrawn under the fixed order.)
+  ``--committed-soft-only`` restricts the grid to the ``soft`` cells.
 * **ab** -- every cell (clean arm plus all 27 retraction cells, every noise
   seed) is played twice, by the code at ``--ab-ref`` and by the working tree,
-  under the same ``PYTHONHASHSEED``, and every game record must match. This is
-  the bit-for-bit check for the survivor-set backends, whose committed values
-  are one draw over Python's string-hash order and cannot be reproduced exactly
-  (``STRESS_ST0.md``).
+  under the same ``PYTHONHASHSEED``, and every game record must match. Against
+  a ref older than the fixed-order backends it fails on the survivor-set cells
+  by design.
 
 Exit status is non-zero on any mismatch.
 """
@@ -125,7 +128,7 @@ def _play(job: Tuple[str, dict]) -> Tuple[str, List[dict]]:
     return label, [dataclasses.asdict(r) for r in records]
 
 
-def gate_committed(workers: int) -> List[str]:
+def gate_committed(workers: int, soft_only: bool = False) -> List[str]:
     if sys.version_info[:2] != (3, 9):
         print("  warning: Python {}.{} -- the committed runs were made under 3.9 "
               "(LLM_RL env); soft will drift by an ulp".format(*sys.version_info[:2]))
@@ -133,7 +136,7 @@ def gate_committed(workers: int) -> List[str]:
         clean_committed = json.load(f)
     with open(os.path.join(RETRACTION_DIR, "summary.json")) as f:
         cells = json.load(f)["cells"]
-    jobs = _jobs(soft_only=True)
+    jobs = _jobs(soft_only=soft_only)
     with Pool(workers) as pool:
         results = pool.map(_play, jobs)
     errs: List[str] = []
@@ -210,6 +213,7 @@ def gate_ab(ref: str, workers: int) -> List[str]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--committed-only", action="store_true")
+    ap.add_argument("--committed-soft-only", action="store_true")
     ap.add_argument("--ab-only", action="store_true")
     ap.add_argument("--ab-ref", default="origin/main")
     ap.add_argument("--dump", default=None, help=argparse.SUPPRESS)
@@ -220,8 +224,10 @@ def main() -> None:
         return
     errs: List[str] = []
     if not args.ab_only:
-        print("[gate committed] clean arm + soft cells vs the committed record")
-        errs += gate_committed(args.workers)
+        print("[gate committed] clean arm + {} cells vs the committed record, "
+              "PYTHONHASHSEED={}".format("soft" if args.committed_soft_only else "all",
+                                         os.environ.get("PYTHONHASHSEED")))
+        errs += gate_committed(args.workers, soft_only=args.committed_soft_only)
     if not args.committed_only:
         print("[gate ab] every cell, {} vs working tree, PYTHONHASHSEED={}".format(
             args.ab_ref, os.environ.get("PYTHONHASHSEED")))
