@@ -1,8 +1,8 @@
 # `modeswitch` budget guard — design and gates
 
-**Status (2026-11-12):** built; gate criteria fixed below before any gate run.
-Not adopted: `modeswitch` (P0a) is unchanged, and the guard is a separate backend,
-`modeswitch_guard`.
+**Status (2026-11-12):** built; gate criteria fixed below before any gate run (commit
+5ab0e9d); gates run and **all pass** (see *Results*). Not adopted: `modeswitch` (P0a)
+is unchanged, and the guard is a separate backend, `modeswitch_guard`.
 
 ## Why
 
@@ -51,3 +51,89 @@ games changed, in-pool and novel.
 
 Not decided here: whether `modeswitch_guard` replaces `modeswitch` as P0a. That is a
 production decision for after the gates.
+
+## Results
+
+Run `results/stress_reinstate_guard_20261112/` (`stress_guard_gate`, 6 workers). Gate
+verdicts are in `gates.json`; every number below is in `summary.json` (rebuild with
+`stress_guard_gate --out <dir> --summarize`), `trace.json`, `retraction.json` or
+`compare.json` of that directory.
+
+### Gates
+
+| gate | measured | verdict |
+|---|---|---|
+| G1(a) | 6/6 unguarded retraction cells equal the committed run in every per-seed metric | pass |
+| G1(b) | 1225/1225 flip-0 single-live `wrong` games replay to their stored outcome and `p_unknown_max` | pass |
+| G2(a) | 1225/1225 have identical question/answer sequences under both backends | pass |
+| G2(b) | 823 reinstated on the final answer; exactly those 823 changed (1225/1225 agree) | pass |
+| G2(c) | 785,400 games in 714 jobs; 16,821 changed, all of them allowed (0 disallowed) | pass |
+| G3(a) | 6/6 guarded retraction cells equal the unguarded ones | pass |
+| G3(b) | 0 games at N = 158 changed | pass |
+
+The 823 changes at flip 0 are the 210 (primary) + 613 (`no_repeat`) novel-secret games
+that ST-1 §4 attributed to the reinstate-overrun path, so the trace and the
+whole-grid replay agree on that count.
+
+### What the guard changes in ST-1
+
+Of 21,750 candidate games (stored `wrong` at turn 20 with one live known), 16,821
+change to `expert`:
+
+| arm | flips | in-pool changed | novel changed |
+|---|---|---|---|
+| primary | 0 | 0 | 210 |
+| primary | 0.05 | 1225 | 627 |
+| primary | 0.10 | 2234 | 636 |
+| no_repeat | 0 | 0 | 613 |
+| no_repeat | 0.05 | 2898 | 1765 |
+| no_repeat | 0.10 | 4942 | 1671 |
+
+The guard does not change `won` in any cell (`won_changed` = 0). It never changes a
+flip-0 in-pool game. Under noise it reaches in-pool games, because a flipped answer
+can eliminate the true secret and leave the live set to empty on the last answer.
+
+**In-pool `wrong`, max over cells with N ≥ 500 (the cell that attains it):**
+
+| arm | flips | unguarded | guarded |
+|---|---|---|---|
+| primary | 0 | 0.013 (500 floor) | 0.013 (unchanged) |
+| primary | 0.05 | 0.038 (500 real) | 0.022 (1000 real) |
+| primary | 0.10 | 0.058 (500 real) | 0.030 (500 crowded) |
+| no_repeat | 0 | 0.119 (1000 twins) | 0.119 (unchanged) |
+| no_repeat | 0.05 | 0.177 (5000 floor) | 0.152 (5000 floor) |
+| no_repeat | 0.10 | 0.203 (5000 floor) | 0.167 (5000 floor) |
+
+Per cell, the drop in in-pool `wrong` is 0 to 0.036 (primary, 10% flips) and 0 to 0.053
+(`no_repeat`, 10% flips). The primary arm's noisy worst case is roughly halved. The
+`no_repeat` arm's in-pool `wrong` is mostly not this path: its flip-0 `wrong` (up to
+0.119) is untouched, and at 10% flips it falls only to 0.167.
+
+**Novelty AUC** (min to max over the four crowding levels of a size) rises at every
+N from 500 to 2000, largest at N = 500, flip 0:
+
+| arm | N | unguarded | guarded |
+|---|---|---|---|
+| primary | 500 | 0.63 to 0.65 | 0.68 to 0.70 |
+| primary | 1000 | 0.55 to 0.60 | 0.58 to 0.63 |
+| no_repeat | 500 | 0.71 to 0.73 | 0.82 to 0.84 |
+| no_repeat | 1000 | 0.59 to 0.67 | 0.65 to 0.74 |
+
+At N = 5000 it moves by at most 0.032 and stays near 0.5. In three noisy N = 5000 cells
+it falls slightly (by at most 0.004, `no_repeat` crowded at 10% flips), because
+changed in-pool games also get `p_unknown_max` = 1. Every N = 500 to 2000 cell rises
+(by 0.002 at least; per-cell values in `compare.json`). The rise is mechanical: a changed game ends with an empty set,
+so UNKNOWN reaches 1. The guard does not stop the detector's collapse with N
+(ST-1 §3). It removes one way in which the collapse showed up as confident errors.
+
+### Reading
+
+Within ST-1's scoring the guard has no cost. It cannot change a won game, and it
+moves budget-end `wrong` to `expert` only in games where the final known was never
+tested. In the primary arm it removes the flip-0 novel overrun (210 games) and roughly
+halves the noisy in-pool `wrong` worst case (0.058 → 0.030). It does not touch the
+repeat loop or the size effect, which remain the main ST-1 findings.
+
+Adoption as P0a is still not decided here. What would argue against it is outside
+ST-1: a deployment that rewards a final untested best guess over an escalation.
+

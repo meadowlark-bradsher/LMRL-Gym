@@ -193,12 +193,70 @@ def retraction(out: str) -> dict:
     return res
 
 
+def summarize(out: str) -> dict:
+    """The aggregates ``STRESS_REINSTATE_GUARD.md`` cites, from ``compare.json`` and
+    the guarded job records (no replays). Writes ``summary.json``:
+
+    changed       games whose outcome changed, by arm / flip / in-pool vs novel;
+    wrong_max     max over N >= 500 cells of in-pool ``wrong``, unguarded vs guarded,
+                  by arm / flip (with the cell that attains it);
+    wrong_drop    min and max over N >= 500 cells of the drop in in-pool ``wrong``;
+    auc           min and max over cells of novelty AUC, unguarded vs guarded, by
+                  arm / flip / N;
+    won_changed   cells whose ``won`` differs (must be 0: the guard cannot touch a
+                  won game).
+    """
+    cells = json.load(open(os.path.join(out, "compare.json")))["cells"]
+    changed = {}
+    for path in glob.glob(os.path.join(RUN, "jobs", "*_modeswitch.json.gz")):
+        old = _load(path)
+        new = _load(os.path.join(out, "jobs", os.path.basename(path)))
+        j, go, gn = old["job"], old["games"], new["games"]
+        for i, o in enumerate(go["outcome"]):
+            if o != gn["outcome"][i]:
+                k = "{}|{}|{}".format(j["arm"], j["flip"],
+                                      "in_pool" if go["in_pool"][i] else "novel")
+                changed[k] = changed.get(k, 0) + 1
+    wrong_max, wrong_drop, auc, won_changed = {}, {}, {}, 0
+    for key, v in cells.items():
+        n, level, flip, arm, _ = key.split("|")
+        u, g = v["unguarded"], v["guarded"]
+        won_changed += u["won"] != g["won"]
+        a = auc.setdefault("{}|{}|{}".format(arm, flip, n), {"unguarded": [], "guarded": []})
+        a["unguarded"].append(u["auc"])
+        a["guarded"].append(g["auc"])
+        if int(n) < 500:
+            continue
+        af = "{}|{}".format(arm, flip)
+        for name, c in (("unguarded", u), ("guarded", g)):
+            best = wrong_max.setdefault(af, {}).get(name)
+            if best is None or c["wrong"] > best[0]:
+                wrong_max[af][name] = [c["wrong"], key]
+        wrong_drop.setdefault(af, []).append(u["wrong"] - g["wrong"])
+    res = {
+        "changed": dict(sorted(changed.items())),
+        "wrong_max": dict(sorted(wrong_max.items())),
+        "wrong_drop": {k: [min(d), max(d)] for k, d in sorted(wrong_drop.items())},
+        "auc": {k: {name: [min(x), max(x)] for name, x in v.items()}
+                for k, v in sorted(auc.items())},
+        "won_changed": won_changed,
+    }
+    with open(os.path.join(out, "summary.json"), "w") as f:
+        json.dump(res, f, indent=1, sort_keys=True)
+    return res
+
+
 def main() -> None:
     from .stress_harness import require_hash_seed
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--summarize", action="store_true",
+                    help="only rebuild summary.json from an existing gate run")
     a = ap.parse_args()
+    if a.summarize:
+        print(json.dumps(summarize(a.out), indent=1))
+        return
     if require_hash_seed() != "0" or sys.version_info[:2] != (3, 9):
         raise SystemExit("run under the LLM_RL env (Python 3.9) with PYTHONHASHSEED=0")
     os.makedirs(a.out, exist_ok=True)
@@ -219,6 +277,7 @@ def main() -> None:
     with open(os.path.join(a.out, "gates.json"), "w") as f:
         json.dump(gates, f, indent=1)
     print(json.dumps(gates, indent=1))
+    summarize(a.out)
 
 
 if __name__ == "__main__":
