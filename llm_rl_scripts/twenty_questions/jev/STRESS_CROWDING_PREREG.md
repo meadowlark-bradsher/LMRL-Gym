@@ -82,28 +82,47 @@ shuffled order. `p_unknown_prior` = 100/1100. Budget 20, confidence 0.90, ε = 0
 | packing ρ | 0, 0.078, 0.2345, 1 (only for N > 158; N = 158 is the real matrix) |
 | attribute-flip rate | 0, 0.05, 0.10 (i.i.d., `noisy_matrix_oracle`) |
 | arm | primary: `soft`, `hard`, `modeswitch`. Secondary (`no_repeat`): `hard`, `modeswitch` |
-| seeds | 3 generator seeds × 3 noise seeds (one run at flip rate 0, where noise seeds don't apply) |
+| seeds | 3 replicates × 3 noise seeds (one run at flip rate 0, where noise seeds don't apply) |
 
-Pools with N > 158 are the 158 real objects plus N − 158 generated ones. Every run
-pins `PYTHONHASHSEED=0` and runs under the `LLM_RL` env (Python 3.9). Both are
-recorded in the summary.
+Pools with N > 158 are the 158 real objects plus N − 158 generated ones, and the 3
+replicates are 3 generator seeds. The N = 158 pool is the real matrix itself, so its
+3 replicates vary only the held-out novelty set (generated at ρ_real) and the
+secret order. All seeds are fixed integers (`stress_st1.pool_specs`). That gives 51
+pools and **1785 jobs** of 1100 games (1701 if the runtime cap drops `soft` at
+N = 5000). `python -m ...stress_st1 --plan` lists them.
+
+Every run pins `PYTHONHASHSEED=0` and runs under the `LLM_RL` env (Python 3.9). The
+runner refuses otherwise, and records both in the summary along with the git
+commit and the registration tag.
+
+**Planner and tie rule.** Games are played with the numpy planner
+(`stress_fastplan.FastPlanner`). It matches the Python EIG and soft update to 1e-9.
+It ranks candidates by EIG rounded to 9 decimals, then by `qid`. Generated pools are
+full of candidates with mathematically equal EIG, such as guesses of equal-mass
+twins. Under the Python path's raw float sort, those ties are decided by
+floating-point summation order, which can differ between machines. Rounding makes
+them go to the `qid`, which is what `bed.rank_questions` intends.
 
 **Runtime cap.** If one `soft` cell at N = 5000 takes more than 2 h after ST-0f,
 `soft` runs only at N ≤ 2000. That decision is made and recorded before the grid
 starts. The discrete arms always run the full grid.
 
-### To build before tagging
+### Built before tagging
 
-These do not change the design above:
+None of these change the design above. Status is in `STRESS_ST1_BUILD.md`.
 
-* **ST-0f:** a numpy EIG path for `soft`, matching the Python path to 1e-9 on a
-  200-game check.
-* **A repeat counter** on `SnapshotRecord`: games that asked the same non-guess
-  question twice.
-* **A rescue-trigger diagnostic:** whether the live set emptied after a flip struck
-  the truth.
-* **The ST-1 runner and analyzer**, with figures whose captions name the analyzer and
-  the result directory.
+* **ST-0f** (`stress_fastplan.py`): the numpy path, with a 200-game parity check
+  against the Python path. The parity check covers EIG and posterior to 1e-9, and
+  identical games under the same tie rule.
+* **A repeat counter** (`SnapshotRecord.n_repeat_questions`): re-asks of a non-guess
+  question.
+* **A rescue-trigger diagnostic** (`stress_harness.RescueObserver`): whether an
+  answer struck the live truth, whether that answer was a flipped attribute, and
+  whether the live set then emptied. A `modeswitch` reinstate in the same update
+  counts as emptied.
+* **The runner** (`stress_st1.py`) and **the analyzer** (`analyze_st1.py`). The
+  analyzer implements *Scoring* below, and its figure captions name it and the result
+  directory.
 
 ## Metrics
 
@@ -170,6 +189,76 @@ attributed to the loop (P7), not to crowding.
   question splits the survivors poorly and guesses split a large uniform set weakly.
   So a question that splits `UNKNOWN` from the knowns wins the EIG ranking at a lower
   prior than on the real pool.
+
+## Scoring
+
+`analyze_st1.py` implements exactly these rules.
+
+**Cells and coordinates.**
+
+* A **cell** is (N, crowding level, flip rate, arm, backend). It pools every game of
+  its 3 replicates and, under noise, its 3 noise seeds.
+* The cell's **crowding** c is the mean over its replicate pools of
+  `nn_within_1 / n_objects`.
+* Its **identical-row fraction** r is the mean of `objects_sharing_a_row /
+  n_objects`.
+* In-pool rates are over in-pool games: won, safe escalation (`expert`), `wrong`,
+  and fail = 1 − won.
+* **q95** is the 95th percentile of questions per game over all the cell's games.
+* **Budget-exhaustion share** is, among `wrong` games, the fraction with ≥ 2 live
+  knowns at turn 20.
+* **Rescue trigger rate** is, among in-pool games where a flipped attribute struck
+  the live truth, the fraction where the live set then emptied.
+* **AUC** is pooled over the cell's games.
+* **Spearman correlations** are taken across cells. Fewer than 3 cells, or a constant
+  input, gives NaN, which counts as not holding.
+
+**Verdicts.** Each component is PASS, FAIL, or NOT TRIGGERED, when its premise never
+occurs (for example, no cell has `wrong` > 0).
+
+**P1** is scored per arm × discrete backend. Both parts must hold.
+* (a) At flip rate 0, every cell with q95 < 20 has `wrong` = 0.
+* (b) Spearman(guess share, r) > 0 across the flip-0 cells.
+
+**P2** is scored per arm × discrete backend, over flip-0 cells with `wrong` > 0. If
+there are none, P2 is NOT TRIGGERED. Otherwise both parts must hold.
+* (a) Each of those cells has budget-exhaustion share ≥ 0.95.
+* (b) The least-crowded of them is no less crowded than the least-crowded twins
+  cell with N ≥ 2000. In other words, `wrong` does not appear below the twins / large
+  N corner.
+
+**P3** is scored per arm, over flip 0.05 and 0.10 cells. Both parts must hold.
+* Spearman(R, c) ≤ −0.5, where R = (fail_hard − fail_modeswitch) / fail_hard over
+  cells with fail_hard > 0.
+* Spearman(`modeswitch` rescue trigger rate, c) ≤ −0.5.
+
+**P4** is scored per arm × discrete backend. Let c\*(f) be the least crowding among
+cells at flip rate f with `wrong` > 0.01, or ∞ if there are none.
+* PASS if c\*(0.10) < c\*(0).
+* NOT TRIGGERED if both are ∞.
+
+**P5** is scored in the primary arm, at each flip rate. It passes only if all three
+parts hold at every flip rate.
+* (a) Spearman(AUC, c) < 0 for each of `soft`, `hard` and `modeswitch`.
+* (b) Some cell has `soft` AUC ≥ 0.95 and `hard` AUC < 0.95.
+* (c) Each backend's lowest-AUC cell is at the twins level.
+
+**P6** is the cell (158, real matrix, flip 0.10, primary). All must hold:
+* `hard` `wrong` = 0
+* `modeswitch` `wrong` = 0
+* `modeswitch` fail < `hard` fail
+
+**P7** has three parts, and all must hold.
+* (a) The cells (158, real matrix, flip 0, primary) have repeat rate ≤ 0.02, for
+  both `hard` and `modeswitch`.
+* (b) Spearman(repeat rate, c) ≥ +0.5 over all primary-arm discrete cells, with each
+  (cell, backend) as one point.
+* (c) The mean, over twins cells with N ∈ {2000, 5000}, every flip rate and both
+  discrete backends, of (won in the `no_repeat` arm − won in the primary arm) is
+  ≥ 0.05.
+
+**Attribution.** A P1–P4 verdict that is PASS in the `no_repeat` arm and FAIL in the
+primary arm is reported as attributed to the loop.
 
 ## What would falsify, and what it would mean
 

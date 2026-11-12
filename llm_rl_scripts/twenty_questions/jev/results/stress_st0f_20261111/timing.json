@@ -1,0 +1,77 @@
+{
+  "games": 5,
+  "rows": [
+    {
+      "backend": "soft",
+      "est_cell_minutes_fast": 0.7876511414845785,
+      "n": 500,
+      "planner_build_s": 0.004387855529785156,
+      "s_per_game_fast": 0.04296278953552246,
+      "s_per_game_python": 0.2646980285644531
+    },
+    {
+      "backend": "hard",
+      "est_cell_minutes_fast": 1.1056803862253826,
+      "n": 500,
+      "planner_build_s": 0.0044019222259521484,
+      "s_per_game_fast": 0.060309839248657224,
+      "s_per_game_python": 0.07119405269622803
+    },
+    {
+      "backend": "modeswitch",
+      "est_cell_minutes_fast": 0.3768603801727295,
+      "n": 500,
+      "planner_build_s": 0.011394023895263672,
+      "s_per_game_fast": 0.020556020736694335,
+      "s_per_game_python": 0.06899809837341309
+    },
+    {
+      "backend": "soft",
+      "est_cell_minutes_fast": 2.017638603846232,
+      "n": 2000,
+      "planner_build_s": 0.05982184410095215,
+      "s_per_game_fast": 0.11005301475524902,
+      "s_per_game_python": 1.3366979360580444
+    },
+    {
+      "backend": "hard",
+      "est_cell_minutes_fast": 0.955525795618693,
+      "n": 2000,
+      "planner_build_s": 0.017155170440673828,
+      "s_per_game_fast": 0.05211958885192871,
+      "s_per_game_python": 0.3431190252304077
+    },
+    {
+      "backend": "modeswitch",
+      "est_cell_minutes_fast": 1.3957124551137288,
+      "n": 2000,
+      "planner_build_s": 0.017300128936767578,
+      "s_per_game_fast": 0.07612977027893067,
+      "s_per_game_python": 0.35559213161468506
+    },
+    {
+      "backend": "soft",
+      "est_cell_minutes_fast": 6.684542099634807,
+      "n": 5000,
+      "planner_build_s": 0.04573416709899902,
+      "s_per_game_fast": 0.3646113872528076,
+      "s_per_game_python": null
+    },
+    {
+      "backend": "hard",
+      "est_cell_minutes_fast": 1.9146454334259033,
+      "n": 5000,
+      "planner_build_s": 0.09536623954772949,
+      "s_per_game_fast": 0.10443520545959473,
+      "s_per_game_python": 0.9362125396728516
+    },
+    {
+      "backend": "modeswitch",
+      "est_cell_minutes_fast": 2.4171722730000815,
+      "n": 5000,
+      "planner_build_s": 0.0455780029296875,
+      "s_per_game_fast": 0.13184576034545897,
+      "s_per_game_python": 0.9331529140472412
+    }
+  ]
+}

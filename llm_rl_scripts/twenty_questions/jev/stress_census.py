@@ -18,6 +18,8 @@ import json
 from collections import Counter
 from typing import Dict, List, Optional, Sequence
 
+import numpy as np
+
 from .bed import ATTRIBUTE_BANK, load_hypotheses
 from .matrix import load_matrix
 
@@ -37,11 +39,10 @@ def census(matrix: Dict[str, Dict[str, float]], names: Sequence[str],
     a category question has narrowed the pool."""
     rows = binarize(matrix, names)
     names = list(names)
-
-    def ham(a: str, b: str) -> int:
-        return sum(x != y for x, y in zip(rows[a], rows[b]))
-
-    nn = {a: min(ham(a, b) for b in names if b != a) for a in names}
+    dist = _hamming_matrix([rows[n] for n in names])
+    big = len(ATTRIBUTE_BANK) + 1
+    np.fill_diagonal(dist, big)
+    nn = dict(zip(names, dist.min(axis=1).tolist()))
     clusters = Counter(rows.values())
     cells = [matrix[aid][n] for aid, _ in ATTRIBUTE_BANK for n in names]
     out = {
@@ -60,13 +61,19 @@ def census(matrix: Dict[str, Dict[str, float]], names: Sequence[str],
         "mean_sampling_flip": sum(min(p, 1.0 - p) for p in cells) / len(cells),
     }
     if categories is not None:
-        within = {}
-        for a in names:
-            same = [b for b in names if b != a and categories[b] == categories[a]]
-            if same:
-                within[a] = min(ham(a, b) for b in same)
-        out["nn_within_category_hist"] = dict(sorted(Counter(within.values()).items()))
+        cat = np.array([categories[n] for n in names])
+        within_d = np.where(cat[:, None] == cat[None, :], dist, big).min(axis=1)
+        within = [int(d) for d in within_d.tolist() if d < big]
+        out["nn_within_category_hist"] = dict(sorted(Counter(within).items()))
     return out
+
+
+def _hamming_matrix(rows: Sequence[tuple]) -> np.ndarray:
+    """Pairwise binarized Hamming distances (exact small integers; float32 matmul
+    is exact well past 44). Vectorised so a 5000-object pool takes seconds."""
+    b = np.asarray(rows, dtype=np.float32)
+    d = b @ (1.0 - b).T + (1.0 - b) @ b.T
+    return np.rint(d).astype(np.int32)
 
 
 def main() -> None:

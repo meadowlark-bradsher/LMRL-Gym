@@ -232,7 +232,7 @@ def run_openworld_episode(true_h: Hypothesis,
                           backend: str = "soft",
                           margin: float = 2.0, tolerance: int = 1,
                           observer=None, like_matrix=None,
-                          no_repeat: bool = False) -> OWEpisode:
+                          no_repeat: bool = False, planner=None) -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
@@ -244,14 +244,24 @@ def run_openworld_episode(true_h: Hypothesis,
     mass at the prior, so with a large prior a question that splits UNKNOWN from
     the knowns keeps its EIG and is asked again every turn; ``STRESS_ST0.md``
     measures where that starts. A gate-forced guess (the reinstate test) is
-    never filtered."""
+    never filtered.
+
+    ``planner`` (default None: the Python path) supplies the EIG ranking, the
+    per-pool ``like`` and question bank, and -- for ``soft`` -- the belief update,
+    from precomputed arrays (``stress_fastplan.FastPlanner``, built once for a
+    fixed ``known_hyps``)."""
     all_hyps = list(known_hyps) + [UNKNOWN_HYP]
     by_name = {h.name: h for h in all_hyps}
     # Belief uses ``like_matrix`` when supplied (ENV-704: a partially-elicited row for a
     # newly-onboarded object), the true ``matrix`` otherwise; the oracle is independent.
-    like = make_openworld_likelihood(like_matrix if like_matrix is not None else matrix,
-                                     known_hyps, eps=eps)
-    bank = build_openworld_bank(known_hyps)
+    if planner is not None:
+        if like_matrix is not None or len(planner.known_hyps) != len(known_hyps):
+            raise ValueError("planner is built for one fixed known set and belief matrix")
+        like, bank = planner.like, planner.bank
+    else:
+        like = make_openworld_likelihood(
+            like_matrix if like_matrix is not None else matrix, known_hyps, eps=eps)
+        bank = build_openworld_bank(known_hyps)
     guess_by_name = {q.key: q for q in bank[GUESS]}
     if backend == "retract":
         kwargs = {"margin": margin}
@@ -259,8 +269,11 @@ def run_openworld_episode(true_h: Hypothesis,
         kwargs = {"tolerance": tolerance}
     else:
         kwargs = {}
-    bk = BACKENDS[backend](known_hyps, by_name, like, UNKNOWN, p_unknown_prior,
-                           eps, **kwargs)
+    if planner is not None and backend == "soft":
+        bk = planner.soft_backend(known_hyps, by_name, like, UNKNOWN, p_unknown_prior, eps)
+    else:
+        bk = BACKENDS[backend](known_hyps, by_name, like, UNKNOWN, p_unknown_prior,
+                               eps, **kwargs)
 
     steps: List[OWStep] = []
     asked_qids: set = set()
@@ -290,10 +303,16 @@ def run_openworld_episode(true_h: Hypothesis,
             cands = candidate_questions(dist, bank, top_k_guesses=top_k_guesses)
             if no_repeat:
                 cands = [c for c in cands if c.qid not in asked_qids] or cands
-            ranked = rank_questions(cands, dist, by_name, like)
+            if planner is not None:
+                ranked = planner.rank(cands, dist)
+            else:
+                ranked = rank_questions(cands, dist, by_name, like)
             q = ranked[0][0]
 
-        eig = expected_info_gain(q, dist, by_name, like)
+        if planner is not None:
+            eig = planner.eig(q, dist)
+        else:
+            eig = expected_info_gain(q, dist, by_name, like)
         ans = oracle(q, true_h)
         asked_qids.add(q.qid)
         steps.append(OWStep(
