@@ -1,0 +1,1325 @@
+{
+  "cells": [
+    {
+      "backend": "soft",
+      "by_eps": {
+        "0.02": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 735,
+            "stopped": 1
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.7,
+            "false_stop_rate": 0.7,
+            "false_stops": 35,
+            "lag_median": -83.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "truth_game_median": 1441.0,
+          "truth_reached": 50
+        },
+        "0.03": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 795,
+            "stopped": 25
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -124.0,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.02,
+            "false_stop_rate": 0.02,
+            "false_stops": 1,
+            "lag_median": 302.0,
+            "stopped": 50
+          },
+          "truth_game_median": 1127.0,
+          "truth_reached": 50
+        },
+        "0.05": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 605.0,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 645.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -32.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.52,
+            "false_stop_rate": 0.52,
+            "false_stops": 26,
+            "lag_median": -5.0,
+            "stopped": 50
+          },
+          "truth_game_median": 808.5,
+          "truth_reached": 50
+        },
+        "0.1": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 395.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 385.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 1350.5,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.6,
+            "false_stop_rate": 0.6,
+            "false_stops": 30,
+            "lag_median": -31.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.96,
+            "false_stop_rate": 0.96,
+            "false_stops": 48,
+            "lag_median": -106.5,
+            "stopped": 50
+          },
+          "truth_game_median": 428.5,
+          "truth_reached": 50
+        },
+        "0.2": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 229.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 255.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 538.0,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.64,
+            "false_stop_rate": 0.64,
+            "false_stops": 32,
+            "lag_median": -16.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.98,
+            "false_stop_rate": 0.98,
+            "false_stops": 49,
+            "lag_median": -51.5,
+            "stopped": 50
+          },
+          "truth_game_median": 174.0,
+          "truth_reached": 50
+        }
+      },
+      "false_positive_calls_mean": 0.8,
+      "final_theta_mean": 0.009242832817991596,
+      "n_seeds": 50,
+      "oracle_noise": 0.0,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "unresolved_mean": 0.48
+    },
+    {
+      "backend": "hard",
+      "by_eps": {
+        "0.02": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 860.0,
+            "stopped": 2
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -83.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "truth_game_median": 1435.5,
+          "truth_reached": 50
+        },
+        "0.03": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 785,
+            "stopped": 27
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -107.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.02,
+            "false_stop_rate": 0.02,
+            "false_stops": 1,
+            "lag_median": 302.0,
+            "stopped": 50
+          },
+          "truth_game_median": 1121.5,
+          "truth_reached": 50
+        },
+        "0.05": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 605.0,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 645.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -32.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.52,
+            "false_stop_rate": 0.52,
+            "false_stops": 26,
+            "lag_median": -5.0,
+            "stopped": 50
+          },
+          "truth_game_median": 808.5,
+          "truth_reached": 50
+        },
+        "0.1": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 395.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 385.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 1346.5,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.6,
+            "false_stop_rate": 0.6,
+            "false_stops": 30,
+            "lag_median": -31.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.96,
+            "false_stop_rate": 0.96,
+            "false_stops": 48,
+            "lag_median": -106.5,
+            "stopped": 50
+          },
+          "truth_game_median": 428.5,
+          "truth_reached": 50
+        },
+        "0.2": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 229.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 255.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 538.0,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.64,
+            "false_stop_rate": 0.64,
+            "false_stops": 32,
+            "lag_median": -16.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.98,
+            "false_stop_rate": 0.98,
+            "false_stops": 49,
+            "lag_median": -51.5,
+            "stopped": 50
+          },
+          "truth_game_median": 174.0,
+          "truth_reached": 50
+        }
+      },
+      "false_positive_calls_mean": 204.14,
+      "final_theta_mean": 0.008949393778670768,
+      "n_seeds": 50,
+      "oracle_noise": 0.05,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "unresolved_mean": 0
+    },
+    {
+      "backend": "hard",
+      "by_eps": {
+        "0.02": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 860.0,
+            "stopped": 2
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -83.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "truth_game_median": 1435.5,
+          "truth_reached": 50
+        },
+        "0.03": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 785,
+            "stopped": 27
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -107.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.02,
+            "false_stop_rate": 0.02,
+            "false_stops": 1,
+            "lag_median": 302.0,
+            "stopped": 50
+          },
+          "truth_game_median": 1121.5,
+          "truth_reached": 50
+        },
+        "0.05": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 605.0,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 645.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -32.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.52,
+            "false_stop_rate": 0.52,
+            "false_stops": 26,
+            "lag_median": -5.0,
+            "stopped": 50
+          },
+          "truth_game_median": 808.5,
+          "truth_reached": 50
+        },
+        "0.1": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 395.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 385.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 1346.5,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.6,
+            "false_stop_rate": 0.6,
+            "false_stops": 30,
+            "lag_median": -31.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.96,
+            "false_stop_rate": 0.96,
+            "false_stops": 48,
+            "lag_median": -106.5,
+            "stopped": 50
+          },
+          "truth_game_median": 428.5,
+          "truth_reached": 50
+        },
+        "0.2": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 229.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 255.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 538.0,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.64,
+            "false_stop_rate": 0.64,
+            "false_stops": 32,
+            "lag_median": -16.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.98,
+            "false_stop_rate": 0.98,
+            "false_stops": 49,
+            "lag_median": -51.5,
+            "stopped": 50
+          },
+          "truth_game_median": 174.0,
+          "truth_reached": 50
+        }
+      },
+      "false_positive_calls_mean": 377.02,
+      "final_theta_mean": 0.008949393778670768,
+      "n_seeds": 50,
+      "oracle_noise": 0.1,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "unresolved_mean": 0
+    },
+    {
+      "backend": "modeswitch",
+      "by_eps": {
+        "0.02": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 860.0,
+            "stopped": 2
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -83.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "truth_game_median": 1435.5,
+          "truth_reached": 50
+        },
+        "0.03": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 785,
+            "stopped": 27
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -107.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.02,
+            "false_stop_rate": 0.02,
+            "false_stops": 1,
+            "lag_median": 302.0,
+            "stopped": 50
+          },
+          "truth_game_median": 1121.5,
+          "truth_reached": 50
+        },
+        "0.05": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 605.0,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 645.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -32.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.52,
+            "false_stop_rate": 0.52,
+            "false_stops": 26,
+            "lag_median": -5.0,
+            "stopped": 50
+          },
+          "truth_game_median": 808.5,
+          "truth_reached": 50
+        },
+        "0.1": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 395.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 385.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 1346.5,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.6,
+            "false_stop_rate": 0.6,
+            "false_stops": 30,
+            "lag_median": -31.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.96,
+            "false_stop_rate": 0.96,
+            "false_stops": 48,
+            "lag_median": -106.5,
+            "stopped": 50
+          },
+          "truth_game_median": 428.5,
+          "truth_reached": 50
+        },
+        "0.2": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 229.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 255.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 538.0,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.64,
+            "false_stop_rate": 0.64,
+            "false_stops": 32,
+            "lag_median": -16.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.98,
+            "false_stop_rate": 0.98,
+            "false_stops": 49,
+            "lag_median": -51.5,
+            "stopped": 50
+          },
+          "truth_game_median": 174.0,
+          "truth_reached": 50
+        }
+      },
+      "false_positive_calls_mean": 193.28,
+      "final_theta_mean": 0.008949393778670768,
+      "n_seeds": 50,
+      "oracle_noise": 0.05,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "unresolved_mean": 0.02
+    },
+    {
+      "backend": "modeswitch",
+      "by_eps": {
+        "0.02": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 860.0,
+            "stopped": 2
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -83.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "truth_game_median": 1435.5,
+          "truth_reached": 50
+        },
+        "0.03": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 785,
+            "stopped": 27
+          },
+          "cert_py": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -107.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.02,
+            "false_stop_rate": 0.02,
+            "false_stops": 1,
+            "lag_median": 302.0,
+            "stopped": 50
+          },
+          "truth_game_median": 1121.5,
+          "truth_reached": 50
+        },
+        "0.05": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 605.0,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 645.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": null,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": null,
+            "stopped": 0
+          },
+          "point_gt": {
+            "false_given_stopped": 0.68,
+            "false_stop_rate": 0.68,
+            "false_stops": 34,
+            "lag_median": -32.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.52,
+            "false_stop_rate": 0.52,
+            "false_stops": 26,
+            "lag_median": -5.0,
+            "stopped": 50
+          },
+          "truth_game_median": 808.5,
+          "truth_reached": 50
+        },
+        "0.1": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 395.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 385.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 1346.5,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.6,
+            "false_stop_rate": 0.6,
+            "false_stops": 30,
+            "lag_median": -31.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.96,
+            "false_stop_rate": 0.96,
+            "false_stops": 48,
+            "lag_median": -106.5,
+            "stopped": 50
+          },
+          "truth_game_median": 428.5,
+          "truth_reached": 50
+        },
+        "0.2": {
+          "cert_gt": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 229.5,
+            "stopped": 50
+          },
+          "cert_py": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 255.0,
+            "stopped": 50
+          },
+          "cert_rate": {
+            "false_given_stopped": 0.0,
+            "false_stop_rate": 0.0,
+            "false_stops": 0,
+            "lag_median": 538.0,
+            "stopped": 50
+          },
+          "point_gt": {
+            "false_given_stopped": 0.64,
+            "false_stop_rate": 0.64,
+            "false_stops": 32,
+            "lag_median": -16.5,
+            "stopped": 50
+          },
+          "point_py": {
+            "false_given_stopped": 0.98,
+            "false_stop_rate": 0.98,
+            "false_stops": 49,
+            "lag_median": -51.5,
+            "stopped": 50
+          },
+          "truth_game_median": 174.0,
+          "truth_reached": 50
+        }
+      },
+      "false_positive_calls_mean": 354.7,
+      "final_theta_mean": 0.008949393778670768,
+      "n_seeds": 50,
+      "oracle_noise": 0.1,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "unresolved_mean": 0
+    }
+  ],
+  "config": {
+    "alpha": 0.05,
+    "cells": [
+      [
+        "soft",
+        0.0
+      ],
+      [
+        "hard",
+        0.05
+      ],
+      [
+        "hard",
+        0.1
+      ],
+      [
+        "modeswitch",
+        0.05
+      ],
+      [
+        "modeswitch",
+        0.1
+      ]
+    ],
+    "eps": [
+      0.2,
+      0.1,
+      0.05,
+      0.03,
+      0.02
+    ],
+    "games": 2000,
+    "stake_cap": 0.5,
+    "tolerance": 3,
+    "zipf_s": 1.1
+  }
+}
