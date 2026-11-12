@@ -357,7 +357,7 @@ def run_retraction_grid(matrix_path: str, games: int, zipf_s: float, seed: int,
         # (tombstone: reinstate killer bound; modeswitch: reinstate-test budget K).
         if bk == "retract":
             knobs = [("margin", m) for m in margins]
-        elif bk in ("tombstone", "modeswitch"):
+        elif bk in ("tombstone", "modeswitch", "modeswitch_guard"):
             knobs = [("tolerance", int(t)) for t in tolerances]
         else:
             knobs = [(None, None)]
