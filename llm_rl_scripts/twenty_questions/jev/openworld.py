@@ -265,7 +265,7 @@ def run_openworld_episode(true_h: Hypothesis,
     guess_by_name = {q.key: q for q in bank[GUESS]}
     if backend == "retract":
         kwargs = {"margin": margin}
-    elif backend in ("tombstone", "modeswitch"):
+    elif backend in ("tombstone", "modeswitch", "modeswitch_guard"):
         kwargs = {"tolerance": tolerance}
     else:
         kwargs = {}
@@ -335,6 +335,8 @@ def run_openworld_episode(true_h: Hypothesis,
             )
 
         surv_before = set(getattr(bk, "survivors", ())) if observer is not None else None
+        if hasattr(bk, "turns_left"):
+            bk.turns_left = max_questions - turn   # turns left after this answer
         bk.observe(q, ans)
         if observer is not None:
             # Non-invasive audit hook: reconstruct the op-log from the public survivor

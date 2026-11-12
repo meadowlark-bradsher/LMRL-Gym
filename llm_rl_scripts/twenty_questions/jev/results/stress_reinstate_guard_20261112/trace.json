@@ -1,0 +1,8 @@
+{
+ "games": 1225,
+ "reproduced": 1225,
+ "steps_identical": 1225,
+ "final_revive": 823,
+ "changed": 823,
+ "changed_iff_final_revive": 1225
+}

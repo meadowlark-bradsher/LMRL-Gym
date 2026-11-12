@@ -1,0 +1,10 @@
+{
+ "G1_unguarded_reproduces_committed_retraction": true,
+ "G1_trace_reproduces_stored": true,
+ "G2_trace_steps_identical": true,
+ "G2_trace_changed_iff_final_revive": true,
+ "G2_grid_only_allowed_changes": true,
+ "G3_retraction_guard_equals_unguarded": true,
+ "G3_n158_unchanged": true,
+ "pass": true
+}

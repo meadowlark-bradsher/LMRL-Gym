@@ -407,13 +407,18 @@ class ModeSwitchedRetraction(BeliefBackend):
     def __init__(self, known_hyps: Sequence[Hypothesis],
                  by_name: Dict[str, Hypothesis], like: LikelihoodModel,
                  unknown: str, p_unknown_prior: float, eps: float = 0.05,
-                 tolerance: int = 3, kill: float = 0.5):
+                 tolerance: int = 3, kill: float = 0.5, budget_guard: bool = False):
         self.by_name = by_name
         self.like = like
         self.U = unknown
         self.u_prior = p_unknown_prior
         self.kill = kill
         self.K = tolerance        # max reinstate-and-test attempts per game (budget)
+        # Budget guard (opt-in; ``modeswitch_guard``): reinstate only when a turn is
+        # left to test the candidate. The episode loop sets ``turns_left`` before each
+        # ``observe``; None (a caller that never sets it) means unguarded.
+        self.budget_guard = budget_guard
+        self.turns_left: Optional[int] = None
         self.names = [h.name for h in known_hyps]
         self.killers: Dict[str, set] = {n: set() for n in self.names}
         self.live = set(self.names)
@@ -474,6 +479,12 @@ class ModeSwitchedRetraction(BeliefBackend):
         # un-noisy) -- a flip-struck truth answers yes and wins; a revived wrong
         # answers no and is re-struck. After K failed tests the set stays empty and
         # the catch-all escalates, so the detector is hard's (just K turns later).
+        # With the budget guard, a reinstate on the final answer is skipped: there is
+        # no turn left to test the candidate, so the set stays empty and the game
+        # escalates, as ``hard`` would, instead of ending on an untested known.
+        if (self.budget_guard and self.turns_left is not None
+                and self.turns_left < 1):
+            return
         if not self.live and self.n_revives < self.K:
             cands = sorted((len(self.killers[n]), n) for n in self.tombstoned
                            if n not in self.reinstated_once
@@ -486,6 +497,20 @@ class ModeSwitchedRetraction(BeliefBackend):
                 self.n_revives += 1
 
 
+class ModeSwitchGuarded(ModeSwitchedRetraction):
+    """``modeswitch`` with the budget guard on: a reinstate that no turn remains to
+    test is skipped, so the game escalates instead of ending on an untested,
+    reinstated known (the *reinstate overrun* of ``STRESS_ST1_RESULTS.md`` §4). The
+    guard acts only on the last answer of a game, so it never changes which
+    questions are asked; it can only turn a budget-end ``wrong`` into ``expert``."""
+
+    name = "modeswitch_guard"
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("budget_guard", True)
+        super().__init__(*args, **kwargs)
+
+
 # Registry the loop looks a backend up by name.
 BACKENDS: Dict[str, type] = {
     "soft": SoftPosterior,
@@ -493,4 +518,5 @@ BACKENDS: Dict[str, type] = {
     "retract": RetractingElimination,
     "tombstone": TombstoneRetraction,
     "modeswitch": ModeSwitchedRetraction,
+    "modeswitch_guard": ModeSwitchGuarded,
 }

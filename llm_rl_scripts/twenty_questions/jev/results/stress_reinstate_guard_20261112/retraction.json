@@ -1,0 +1,6 @@
+{
+ "cells": 6,
+ "guard_equals_unguarded": 6,
+ "unguarded_equals_committed": 6,
+ "run": "llm_rl_scripts/twenty_questions/jev/results/stress_reinstate_guard_20261112/retraction/openworld_retraction_20261112_193700"
+}
