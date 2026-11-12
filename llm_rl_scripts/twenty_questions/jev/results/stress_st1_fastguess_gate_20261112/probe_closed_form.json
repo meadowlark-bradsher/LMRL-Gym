@@ -1,0 +1,65 @@
+[
+ {
+  "n": 5000,
+  "backend": "soft",
+  "no_repeat": false,
+  "games": 44,
+  "seconds": 10.486206769943237,
+  "s_per_game": 0.23832288113507358,
+  "mean_questions": 18.681818181818183
+ },
+ {
+  "n": 5000,
+  "backend": "hard",
+  "no_repeat": false,
+  "games": 44,
+  "seconds": 2.8825178146362305,
+  "s_per_game": 0.06551176851445978,
+  "mean_questions": 19.068181818181817
+ },
+ {
+  "n": 5000,
+  "backend": "modeswitch",
+  "no_repeat": false,
+  "games": 44,
+  "seconds": 4.7468578815460205,
+  "s_per_game": 0.10788313367150047,
+  "mean_questions": 19.40909090909091
+ },
+ {
+  "n": 5000,
+  "backend": "hard",
+  "no_repeat": true,
+  "games": 44,
+  "seconds": 2.6787219047546387,
+  "s_per_game": 0.06088004328987815,
+  "mean_questions": 16.40909090909091
+ },
+ {
+  "n": 1000,
+  "backend": "soft",
+  "no_repeat": false,
+  "games": 44,
+  "seconds": 1.7849159240722656,
+  "s_per_game": 0.0405662710016424,
+  "mean_questions": 15.954545454545455
+ },
+ {
+  "n": 1000,
+  "backend": "hard",
+  "no_repeat": false,
+  "games": 44,
+  "seconds": 0.7049767971038818,
+  "s_per_game": 0.016022199934179134,
+  "mean_questions": 16.954545454545453
+ },
+ {
+  "n": 1000,
+  "backend": "modeswitch",
+  "no_repeat": false,
+  "games": 44,
+  "seconds": 1.0101850032806396,
+  "s_per_game": 0.022958750074559994,
+  "mean_questions": 17.386363636363637
+ }
+]

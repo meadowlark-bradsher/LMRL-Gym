@@ -1,0 +1,336 @@
+{
+ "replay_jobs": 24,
+ "replay_games_identical": 24,
+ "replay_scorecard_identical": 24,
+ "replay": [
+  {
+   "job_id": "N5000_crowded_r1_f0.05_s3_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5823.889818906784,
+   "seconds_closed_form": 506.8512830734253
+  },
+  {
+   "job_id": "N5000_crowded_r1_f0.05_s1_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5829.176766872406,
+   "seconds_closed_form": 509.40320897102356
+  },
+  {
+   "job_id": "N5000_crowded_r1_f0.05_s2_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5824.777319192886,
+   "seconds_closed_form": 506.78550386428833
+  },
+  {
+   "job_id": "N5000_crowded_r1_f0.1_s1_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5845.720664024353,
+   "seconds_closed_form": 506.1655900478363
+  },
+  {
+   "job_id": "N5000_crowded_r1_f0.1_s2_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5851.312189817429,
+   "seconds_closed_form": 500.76344299316406
+  },
+  {
+   "job_id": "N5000_crowded_r1_f0.1_s3_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5865.737475156784,
+   "seconds_closed_form": 502.3622179031372
+  },
+  {
+   "job_id": "N5000_crowded_r2_f0_s0_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5853.363023281097,
+   "seconds_closed_form": 440.13429617881775
+  },
+  {
+   "job_id": "N5000_crowded_r1_f0_s0_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5759.0113530159,
+   "seconds_closed_form": 445.3664598464966
+  },
+  {
+   "job_id": "N5000_floor_r1_f0.05_s2_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5762.532685995102,
+   "seconds_closed_form": 428.79084873199463
+  },
+  {
+   "job_id": "N5000_floor_r1_f0.05_s1_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5740.69050693512,
+   "seconds_closed_form": 430.5785000324249
+  },
+  {
+   "job_id": "N5000_floor_r1_f0.1_s1_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5862.71319103241,
+   "seconds_closed_form": 438.0736598968506
+  },
+  {
+   "job_id": "N5000_floor_r1_f0.05_s3_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5759.637846946716,
+   "seconds_closed_form": 428.7579128742218
+  },
+  {
+   "job_id": "N5000_floor_r1_f0.1_s2_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5890.270818710327,
+   "seconds_closed_form": 438.36965584754944
+  },
+  {
+   "job_id": "N5000_floor_r1_f0_s0_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5606.511985301971,
+   "seconds_closed_form": 420.919438123703
+  },
+  {
+   "job_id": "N5000_floor_r1_f0.1_s3_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5864.647251844406,
+   "seconds_closed_form": 433.38999915122986
+  },
+  {
+   "job_id": "N5000_floor_r2_f0_s0_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5693.723120927811,
+   "seconds_closed_form": 427.50675201416016
+  },
+  {
+   "job_id": "N5000_real_r1_f0.05_s2_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5827.185959815979,
+   "seconds_closed_form": 441.02992701530457
+  },
+  {
+   "job_id": "N5000_real_r1_f0.05_s1_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5844.476889848709,
+   "seconds_closed_form": 437.9175591468811
+  },
+  {
+   "job_id": "N5000_real_r1_f0.05_s3_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5814.258782863617,
+   "seconds_closed_form": 336.39222502708435
+  },
+  {
+   "job_id": "N5000_real_r1_f0.1_s1_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5891.563146829605,
+   "seconds_closed_form": 336.04823327064514
+  },
+  {
+   "job_id": "N5000_real_r1_f0.1_s2_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5909.237159252167,
+   "seconds_closed_form": 333.88336086273193
+  },
+  {
+   "job_id": "N5000_real_r1_f0_s0_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5729.84459066391,
+   "seconds_closed_form": 318.54711294174194
+  },
+  {
+   "job_id": "N5000_real_r1_f0.1_s3_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5919.4814920425415,
+   "seconds_closed_form": 334.8983018398285
+  },
+  {
+   "job_id": "N5000_real_r2_f0_s0_primary_soft",
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_stored": 5787.149507045746,
+   "seconds_closed_form": 308.0871150493622
+  }
+ ],
+ "ab_cells": 19,
+ "ab_games": 4180,
+ "ab_games_identical_cells": 19,
+ "ab_scorecard_identical_cells": 19,
+ "ab": [
+  {
+   "job_id": "ab_twins_soft_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 1159.6877739429474,
+   "seconds_closed_form": 131.53234314918518
+  },
+  {
+   "job_id": "ab_twins_hard_0_f0",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 562.2295339107513,
+   "seconds_closed_form": 39.631118059158325
+  },
+  {
+   "job_id": "ab_twins_modeswitch_0_f0",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 643.8660218715668,
+   "seconds_closed_form": 65.34326124191284
+  },
+  {
+   "job_id": "ab_twins_hard_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 512.1267220973969,
+   "seconds_closed_form": 36.73671221733093
+  },
+  {
+   "job_id": "ab_twins_modeswitch_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 568.2483880519867,
+   "seconds_closed_form": 60.94915819168091
+  },
+  {
+   "job_id": "ab_twins_hard_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 341.59363889694214,
+   "seconds_closed_form": 34.29470992088318
+  },
+  {
+   "job_id": "ab_twins_modeswitch_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 434.1674449443817,
+   "seconds_closed_form": 53.822762966156006
+  },
+  {
+   "job_id": "ab_crowded_hard_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 511.5511620044708,
+   "seconds_closed_form": 36.66624402999878
+  },
+  {
+   "job_id": "ab_crowded_modeswitch_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 582.9579980373383,
+   "seconds_closed_form": 59.203449964523315
+  },
+  {
+   "job_id": "ab_crowded_hard_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 341.15608191490173,
+   "seconds_closed_form": 32.75521898269653
+  },
+  {
+   "job_id": "ab_crowded_modeswitch_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 434.20204734802246,
+   "seconds_closed_form": 51.94533586502075
+  },
+  {
+   "job_id": "ab_real_hard_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 520.6991982460022,
+   "seconds_closed_form": 36.03367877006531
+  },
+  {
+   "job_id": "ab_real_modeswitch_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 642.8322188854218,
+   "seconds_closed_form": 63.00616788864136
+  },
+  {
+   "job_id": "ab_real_hard_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 349.9904479980469,
+   "seconds_closed_form": 31.746212005615234
+  },
+  {
+   "job_id": "ab_real_modeswitch_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 437.14483284950256,
+   "seconds_closed_form": 53.58541917800903
+  },
+  {
+   "job_id": "ab_floor_hard_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 527.6979839801788,
+   "seconds_closed_form": 37.26339292526245
+  },
+  {
+   "job_id": "ab_floor_modeswitch_0_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 618.5810797214508,
+   "seconds_closed_form": 63.21435904502869
+  },
+  {
+   "job_id": "ab_floor_hard_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 352.09423780441284,
+   "seconds_closed_form": 34.09926390647888
+  },
+  {
+   "job_id": "ab_floor_modeswitch_1_f0.05",
+   "games": 220,
+   "games_identical": true,
+   "scorecard_identical": true,
+   "seconds_dense": 437.73738193511963,
+   "seconds_closed_form": 54.074711084365845
+  }
+ ],
+ "blas_threads": "1",
+ "workers": 6,
+ "pass": true
+}

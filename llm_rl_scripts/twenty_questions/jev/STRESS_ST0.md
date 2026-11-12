@@ -157,13 +157,17 @@ To settle before each is registered:
    share, 200/1200 = 0.167, which is inside the collapse zone. Either run ST-1
    with `no_repeat=True`, or use a prior ≤ 0.10, or treat the loop as one of the
    stressors. The choice changes what ST-1 measures, so it is a registration
-   decision.
+   decision. **Decided 2026-11-11** (revised `STRESS_CROWDING_PREREG.md`): a
+   1000 + 100 game mix (calibrated prior 0.091) for the published architecture,
+   plus a `no_repeat` arm for `hard` and `modeswitch`, with the repeat rate
+   logged per cell.
 2. **ST-3 heavy tails.** At σ = 0.75 the PY prior stays high for a long stretch
    of the stream. Without a repeat guard, the discrete backends' expert load and
    their prior-insensitivity prediction (ST-3 P2) would mostly measure this
    loop.
 3. **ST-1's crowding axis.** The 2·ρ_real level sits near the floor. Replacing
-   it with ρ = 1 would make the least-crowded level the floor itself.
+   it with ρ = 1 would make the least-crowded level the floor itself. **Decided
+   2026-11-11:** levels {0 (twins), ρ_real/3, ρ_real, 1 (floor)}.
 4. **All studies.** Pin `PYTHONHASHSEED` and use the `LLM_RL` env. Record both in
    every summary.
 

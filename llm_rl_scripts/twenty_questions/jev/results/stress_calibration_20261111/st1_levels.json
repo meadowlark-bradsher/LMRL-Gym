@@ -1,0 +1,304 @@
+{
+  "real_census": {
+    "ambiguous_cells": 1035,
+    "distinct_rows": 140,
+    "largest_identical_cluster": 4,
+    "mean_sampling_flip": 0.0897396432681205,
+    "n_attributes": 44,
+    "n_cells": 6952,
+    "n_objects": 158,
+    "nn_hamming_hist": {
+      "0": 32,
+      "1": 66,
+      "2": 38,
+      "3": 11,
+      "4": 7,
+      "5": 2,
+      "6": 2
+    },
+    "nn_within_1": 98,
+    "objects_sharing_a_row": 32
+  },
+  "rho_real": null,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "table": [
+    {
+      "nn_within_1_max": 142,
+      "nn_within_1_mean": 130.7,
+      "nn_within_1_min": 120,
+      "per_seed": [
+        {
+          "ambiguous_cells": 1025,
+          "distinct_rows": 84,
+          "nn_within_1": 142,
+          "seed": 1
+        },
+        {
+          "ambiguous_cells": 1026,
+          "distinct_rows": 94,
+          "nn_within_1": 132,
+          "seed": 2
+        },
+        {
+          "ambiguous_cells": 1059,
+          "distinct_rows": 96,
+          "nn_within_1": 131,
+          "seed": 3
+        },
+        {
+          "ambiguous_cells": 1012,
+          "distinct_rows": 85,
+          "nn_within_1": 135,
+          "seed": 4
+        },
+        {
+          "ambiguous_cells": 1066,
+          "distinct_rows": 89,
+          "nn_within_1": 131,
+          "seed": 5
+        },
+        {
+          "ambiguous_cells": 1082,
+          "distinct_rows": 93,
+          "nn_within_1": 132,
+          "seed": 6
+        },
+        {
+          "ambiguous_cells": 1035,
+          "distinct_rows": 96,
+          "nn_within_1": 129,
+          "seed": 7
+        },
+        {
+          "ambiguous_cells": 1051,
+          "distinct_rows": 93,
+          "nn_within_1": 131,
+          "seed": 8
+        },
+        {
+          "ambiguous_cells": 1020,
+          "distinct_rows": 98,
+          "nn_within_1": 124,
+          "seed": 9
+        },
+        {
+          "ambiguous_cells": 1066,
+          "distinct_rows": 96,
+          "nn_within_1": 120,
+          "seed": 10
+        },
+        {
+          "ambiguous_cells": 1047,
+          "distinct_rows": 102,
+          "nn_within_1": 126,
+          "seed": 11
+        },
+        {
+          "ambiguous_cells": 1040,
+          "distinct_rows": 101,
+          "nn_within_1": 129,
+          "seed": 12
+        },
+        {
+          "ambiguous_cells": 1028,
+          "distinct_rows": 92,
+          "nn_within_1": 130,
+          "seed": 13
+        },
+        {
+          "ambiguous_cells": 1087,
+          "distinct_rows": 95,
+          "nn_within_1": 127,
+          "seed": 14
+        },
+        {
+          "ambiguous_cells": 1032,
+          "distinct_rows": 89,
+          "nn_within_1": 138,
+          "seed": 15
+        },
+        {
+          "ambiguous_cells": 1057,
+          "distinct_rows": 94,
+          "nn_within_1": 130,
+          "seed": 16
+        },
+        {
+          "ambiguous_cells": 1016,
+          "distinct_rows": 89,
+          "nn_within_1": 136,
+          "seed": 17
+        },
+        {
+          "ambiguous_cells": 1034,
+          "distinct_rows": 96,
+          "nn_within_1": 131,
+          "seed": 18
+        },
+        {
+          "ambiguous_cells": 1008,
+          "distinct_rows": 94,
+          "nn_within_1": 127,
+          "seed": 19
+        },
+        {
+          "ambiguous_cells": 990,
+          "distinct_rows": 87,
+          "nn_within_1": 133,
+          "seed": 20
+        }
+      ],
+      "rho": 0.0
+    },
+    {
+      "nn_within_1_max": 131,
+      "nn_within_1_mean": 120.35,
+      "nn_within_1_min": 112,
+      "per_seed": [
+        {
+          "ambiguous_cells": 1054,
+          "distinct_rows": 112,
+          "nn_within_1": 119,
+          "seed": 1
+        },
+        {
+          "ambiguous_cells": 1053,
+          "distinct_rows": 108,
+          "nn_within_1": 118,
+          "seed": 2
+        },
+        {
+          "ambiguous_cells": 1015,
+          "distinct_rows": 114,
+          "nn_within_1": 124,
+          "seed": 3
+        },
+        {
+          "ambiguous_cells": 1063,
+          "distinct_rows": 113,
+          "nn_within_1": 119,
+          "seed": 4
+        },
+        {
+          "ambiguous_cells": 1026,
+          "distinct_rows": 110,
+          "nn_within_1": 122,
+          "seed": 5
+        },
+        {
+          "ambiguous_cells": 1027,
+          "distinct_rows": 119,
+          "nn_within_1": 127,
+          "seed": 6
+        },
+        {
+          "ambiguous_cells": 1050,
+          "distinct_rows": 115,
+          "nn_within_1": 112,
+          "seed": 7
+        },
+        {
+          "ambiguous_cells": 988,
+          "distinct_rows": 116,
+          "nn_within_1": 117,
+          "seed": 8
+        },
+        {
+          "ambiguous_cells": 1065,
+          "distinct_rows": 116,
+          "nn_within_1": 114,
+          "seed": 9
+        },
+        {
+          "ambiguous_cells": 1046,
+          "distinct_rows": 105,
+          "nn_within_1": 122,
+          "seed": 10
+        },
+        {
+          "ambiguous_cells": 1017,
+          "distinct_rows": 119,
+          "nn_within_1": 117,
+          "seed": 11
+        },
+        {
+          "ambiguous_cells": 1030,
+          "distinct_rows": 117,
+          "nn_within_1": 123,
+          "seed": 12
+        },
+        {
+          "ambiguous_cells": 996,
+          "distinct_rows": 116,
+          "nn_within_1": 121,
+          "seed": 13
+        },
+        {
+          "ambiguous_cells": 1012,
+          "distinct_rows": 107,
+          "nn_within_1": 129,
+          "seed": 14
+        },
+        {
+          "ambiguous_cells": 1001,
+          "distinct_rows": 113,
+          "nn_within_1": 116,
+          "seed": 15
+        },
+        {
+          "ambiguous_cells": 1074,
+          "distinct_rows": 116,
+          "nn_within_1": 131,
+          "seed": 16
+        },
+        {
+          "ambiguous_cells": 1033,
+          "distinct_rows": 111,
+          "nn_within_1": 120,
+          "seed": 17
+        },
+        {
+          "ambiguous_cells": 1017,
+          "distinct_rows": 111,
+          "nn_within_1": 112,
+          "seed": 18
+        },
+        {
+          "ambiguous_cells": 1001,
+          "distinct_rows": 112,
+          "nn_within_1": 120,
+          "seed": 19
+        },
+        {
+          "ambiguous_cells": 995,
+          "distinct_rows": 115,
+          "nn_within_1": 124,
+          "seed": 20
+        }
+      ],
+      "rho": 0.078
+    }
+  ],
+  "target_nn_within_1": 98
+}

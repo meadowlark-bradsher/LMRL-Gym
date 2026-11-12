@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import random
 import statistics
@@ -30,7 +31,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence
 
 from .analyze_openworld import auc
-from .bed import GUESS, Hypothesis, OracleModel, matrix_oracle
+from .bed import ATTRIBUTE, GUESS, Hypothesis, OracleModel, matrix_oracle
 from .openworld import run_openworld_episode
 
 Matrix = Dict[str, Dict[str, float]]
@@ -60,6 +61,47 @@ class SnapshotRecord:
     fire_turn: Optional[int]
     n_retractions: int
     n_live_final: int            # live knowns at budget exhaustion (-1: n/a)
+    n_repeat_questions: int = 0  # re-asks of a non-guess question this game
+    # Rescue-trigger diagnostic (survivor backends; None for soft):
+    truth_struck: Optional[bool] = None          # an answer contradicted the live truth
+    truth_struck_by_flip: Optional[bool] = None  # ... and it was a flipped attribute
+    emptied_after_strike: Optional[bool] = None  # live set emptied at/after the strike
+
+
+class RescueObserver:
+    """Per-game ``observer`` for ``run_openworld_episode``: did an answer strike
+    the live truth, was it a flipped attribute, and did the live set then empty
+    (the precondition for ``modeswitch``'s reinstate)? The strike test is the
+    backends' own rule, p(observed answer | truth) < ``kill``, evaluated on the
+    survivor set before the update. ``modeswitch`` refills an emptied set inside
+    the same update, so a reinstate this turn also counts as emptied."""
+
+    def __init__(self, true_name: str, answer_matrix: Matrix, threshold: float = 0.5):
+        self.true = true_name
+        self.answers = answer_matrix
+        self.threshold = threshold
+        self.struck = False
+        self.by_flip = False
+        self.emptied = False
+        self.applicable = None
+        self._revives = 0
+
+    def __call__(self, turn, q, ans, bk, surv_before) -> None:
+        if not hasattr(bk, "survivors"):
+            self.applicable = False
+            return
+        self.applicable = True
+        revives = getattr(bk, "n_revives", 0)
+        revived_now = revives > self._revives
+        self._revives = revives
+        if not self.struck and self.true in surv_before:
+            p_yes = bk.like(q, bk.by_name[self.true])
+            if (p_yes if ans else 1.0 - p_yes) < bk.kill:
+                self.struck = True
+                self.by_flip = (q.kind == ATTRIBUTE and ans != (
+                    self.answers[q.key][self.true] >= self.threshold))
+        if self.struck and (len(bk.survivors) == 0 or revived_now):
+            self.emptied = True
 
 
 def run_snapshot(pool: Sequence[Hypothesis], matrix: Matrix,
@@ -68,13 +110,15 @@ def run_snapshot(pool: Sequence[Hypothesis], matrix: Matrix,
                  seed: int = 0, p_unknown_prior: Optional[float] = None,
                  max_questions: int = 20, confidence: float = 0.9,
                  eps: float = 0.05, margin: float = 2.0,
-                 tolerance: int = 3, no_repeat: bool = False) -> List[SnapshotRecord]:
+                 tolerance: int = 3, no_repeat: bool = False,
+                 planner=None) -> List[SnapshotRecord]:
     """Play ``n_in_pool`` in-pool games and one game per ``novel`` object, in a
     seeded shuffled order, against a fixed ``H_known = pool``. ``matrix`` must
     hold rows for the pool and the novel objects (the answerer reads both). The
     catch-all prior defaults to the novelty share of the game mix. Above ~0.1
     the survivor-set backends loop on a repeated question unless ``no_repeat``
-    is set (``STRESS_ST0.md``)."""
+    is set (``STRESS_ST0.md``). ``planner`` is a ``stress_fastplan.FastPlanner``
+    built for ``pool`` (the numpy path), or None for the Python path."""
     rng = random.Random(seed)
     secrets = [rng.choice(pool) for _ in range(n_in_pool)] + list(novel)
     rng.shuffle(secrets)
@@ -88,17 +132,25 @@ def run_snapshot(pool: Sequence[Hypothesis], matrix: Matrix,
     for g, true_h in enumerate(secrets):
         if begin_game is not None:
             begin_game(g)
+        obs = RescueObserver(true_h.name, matrix)
         ep = run_openworld_episode(
             true_h, pool, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
-            backend=backend, margin=margin, tolerance=tolerance, no_repeat=no_repeat)
+            backend=backend, margin=margin, tolerance=tolerance, no_repeat=no_repeat,
+            observer=obs, planner=planner)
         guesses = [s.qid for s in ep.steps if s.kind == GUESS]
+        others = [s.qid for s in ep.steps if s.kind != GUESS]
+        survivor = obs.applicable if obs.applicable is not None else (backend != "soft")
         out.append(SnapshotRecord(
             game=g, true_name=true_h.name, true_category=true_h.category,
             in_pool=ep.in_pool, outcome=ep.outcome, n_questions=ep.n_questions,
             n_guesses=len(guesses), n_repeat_guesses=len(guesses) - len(set(guesses)),
             p_unknown_max=ep.p_unknown_max, fire_turn=ep.fire_turn,
-            n_retractions=ep.n_retractions, n_live_final=ep.n_live_final))
+            n_retractions=ep.n_retractions, n_live_final=ep.n_live_final,
+            n_repeat_questions=len(others) - len(set(others)),
+            truth_struck=obs.struck if survivor else None,
+            truth_struck_by_flip=obs.by_flip if survivor else None,
+            emptied_after_strike=obs.emptied if survivor else None))
     return out
 
 
@@ -138,6 +190,15 @@ def scorecard(records: Sequence, confidence: float = 0.9) -> Dict[str, float]:
     if records and hasattr(records[0], "n_live_final"):
         wrong = [r for r in records if r.outcome == "wrong" and r.n_live_final >= 0]
         out["budget_exhaustion_share"] = frac(wrong, lambda r: r.n_live_final >= 2)
+    if records and hasattr(records[0], "n_repeat_questions"):
+        out["repeat_rate"] = frac(list(records), lambda r: r.n_repeat_questions > 0)
+        n_q = sum(r.n_questions for r in records)
+        out["guess_share"] = (sum(r.n_guesses for r in records) / n_q) if n_q else float("nan")
+        qs = sorted(r.n_questions for r in records)
+        out["q95_questions"] = qs[min(len(qs) - 1, int(math.ceil(0.95 * len(qs))) - 1)]
+        struck = [r for r in inp if r.truth_struck_by_flip]
+        out["flip_struck_in_pool"] = len(struck)
+        out["rescue_trigger_rate"] = frac(struck, lambda r: r.emptied_after_strike)
     return out
 
 
@@ -274,6 +335,54 @@ def self_test(matrix_path: str) -> None:
     assert won_loop < 0.5 < won_guarded, (won_loop, won_guarded)
     print("  repeat-question loop at prior 0.25: hard won {:.2f} -> {:.2f} with "
           "no_repeat".format(won_loop, won_guarded))
+    assert sum(r.n_repeat_questions > 0 for r in loop) > 15, "repeat counter misses the loop"
+    assert all(r.n_repeat_questions == 0 for r in guarded), "no_repeat still repeats"
+    sc_loop = scorecard(loop)
+    assert sc_loop["repeat_rate"] > 0.5 and scorecard(guarded)["repeat_rate"] == 0.0
+
+    # Rescue-trigger diagnostic: under 30% flips the truth gets struck by flips;
+    # hard empties the set only when nothing else survives, modeswitch reinstates.
+    from .openworld import noisy_matrix_oracle
+    for bk in ("hard", "modeswitch"):
+        noisy = run_snapshot(pool_s, full, [], n_in_pool=40, backend=bk, seed=3,
+                             p_unknown_prior=0.05,
+                             oracle=noisy_matrix_oracle(full, 0.30, seed=11))
+        struck = [r for r in noisy if r.truth_struck_by_flip]
+        assert struck, "no flip ever struck the truth at 30%"
+        assert all(r.truth_struck for r in struck)
+        if bk == "modeswitch":
+            assert any(r.n_retractions > 0 and r.emptied_after_strike for r in struck)
+        sc_n = scorecard(noisy)
+        print("  rescue diagnostic {:10s}: {} flip-struck in-pool games, live set emptied "
+              "after the strike in {:.2f}".format(bk, sc_n["flip_struck_in_pool"],
+                                                  sc_n["rescue_trigger_rate"]))
+    soft_rec = run_snapshot(pool_s, full, [], n_in_pool=5, backend="soft", seed=3,
+                            p_unknown_prior=0.05)
+    assert all(r.truth_struck is None for r in soft_rec)
+
+    # ST-0f: the numpy planner matches the Python path to 1e-9 on every ranking
+    # and update, and -- under the same tie rule (EIG rounded to 1e-9, then qid;
+    # stress_fastplan.tie_sorted) -- plays the same games.
+    from .stress_fastplan import FastPlanner, ParityPlanner, SnapPythonPlanner
+    fp = FastPlanner(pool_s, full)
+    for bk in ("soft", "hard", "modeswitch"):
+        par = ParityPlanner(fp)
+        run_snapshot(pool_s, full, nov_h, n_in_pool=40, backend=bk, seed=5,
+                     p_unknown_prior=0.05, planner=par)
+        a = run_snapshot(pool_s, full, nov_h, n_in_pool=40, backend=bk, seed=5,
+                         p_unknown_prior=0.05, planner=SnapPythonPlanner(fp))
+        assert par.max_eig_diff <= 1e-9 and par.max_post_diff <= 1e-9, bk
+        assert par.max_mismatch_gap <= 1e-9, (bk, par.max_mismatch_gap)
+        b = run_snapshot(pool_s, full, nov_h, n_in_pool=40, backend=bk, seed=5,
+                         p_unknown_prior=0.05, planner=fp)
+        same = sum((x.outcome, x.n_questions) == (y.outcome, y.n_questions)
+                   for x, y in zip(a, b))
+        if par.argmax_mismatch == 0:
+            assert same == len(a), bk
+        print("  numpy planner {:10s}: max|dEIG| {:.1e}  max|dpost| {:.1e}  near-tie "
+              "partings {}  same outcome+length {}/{}".format(
+                  bk, par.max_eig_diff, par.max_post_diff, par.argmax_mismatch,
+                  same, len(a)))
     c = census(full, [h.name for h in pool_s])
     assert c["n_objects"] == 200
     print("[self-test] ST-0d snapshot OK (fixed pool, held-out novelty, no admissions, "
