@@ -1,0 +1,1 @@
+{"ambiguous_cells": 13183, "distinct_rows": 140, "largest_identical_cluster": 46, "mean_sampling_flip": 0.08997465909096033, "n_attributes": 44, "n_cells": 88000, "n_objects": 2000, "nn_within_1": 2000, "objects_sharing_a_row": 2000}

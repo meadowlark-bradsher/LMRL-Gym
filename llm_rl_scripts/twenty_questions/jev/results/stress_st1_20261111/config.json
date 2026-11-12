@@ -1,0 +1,95 @@
+{
+  "arms": [
+    [
+      "primary",
+      "soft",
+      false
+    ],
+    [
+      "primary",
+      "hard",
+      false
+    ],
+    [
+      "primary",
+      "modeswitch",
+      false
+    ],
+    [
+      "norepeat",
+      "hard",
+      true
+    ],
+    [
+      "norepeat",
+      "modeswitch",
+      true
+    ]
+  ],
+  "budget": 20,
+  "confidence": 0.9,
+  "created": "20261112_033235",
+  "eps": 0.05,
+  "flips": [
+    0.0,
+    0.05,
+    0.1
+  ],
+  "levels": [
+    [
+      "twins",
+      0.0
+    ],
+    [
+      "crowded",
+      0.078
+    ],
+    [
+      "real",
+      0.2345
+    ],
+    [
+      "floor",
+      1.0
+    ]
+  ],
+  "matrix": "matrix_jev.json",
+  "mode": "run",
+  "n_in_pool": 1000,
+  "n_novel": 100,
+  "noise_seeds": [
+    1,
+    2,
+    3
+  ],
+  "provenance": {
+    "blas": "openblas 0.3.21",
+    "executable": "/opt/miniconda3/envs/LLM_RL/bin/python",
+    "git_commit": "198ec2e1d32fa01134dac34cf193b7327ffa4290",
+    "git_dirty": false,
+    "machine": "arm64",
+    "numpy": "1.26.4",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.21",
+    "pythonhashseed": "0",
+    "scipy": "1.11.1"
+  },
+  "registration": {
+    "prereg_commit": "198ec2e1d32fa01134dac34cf193b7327ffa4290",
+    "prereg_tag": "prereg-stress-st1-20261111"
+  },
+  "replicates": [
+    1,
+    2,
+    3
+  ],
+  "sizes": [
+    158,
+    500,
+    1000,
+    2000,
+    5000
+  ],
+  "soft_max_n": 5000,
+  "tolerance_K": 3
+}

@@ -5,7 +5,7 @@ here plays a game on the real matrix in an ST-1 configuration. The parity check 
 pools outside the ST-1 grid seeds. The smoke test and the timing use the synthetic
 matrix only.
 
-**Status (2026-11-12):** tagged `prereg-stress-st1-20261111` on 198ec2e and running.
+**Status (2026-11-12):** tagged `prereg-stress-st1-20261111` on 198ec2e; the grid is complete and scored in `STRESS_ST1_RESULTS.md`.
 A speed-only change was made mid-run; see *Mid-run change* at the end.
 
 Everything runs under `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9) with
@@ -149,17 +149,21 @@ show that the new code plays the same games.
 
 Segment 1 (commit 198ec2e, 12 workers, BLAS threads unpinned) ran for 9.5 h and
 finished 60 jobs, all of them `soft` at N = 5000 (the runner starts longest first).
-Each took 5607–5974 s, about 14× the 6.7 min estimated above. There were three causes:
+Each took 5607–5974 s, about 14× the 6.7 min estimated above. There were two causes:
 
 1. **Real games are long.** On the real matrix, games run close to the 20-question
    budget. The synthetic matrix used for the timing estimate gives shorter games.
-2. **Guess rows were dense.** `rank` built a dense (candidates × N+1) likelihood
-   matrix, including one row per guess, each with only two non-zero entries. At
-   N = 5000 that is a 5000 × 5001 matrix on every turn, with temporaries of about
-   200 MB. The cost grew much faster than N: about 70× per game for 5× the pool.
-3. **BLAS was unpinned.** OpenBLAS started one thread per core in every worker, so 12
+2. **BLAS was unpinned.** OpenBLAS started one thread per core in every worker, so 12
    workers ran 144 threads. The machine showed a load average of about 230–340 and
-   about 62% kernel time.
+   about 62% kernel time. The thrashing grew with the matrix size: unpinned, a
+   `soft` game cost about 70× more at N = 5000 than at N = 1000; pinned, about 6.5×.
+
+A third cause was diagnosed at the time and turned out to be wrong: that `rank`
+built one dense guess row per hypothesis, a 5000 × 5001 matrix every turn. In fact
+`candidate_questions` adds guesses for only the top 5 hypotheses (or for every
+survivor once 5 or fewer remain), so the guess rows were never more than 5 × (N + 1).
+The closed-form change below therefore does not speed anything up; the BLAS pin is
+the whole fix (see *Speed*).
 
 The runtime cap (`soft` drops to N ≤ 2000 only if one N = 5000 `soft` job exceeds
 2 h) did not trigger: the slowest job took 100 min. The registered `--soft-max-n 5000`
@@ -170,7 +174,8 @@ stands.
 `FastPlanner.eig_guesses` computes the EIG of every guess in closed form. A guess row
 is 1 on the named object and `eps` on UNKNOWN, so the "no" posterior's entropy follows
 from two sums over the posterior that all guesses share. Each turn costs O(N) instead
-of O(N) per guess. `rank` sends guesses there and attribute and category rows through
+of O(N) per guess; with at most 5 guess candidates per turn that saves nothing
+measurable (see *Speed*). `rank` sends guesses there and attribute and category rows through
 `eig_rows` as before. `rank_dense` keeps the old path as the A/B reference. The algebra
 is the same as `eig_rows`; only the floating-point summation order differs.
 
@@ -197,9 +202,29 @@ The replay ran with BLAS pinned to 1 thread against records written with 12, and
 A/B's dense side ran unpinned. So the gates also show that the BLAS thread count does
 not change results here.
 
-Speed: the replayed jobs took 308–509 s against the stored 5607–5919 s. That ratio
-mixes the closed form, the BLAS pin and a different machine load, so it is not a
-clean measure of the closed form alone.
+### Speed
+
+The replayed jobs took 308–509 s against the stored 5607–5919 s, a ratio that mixes
+the code change, the BLAS pin and a different machine load. A clean attribution was
+run afterwards: `stress_fastguess_gate --probe` with and without `--dense`, as two
+processes started together on the same machine load, each with BLAS pinned to one
+thread. Each cell is one off-grid real-level pool, 44 games at flip 0.05
+(`probe_dense.json`, `probe_closed_form.json`).
+
+| cell | `rank_dense` s/game | closed form s/game |
+|---|---:|---:|
+| N = 5000 soft | 0.248 | 0.238 |
+| N = 5000 hard | 0.066 | 0.066 |
+| N = 5000 modeswitch | 0.106 | 0.108 |
+| N = 5000 hard, `no_repeat` | 0.060 | 0.061 |
+| N = 1000 soft | 0.038 | 0.041 |
+| N = 1000 hard | 0.015 | 0.016 |
+| N = 1000 modeswitch | 0.022 | 0.023 |
+
+The two are within run-to-run noise in every cell. With BLAS pinned, a 1100-game
+N = 5000 `soft` job costs about 270 s of play, against the 5600–5900 s segment 1
+spent unpinned. The closed form stays in the code: it is gated and harmless, and
+removing it now would be a second mid-run change.
 
 ### Segments
 

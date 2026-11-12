@@ -1,0 +1,28 @@
+{
+ "primary/hard": {
+  "in_pool|narrowed_on_turn20|no_revive": 48,
+  "novel|narrowed_on_turn20|no_revive": 46,
+  "wrong_in_pool": 252,
+  "wrong_novel": 129
+ },
+ "primary/modeswitch": {
+  "in_pool|narrowed_on_turn20|no_revive": 48,
+  "novel|guess_refuted_turn20|revived": 210,
+  "novel|narrowed_on_turn20|no_revive": 46,
+  "wrong_in_pool": 252,
+  "wrong_novel": 339
+ },
+ "norepeat/hard": {
+  "in_pool|narrowed_on_turn20|no_revive": 146,
+  "novel|narrowed_on_turn20|no_revive": 162,
+  "wrong_in_pool": 3847,
+  "wrong_novel": 1283
+ },
+ "norepeat/modeswitch": {
+  "in_pool|narrowed_on_turn20|no_revive": 146,
+  "novel|guess_refuted_turn20|revived": 613,
+  "novel|narrowed_on_turn20|no_revive": 162,
+  "wrong_in_pool": 3847,
+  "wrong_novel": 1896
+ }
+}
