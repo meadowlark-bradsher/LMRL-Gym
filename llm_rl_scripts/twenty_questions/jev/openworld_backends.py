@@ -502,7 +502,11 @@ class ModeSwitchGuarded(ModeSwitchedRetraction):
     test is skipped, so the game escalates instead of ending on an untested,
     reinstated known (the *reinstate overrun* of ``STRESS_ST1_RESULTS.md`` §4). The
     guard acts only on the last answer of a game, so it never changes which
-    questions are asked; it can only turn a budget-end ``wrong`` into ``expert``."""
+    questions are asked; it can only turn a budget-end ``wrong`` into ``expert``.
+
+    This is the P0a production backend (``P0A_BACKEND``; adopted 2026-11-12 after the
+    gates of ``STRESS_REINSTATE_GUARD.md``). ``modeswitch`` stays unguarded as the
+    reference that every committed ``modeswitch`` result regenerates with."""
 
     name = "modeswitch_guard"
 
@@ -520,3 +524,8 @@ BACKENDS: Dict[str, type] = {
     "modeswitch": ModeSwitchedRetraction,
     "modeswitch_guard": ModeSwitchGuarded,
 }
+
+# The production rule P0a (PRODUCTION_RECOMMENDATIONS.md): hard elimination with a
+# bounded, budget-aware reinstate-and-test. New work that means "P0a" selects this;
+# preregistered studies keep the backend names they registered.
+P0A_BACKEND = "modeswitch_guard"

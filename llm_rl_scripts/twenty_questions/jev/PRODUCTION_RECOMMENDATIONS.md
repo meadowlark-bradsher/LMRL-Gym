@@ -25,15 +25,26 @@ cost optimization matters, because the failures it prevents are the silent, expe
 
 Use hard elimination to gate the expensive action. To recover from a wrong elimination,
 re-probe the hypothesis **directly** with a bounded exact test behind the gate — never
-soften the belief that gates the human. That is the `modeswitch` rule: naive reversibility
+soften the belief that gates the human. Make the test **budget-aware**: reinstate only
+when a turn is left to test the candidate, else escalate. That is the `modeswitch_guard`
+backend (`P0A_BACKEND`; `modeswitch` with the budget guard on). Naive reversibility
 (scalar `retract`, CMBS-aligned `tombstone`) recovers in-pool loss but corrupts everything
 downstream.
 
-* **Prevents:** confident wrong guesses, and a blinded novelty detector.
+* **Prevents:** confident wrong guesses, a blinded novelty detector, and a game that ends
+  on a reinstated known nobody tested.
 * **Evidence:** `modeswitch` recovers in-pool (0.149 < hard 0.175 @10% noise), keeps the
   detector (AUC 0.926 ≥ hard), and manufactures zero wrong-guesses — whereas naive
-  reversibility drives AUC to chance and invents wrong-guesses.
-* **Source:** ENV-702 (`OPENWORLD_RETRACTION_RESULTS.md`).
+  reversibility drives AUC to chance and invents wrong-guesses. The guard changes none of
+  these numbers (identical in every per-seed metric of that grid). At larger pools
+  (N ≥ 500, ST-1) unguarded `modeswitch` can reinstate on the final answer and end
+  `wrong`; the guard turns those games into escalations, roughly halving the primary
+  arm's noisy in-pool `wrong` worst case (0.058 → 0.030 at 10% flips) with no change to
+  any cell's `won`.
+* **Precondition:** an escalation must cost less than a wrong answer. A deployment that
+  prefers a final untested best guess to an escalation should use unguarded `modeswitch`.
+* **Source:** ENV-702 (`OPENWORLD_RETRACTION_RESULTS.md`); guard: `STRESS_REINSTATE_GUARD.md`
+  (run `results/stress_reinstate_guard_20261112/`, gates G1–G3 all pass).
 
 ### P0b — Keep an append-only, hash-chained op-log
 *(free with the gate)*

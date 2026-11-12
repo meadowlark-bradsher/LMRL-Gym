@@ -1,8 +1,10 @@
 # `modeswitch` budget guard — design and gates
 
 **Status (2026-11-12):** built; gate criteria fixed below before any gate run (commit
-5ab0e9d); gates run and **all pass** (see *Results*). Not adopted: `modeswitch` (P0a)
-is unchanged, and the guard is a separate backend, `modeswitch_guard`.
+5ab0e9d); gates run and **all pass** (see *Results*). **Adopted as P0a** (2026-11-12,
+see *Decision*): the production rule is now `modeswitch_guard` (`P0A_BACKEND`).
+`modeswitch` itself is unchanged and stays unguarded, so every committed result
+regenerates as before.
 
 ## Why
 
@@ -50,7 +52,7 @@ ST-1 cell metrics (won / safe / wrong / AUC) against the stored ones, and the nu
 games changed, in-pool and novel.
 
 Not decided here: whether `modeswitch_guard` replaces `modeswitch` as P0a. That is a
-production decision for after the gates.
+production decision for after the gates. (Decided afterwards; see *Decision*.)
 
 ## Results
 
@@ -136,4 +138,20 @@ repeat loop or the size effect, which remain the main ST-1 findings.
 
 Adoption as P0a is still not decided here. What would argue against it is outside
 ST-1: a deployment that rewards a final untested best guess over an escalation.
+
+## Decision
+
+**2026-11-12: `modeswitch_guard` is P0a.** Taken after the gates above, on their
+result: the guard is free within ST-1's scoring and removes a confident-error path.
+How it is applied:
+
+* `PRODUCTION_RECOMMENDATIONS.md` P0a names `modeswitch_guard`, with the precondition
+  above (an escalation must cost less than a wrong answer) stated next to it.
+* `openworld_backends.P0A_BACKEND = "modeswitch_guard"` is the name new work uses
+  for "P0a".
+* The backend `modeswitch` keeps its unguarded behaviour (`budget_guard` still
+  defaults to False). Changing that default would change stored ST-1 outcomes at
+  N ≥ 500 and break their regeneration; G3 shows it would change nothing in the
+  published retraction grid. Preregistered studies keep the backend names they
+  registered, so ST-1 and earlier results still read `modeswitch` as unguarded.
 

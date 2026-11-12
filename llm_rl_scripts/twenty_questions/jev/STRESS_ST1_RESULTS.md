@@ -200,7 +200,9 @@ These are readings for a decision, not decisions; none is made here.
 * **The reinstate test should be budget-aware.** A one-line guard (reinstate only if
   the remaining budget can finish the test, else escalate) would remove the overrun
   path without changing anything at N = 158, where it never fires. It needs its own
-  gate before adoption.
+  gate before adoption. *(Since done: built and gated in `STRESS_REINSTATE_GUARD.md`,
+  all gates pass, and adopted as P0a as `modeswitch_guard` on 2026-11-12. The results
+  above are for unguarded `modeswitch`, as registered.)*
 * **Scale needs vocabulary.** Every failure here traces back to too few attributes for
   the pool: pools whose objects all have near-twins cannot be split in 20 questions.
   The prereg's *Out of scope* follow-on (grow the question bank with N) is now the
