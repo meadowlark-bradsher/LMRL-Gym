@@ -3,7 +3,10 @@
 The tooling `STRESS_CROWDING_PREREG.md` lists under *Built before tagging*. Nothing
 here plays a game on the real matrix in an ST-1 configuration. The parity check uses
 pools outside the ST-1 grid seeds. The smoke test and the timing use the synthetic
-matrix only. ST-1 has **not been tagged or run**.
+matrix only.
+
+**Status (2026-11-12):** tagged `prereg-stress-st1-20261111` on 198ec2e and running.
+A speed-only change was made mid-run; see *Mid-run change* at the end.
 
 Everything runs under `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9) with
 `PYTHONHASHSEED=0`.
@@ -134,3 +137,81 @@ PYTHONHASHSEED=0 PYTHONPATH=. /opt/miniconda3/envs/LLM_RL/bin/python -m llm_rl_s
   just numpy, scipy and matplotlib.
 * **Out of date specs.** `requirements.txt` pins scipy 1.9.0 while `LLM_RL` has
   1.11.1, and numpy isn't pinned.
+
+## Mid-run change: closed-form guess EIG (2026-11-12)
+
+A speed-only change, made after 60 of 1785 jobs. The pre-registration is unchanged,
+and so is the design it registers. It specifies the planner by its contract (the
+Python EIG and soft update to 1e-9, ranked under the tie rule), and the gates below
+show that the new code plays the same games.
+
+### Why
+
+Segment 1 (commit 198ec2e, 12 workers, BLAS threads unpinned) ran for 9.5 h and
+finished 60 jobs, all of them `soft` at N = 5000 (the runner starts longest first).
+Each took 5607–5974 s, about 14× the 6.7 min estimated above. There were three causes:
+
+1. **Real games are long.** On the real matrix, games run close to the 20-question
+   budget. The synthetic matrix used for the timing estimate gives shorter games.
+2. **Guess rows were dense.** `rank` built a dense (candidates × N+1) likelihood
+   matrix, including one row per guess, each with only two non-zero entries. At
+   N = 5000 that is a 5000 × 5001 matrix on every turn, with temporaries of about
+   200 MB. The cost grew much faster than N: about 70× per game for 5× the pool.
+3. **BLAS was unpinned.** OpenBLAS started one thread per core in every worker, so 12
+   workers ran 144 threads. The machine showed a load average of about 230–340 and
+   about 62% kernel time.
+
+The runtime cap (`soft` drops to N ≤ 2000 only if one N = 5000 `soft` job exceeds
+2 h) did not trigger: the slowest job took 100 min. The registered `--soft-max-n 5000`
+stands.
+
+### The change
+
+`FastPlanner.eig_guesses` computes the EIG of every guess in closed form. A guess row
+is 1 on the named object and `eps` on UNKNOWN, so the "no" posterior's entropy follows
+from two sums over the posterior that all guesses share. Each turn costs O(N) instead
+of O(N) per guess. `rank` sends guesses there and attribute and category rows through
+`eig_rows` as before. `rank_dense` keeps the old path as the A/B reference. The algebra
+is the same as `eig_rows`; only the floating-point summation order differs.
+
+The runner also changed:
+* `--blas-threads` (default 1) pins BLAS in the workers.
+* `config.json` is now written once, by the first start. Every start appends to
+  `segments.json`: its commit, worker count, BLAS threads, and the jobs already
+  finished.
+* Provenance lists dirty tracked files (`git_dirty_files`).
+
+### Gates
+
+Output: `results/stress_st1_fastguess_gate_20261112/`. Regenerate with
+`stress_fastguess_gate` (`--unit`, `--gate`) and `stress_fastplan --parity`.
+
+| gate | result |
+|---|---|
+| unit: closed form vs dense rows, 3000 random posteriors (peaked, one dominant mass, zero masses, uniform survivor sets, UNKNOWN absent, keys absent) | max \|Δ\| 8.0e-15 over 120,000 guesses (`unit.json`) |
+| parity suite, re-run on the new code (2 pools × 3 backends × flip {0, 0.10}, 200 games each) | **PASS 12/12**, every game identical to the Python reference (`parity.json`) |
+| A/B: 19 off-grid N = 5000 cells (twins, the level with the most equal-mass ties; hard, modeswitch and both `no_repeat` arms at every level; flip 0 and 0.05), 220 games each, new `rank` vs `rank_dense` | **19/19 cells identical**, 4180 games (`gate.json`) |
+| replay: 24 of segment 1's 60 jobs (every r1 job of each level it reached, all seven flip × seed combinations, plus the r2 noiseless jobs), new code | **24/24 identical** per-game columns and scorecards (`gate.json`) |
+
+The replay ran with BLAS pinned to 1 thread against records written with 12, and the
+A/B's dense side ran unpinned. So the gates also show that the BLAS thread count does
+not change results here.
+
+Speed: the replayed jobs took 308–509 s against the stored 5607–5919 s. That ratio
+mixes the closed form, the BLAS pin and a different machine load, so it is not a
+clean measure of the closed form alone.
+
+### Segments
+
+| segment | commit | workers | BLAS threads | jobs |
+|---|---|---|---|---|
+| 1 | 198ec2e | 12 | unpinned (OpenBLAS default, 12) | the 60 N = 5000 `soft` jobs present at segment 2's start |
+| 2 | the commit that adds this section | 6 | 1 | the rest |
+
+`segments.json` in the result directory records this per start. Segment 1's 12
+in-flight jobs were discarded when it was stopped, and segment 2 reran them from the
+start.
+
+At segment 2's start the worktree held an uncommitted edit to `STRESS_DESIGN.md` (the
+ST-7 index row, from another session). It does not touch any code the run imports,
+and provenance lists it under `git_dirty_files`.

@@ -137,9 +137,69 @@ class FastPlanner:
             e = h_post - (p_yes * hy + p_no * hn)
         return np.where(valid, e, 0.0)
 
+    def eig_guesses(self, keys: Sequence[str], names: Sequence[str],
+                    p: np.ndarray) -> np.ndarray:
+        """``eig_rows`` for GUESS rows, in closed form: O(N) per call, not O(N) per guess.
+
+        A guess row is 1 on the named known, ``eps`` on UNKNOWN and 0 elsewhere, so
+        ``p_yes = p_h + eps p_U`` and the "yes" posterior has two non-zero entries.
+        The "no" posterior is ``p_k / p_no`` on every other known, so its entropy
+        follows from ``T = sum_known p log2 p`` and ``Q = sum_known p``:
+        ``sum_{k != h} (p_k/p_no) log2(p_k/p_no) = ((T - t_h) - (Q - p_h) log2 p_no) / p_no``.
+        Same algebra as ``eig_rows`` (p_no = 1 - p_yes, zero-mass terms dropped);
+        only the floating-point summation order differs."""
+        eps = self.eps
+        with np.errstate(divide="ignore", invalid="ignore"):
+            nz = p > 0.0
+            h_post = -float(np.sum(p[nz] * np.log2(p[nz])))
+            plogp = np.where(nz, p * np.log2(np.where(nz, p, 1.0)), 0.0)
+            pos = {n: i for i, n in enumerate(names)}
+            u = pos.get(UNKNOWN, -1)
+            known = np.ones(len(names), dtype=bool)
+            if u >= 0:
+                known[u] = False
+            T = float(np.sum(plogp[known]))
+            Q = float(np.sum(p[known]))
+            p_u = float(p[u]) if u >= 0 else 0.0
+            idx = np.fromiter((pos.get(k, -1) for k in keys), dtype=np.intp, count=len(keys))
+            hit = idx >= 0
+            safe = np.where(hit, idx, 0)
+            ph = np.where(hit, p[safe], 0.0)
+            th = np.where(hit, plogp[safe], 0.0)
+            p_yes = ph + eps * p_u
+            p_no = 1.0 - p_yes
+            valid = (p_yes > 0.0) & (p_yes < 1.0)
+            sy = np.where(valid, p_yes, 1.0)
+            sn = np.where(valid, p_no, 1.0)
+
+            def xlog(x):
+                return np.where(x > 0.0, x * np.log2(np.where(x > 0.0, x, 1.0)), 0.0)
+
+            hy = -(xlog(ph / sy) + xlog(eps * p_u / sy))
+            rest = ((T - th) - (Q - ph) * np.log2(sn)) / sn
+            hn = -(rest + xlog((1.0 - eps) * p_u / sn))
+            e = h_post - (p_yes * hy + p_no * hn)
+        return np.where(valid, e, 0.0)
+
     def rank(self, cands: Sequence[Question], dist: Dict[str, float]
              ) -> List[Tuple[Question, float]]:
-        """``bed.rank_questions`` with the ``tie_sorted`` tie-break."""
+        """``bed.rank_questions`` with the ``tie_sorted`` tie-break. Attribute and
+        category rows go through ``eig_rows``; guesses through ``eig_guesses``."""
+        names = list(dist)
+        p = np.fromiter(dist.values(), dtype=float, count=len(names))
+        gi = [i for i, q in enumerate(cands) if q.kind == GUESS]
+        oi = [i for i, q in enumerate(cands) if q.kind != GUESS]
+        e = np.empty(len(cands))
+        if oi:
+            e[oi] = self.eig_rows(self.rows([cands[i] for i in oi], names), p)
+        if gi:
+            e[gi] = self.eig_guesses([cands[i].key for i in gi], names, p)
+        return tie_sorted(list(zip(cands, e.tolist())))
+
+    def rank_dense(self, cands: Sequence[Question], dist: Dict[str, float]
+                   ) -> List[Tuple[Question, float]]:
+        """The pre-closed-form ``rank`` (every row through ``eig_rows``), kept as
+        the A/B reference for ``eig_guesses``."""
         names = list(dist)
         p = np.fromiter(dist.values(), dtype=float, count=len(names))
         e = self.eig_rows(self.rows(cands, names), p)

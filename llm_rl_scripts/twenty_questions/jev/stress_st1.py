@@ -209,22 +209,61 @@ def provenance() -> dict:
         blas = "unknown"
     return {"git_commit": _git("rev-parse", "HEAD"),
             "git_dirty": bool(_git("status", "--porcelain", "--untracked-files=no")),
+            "git_dirty_files": [ln.strip() for ln in _git(
+                "status", "--porcelain", "--untracked-files=no").splitlines()],
             "python": sys.version.split()[0], "executable": sys.executable,
             "pythonhashseed": os.environ.get("PYTHONHASHSEED"),
             "numpy": np.__version__, "scipy": scipy.__version__, "blas": blas,
-            "platform": platform.platform(), "machine": platform.machine()}
+            "platform": platform.platform(), "machine": platform.machine(),
+            "blas_threads": {v: os.environ.get(v) for v in BLAS_VARS}}
 
 
 # --------------------------------------------------------------------------- #
 # Main                                                                         #
 # --------------------------------------------------------------------------- #
 
+BLAS_VARS = ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS",
+             "VECLIB_MAXIMUM_THREADS")
+
+
+def pin_blas(threads: int) -> Dict[str, str]:
+    """Set the BLAS thread count for the worker processes (spawned after this, so
+    they inherit it). Unpinned, OpenBLAS starts one thread per core in *every*
+    worker: 12 workers x 12 threads oversubscribe the machine, and the idle
+    threads' spinning shows up as kernel time."""
+    for v in BLAS_VARS:
+        os.environ[v] = str(threads)
+    return {v: os.environ[v] for v in BLAS_VARS}
+
+
+def _segment(outdir: str, prov: dict, workers: int) -> None:
+    """Append this start to ``segments.json``. ``config.json`` is written once, by
+    the first start; every start (the first included) records its code commit,
+    worker count, BLAS threads and the jobs already finished, so a resumed run
+    says which jobs each code version produced."""
+    jobdir = os.path.join(outdir, "jobs")
+    done = sorted(f[:-len(".json.gz")] for f in os.listdir(jobdir) if f.endswith(".json.gz"))
+    path = os.path.join(outdir, "segments.json")
+    segs = json.load(open(path)) if os.path.exists(path) else []
+    segs.append({"started": _dt.datetime.utcnow().strftime("%Y%m%d_%H%M%S"),
+                 "provenance": prov, "workers": workers,
+                 "blas": {v: os.environ.get(v) for v in BLAS_VARS},
+                 "jobs_done_at_start": done})
+    with open(path, "w") as f:
+        json.dump(segs, f, indent=1)
+
+
 def run(outdir: str, specs: List[dict], jobs: List[dict], matrix_mode: str,
         config: dict, workers: int) -> str:
     os.makedirs(os.path.join(outdir, "jobs"), exist_ok=True)
     os.makedirs(os.path.join(outdir, "census"), exist_ok=True)
-    with open(os.path.join(outdir, "config.json"), "w") as f:
-        json.dump(config, f, indent=2, sort_keys=True)
+    cfg_path = os.path.join(outdir, "config.json")
+    if os.path.exists(cfg_path):
+        config = json.load(open(cfg_path))      # the first start's config is the run's
+    else:
+        with open(cfg_path, "w") as f:
+            json.dump(config, f, indent=2, sort_keys=True)
+    _segment(outdir, provenance(), workers)
     with Pool(workers) as pool:
         census = dict(pool.map(census_job, [(s, matrix_mode, outdir) for s in specs]))
         print("census: {} pools".format(len(census)))
@@ -236,7 +275,10 @@ def run(outdir: str, specs: List[dict], jobs: List[dict], matrix_mode: str,
             if i % 25 == 0 or i == len(jobs):
                 print("  {}/{} jobs  ({:.0f} min elapsed)".format(
                     i, len(jobs), (time.time() - t0) / 60), flush=True)
+    seg_path = os.path.join(outdir, "segments.json")
+    segments = json.load(open(seg_path)) if os.path.exists(seg_path) else []
     summary = {"schema": "twenty_questions_stress_st1_v1", "config": config,
+               "segments": segments,
                "pools": specs, "census": census,
                "jobs": [dict(j, **results[j["job_id"]]) for j in jobs]}
     with open(os.path.join(outdir, "summary.json"), "w") as f:
@@ -257,7 +299,10 @@ def main() -> None:
                     help="the pre-registered runtime-cap decision; required for --run")
     ap.add_argument("--outdir", default=None)
     ap.add_argument("--workers", type=int, default=os.cpu_count() or 4)
+    ap.add_argument("--blas-threads", type=int, default=1,
+                    help="BLAS threads per worker (default 1; see pin_blas)")
     args = ap.parse_args()
+    pin_blas(args.blas_threads)
     hs = require_hash_seed()
 
     if args.plan:
