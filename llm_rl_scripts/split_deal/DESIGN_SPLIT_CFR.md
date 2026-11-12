@@ -244,10 +244,95 @@ Frozen 2026-11-11 with the decisions of §8. Gate name: **SD3-E** (equilibrium).
 1. ~~Settle §8 and freeze §5.~~ Done 2026-11-11.
 2. Build G on `PrivateTables` with a chosen question list. Test that the ladder on G with the full bank reproduces
    the existing ladder on 2-2-3 at Q = 2, and that the merged bank leaves (A1, B0) and (A1, B2) unchanged, as §3
-   argues.
+   argues. Done 2026-11-11 (§10).
 3. Build the generic best response and CFR+. Test them on:
    - Kuhn poker (game value −1/18 for the first player), a known answer;
    - the three ladder reproductions of §4;
    - a smallest Split Deal case (Q = 1 on the 10-type test instance), certified.
-4. Run the seconds-only pilot (decision 8) and fix the run plan.
+
+   Done 2026-11-11 (§10).
+4. Run the seconds-only pilot (decision 8) and fix the run plan. Done 2026-11-11 (§10).
 5. Commit the code with the operational reading in its docstring; then run SD3-E; then commit the results.
+
+## 10. Build and pilot (2026-11-11)
+
+**Built** (`cfr.py`, tests in `test_cfr.py`):
+
+- `g_tables` builds G's tables with the full or the merged bank.
+- `split_game` builds the public tree and the final-stage payoff tables.
+- `Game.evaluate` computes counterfactual values and exact best responses, and `Game.nashconv` uses them.
+- `solve` runs CFR+, with DCFR as an option.
+- `Ladder` maps A1, A3, B0 and B2 onto the tree as behaviour profiles by replaying the readers' own belief updates.
+- `kuhn_game` is the known-answer test game, and `pilot` times one job.
+
+**Checks that pass** (all on the 10-type test instance except the merged-bank check):
+
+- **Kuhn poker:** CFR+ reaches the first player's value −1/18, and uniform play has NashConv 11/12.
+- **The tree is the counted tree:** every count matches `spec_numbers_cfr.py`.
+- **Ladder profiles:** on the tree they have the values of the readers' exact rollouts, to 1e-16, on 24 trees (both
+  banks, Q = 1 and 2, all six structures).
+- **The three reproductions of §4** hold to 1e-16: the best responses to B0, A1 and B2 have the values of A1, B2 and
+  A3.
+- **Merged bank, on G:** it leaves (A1, B0) and (A1, B2) unchanged in all six structures, compared deal by deal over
+  the 324 type pairs without reading a value.
+- **The small case** (Q = 1, T3) is certified by CFR+ in 8,000 iterations.
+
+**Fixed in `cfr.py`'s docstring before any SD3-E value, beyond §4:**
+
+- **Offer menus.** A proposer's offers per own type leave out any offer that walking, or another offer, is at least
+  as good as against every responder:
+  - its gain is not positive;
+  - another offer gains strictly more and is accepted by every responder type that accepts it;
+  - it duplicates another offer earlier in the proposer's own share order.
+
+  No best-response value changes (tested: pruned and unpruned agree exactly). Every equilibrium of the pruned game is
+  one of G, and the ladder never makes a left-out offer. On G the menus keep at most 22 of the 37 offers. This is the
+  same kind of restriction as §3's.
+- **A3 off its own model.** A3 can be reached off its model when B deviates from B2, as a best response to A3 does.
+  Then:
+  - a B question no type in S3 would ask under B2 leaves S3 unchanged;
+  - a B answer no type in S3 fits resets S3 to the B types consistent with all of B's answers.
+
+  This is B2's rule from `DESIGN_SPLIT_B2.md` decision 4, applied to A3. E1 depends on it.
+- **T2 and the 2 × 2 cell all/all are the same structure** (both ask, both always answer), so one solve serves both.
+
+**Convergence on the small case.** This is the 10-type instance at Q = 1, T3, full bank, unpruned, not G. It is a
+build diagnostic, not a gated value:
+
+| iterations | 1,000 | 2,000 | 4,000 | 8,000 | 16,000 |
+|---|---|---|---|---|---|
+| NashConv, CFR+ | 2.2e-2 | 6.6e-3 | 1.7e-3 | 4.4e-4 | 1.1e-4 |
+| NashConv, DCFR | 1.7e-2 | 4.6e-3 | 6.4e-4 | 8.2e-5 | 1.1e-5 |
+
+- **CFR+ is not monotone early:** 2.2e-2 at 100 iterations, 1.6e-2 at 300, 2.2e-2 again at 1,000.
+- **Both converge.** DCFR is under the bar by 4,000 iterations, while CFR+ crosses it between 4,000 and 8,000.
+
+**Pilot (decision 8)**, on G's T3, timing only (`cfr.py pilot`, 20 iterations, values discarded unread):
+
+- **Tree:** 261,975 nodes and 153,285 offer leaves, built in 2–4 s.
+- **Ladder:** beliefs 17–23 s, the four profiles 62–80 s.
+- **CFR+:** 3.5 s of CPU per iteration.
+- **One NashConv evaluation:** 4.5 s of CPU.
+- **Peak memory:** 1.9 GiB.
+
+**About the timings.** The machine is shared, and its load average was 35–250 on 12 cores during the build, so wall
+times follow the load: 5.1 s per iteration at load 35, 8.9 s above 100. CPU seconds are the planning unit.
+
+**Run plan, fixed by Meadowlark 2026-11-11, with CFR+ first as registered in decisions 3 and 4:**
+
+- **Solves:** five distinct structures (T2 = all/all, T3, all/none, none/all, none/none) × two starts, ten in all.
+- **Stopping:** NashConv checked every 500 iterations, stopping at the first certified checkpoint.
+- **Budget:** 8,000 iterations per solve, the small case's need. If a solve is not certified, decision 4's fallback
+  follows:
+  - **four times the iterations:** the same run continues to 32,000, which is identical to a fresh 32,000-iteration
+    run because CFR+ is deterministic;
+  - **then DCFR:** from the same start, up to 32,000 iterations, with the same checkpoints;
+  - **then "not certified".**
+- **CPU per start at the full budget:** T3 about 8 h. T2 and none/all about 4 h each, extrapolated from their leaf
+  evaluations in §3 (about half of T3's), not measured. The small cells take seconds.
+- **Total:** about 32 h of CPU for both starts (8,000 × 3.5 s for T3, and about half that for each of T2 and
+  none/all, per start). Run as six parallel processes on an idle machine, that is about 8 h of wall time, more
+  under load.
+- **Solver order:** CFR+ first, as registered. DCFR first was considered, since on the small case it needed about
+  half the iterations, and not taken. DCFR stays the second fallback of decision 4.
+- **No structure is dropped for cost** (decision 8).
