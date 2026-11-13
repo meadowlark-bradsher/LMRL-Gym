@@ -1,0 +1,71 @@
+{
+  "backends": [
+    "soft",
+    "hard",
+    "modeswitch",
+    "modeswitch_guard"
+  ],
+  "budget": 20,
+  "confidence": 0.9,
+  "created": "20261113_004404",
+  "d_levels": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    8,
+    12
+  ],
+  "eps": 0.05,
+  "flips": [
+    0.0,
+    0.05,
+    0.1
+  ],
+  "g_max_d": 2,
+  "g_rates": [
+    0.05,
+    0.2
+  ],
+  "games": 2500,
+  "la_seeds": [
+    1,
+    2,
+    3
+  ],
+  "matrix": "matrix_jev.json",
+  "mode": "run",
+  "n_lookalikes": 100,
+  "noise_seeds": [
+    1,
+    2,
+    3
+  ],
+  "provenance": {
+    "blas": "openblas 0.3.21",
+    "blas_threads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "executable": "/opt/miniconda3/envs/LLM_RL/bin/python",
+    "git_commit": "629b540e93123cc350325cb797fae1e4bff46ac9",
+    "git_dirty": false,
+    "git_dirty_files": [],
+    "machine": "arm64",
+    "numpy": "1.26.4",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.21",
+    "pythonhashseed": "0",
+    "scipy": "1.11.1"
+  },
+  "registration": {
+    "prereg_commit": "629b540e93123cc350325cb797fae1e4bff46ac9",
+    "prereg_tag": "prereg-stress-st2-20261112"
+  },
+  "stream_seed": 7,
+  "tolerance_K": 3,
+  "zipf_s": 1.1
+}

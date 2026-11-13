@@ -1,0 +1,670 @@
+{
+ "drift": [
+  {
+   "backend": "hard",
+   "control_drift": 1.187199412169037,
+   "d": 1,
+   "did": -1.5781783896534551,
+   "raw": -0.3909789774844181
+  },
+  {
+   "backend": "hard",
+   "control_drift": 0.7129303249534534,
+   "d": 2,
+   "did": -0.7963242734553468,
+   "raw": -0.08339394850189343
+  },
+  {
+   "backend": "hard",
+   "control_drift": 0.5394169267066756,
+   "d": 3,
+   "did": -0.1799013011710238,
+   "raw": 0.3595156255356518
+  },
+  {
+   "backend": "hard",
+   "control_drift": 0.6268149357054158,
+   "d": 4,
+   "did": -0.1312460877837743,
+   "raw": 0.4955688479216415
+  },
+  {
+   "backend": "hard",
+   "control_drift": 0.5867053819571617,
+   "d": 6,
+   "did": 0.012108583023939455,
+   "raw": 0.5988139649811012
+  },
+  {
+   "backend": "hard",
+   "control_drift": 0.3923380595128536,
+   "d": 8,
+   "did": -0.045028168736089044,
+   "raw": 0.34730989077676455
+  },
+  {
+   "backend": "hard",
+   "control_drift": 0.5137021395634709,
+   "d": 12,
+   "did": 0.04254280068218336,
+   "raw": 0.5562449402456542
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 1.2955997327051791,
+   "d": 1,
+   "did": -1.7663478139721485,
+   "raw": -0.47074808126696926
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 0.717867859152659,
+   "d": 2,
+   "did": -0.9027761151523681,
+   "raw": -0.18490825599970911
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 0.6441754975316406,
+   "d": 3,
+   "did": -0.4010036826436056,
+   "raw": 0.24317181488803502
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 0.8265916615840172,
+   "d": 4,
+   "did": -0.2807236168225696,
+   "raw": 0.5458680447614476
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 0.41803222464034534,
+   "d": 6,
+   "did": 0.19700286316441523,
+   "raw": 0.6150350878047606
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 0.18817856738461156,
+   "d": 8,
+   "did": 0.1610252627860924,
+   "raw": 0.34920383017070394
+  },
+  {
+   "backend": "modeswitch",
+   "control_drift": 0.5137021395634709,
+   "d": 12,
+   "did": 0.04254280068218336,
+   "raw": 0.5562449402456542
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 1.187199412169037,
+   "d": 1,
+   "did": -1.5781783896534551,
+   "raw": -0.3909789774844181
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 0.7129303249534534,
+   "d": 2,
+   "did": -0.7963242734553468,
+   "raw": -0.08339394850189343
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 0.5394169267066756,
+   "d": 3,
+   "did": -0.1799013011710238,
+   "raw": 0.3595156255356518
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 0.6268149357054158,
+   "d": 4,
+   "did": -0.1312460877837743,
+   "raw": 0.4955688479216415
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 0.5867053819571617,
+   "d": 6,
+   "did": 0.012108583023939455,
+   "raw": 0.5988139649811012
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 0.3923380595128536,
+   "d": 8,
+   "did": -0.045028168736089044,
+   "raw": 0.34730989077676455
+  },
+  {
+   "backend": "modeswitch_guard",
+   "control_drift": 0.5137021395634709,
+   "d": 12,
+   "did": 0.04254280068218336,
+   "raw": 0.5562449402456542
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.39669763440995964,
+   "d": 1,
+   "did": -0.2858017978350059,
+   "raw": 0.1108958365749537
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.3425405837437051,
+   "d": 2,
+   "did": -0.09933271889989555,
+   "raw": 0.24320786484380955
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.2226388788885843,
+   "d": 3,
+   "did": 0.24166512255099803,
+   "raw": 0.46430400143958234
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.2362600473012058,
+   "d": 4,
+   "did": 0.37375067911132337,
+   "raw": 0.6100107264125292
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.0837658421856422,
+   "d": 6,
+   "did": 1.0850660582903366,
+   "raw": 1.1688319004759788
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.03678421700681023,
+   "d": 8,
+   "did": 0.7309921927525218,
+   "raw": 0.767776409759332
+  },
+  {
+   "backend": "soft",
+   "control_drift": 0.10748884029557959,
+   "d": 12,
+   "did": 0.6093965533425502,
+   "raw": 0.7168853936381298
+  }
+ ],
+ "paired": [
+  {
+   "after_games": 333,
+   "after_mean_guesses": [
+    2.972972972972973,
+    3.111111111111111
+   ],
+   "after_mean_questions": [
+    7.912912912912913,
+    9.015015015015015
+   ],
+   "backend": "soft",
+   "d": 1,
+   "events": 37,
+   "paired_after": -0.9570378425217135,
+   "paired_before": -0.4829287592445487,
+   "paired_did": -0.4741090832771648,
+   "paired_did_ci": [
+    -1.3504867368034674,
+    0.4022685702491379
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 318,
+   "after_mean_guesses": [
+    3.210691823899371,
+    3.1352201257861636
+   ],
+   "after_mean_questions": [
+    8.10062893081761,
+    9.031446540880504
+   ],
+   "backend": "soft",
+   "d": 2,
+   "events": 34,
+   "paired_after": -0.6169473000118162,
+   "paired_before": 0.04336007130124777,
+   "paired_did": -0.6603073713130639,
+   "paired_did_ci": [
+    -1.469257798158059,
+    0.14864305553193102
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 305,
+   "after_mean_guesses": [
+    3.5311475409836066,
+    3.265573770491803
+   ],
+   "after_mean_questions": [
+    9.308196721311475,
+    9.445901639344262
+   ],
+   "backend": "soft",
+   "d": 6,
+   "events": 29,
+   "paired_after": 0.2986564232949105,
+   "paired_before": -0.08922345047571907,
+   "paired_did": 0.38787987377062955,
+   "paired_did_ci": [
+    -0.14128727459538098,
+    0.91704702213664
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 259,
+   "after_mean_guesses": [
+    3.7104247104247103,
+    3.749034749034749
+   ],
+   "after_mean_questions": [
+    9.332046332046332,
+    9.528957528957529
+   ],
+   "backend": "soft",
+   "d": 8,
+   "events": 34,
+   "paired_after": -0.1457310715849615,
+   "paired_before": -0.010768398268398266,
+   "paired_did": -0.13496267331656328,
+   "paired_did_ci": [
+    -0.8870371642332352,
+    0.6171118176001086
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    2.3482587064676617,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    7.6393034825870645,
+    8.85820895522388
+   ],
+   "backend": "hard",
+   "d": 1,
+   "events": 44,
+   "paired_after": -1.130189143293982,
+   "paired_before": -0.1829652255639098,
+   "paired_did": -0.9472239177300722,
+   "paired_did_ci": [
+    -1.6003992608531248,
+    -0.2940485746070197
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    2.318407960199005,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    7.619402985074627,
+    8.85820895522388
+   ],
+   "backend": "hard",
+   "d": 2,
+   "events": 44,
+   "paired_after": -0.9504400393513297,
+   "paired_before": -0.3108011506037822,
+   "paired_did": -0.6396388887475475,
+   "paired_did_ci": [
+    -1.1269468521195867,
+    -0.15233092537550835
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    2.987562189054726,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    8.930348258706468,
+    8.85820895522388
+   ],
+   "backend": "hard",
+   "d": 6,
+   "events": 44,
+   "paired_after": 0.21271365283462057,
+   "paired_before": 0.17014462809917355,
+   "paired_did": 0.04256902473544703,
+   "paired_did_ci": [
+    -0.532904105672643,
+    0.618042155143537
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    3.0074626865671643,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    8.7636815920398,
+    8.85820895522388
+   ],
+   "backend": "hard",
+   "d": 8,
+   "events": 44,
+   "paired_after": -0.09579980950948692,
+   "paired_before": 0.11313523995940264,
+   "paired_did": -0.20893504946888958,
+   "paired_did_ci": [
+    -0.6750022820437598,
+    0.25713218310598057
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 387,
+   "after_mean_guesses": [
+    2.2764857881136953,
+    2.852713178294574
+   ],
+   "after_mean_questions": [
+    7.41343669250646,
+    8.68733850129199
+   ],
+   "backend": "modeswitch",
+   "d": 1,
+   "events": 40,
+   "paired_after": -1.2494149779432038,
+   "paired_before": -0.3269760338345865,
+   "paired_did": -0.9224389441086173,
+   "paired_did_ci": [
+    -1.638543030626988,
+    -0.2063348575902466
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 389,
+   "after_mean_guesses": [
+    2.2596401028277633,
+    2.8637532133676094
+   ],
+   "after_mean_questions": [
+    7.419023136246786,
+    8.709511568123393
+   ],
+   "backend": "modeswitch",
+   "d": 2,
+   "events": 41,
+   "paired_after": -1.0793340259705326,
+   "paired_before": -0.4049712696375084,
+   "paired_did": -0.6743627563330242,
+   "paired_did_ci": [
+    -1.2024912697323054,
+    -0.1462342429337431
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 400,
+   "after_mean_guesses": [
+    2.9875,
+    2.945
+   ],
+   "after_mean_questions": [
+    8.8925,
+    8.8325
+   ],
+   "backend": "modeswitch",
+   "d": 6,
+   "events": 43,
+   "paired_after": 0.22660021690404286,
+   "paired_before": 0.1608124433705829,
+   "paired_did": 0.06578777353345996,
+   "paired_did_ci": [
+    -0.5326239660886456,
+    0.6641995131555656
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    3.0074626865671643,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    8.766169154228855,
+    8.85820895522388
+   ],
+   "backend": "modeswitch",
+   "d": 8,
+   "events": 44,
+   "paired_after": -0.09390587011554753,
+   "paired_before": 0.11313523995940264,
+   "paired_did": -0.20704111007495019,
+   "paired_did_ci": [
+    -0.6738639498253541,
+    0.25978172967545377
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    2.3482587064676617,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    7.6393034825870645,
+    8.85820895522388
+   ],
+   "backend": "modeswitch_guard",
+   "d": 1,
+   "events": 44,
+   "paired_after": -1.130189143293982,
+   "paired_before": -0.1829652255639098,
+   "paired_did": -0.9472239177300722,
+   "paired_did_ci": [
+    -1.6003992608531248,
+    -0.2940485746070197
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    2.318407960199005,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    7.619402985074627,
+    8.85820895522388
+   ],
+   "backend": "modeswitch_guard",
+   "d": 2,
+   "events": 44,
+   "paired_after": -0.9504400393513297,
+   "paired_before": -0.3108011506037822,
+   "paired_did": -0.6396388887475475,
+   "paired_did_ci": [
+    -1.1269468521195867,
+    -0.15233092537550835
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    2.987562189054726,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    8.930348258706468,
+    8.85820895522388
+   ],
+   "backend": "modeswitch_guard",
+   "d": 6,
+   "events": 44,
+   "paired_after": 0.21271365283462057,
+   "paired_before": 0.17014462809917355,
+   "paired_did": 0.04256902473544703,
+   "paired_did_ci": [
+    -0.532904105672643,
+    0.618042155143537
+   ],
+   "ref_d": 12
+  },
+  {
+   "after_games": 402,
+   "after_mean_guesses": [
+    3.0074626865671643,
+    2.945273631840796
+   ],
+   "after_mean_questions": [
+    8.7636815920398,
+    8.85820895522388
+   ],
+   "backend": "modeswitch_guard",
+   "d": 8,
+   "events": 44,
+   "paired_after": -0.09579980950948692,
+   "paired_before": 0.11313523995940264,
+   "paired_did": -0.20893504946888958,
+   "paired_did_ci": [
+    -0.6750022820437598,
+    0.25713218310598057
+   ],
+   "ref_d": 12
+  }
+ ],
+ "registered": false,
+ "replay": {
+  "1410": {
+   "1": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "category:Vegetables",
+     "category:Fruits",
+     "category:Animals",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   },
+   "12": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "attribute:animal",
+     "category:Fruits",
+     "category:Vegetables",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   }
+  },
+  "1804": {
+   "1": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "category:Vegetables",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   },
+   "12": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "attribute:animal",
+     "category:Fruits",
+     "category:Vegetables",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   }
+  },
+  "2278": {
+   "1": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "category:Vegetables",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   },
+   "12": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "attribute:animal",
+     "attribute:food",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   }
+  },
+  "2364": {
+   "1": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "category:Vegetables",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   },
+   "12": {
+    "outcome": "won",
+    "secret": "Tree",
+    "steps": [
+     "attribute:manmade",
+     "attribute:animal",
+     "attribute:food",
+     "category:Nature",
+     "attribute:plant",
+     "guess:Bush",
+     "guess:Tree"
+    ]
+   }
+  }
+ },
+ "schema": "twenty_questions_stress_st2_posthoc_v1"
+}
