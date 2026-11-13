@@ -5,7 +5,7 @@ here plays a game on the real matrix. The self-test, smoke run and timing use th
 synthetic matrix only. The look-alike census below reads the real matrix but plays
 no games, so it is not an ST-2 outcome.
 
-**Status (2026-11-12):** built, not tagged, not run.
+**Status (2026-11-12):** built; parents switched to distinct (without replacement) before the tag.
 
 Everything runs under `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9) with
 `PYTHONHASHSEED=0`.
@@ -49,32 +49,37 @@ look-alike seeds × (1 at flip 0 + 2 flips × 3 noise seeds)). G arm 36 per back
 whose nearest other object (real or look-alike) is closer than their parent. "Twin"
 counts look-alikes at binarized distance 0 from another object.
 
+**As registered: distinct parents (without replacement).**
+
+| seed | distinct parents | d = 1 nearer / twin | d = 2 nearer | d = 6 nearer | d = 12 nearer |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 100 | 3 / 3 | 6 | 24 | 75 |
+| 2 | 100 | 5 / 5 | 1 | 15 | 74 |
+| 3 | 100 | 2 / 2 | 4 | 24 | 81 |
+
+**First draft: with replacement (rejected before tagging).**
+
 | seed | distinct parents | d = 1 nearer / twin | d = 2 nearer | d = 6 nearer | d = 12 nearer |
 |---:|---:|---:|---:|---:|---:|
 | 1 | 42 | 20 / 20 | 7 | 23 | 78 |
 | 2 | 37 | 26 / 26 | 2 | 27 | 76 |
 | 3 | 41 | 12 / 12 | 0 | 21 | 80 |
 
-Two things follow from this. Neither changes the design as written, but both are
-worth deciding on before the tag.
-
-* **Siblings make exact twins at d = 1.** Drawing 100 parents with replacement by
-  Zipf weight (Decision 2) gives only 37–42 distinct parents, and the commonest
-  parents get many look-alikes. Two d = 1 look-alikes of one parent that flip the
-  same cell are identical rows. That is 12–26 of the 100 at d = 1, and 0–2 at d ≥ 2.
+* **Siblings made exact twins at d = 1.** Drawing 100 parents with replacement by
+  Zipf weight gave only 37–42 distinct parents. Two d = 1 look-alikes of one parent
+  that flip the same cell are identical rows. That was 12–26 of the 100 at d = 1.
   Such a twin cannot be told from its admitted sibling by any attribute, only by a
-  by-name guess. This is a real long-tail case, but it is not "a novel object at
-  distance 1 from a known one". The alternative is to draw parents without
-  replacement (still Zipf-weighted). That gives 100 distinct parents and no sibling
-  twins. Common objects would then be only *more likely* to have a look-alike, not
-  more likely to have several.
+  by-name guess, so it is not "a novel object at distance 1 from a known one". The
+  user chose distinct parents (2026-11-12; prereg Decision 2). The 2–5 twins left at
+  d = 1 are look-alikes whose single flip lands on another real object's row: the
+  real matrix's own crowding.
 * **At large d the parent stops being the nearest neighbour.** The real matrix is
   crowded (98 of 158 objects have a neighbour within one attribute). By d = 8 about
-  40 of 100 look-alikes, and by d = 12 about 78, are nearer some other object than
-  their parent. So d measures distance to the parent, not to the nearest known. P2
-  and P5 are stated in d, and the runner keeps it that way. The census is stored per
-  run (`census.json`), so the analysis can also report results by nearest-neighbour
-  distance as exploratory.
+  a third of the look-alikes, and by d = 12 about three quarters, are nearer some
+  other object than their parent. So d measures distance to the parent, not to the
+  nearest known. P2 and P5 are stated in d, and the runner keeps it that way. The
+  census is stored per run (`census.json`), so results can also be read by
+  nearest-neighbour distance as exploratory.
 
 ## Smoke run and timing
 
@@ -94,8 +99,10 @@ about the synthetic matrix and mean nothing.
 The workers ran at about 40% of a core each (background priority under load; total
 5567 CPU-s over 3139 s wall on 4 workers). **Projected for the full grid:** 183
 `soft` jobs and 549 discrete jobs, about 73,000 job-seconds at this rate. That is
-**about 20 h on 6 slots under similar load**, roughly half of it `soft`. On an idle
-machine it would be several times faster. Options if that is too long: drop
+**about 20 h on 6 slots under similar load**, roughly half of it `soft`. This is an
+upper bound. `taskpolicy -b` confines a job to the efficiency cores, and the
+registered run uses `taskpolicy -c utility` instead, which can use the performance
+cores. The real per-job times are recorded in the run's `summary.json`. Options if that is too long: drop
 unguarded `modeswitch` (−25%), or run `soft` only at d ∈ {1, 2, 6, 12}.
 
 ### What the smoke run changed in the analysis
@@ -124,14 +131,14 @@ PYTHONHASHSEED=0 PYTHONPATH=. /opt/miniconda3/envs/LLM_RL/bin/python \
     -m llm_rl_scripts.twenty_questions.jev.stress_st2 --plan
 
 # smoke (synthetic matrix; 20 full-length jobs; output is not a result)
-jobq -N 4 -L lmrl-20q-st2-smoke taskpolicy -b env PYTHONHASHSEED=0 PYTHONPATH=. \
+jobq -N 4 -L lmrl-20q-st2-smoke taskpolicy -c utility env PYTHONHASHSEED=0 PYTHONPATH=. \
     OPENBLAS_NUM_THREADS=1 /opt/miniconda3/envs/LLM_RL/bin/python \
     -m llm_rl_scripts.twenty_questions.jev.stress_st2 --smoke --outdir <scratch> --workers 4
 PYTHONPATH=. /opt/miniconda3/envs/LLM_RL/bin/python \
     -m llm_rl_scripts.twenty_questions.jev.analyze_st2 --run-dir <scratch>
 
 # the registered run, after the tag
-jobq -N 6 -L lmrl-20q-st2 taskpolicy -b env PYTHONHASHSEED=0 PYTHONPATH=. \
+jobq -N 6 -L lmrl-20q-st2 taskpolicy -c utility env PYTHONHASHSEED=0 PYTHONPATH=. \
     OPENBLAS_NUM_THREADS=1 /opt/miniconda3/envs/LLM_RL/bin/python \
     -m llm_rl_scripts.twenty_questions.jev.stress_st2 --run \
     --prereg-tag prereg-stress-st2-<date> --workers 6

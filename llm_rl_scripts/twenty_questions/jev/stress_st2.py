@@ -105,12 +105,15 @@ def jobs_for(d_levels=D_LEVELS, flips=FLIPS, backends=BACKENDS, g_rates=G_RATES,
 
 def lookalike_plan(objs, matrix, la_seed: int, n: int = N_LOOKALIKES,
                    s: float = ZIPF_S, stream_seed: int = STREAM_SEED) -> List[dict]:
-    """The look-alike set for one seed, independent of d. Parents are drawn with
-    replacement from the real objects, each weighted by its Zipf weight *in the
-    stream the games are played on* (``make_stream`` over the 158 + n objects,
-    seed ``stream_seed``; the rank map depends only on the object count and the
-    seed). Each look-alike carries a seeded random order of its parent's
-    flippable cells (cells at exactly 0.5 cannot cross and are excluded)."""
+    """The look-alike set for one seed, independent of d. ``n`` distinct parents
+    are drawn *without* replacement from the real objects, one at a time, each
+    draw weighted by the remaining objects' Zipf weights *in the stream the games
+    are played on* (``make_stream`` over the 158 + n objects, seed
+    ``stream_seed``; the rank map depends only on the object count and the seed).
+    So common objects are likelier to have a look-alike, and no object has two:
+    no two look-alikes are siblings, and none can be another's exact twin. Each
+    look-alike carries a seeded random order of its parent's flippable cells
+    (cells at exactly 0.5 cannot cross and are excluded)."""
     from .openworld import make_stream, zipf_weights
     from .stress_generator import AIDS
 
@@ -118,9 +121,14 @@ def lookalike_plan(objs, matrix, la_seed: int, n: int = N_LOOKALIKES,
     zw = zipf_weights(len(objs) + n, s)
     weights = [zw[index_rank[i] - 1] for i in range(len(objs))]
     rng = random.Random(1_000_000 + la_seed)
+    if n > len(objs):
+        raise ValueError("{} distinct parents from {} objects".format(n, len(objs)))
+    remaining = list(range(len(objs)))
     plan = []
     for i in range(n):
-        parent = rng.choices(range(len(objs)), weights=weights, k=1)[0]
+        j = rng.choices(range(len(remaining)), weights=[weights[r] for r in remaining],
+                        k=1)[0]
+        parent = remaining.pop(j)
         flippable = [a for a in AIDS if matrix[a][objs[parent].name] != 0.5]
         rng.shuffle(flippable)
         plan.append({"name": "la{:03d}".format(i), "parent": objs[parent].name,
@@ -401,11 +409,15 @@ def self_test() -> None:
     from collections import Counter
     _, index_rank, _, _ = stream_and_prior(258, 10)
     plan = [lookalike_plan(objs, base, s) for s in range(1, 21)]
+    assert all(len({p["parent_index"] for p in pl}) == 100 for pl in plan), \
+        "parents not distinct"
     cnt = Counter(p["parent_index"] for pl in plan for p in pl)
-    top = sorted(range(158), key=lambda i: index_rank[i])[:10]
-    assert sum(cnt[i] for i in top) > 0.25 * 2000, "parents not Zipf-weighted"
+    by_rank = sorted(range(158), key=lambda i: index_rank[i])
+    top, bottom = by_rank[:20], by_rank[-20:]
+    assert sum(cnt[i] for i in top) > sum(cnt[i] for i in bottom) + 100, \
+        "parents not Zipf-weighted"
     print("[self-test] look-alike sets OK (seeded, nested in d, exact distance, "
-          "real rows untouched, Zipf-weighted parents)")
+          "real rows untouched, distinct Zipf-weighted parents)")
 
     # The stream is the same for every job and is seed 7's rank map.
     s1 = stream_and_prior(258, 300)

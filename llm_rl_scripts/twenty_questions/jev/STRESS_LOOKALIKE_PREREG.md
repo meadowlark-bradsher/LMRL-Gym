@@ -25,12 +25,16 @@ separately for both. The guard changes only games that would reinstate on the fi
 answer, so the two should mostly agree; where they differ, the guard's verdict is the
 one that speaks for P0a.
 
-**2. Parents.** Parents are drawn with replacement from the 158 real objects, each
-weighted by its Zipf weight in the stream the games are played on (the rank map of
-`make_stream` over 258 objects, seed 7; it depends only on the object count and the
-seed). So common objects get more look-alikes, and one parent can have several
-(siblings). The 258 objects' ranks are the stream's random rank map, so a look-alike's
-own frequency is independent of its parent's.
+**2. Parents.** 100 distinct parents are drawn *without* replacement from the 158
+real objects, one at a time. Each draw is weighted by the remaining objects' Zipf
+weights in the stream the games are played on (the rank map of `make_stream` over
+258 objects, seed 7; it depends only on the object count and the seed). So common
+objects are likelier to have a look-alike, and no object has two. A draw with
+replacement was considered and rejected before tagging. It gives only 37–42
+distinct parents per set, and at d = 1, 12–26 of the 100 look-alikes would be exact
+twins of a sibling (`STRESS_ST2_BUILD.md`, census). The 258 objects' ranks are the
+stream's random rank map, so a look-alike's own frequency is independent of its
+parent's.
 
 **3. Nested look-alike sets.** For each look-alike seed, the 100 parents and, per
 look-alike, a seeded random order of the parent's flippable cells (cells not at
@@ -82,8 +86,8 @@ mostly be loop games. The raw before/after difference is reported beside it.
 Accumulation mode on the real matrix. The 158 objects are joined by 100 look-alikes,
 each made by `lookalike(parent, d)` (ST-0a): flip exactly *d* of the parent's 44 cells
 across 0.5. The look-alike keeps the parent's category. Parents are drawn with the
-parent's Zipf weight, so look-alikes of common objects are commoner, as with
-subspecies. The 258 objects are streamed by the existing `make_stream` (Zipf 1.1, random
+parent's Zipf weight, so common objects are likelier to have a look-alike, as with
+subspecies (Decision 2: distinct parents). The 258 objects are streamed by the existing `make_stream` (Zipf 1.1, random
 rank, seed 7), 2500 games. An admitted look-alike joins `H_known`, so later games of its
 parent face a closer neighbour.
 
@@ -241,7 +245,9 @@ often another object is nearer than the parent).
   the truth).
 * The G-arm rates (0.05, 0.20) are placeholders. ST-6 Stage 0 measures real near-name
   false-yes rates. If those land outside this range, the grid is extended before
-  registration, not after.
+  registration, not after. *Revision:* ST-2 is registered before ST-6 Stage 0 has
+  run, so these placeholders are what is registered. If Stage 0 lands outside them,
+  the extra G-arm rates are a separate, separately registered follow-up.
 * Flipping cells uniformly at random is one look-alike model. A variant that flips only
   the parent's least diagnostic cells (|p − 0.5| smallest) is harder to see. It is
   listed as exploratory and will not be scored against predictions.
