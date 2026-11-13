@@ -340,12 +340,21 @@ class Game:
 # -- CFR+ -------------------------------------------------------------------------------------------
 
 def solve(game: Game, iterations: int, variant: str = "cfr+", warm=None, checkpoints: Tuple[int, ...] = (),
-          on_checkpoint: Optional[Callable] = None):
+          on_checkpoint: Optional[Callable] = None, state: Optional[dict] = None,
+          on_state: Optional[Callable] = None):
     """Run CFR+ (or DCFR) for ``iterations``; returns the average profile. ``warm`` is a profile to start from.
     At each iteration in ``checkpoints``, ``on_checkpoint(it, average)`` is called; if it returns True the run
-    stops there and that average is returned."""
+    stops there and that average is returned. Otherwise ``on_state(it, R, S)`` is called with the regrets and
+    the average sums after iteration ``it``. ``state`` (``{"it", "R", "S"}`` as ``on_state`` gave them) resumes
+    from that iteration instead of starting afresh; the run then goes on exactly as it would have (tested)."""
     R, S, cur = [], [], []
     for p in (0, 1):
+        if state is not None:
+            r = tuple(None if x is None else x.copy() for x in state["R"][p])
+            R.append(list(r))
+            S.append([None if x is None else x.copy() for x in state["S"][p]])
+            cur.append(game.normalise(p, (np.maximum(r[0], 0), None if r[1] is None else np.maximum(r[1], 0))))
+            continue
         if warm is None:
             r = (np.zeros((len(game.tree.edge_child[p]), game.tree.n[p])), game._zeros_off(p))
         else:
@@ -354,7 +363,7 @@ def solve(game: Game, iterations: int, variant: str = "cfr+", warm=None, checkpo
         S.append([np.zeros_like(r[0]), None if r[1] is None else np.zeros_like(r[1])])
         cur.append(game.normalise(p, r))
     t = game.tree
-    for it in range(1, iterations + 1):
+    for it in range((state or {}).get("it", 0) + 1, iterations + 1):
         for p in (0, 1):
             o = 1 - p
             own_reach = game.reach(p, cur[p][0])
@@ -384,6 +393,8 @@ def solve(game: Game, iterations: int, variant: str = "cfr+", warm=None, checkpo
             avg = average(game, S)
             if on_checkpoint(it, avg):
                 return avg
+            if on_state is not None:
+                on_state(it, R, S)
     return average(game, S)
 
 

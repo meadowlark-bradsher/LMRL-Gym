@@ -2,6 +2,7 @@
 against the ladder on G. Offline, no API; floating point (``cfr.py``).
 
     PYTHONPATH=. python3 -m llm_rl_scripts.split_deal.sweep_e run --out results/split_v03_e_20261111/sweep.json
+    (progress is kept in results/split_v03_e_20261111/parts/; the same command resumes after a stop)
     PYTHONPATH=. python3 -m llm_rl_scripts.split_deal.sweep_e render results/split_v03_e_20261111/sweep.json \\
         --note llm_rl_scripts/split_deal/SWEEP_SPLIT_E.md
 
@@ -50,7 +51,7 @@ import multiprocessing
 import os
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from fractions import Fraction
 from typing import Dict, List, Optional
 
@@ -68,6 +69,12 @@ SWEEP_VERSION = "split-deal-v03-e-v0.1"
 SD3K = "results/split_v03_k_20261110/sweep.json"
 EVERY, BUDGET, MAX_ITERATIONS, EPS_BAR = 500, 8000, 32000, cfr.EPS_BAR
 WORKERS = 6
+# Peak memory of one job on G, GiB. Measured 2026-11-13 over two iterations and one NashConv per structure: T3 3.5,
+# T2 2.25, none/all 1.8, the other cells < 0.1. A T3 solve reached 4.4 in a long run (job 20, stopped), so each
+# estimate is the measurement times about 1.3. The pool starts a job only while the running jobs fit under
+# ``MEM_GIB`` (always at least one), whatever the worker count. Off G's instance the jobs are small and count as 0.
+JOB_GIB = {"T3": 4.5, "T2": 3.0, "game:none/all": 2.5, "game:all/none": 0.2, "game:none/none": 0.2}
+MEM_GIB = 6.0
 E1_BAR, E3_HI, E3_POST, E3_SUPPORT = 0.01, 0.95, 0.9, 0.05
 STRUCTS = {"T2": STRUCTURES["T2"], "T3": STRUCTURES["T3"], "game:all/none": GAME[("all", "none")],
            "game:none/all": GAME[("none", "all")], "game:none/none": GAME[("none", "none")]}
@@ -215,45 +222,167 @@ def ladder_job(config: dict, structure: str) -> dict:
             "seconds": round(time.time() - t0, 1), "cpu": round(time.process_time() - c0, 1)}
 
 
-def _run(g, variant, warm, config, log):
+class Parts:
+    """Where a run keeps its progress: each finished job as ``<key>.json``, and a running solve's CFR state after
+    every checkpoint that did not stop it as ``<key>.state.npz`` (regrets, average sums and the log so far). A
+    rerun with the same ``parts`` directory reads finished jobs back and resumes solves from their state, and gives
+    the same results as a run never stopped (tested). Each file records the sweep version, the config and the
+    commit, and is used only when all three match."""
+
+    def __init__(self, root: str, config: dict):
+        self.root, self.stamp = root, {"sweep": SWEEP_VERSION, "config": config, "commit": _commit()}
+        os.makedirs(root, exist_ok=True)
+
+    @staticmethod
+    def key(job) -> str:
+        kind, _, structure, start = job
+        return "__".join((kind, structure.replace(":", "-").replace("/", "-"), start or "ladder"))
+
+    def _path(self, job, ext):
+        return os.path.join(self.root, self.key(job) + ext)
+
+    def _check(self, stamp, path):
+        if stamp != self.stamp:
+            raise RuntimeError(f"{path} was written by another sweep, config or commit: {stamp} != {self.stamp}")
+
+    @staticmethod
+    def _write(path, write):
+        tmp = path + ".tmp"
+        with open(tmp, "wb") as f:
+            write(f)
+        os.replace(tmp, path)
+
+    def result(self, job) -> Optional[dict]:
+        path = self._path(job, ".json")
+        if not os.path.exists(path):
+            return None
+        with open(path) as f:
+            doc = json.load(f)
+        self._check(doc["stamp"], path)
+        return doc["result"]
+
+    def save_result(self, job, result: dict):
+        text = json.dumps({"stamp": self.stamp, "result": result}).encode()
+        self._write(self._path(job, ".json"), lambda f: f.write(text))
+        st = self._path(job, ".state.npz")
+        if os.path.exists(st):
+            os.remove(st)
+
+    def state(self, job) -> Optional[dict]:
+        path = self._path(job, ".state.npz")
+        if not os.path.exists(path):
+            return None
+        with np.load(path, allow_pickle=False) as z:
+            meta = json.loads(str(z["meta"]))
+            self._check(meta["stamp"], path)
+            arr = lambda nm: z[nm] if nm in z.files else None                              # noqa: E731
+            meta["R"] = [[arr(f"R{p}{k}") for k in (0, 1)] for p in (0, 1)]
+            meta["S"] = [[arr(f"S{p}{k}") for k in (0, 1)] for p in (0, 1)]
+        return meta
+
+    def save_state(self, job, meta: dict, R, S):
+        arrays = {f"{nm}{p}{k}": X[p][k] for nm, X in (("R", R), ("S", S)) for p in (0, 1) for k in (0, 1)
+                  if X[p][k] is not None}
+        arrays["meta"] = np.array(json.dumps(dict(meta, stamp=self.stamp)))
+        self._write(self._path(job, ".state.npz"), lambda f: np.savez(f, **arrays))
+
+
+def _run(g, variant, warm, config, log, save=None, state=None):
     every, top = config["every"], config["max_iterations"]
     found = {}
+    if state is not None:
+        last = [x for x in log if x["variant"] == variant][-1]
+        found["it"], found["nc"] = last["iteration"], last["nashconv"]
 
     def check(it, avg):
         nc = g.nashconv(avg)
         log.append({"variant": variant, "iteration": it, "nashconv": nc["nashconv"], "eps": list(nc["eps"])})
-        found["avg"], found["it"], found["nc"] = avg, it, nc["nashconv"]
+        found["it"], found["nc"] = it, nc["nashconv"]
         return nc["nashconv"] <= config["eps_bar"]
 
     avg = cfr.solve(g, top, variant=variant, warm=warm, checkpoints=tuple(range(every, top + 1, every)),
-                    on_checkpoint=check)
+                    on_checkpoint=check, state=state,
+                    on_state=None if save is None else lambda it, R, S: save(variant, it, R, S))
     return avg, found["it"], found["nc"] <= config["eps_bar"]
 
 
-def solve_job(config: dict, structure: str, start: str) -> dict:
-    """One equilibrium solve of one structure from one start, per the run plan."""
+def solve_job(config: dict, structure: str, start: str, parts: Optional[Parts] = None) -> dict:
+    """One equilibrium solve of one structure from one start, per the run plan. With ``parts``, its CFR state is
+    saved at every checkpoint that does not stop it, and a saved state is resumed."""
     t0, c0 = time.time(), time.process_time()
+    job = ("solve", config, structure, start)
+    st = parts.state(job) if parts is not None else None
+    secs, cpu = (st["seconds"], st["cpu"]) if st else (0.0, 0.0)
+    log: List[dict] = st["log"] if st else []
+    save = None
+    if parts is not None:
+        def save(variant, it, R, S):
+            parts.save_state(job, {"variant": variant, "it": it, "log": log,
+                                   "seconds": secs + time.time() - t0, "cpu": cpu + time.process_time() - c0}, R, S)
     g = _game(config, structure)
     warm = None
     if start == "warm":
         lad = cfr.Ladder(g)
         warm = cfr.as_regrets((lad.profile("A3"), lad.profile("B2")))
-    log: List[dict] = []
-    avg, it, ok = _run(g, "cfr+", warm, config, log)
-    variant = "cfr+"
-    stage = ("budget" if it <= config["budget"] else "4x iterations") if ok else None
+    ok = False
+    if st is None or st["variant"] == "cfr+":
+        avg, it, ok = _run(g, "cfr+", warm, config, log, save, st)
+        variant = "cfr+"
+        stage = ("budget" if it <= config["budget"] else "4x iterations") if ok else None
     if not ok:
-        avg, it, ok = _run(g, "dcfr", warm, config, log)
+        avg, it, ok = _run(g, "dcfr", warm, config, log, save, st if st and st["variant"] == "dcfr" else None)
         variant = "dcfr"
         stage = "dcfr" if ok else "not certified"
     return {"kind": "solve", "structure": structure, "start": start, "certified": ok, "stage": stage,
             "variant": variant, "iterations": it, "log": log, "profile": describe(g, avg),
-            "seconds": round(time.time() - t0, 1), "cpu": round(time.process_time() - c0, 1)}
+            "seconds": round(secs + time.time() - t0, 1), "cpu": round(cpu + time.process_time() - c0, 1)}
 
 
 def run_job(args) -> dict:
-    kind, config, structure, start = args
-    return ladder_job(config, structure) if kind == "ladder" else solve_job(config, structure, start)
+    """One job, its result in JSON form (what a finished job's file holds). With a parts directory, a finished
+    job is read back instead of run, and a job run is saved as soon as it finishes."""
+    kind, config, structure, start, root = args
+    job = (kind, config, structure, start)
+    parts = Parts(root, config) if root else None
+    if parts is not None:
+        done = parts.result(job)
+        if done is not None:
+            return done
+    r = ladder_job(config, structure) if kind == "ladder" else solve_job(config, structure, start, parts)
+    r = json.loads(json.dumps(_jsonable(r)))
+    if parts is not None:
+        parts.save_result(job, r)
+    return r
+
+
+def job_gib(config: dict, structure: str) -> float:
+    return JOB_GIB[structure] if config["instance"] == list(cfr.G_INSTANCE) else 0.0
+
+
+def _pool(todo: list, workers: int, config: dict, root: Optional[str], mem_gib: float) -> list:
+    """Run the jobs on ``workers`` processes, in order, starting a job only while the running jobs' memory fits
+    under ``mem_gib`` (a job always starts when nothing runs). Results come back in ``todo``'s order."""
+    out: List[Optional[dict]] = [None] * len(todo)
+    pending, running = list(range(len(todo))), {}
+    ctx = multiprocessing.get_context("spawn")
+    with ProcessPoolExecutor(max_workers=workers, mp_context=ctx, max_tasks_per_child=1) as ex:
+        while pending or running:
+            used = sum(m for _, m in running.values())
+            i = 0
+            while len(running) < workers and i < len(pending):
+                j = pending[i]
+                m = job_gib(config, todo[j][2])
+                if not running or used + m <= mem_gib:
+                    running[ex.submit(run_job, (*todo[j], root))] = (j, m)
+                    used += m
+                    pending.pop(i)
+                else:
+                    i += 1
+            done, _ = wait(list(running), return_when=FIRST_COMPLETED)
+            for f in done:
+                j, _ = running.pop(f)
+                out[j] = f.result()
+    return out
 
 
 def jobs(config: dict) -> list:
@@ -262,15 +391,15 @@ def jobs(config: dict) -> list:
             [("ladder", config, s, None) for s in order])
 
 
-def compute(config: dict = None, workers: int = 1, sd3k_path: Optional[str] = SD3K) -> dict:
+def compute(config: dict = None, workers: int = 1, sd3k_path: Optional[str] = SD3K, parts: Optional[str] = None,
+            mem_gib: float = MEM_GIB) -> dict:
+    """The sweep. ``parts`` is a directory for progress (``Parts``): a rerun with the same directory resumes."""
     config = dict(config or G_CONFIG)
     todo = jobs(config)
     if workers > 1:
-        ctx = multiprocessing.get_context("spawn")
-        with ProcessPoolExecutor(max_workers=workers, mp_context=ctx, max_tasks_per_child=1) as ex:
-            results = list(ex.map(run_job, todo))
+        results = _pool(todo, workers, config, parts, mem_gib)
     else:
-        results = [run_job(j) for j in todo]
+        results = [run_job((*j, parts)) for j in todo]
     ladder = {r["structure"]: r for r in results if r["kind"] == "ladder"}
     solves = {}
     for r in results:
@@ -537,7 +666,8 @@ def _jsonable(x):
 
 def run(args) -> int:
     t0 = time.time()
-    doc = _jsonable(compute(workers=args.workers))
+    parts = args.parts or os.path.join(os.path.dirname(args.out) or ".", "parts")
+    doc = _jsonable(compute(workers=args.workers, parts=parts, mem_gib=args.mem_gib))
     doc["commit"] = _commit()
     doc["seconds"] = round(time.time() - t0, 1)
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
@@ -562,6 +692,8 @@ def main(argv=None) -> int:
     r = sub.add_parser("run")
     r.add_argument("--out", required=True)
     r.add_argument("--workers", type=int, default=WORKERS)
+    r.add_argument("--parts", help="progress directory (default: parts/ beside --out); a rerun resumes from it")
+    r.add_argument("--mem-gib", type=float, default=MEM_GIB, help="memory the running jobs may use together")
     n = sub.add_parser("render")
     n.add_argument("json")
     n.add_argument("--note", required=True)

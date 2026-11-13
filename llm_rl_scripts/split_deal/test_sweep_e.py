@@ -120,6 +120,89 @@ def test_solve_falls_back_then_records_not_certified():
     assert [x["iteration"] for x in r["log"]] == [50, 100, 50, 100]
 
 
+# -- stopping and resuming --------------------------------------------------------------------------------
+
+def _zero_times(r):
+    r = json.loads(json.dumps(se._jsonable(r)))
+    r["seconds"] = r["cpu"] = 0
+    return r
+
+
+class _Stop(Exception):
+    pass
+
+
+@pytest.mark.parametrize("structure,start,eps_bar,stop_after", [
+    ("T3", "uniform", 1e-12, 1),          # stopped in CFR+, resumed there
+    ("T3", "warm", -1.0, 2),              # stopped at CFR+'s last checkpoint, resumed into DCFR
+    ("game:none/all", "warm", -1.0, 3),   # stopped in DCFR, resumed there
+])
+def test_stopped_solve_resumes_to_the_same_result(tmp_path, monkeypatch, structure, start, eps_bar, stop_after):
+    cfg = dict(SMOKE, eps_bar=eps_bar, every=20, budget=20, max_iterations=40)
+    ref = _zero_times(se.solve_job(cfg, structure, start))
+    parts = se.Parts(str(tmp_path), cfg)
+    real, calls = se.Parts.save_state, []
+
+    def save_then_stop(self, job, meta, R, S):
+        real(self, job, meta, R, S)
+        calls.append(meta["it"])
+        if len(calls) == stop_after:
+            raise _Stop
+    monkeypatch.setattr(se.Parts, "save_state", save_then_stop)
+    with pytest.raises(_Stop):
+        se.solve_job(cfg, structure, start, parts)
+    monkeypatch.setattr(se.Parts, "save_state", real)
+    st = parts.state(("solve", cfg, structure, start))
+    assert st is not None and st["it"] == calls[-1]
+    assert _zero_times(se.solve_job(cfg, structure, start, parts)) == ref
+
+
+def test_finished_jobs_are_read_back_not_rerun(tmp_path, monkeypatch):
+    cfg = dict(SMOKE, max_iterations=100)
+    first = se._jsonable(se.compute(cfg, workers=1, parts=str(tmp_path)))
+    assert len(os.listdir(tmp_path)) == len(se.jobs(cfg)) and not list(tmp_path.glob("*.npz"))
+
+    def boom(*a, **k):
+        raise AssertionError("rerun")
+    monkeypatch.setattr(se, "solve_job", boom)
+    monkeypatch.setattr(se, "ladder_job", boom)
+    assert se._jsonable(se.compute(cfg, workers=1, parts=str(tmp_path))) == first
+
+
+def test_parts_from_another_config_are_refused(tmp_path):
+    cfg = dict(SMOKE, max_iterations=100)
+    job = ("ladder", cfg, "game:none/none", None)
+    se.run_job((*job, str(tmp_path)))
+    other = dict(cfg, max_iterations=200)
+    with pytest.raises(RuntimeError, match="another sweep, config or commit"):
+        se.run_job(("ladder", other, "game:none/none", None, str(tmp_path)))
+
+
+def test_pool_keeps_running_jobs_under_the_memory_cap(monkeypatch):
+    cfg = dict(SMOKE, max_iterations=100)
+    big = ("T3", "T2")
+    names, together = {}, []
+
+    class Spy(se.ProcessPoolExecutor):
+        def submit(self, fn, args):
+            f = super().submit(fn, args)
+            names[f] = args[2]
+            return f
+
+    def spy(fs, **k):
+        together.append([names[f] for f in fs])
+        return real_wait(fs, **k)
+    real_wait = se.wait
+    monkeypatch.setattr(se, "ProcessPoolExecutor", Spy)
+    monkeypatch.setattr(se, "wait", spy)
+    monkeypatch.setattr(se, "job_gib", lambda config, s: 4.0 if s in big else 0.0)
+    out = se._pool(se.jobs(cfg), 3, cfg, None, 6.0)
+    assert [r["structure"] for r in out] == [j[2] for j in se.jobs(cfg)]          # results in job order
+    assert max(len(x) for x in together) == 3                                     # small jobs fill the pool
+    assert all(sum(n in big for n in x) <= 1 for x in together)                   # never two big jobs at once
+    assert any(sum(n in big for n in x) == 1 and len(x) == 3 for x in together)
+
+
 # -- the gate logic -----------------------------------------------------------------------------------
 
 def _prof(ya_lo=0.4, ya_hi=0.4, yb=0.4, nashconv=0.0, high=None):

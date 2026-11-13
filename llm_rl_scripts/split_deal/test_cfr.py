@@ -97,6 +97,26 @@ def test_warm_start_begins_at_the_warm_profile():
     assert np.allclose(g.value(one), g.value(warm), atol=cfr.TOL)
 
 
+@pytest.mark.parametrize("variant,start", [("cfr+", "uniform"), ("cfr+", "warm"), ("dcfr", "warm")])
+def test_resumed_solve_is_identical(variant, start):
+    g = cfr.split_game(cfr.g_tables(TINY, "full"), cfr.G_ARMS["T3"], 1)
+    lad = cfr.Ladder(g)
+    warm = cfr.as_regrets((lad.profile("A3"), lad.profile("B2"))) if start == "warm" else None
+    saved = {}
+
+    def keep(it, R, S):
+        saved[it] = {"it": it, "R": [[None if x is None else x.copy() for x in r] for r in R],
+                     "S": [[None if x is None else x.copy() for x in s] for s in S]}
+    full = cfr.solve(g, 60, variant=variant, warm=warm, checkpoints=(20, 40, 60), on_checkpoint=lambda it, a: False,
+                     on_state=keep)
+    for it in (20, 40, 60):
+        again = cfr.solve(g, 60, variant=variant, warm=warm, state=saved[it])
+        for p in (0, 1):
+            for k in (0, 1):
+                if full[p][k] is not None:
+                    assert np.array_equal(full[p][k], again[p][k]), (it, p, k)
+
+
 def _deals(bank, st):
     tab = cfr.g_tables(Instance(cfr.G_INSTANCE), bank)
     sh, n = Shared(tab), len(tab.types)
