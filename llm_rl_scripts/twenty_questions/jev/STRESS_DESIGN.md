@@ -92,6 +92,7 @@ bound, not a model of Jev.
 | ST-4 | `STRESS_ANSWERER_PREREG.md` | Realistic answerer errors: graded/sampled, sticky per object, bursty, a different model, and noisy guesses. | one second-model matrix (~158 calls) |
 | ST-5 | `STRESS_BUDGET_PREREG.md` | Where do "spend early and sparingly" and "skip onboarding" flip as the budget tightens against the pool? | none |
 | ST-6 | `STRESS_SALIENCE_PREREG.md` | Does model knowledge degrade with salience, and what does a tail that is both rare *and* poorly known do to the architecture? | Stage 0: a few thousand calls. Stage 2: live games |
+| ST-7 (draft) | `STRESS_OPENSIDE_PREREG.md` | As the novelty share grows, how far does the lumped catch-all's EIG drift from an exact treatment of the open side, and what does that cost? | none |
 
 ## Shared infrastructure (ST-0)
 
