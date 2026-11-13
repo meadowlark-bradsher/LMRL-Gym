@@ -436,14 +436,22 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      backend: str = "soft", margin: float = 2.0,
                      tolerance: int = 1, observer_factory=None,
                      oracle: Optional[OracleModel] = None,
-                     no_repeat: bool = False) -> List[GameRecord]:
+                     no_repeat: bool = False, prior_fn=None,
+                     planner_factory=None) -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
     the discovery curve itself is independent of them. ``oracle_noise > 0`` flips
     attribute answers at that rate (the realistic, noisy-answerer stress).
     ``oracle`` replaces the built-in answerer entirely (the ST-0b answer channels,
     ``stress_oracles.py``); if it has ``begin_game``, that is called before each
-    game."""
+    game.
+
+    Two opt-in hooks (ST-3); both default to None, which is the committed path.
+    ``prior_fn(g, k_before, records)`` replaces the PY prior with its return value
+    (``records`` is the history so far, so an online estimate sees no future game);
+    the ``k_before == 0`` rule still sets the prior to 1. ``planner_factory(known)``
+    returns a ``stress_fastplan.FastPlanner`` for the current ``H_known`` (or None);
+    it is called again only when ``H_known`` has grown since the last call."""
     if oracle is not None:
         if oracle_noise > 0.0:
             raise ValueError("pass oracle_noise or oracle, not both")
@@ -457,6 +465,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
     seen_counts: Dict[str, int] = {}
     records: List[GameRecord] = []
     begin_game = getattr(oracle, "begin_game", None)
+    planner, planner_k = None, -1
 
     for g, idx in enumerate(stream):
         if begin_game is not None:
@@ -467,16 +476,21 @@ def run_accumulation(objects: Sequence[Hypothesis],
         in_pool = true_h.name in known_set
         is_new = true_h.name not in seen_counts
 
-        p_unknown_prior = py_p_new(k_before, n_before, sigma, theta)
+        if prior_fn is not None:
+            p_unknown_prior = prior_fn(g, k_before, records)
+        else:
+            p_unknown_prior = py_p_new(k_before, n_before, sigma, theta)
         if k_before == 0:
             p_unknown_prior = 1.0
+        if planner_factory is not None and planner_k != k_before:
+            planner, planner_k = planner_factory(list(known)), k_before
 
         obs = observer_factory(list(known)) if observer_factory is not None else None
         ep = run_openworld_episode(
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
             backend=backend, margin=margin, tolerance=tolerance, observer=obs,
-            no_repeat=no_repeat,
+            no_repeat=no_repeat, planner=planner,
         )
         if obs is not None:
             obs.finish(ep)
