@@ -1,7 +1,8 @@
 # ST-3 follow-up: the end-of-game rule — pre-registration
 
-**Status (2026-11-14):** draft, untagged. Built and gated (`STRESS_ST3_ENDGAME_BUILD.md`).
-Nothing here has been played on the real matrix. The numbers under *Why* are read from ST-3's committed per-game
+**Status (2026-11-14):** built and gated (`STRESS_ST3_ENDGAME_BUILD.md`); registered at tag
+`prereg-stress-st3-endgame-20261114` (user go: "Register and queue"), with the thresholds
+and grid as written here, published P0a included. The numbers under *Why* are read from ST-3's committed per-game
 columns (`st3_budget_end.py`, `st3_composition.py`); no game was replayed for them.
 
 ## Question
