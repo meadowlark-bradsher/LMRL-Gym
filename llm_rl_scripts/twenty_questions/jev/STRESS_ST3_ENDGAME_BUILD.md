@@ -50,9 +50,11 @@ The environment is ST-3's: `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9)
                 s75_true_f0_ss1_ns0_norepeat_modeswitch_guard
   ```
 
-* **ST-0 open-world regression (`stress_regression`): running** (jobq 78, 6 workers).
-  It covers the committed §3.11 and retraction records and the A/B against
-  `origin/main` for every cell.
+* **ST-0 open-world regression (`stress_regression`): PASS** (jobq 78, 6 workers,
+  20 min).
+  * Committed gate: the §3.11 clean arm and every retraction cell reproduce the
+    committed record.
+  * A/B gate: every cell plays identically under `origin/main` and this branch.
 
 * **Self-test: PASS.** It runs on the synthetic matrix (jobq 76, 4.5 min):
 
