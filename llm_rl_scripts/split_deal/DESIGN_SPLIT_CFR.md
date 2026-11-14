@@ -1,4 +1,4 @@
-# Split Deal v0.3 — the CFR check on 2-2-3 (2026-11-11; decisions in §8 settled, §5 frozen; nothing computed but tree counts)
+# Split Deal v0.3 — the CFR check on 2-2-3 (2026-11-11; decisions in §8 settled, §5 frozen; nothing computed but tree counts; run plan amended in §11, 2026-11-14)
 
 Jira NEG-39, under the redesign epic NEG-25. Follows gate SD3-K (`SWEEP_SPLIT_K.md`, PR #68). The game is v0.3 as
 registered in `DESIGN_SPLIT_V03.md`. This note designs the equilibrium check that `DESIGN_SPLIT.md` §5 registered
@@ -336,3 +336,83 @@ times follow the load: 5.1 s per iteration at load 35, 8.9 s above 100. CPU seco
 - **Solver order:** CFR+ first, as registered. DCFR first was considered, since on the small case it needed about
   half the iterations, and not taken. DCFR stays the second fallback of decision 4.
 - **No structure is dropped for cost** (decision 8).
+
+## 11. Amendment 1 to the run plan (settled by Meadowlark 2026-11-14; in force once its code is committed)
+
+**Why.** Under §10's plan, T3 from the uniform start is not certified by CFR+ at 32,000 iterations, and the DCFR
+fallback is moving away from the bar. If the warm start goes the same way, the predictions that read T3 come out "not testable" because the solver gave up, not because the game has no equilibrium near the bar. This amendment
+changes only how long the solver tries. It is written before any T3 equilibrium, any value or any E reading is seen,
+and it applies to all ten solves alike.
+
+**What was seen before this draft.** Only solver diagnostics, found while checking progress on job 26
+(commit 84653a4, computation identical to 3503a3f) and reported to Meadowlark on 2026-11-14:
+
+- **T3, uniform start:** the NashConv log of the average profile at every checkpoint.
+  - **CFR+:** 0.028 at 500, 0.051 at 3,000 (peak), 0.032 at 8,000, 0.0129 at 16,000, 0.0062 at 24,000, 0.0036 at
+    32,000. It fell at every checkpoint after 3,500.
+  - **DCFR from the uniform start:** 0.015 at 500, then rising to 0.049 at 10,500 (the run is still going).
+- **The four finished solves:** their stage, iteration count and final NashConv. All four were certified by CFR+:
+  - all/none: uniform at 500 iterations, warm at 19,000;
+  - none/none: both starts at 500.
+- **Not seen:** any profile, any value or HIGH statistic, the ladder jobs' outputs, E1's NashConv(A3, B2), and
+  every E reading.
+
+**Unchanged:**
+
+- G, the five structures, the two starts and equilibrium selection (decisions 1, 2, 5);
+- the certificate, NashConv ≤ ε̄ = 1e-3 Y by exact best responses (decision 4), and the rule that nothing is read
+  off an uncertified profile;
+- E1–E5, their bars, their consequences (§5) and the operational reading in `sweep_e.py`;
+- checkpoints every 500 iterations, stopping at the first certified one;
+- the 8,000-iteration budget as the first stage.
+
+**Why only the stopping rule may move.** The certificate does not depend on the solver (§4). However a profile is
+found, it counts only if exact best responses gain at most ε̄. So running longer cannot let a profile pass that is
+not an ε̄-equilibrium. What longer runs can change is *which* equilibrium is found. Both solvers are deterministic
+from starts fixed in decision 5, and neither the starts nor the profiles have been looked at.
+
+**Settled (decisions A1–A4 below):**
+
+- **CFR+ continues past 32,000, up to 128,000 iterations (16 × the budget), then "not certified".** It is the same
+  run continued: CFR+ is deterministic, so this equals a fresh run of that length.
+- **The DCFR stage is dropped.**
+- **The bar stays at 1e-3.** Relaxing it now would be chosen after seeing 0.0036, and it would certify exactly the
+  profile that failed.
+
+**Effect on what is already computed:**
+
+- **The four finished solves** were certified by CFR+ within 32,000 iterations. They stop at the same checkpoint
+  under the amendment, so they are kept. The runner should accept them by name, not by loosening its stamp check.
+- **The two finished ladder jobs** (all/none, none/none) do not depend on the solver, so they are kept too.
+- **T3 uniform** is re-run from the start. Its CFR+ state at 32,000 was replaced when DCFR began, because the
+  checkpoint holds only the current run. Its first 32,000 iterations repeat the logged ones.
+- **The DCFR run of T3 uniform** is stopped and discarded unread.
+
+**Cost.** Measured on job 26: 1.40 s of CPU per T3 iteration, checkpoints included (59,505 s over 42,500 iterations).
+That is less than the pilot's 3.5 s, which was timed under load.
+
+| | T3, per start | T2 and none/all, per start (extrapolated, §10) | Remaining, all six large solves |
+|---|---|---|---|
+| Amended, worst case (128,000 iterations) | ≈ 50 CPU-h | ≈ 25 CPU-h | ≈ 200 CPU-h |
+| Registered plan, worst case (32,000 CFR+ then 32,000 DCFR) | ≈ 25 CPU-h | ≈ 12.5 CPU-h | ≈ 83 CPU-h (T3 uniform's DCFR is ~⅓ done) |
+
+- **If T3 uniform's 24,000–32,000 trend held** (NashConv falling as about t^−1.9), it would cross 1e-3 near 63,000
+  iterations. That is a trend, not a bound, so the cap is set at twice that.
+- **At two workers** (each T3 job holds about 2.7 GB), the amended worst case is about four days of wall time.
+
+**Decisions (settled by Meadowlark, 2026-11-14, all as recommended):**
+
+| # | Question | Settled | Not taken |
+|---|---|---|---|
+| A1 | CFR+ cap | 128,000 iterations (16 × budget), checkpoints every 500 | 64,000 (≈ the trend's crossing, no margin); no cap |
+| A2 | DCFR | dropped | kept as a last stage after the CFR+ cap (+≈ 12.5 CPU-h per uncertified T3 start, ≈ 6 for T2 or none/all; it rose 0.015 → 0.049 on T3) |
+| A3 | Which reading the note reports | the amended reading, with this section cited in the note's header and every solve's stage shown | both readings (also run §10's DCFR stage for every solve not certified at 32,000: ≈ +12.5 CPU-h per T3 start, ≈ 6 for T2 or none/all) |
+| A4 | Certify CFR+'s current iterate too | no | yes: on the 10-type instance the current iterate sometimes certifies when the average does not (2026-11-12 duplicate build), but it adds a third candidate profile per start, which decision 5 did not plan for |
+
+**Work order:**
+
+1. Change `sweep_e.py`'s stage chain (stages "budget" and "extended" up to 128,000; no DCFR), bump `SWEEP_VERSION`,
+   and add tests, on top of 84653a4's resumable runner.
+2. Commit that code with this section marked settled, before the run resumes.
+3. Stop job 26 and the cloud copy (task_a9ff604a). Both run §10's plan, and neither has written a T3 result.
+4. Resume under the amendment, keeping the four finished solves and discarding T3 uniform's DCFR state unread.

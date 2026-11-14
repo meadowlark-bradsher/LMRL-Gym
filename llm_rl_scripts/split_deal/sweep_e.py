@@ -6,14 +6,21 @@ against the ladder on G. Offline, no API; floating point (``cfr.py``).
     PYTHONPATH=. python3 -m llm_rl_scripts.split_deal.sweep_e render results/split_v03_e_20261111/sweep.json \\
         --note llm_rl_scripts/split_deal/SWEEP_SPLIT_E.md
 
-Run plan (§10, fixed 2026-11-11). Five distinct structures: T2 (the same structure as the 2 x 2 cell all/all), T3,
-and the cells all/none, none/all and none/none. Each is solved from two starts: uniform, and warm at the ladder
-profile (A3, B2) of the same structure (decision 5). A solve runs CFR+ with NashConv checked every ``EVERY``
-iterations and stops at the first checkpoint with NashConv <= ``EPS_BAR``. Within ``BUDGET`` iterations it is
-certified in the budget. Otherwise the same run continues to ``MAX_ITERATIONS`` (decision 4's four times the
-iterations), then DCFR runs from the same start up to ``MAX_ITERATIONS``, and failing that the solve is recorded as
-not certified, with the last DCFR average reported but never read by the gate. One more job per structure computes
-the ladder on G: A1, A3, B0 and B2 as profiles, their exact values, the checks, their exploitability and the bridges.
+Run plan (§10, fixed 2026-11-11, as amended by §11, Amendment 1, settled 2026-11-14). Five distinct structures: T2
+(the same structure as the 2 x 2 cell all/all), T3, and the cells all/none, none/all and none/none. Each is solved
+from two starts: uniform, and warm at the ladder profile (A3, B2) of the same structure (decision 5). A solve runs
+CFR+ with NashConv checked every ``EVERY`` iterations and stops at the first checkpoint with NashConv <= ``EPS_BAR``.
+Within ``BUDGET`` iterations it is certified in the budget ("budget"). Otherwise the same run continues up to
+``MAX_ITERATIONS`` (16 times the budget, Amendment 1's A1) and is certified "extended", or failing that is recorded
+as not certified, with its last average reported but never read by the gate. There is no DCFR stage (A2). One more
+job per structure computes the ladder on G: A1, A3, B0 and B2 as profiles, their exact values, the checks, their
+exploitability and the bridges.
+
+Kept from the run under §10's plan (``EARLIER``): a finished job is reused when its computation is the same under the
+amendment, that is a ladder job, or a solve certified by CFR+ within the old 32,000 iterations (CFR+ is deterministic
+and stops at the first certified checkpoint, so the amended plan stops it at the same one). Such a result carries
+``kept_from``. A saved solve state from that run is never resumed: it is discarded unread and the solve starts over
+(Amendment 1: T3 uniform's CFR+ state at 32,000 was replaced by its DCFR state).
 
 Operational reading of §5, fixed here before any SD3-E value is computed:
 
@@ -65,9 +72,11 @@ from .sweep_l1 import _commit                                                   
 from .sweep_l2 import _pd                                                           # noqa: E402
 from .twosided import GAME, STRUCTURES, Shared                                      # noqa: E402
 
-SWEEP_VERSION = "split-deal-v03-e-v0.1"
+SWEEP_VERSION = "split-deal-v03-e-v0.2"
 SD3K = "results/split_v03_k_20261110/sweep.json"
-EVERY, BUDGET, MAX_ITERATIONS, EPS_BAR = 500, 8000, 32000, cfr.EPS_BAR
+EVERY, BUDGET, MAX_ITERATIONS, EPS_BAR = 500, 8000, 128000, cfr.EPS_BAR
+# The run under §10's plan whose finished jobs Amendment 1 keeps (see the docstring).
+EARLIER = {"sweep": "split-deal-v03-e-v0.1", "commit": "84653a4", "max_iterations": 32000}
 WORKERS = 6
 # Peak memory of one job on G, GiB. Measured 2026-11-13 over two iterations and one NashConv per structure: T3 3.5,
 # T2 2.25, none/all 1.8, the other cells < 0.1. A T3 solve reached 4.4 in a long run (job 20, stopped), so each
@@ -222,6 +231,14 @@ def ladder_job(config: dict, structure: str) -> dict:
             "seconds": round(time.time() - t0, 1), "cpu": round(time.process_time() - c0, 1)}
 
 
+def _kept(result: dict) -> bool:
+    """Whether a finished job of ``EARLIER``'s run has the same computation under Amendment 1."""
+    if result.get("kind") == "ladder":
+        return True
+    return (result.get("kind") == "solve" and result["certified"] and result["variant"] == "cfr+"
+            and result["iterations"] <= EARLIER["max_iterations"])
+
+
 class Parts:
     """Where a run keeps its progress: each finished job as ``<key>.json``, and a running solve's CFR state after
     every checkpoint that did not stop it as ``<key>.state.npz`` (regrets, average sums and the log so far). A
@@ -241,6 +258,12 @@ class Parts:
     def _path(self, job, ext):
         return os.path.join(self.root, self.key(job) + ext)
 
+    def _earlier(self, stamp) -> bool:
+        """Whether a file was written by ``EARLIER``'s run on this sweep's config."""
+        config = dict(self.stamp["config"], max_iterations=EARLIER["max_iterations"])
+        return (stamp.get("sweep") == EARLIER["sweep"] and stamp.get("commit") == EARLIER["commit"]
+                and stamp.get("config") == config)
+
     def _check(self, stamp, path):
         if stamp != self.stamp:
             raise RuntimeError(f"{path} was written by another sweep, config or commit: {stamp} != {self.stamp}")
@@ -258,6 +281,8 @@ class Parts:
             return None
         with open(path) as f:
             doc = json.load(f)
+        if self._earlier(doc["stamp"]) and _kept(doc["result"]):
+            return dict(doc["result"], kept_from={k: doc["stamp"][k] for k in ("sweep", "commit")})
         self._check(doc["stamp"], path)
         return doc["result"]
 
@@ -274,6 +299,8 @@ class Parts:
             return None
         with np.load(path, allow_pickle=False) as z:
             meta = json.loads(str(z["meta"]))
+            if self._earlier(meta["stamp"]):
+                return None                           # discarded unread; overwritten at the first checkpoint
             self._check(meta["stamp"], path)
             arr = lambda nm: z[nm] if nm in z.files else None                              # noqa: E731
             meta["R"] = [[arr(f"R{p}{k}") for k in (0, 1)] for p in (0, 1)]
@@ -324,17 +351,12 @@ def solve_job(config: dict, structure: str, start: str, parts: Optional[Parts] =
     if start == "warm":
         lad = cfr.Ladder(g)
         warm = cfr.as_regrets((lad.profile("A3"), lad.profile("B2")))
-    ok = False
-    if st is None or st["variant"] == "cfr+":
-        avg, it, ok = _run(g, "cfr+", warm, config, log, save, st)
-        variant = "cfr+"
-        stage = ("budget" if it <= config["budget"] else "4x iterations") if ok else None
-    if not ok:
-        avg, it, ok = _run(g, "dcfr", warm, config, log, save, st if st and st["variant"] == "dcfr" else None)
-        variant = "dcfr"
-        stage = "dcfr" if ok else "not certified"
+    if st is not None and st["variant"] != "cfr+":
+        raise RuntimeError(f"saved state for {job[2:]} is from {st['variant']}, which Amendment 1 dropped")
+    avg, it, ok = _run(g, "cfr+", warm, config, log, save, st)
+    stage = ("budget" if it <= config["budget"] else "extended") if ok else "not certified"
     return {"kind": "solve", "structure": structure, "start": start, "certified": ok, "stage": stage,
-            "variant": variant, "iterations": it, "log": log, "profile": describe(g, avg),
+            "variant": "cfr+", "iterations": it, "log": log, "profile": describe(g, avg),
             "seconds": round(secs + time.time() - t0, 1), "cpu": round(cpu + time.process_time() - c0, 1)}
 
 
@@ -549,13 +571,26 @@ def applied_consequences(v: dict) -> List[tuple]:
     return out
 
 
+def _kept_line(doc: dict) -> list:
+    """The note's line naming the jobs kept from the run under §10's plan, if any."""
+    kept = [f"ladder {s}" for s, r in doc["ladder"].items() if "kept_from" in r]
+    kept += [f"{s} {st}" for s, by in doc["solves"].items() for st, r in by.items() if "kept_from" in r]
+    if not kept:
+        return []
+    src = next(r["kept_from"] for r in [*doc["ladder"].values(), *(r for by in doc["solves"].values()
+                                                                   for r in by.values())] if "kept_from" in r)
+    return [f"_Kept from the run under §10's plan (sweep `{src['sweep']}`, commit `{src['commit']}`), whose "
+            f"computation the amendment leaves unchanged: {', '.join(kept)}._", ""]
+
+
 def render(doc: dict, path: str) -> str:
     g, v = doc["gate"], doc["gate"]["verdict"]
     L = [f"# Split Deal v0.3 — gate SD3-E, the CFR check on {'-'.join(map(str, doc['config']['instance']))}", "",
          f"_Rendered by `sweep_e.py render` from `{path}` (sweep `{doc['sweep']}`, commit `{doc.get('commit', '?')}`, "
          f"{doc.get('seconds', '?')} s). Floating point; every number is formatted from the JSON. Predictions as "
          f"registered in `DESIGN_SPLIT_CFR.md` §5; their operational reading is fixed in the docstring of "
-         f"`sweep_e.py`._", "",
+         f"`sweep_e.py`. Run plan: §10 as amended by §11 (Amendment 1, settled 2026-11-14): CFR+ up to "
+         f"{doc['config']['max_iterations']:,} iterations, no DCFR stage._", "", *_kept_line(doc),
          f"Game G: instance {'-'.join(map(str, doc['config']['instance']))}, Q = {doc['config']['q']}, "
          f"{doc['config']['bank']} bank, π = {doc['config']['pi']}. Equilibria by CFR+ from a uniform start and from "
          f"(A3, B2), certified when NashConv ≤ {doc['config']['eps_bar']} Y.", "",

@@ -112,12 +112,20 @@ def test_solve_stops_at_first_certified_checkpoint():
     assert r["certified"] and r["stage"] == "budget" and r["iterations"] == SMOKE["every"] and len(r["log"]) == 1
 
 
-def test_solve_falls_back_then_records_not_certified():
-    cfg = dict(SMOKE, eps_bar=-1.0, every=50, budget=50, max_iterations=100)
+def test_solve_runs_cfr_plus_to_the_cap_then_records_not_certified():
+    cfg = dict(SMOKE, eps_bar=-1.0, every=50, budget=50, max_iterations=150)
     r = se.solve_job(cfg, "game:none/none", "warm")
-    assert not r["certified"] and r["stage"] == "not certified" and r["variant"] == "dcfr"
-    assert [x["variant"] for x in r["log"]] == ["cfr+", "cfr+", "dcfr", "dcfr"]
-    assert [x["iteration"] for x in r["log"]] == [50, 100, 50, 100]
+    assert not r["certified"] and r["stage"] == "not certified" and r["variant"] == "cfr+"   # no DCFR (A2)
+    assert [x["variant"] for x in r["log"]] == ["cfr+"] * 3
+    assert [x["iteration"] for x in r["log"]] == [50, 100, 150]
+
+
+def test_solve_certified_past_the_budget_is_extended():
+    cfg = dict(SMOKE, eps_bar=-1.0, every=50, budget=50, max_iterations=400)
+    nc = [x["nashconv"] for x in se.solve_job(cfg, "T3", "uniform")["log"]]
+    i = next(i for i in range(1, len(nc)) if nc[i] < min(nc[:i]))   # first checkpoint past the budget to be best
+    r = se.solve_job(dict(cfg, eps_bar=nc[i]), "T3", "uniform")
+    assert r["certified"] and r["stage"] == "extended" and r["iterations"] == (i + 1) * cfg["every"]
 
 
 # -- stopping and resuming --------------------------------------------------------------------------------
@@ -134,8 +142,8 @@ class _Stop(Exception):
 
 @pytest.mark.parametrize("structure,start,eps_bar,stop_after", [
     ("T3", "uniform", 1e-12, 1),          # stopped in CFR+, resumed there
-    ("T3", "warm", -1.0, 2),              # stopped at CFR+'s last checkpoint, resumed into DCFR
-    ("game:none/all", "warm", -1.0, 3),   # stopped in DCFR, resumed there
+    ("T3", "warm", -1.0, 2),              # stopped at CFR+'s last checkpoint, resumed to "not certified"
+    ("game:none/all", "warm", -1.0, 1),   # stopped in CFR+, resumed to "not certified"
 ])
 def test_stopped_solve_resumes_to_the_same_result(tmp_path, monkeypatch, structure, start, eps_bar, stop_after):
     cfg = dict(SMOKE, eps_bar=eps_bar, every=20, budget=20, max_iterations=40)
@@ -176,6 +184,100 @@ def test_parts_from_another_config_are_refused(tmp_path):
     other = dict(cfg, max_iterations=200)
     with pytest.raises(RuntimeError, match="another sweep, config or commit"):
         se.run_job(("ladder", other, "game:none/none", None, str(tmp_path)))
+
+
+# -- Amendment 1: what is kept from the run under §10's plan ----------------------------------------------------
+
+def _earlier_stamp(cfg, **change):
+    return dict({"sweep": se.EARLIER["sweep"], "commit": se.EARLIER["commit"],
+                 "config": dict(cfg, max_iterations=se.EARLIER["max_iterations"])}, **change)
+
+
+def _write_earlier(root, job, result, **change):
+    path = os.path.join(root, se.Parts.key(job) + ".json")
+    with open(path, "w") as f:
+        json.dump({"stamp": _earlier_stamp(job[1], **change), "result": se._jsonable(result)}, f)
+
+
+def test_earlier_ladder_and_certified_cfr_plus_solves_are_kept(tmp_path, monkeypatch):
+    cfg = dict(SMOKE, eps_bar=10.0)
+    lad, sol = ("ladder", cfg, "game:none/none", None), ("solve", cfg, "T3", "uniform")
+    r_lad, r_sol = se.ladder_job(cfg, "game:none/none"), se.solve_job(cfg, "T3", "uniform")
+    assert r_sol["certified"] and r_sol["variant"] == "cfr+"
+    _write_earlier(str(tmp_path), lad, r_lad)
+    _write_earlier(str(tmp_path), sol, r_sol)
+
+    def boom(*a, **k):
+        raise AssertionError("rerun")
+    monkeypatch.setattr(se, "solve_job", boom)
+    monkeypatch.setattr(se, "ladder_job", boom)
+    want = {"sweep": se.EARLIER["sweep"], "commit": se.EARLIER["commit"]}
+    for job, ref in ((lad, r_lad), (sol, r_sol)):
+        got = se.run_job((*job, str(tmp_path)))
+        assert got.pop("kept_from") == want
+        assert got == json.loads(json.dumps(se._jsonable(ref)))
+
+
+@pytest.mark.parametrize("edit", [
+    {"variant": "dcfr"},                                  # certified only by the dropped DCFR stage
+    {"certified": False, "stage": "not certified"},      # the amendment runs it further
+    {"iterations": 32500},                                # past the old cap: cannot be an old CFR+ result
+])
+def test_earlier_solves_the_amendment_computes_differently_are_refused(tmp_path, edit):
+    cfg = dict(SMOKE, eps_bar=10.0)
+    job = ("solve", cfg, "T3", "uniform")
+    _write_earlier(str(tmp_path), job, dict(se.solve_job(cfg, "T3", "uniform"), **edit))
+    with pytest.raises(RuntimeError, match="another sweep, config or commit"):
+        se.run_job((*job, str(tmp_path)))
+
+
+@pytest.mark.parametrize("change", [{"commit": "3503a3f"}, {"sweep": "split-deal-v03-e-v0.0"}])
+def test_files_from_other_earlier_runs_are_refused(tmp_path, change):
+    cfg = dict(SMOKE, eps_bar=10.0)
+    job = ("ladder", cfg, "game:none/none", None)
+    _write_earlier(str(tmp_path), job, se.ladder_job(cfg, "game:none/none"), **change)
+    with pytest.raises(RuntimeError, match="another sweep, config or commit"):
+        se.run_job((*job, str(tmp_path)))
+
+
+def test_earlier_config_must_match_apart_from_the_cap(tmp_path):
+    cfg = dict(SMOKE, eps_bar=10.0)
+    job = ("ladder", cfg, "game:none/none", None)
+    _write_earlier(str(tmp_path), job, se.ladder_job(cfg, "game:none/none"),
+                   config=dict(cfg, max_iterations=se.EARLIER["max_iterations"], every=25))
+    with pytest.raises(RuntimeError, match="another sweep, config or commit"):
+        se.run_job((*job, str(tmp_path)))
+
+
+def test_earlier_solve_state_is_discarded_and_the_solve_starts_over(tmp_path, monkeypatch):
+    cfg = dict(SMOKE, eps_bar=-1.0, every=20, budget=20, max_iterations=60)
+    ref = _zero_times(se.solve_job(cfg, "T3", "uniform"))
+    old = se.Parts(str(tmp_path), cfg)
+    old.stamp = _earlier_stamp(cfg)
+    real = se.Parts.save_state
+
+    def save_then_stop(self, job, meta, R, S):
+        real(self, job, dict(meta, variant="dcfr"), R, S)      # as in T3 uniform: the old run was in DCFR
+        raise _Stop
+    monkeypatch.setattr(se.Parts, "save_state", save_then_stop)
+    with pytest.raises(_Stop):
+        se.solve_job(cfg, "T3", "uniform", old)
+    monkeypatch.setattr(se.Parts, "save_state", real)
+    job = ("solve", cfg, "T3", "uniform")
+    assert list(tmp_path.glob("*.npz"))
+    parts = se.Parts(str(tmp_path), cfg)
+    assert parts.state(job) is None
+    assert _zero_times(se.solve_job(cfg, "T3", "uniform", parts)) == ref
+
+
+def test_note_names_the_kept_jobs():
+    kept = {"sweep": se.EARLIER["sweep"], "commit": se.EARLIER["commit"]}
+    doc = {"ladder": {"T3": {}, "game:none/none": {"kept_from": kept}},
+           "solves": {"T3": {"uniform": {}, "warm": {}}, "game:none/none": {"uniform": {"kept_from": kept}}}}
+    line = " ".join(se._kept_line(doc))
+    assert "ladder game:none/none" in line and "game:none/none uniform" in line and "T3" not in line
+    assert se.EARLIER["commit"] in line
+    assert se._kept_line({"ladder": {"T3": {}}, "solves": {"T3": {"uniform": {}}}}) == []
 
 
 def test_pool_keeps_running_jobs_under_the_memory_cap(monkeypatch):
