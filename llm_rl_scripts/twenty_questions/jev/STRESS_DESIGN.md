@@ -93,7 +93,7 @@ bound, not a model of Jev.
 | ST-5 | `STRESS_BUDGET_PREREG.md` | Where do "spend early and sparingly" and "skip onboarding" flip as the budget tightens against the pool? | none |
 | ST-6 | `STRESS_SALIENCE_PREREG.md` | Does model knowledge degrade with salience, and what does a tail that is both rare *and* poorly known do to the architecture? | Stage 0: a few thousand calls. Stage 2: live games |
 | ST-7 (draft) | `STRESS_OPENSIDE_PREREG.md` | As the novelty share grows, how far does the lumped catch-all's EIG drift from an exact treatment of the open side, and what does that cost? | none |
-| ST-3 stream-K (draft) | `STRESS_ST3_STREAMK_PREREG.md` | With the gate given the stream's true species count K instead of its own admissions, how much of ST-3's `soft` collapse and norepeat P0a's wrong rate was self-censoring? | none |
+| ST-3 stream-K | `STRESS_ST3_STREAMK_PREREG.md` | With the gate given the stream's true species count K instead of its own admissions, how much of ST-3's `soft` collapse and norepeat P0a's wrong rate was self-censoring? | none |
 
 ## Shared infrastructure (ST-0)
 

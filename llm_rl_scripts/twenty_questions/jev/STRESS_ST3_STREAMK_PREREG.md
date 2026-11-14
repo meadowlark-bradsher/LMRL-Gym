@@ -1,6 +1,6 @@
-# ST-3 follow-up: the stream-K prior — pre-registration (draft)
+# ST-3 follow-up: the stream-K prior — pre-registration
 
-**Status (2026-11-13):** built and gated (`STRESS_ST3_STREAMK_BUILD.md`); not tagged, not run.
+**Status (2026-11-13):** built and gated (`STRESS_ST3_STREAMK_BUILD.md`); registered at tag `prereg-stress-st3-streamk-20261113` (user go: "Register and queue").
 
 ## Question
 
