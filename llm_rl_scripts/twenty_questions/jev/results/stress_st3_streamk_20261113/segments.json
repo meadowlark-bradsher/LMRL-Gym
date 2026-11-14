@@ -1,0 +1,32 @@
+[
+ {
+  "started": "20261114_010825",
+  "provenance": {
+   "git_commit": "b94802e26d4673506c87f8cf73039d30c50cec4b",
+   "git_dirty": false,
+   "git_dirty_files": [],
+   "python": "3.9.21",
+   "executable": "/opt/miniconda3/envs/LLM_RL/bin/python",
+   "pythonhashseed": "0",
+   "numpy": "1.26.4",
+   "scipy": "1.11.1",
+   "blas": "openblas 0.3.21",
+   "platform": "macOS-26.6.2-arm64-arm-64bit",
+   "machine": "arm64",
+   "blas_threads": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+   }
+  },
+  "workers": 6,
+  "blas": {
+   "OPENBLAS_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "MKL_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "jobs_done_at_start": []
+ }
+]

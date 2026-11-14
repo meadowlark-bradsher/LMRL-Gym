@@ -1,0 +1,80 @@
+{
+  "arms": [
+    [
+      "primary",
+      "soft",
+      false
+    ],
+    [
+      "primary",
+      "modeswitch_guard",
+      false
+    ],
+    [
+      "norepeat",
+      "modeswitch_guard",
+      true
+    ]
+  ],
+  "budget": 20,
+  "confidence": 0.9,
+  "created": "20261114_010825",
+  "eps": 0.05,
+  "fixed": [
+    0.2,
+    20.0
+  ],
+  "flips": [
+    0.0,
+    0.05
+  ],
+  "games": 5000,
+  "matrix": "matrix_jev.json",
+  "mode": "run_streamk",
+  "noise_seeds": [
+    1,
+    2
+  ],
+  "priors": [
+    "stream"
+  ],
+  "provenance": {
+    "blas": "openblas 0.3.21",
+    "blas_threads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "executable": "/opt/miniconda3/envs/LLM_RL/bin/python",
+    "git_commit": "b94802e26d4673506c87f8cf73039d30c50cec4b",
+    "git_dirty": false,
+    "git_dirty_files": [],
+    "machine": "arm64",
+    "numpy": "1.26.4",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.21",
+    "pythonhashseed": "0",
+    "scipy": "1.11.1"
+  },
+  "refit_every": 100,
+  "registration": {
+    "prereg_commit": "b94802e26d4673506c87f8cf73039d30c50cec4b",
+    "prereg_tag": "prereg-stress-st3-streamk-20261113"
+  },
+  "rho_real": 0.2345,
+  "sigmas": [
+    0.0,
+    0.25,
+    0.5,
+    0.75
+  ],
+  "stream_seeds": [
+    1,
+    2,
+    3
+  ],
+  "theta": 20.0,
+  "tolerance_K": 3,
+  "window": 250
+}
