@@ -1,0 +1,427 @@
+{
+ "cells": [
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "in_pool_won": 0.9781333333333333,
+    "novel_expert": 0.021866666666666666
+   },
+   "sigma": 0.0
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0003333333333333333,
+    "in_pool_expert": 0.0003333333333333333,
+    "in_pool_won": 0.9778,
+    "novel_expert": 0.021866666666666666
+   },
+   "sigma": 0.0
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_novel": 6.666666666666667e-05,
+    "in_pool_expert": 0.00013333333333333334,
+    "in_pool_won": 0.978,
+    "novel_expert": 0.021866666666666666
+   },
+   "sigma": 0.0
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "in_pool_expert": 0.08193333333333333,
+    "in_pool_won": 0.8962,
+    "novel_expert": 0.021866666666666666
+   },
+   "sigma": 0.0
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0002666666666666667,
+    "in_pool_expert": 0.0822,
+    "in_pool_won": 0.8959333333333334,
+    "novel_expert": 0.021866666666666666
+   },
+   "sigma": 0.0
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0003333333333333333,
+    "budget_end_expert_novel": 0.0002,
+    "in_pool_expert": 0.0008333333333333334,
+    "in_pool_won": 0.9730333333333333,
+    "in_pool_wrong": 0.0042,
+    "novel_expert": 0.021866666666666666,
+    "novel_wrong": 6.666666666666667e-05,
+    "wrong_in_pool_live_na": 0.0042,
+    "wrong_novel_live_na": 6.666666666666667e-05
+   },
+   "sigma": 0.0
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_novel": 0.0051333333333333335,
+    "in_pool_expert": 6.666666666666667e-05,
+    "in_pool_won": 0.9472666666666667,
+    "in_pool_wrong": 0.0002,
+    "novel_expert": 0.05193333333333333,
+    "novel_wrong": 0.0005333333333333334,
+    "wrong_in_pool_live_1": 0.0002,
+    "wrong_novel_live_1": 0.0003333333333333333,
+    "wrong_novel_live_2": 0.0002
+   },
+   "sigma": 0.25
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0128,
+    "budget_end_expert_novel": 0.0078,
+    "in_pool_expert": 0.012866666666666667,
+    "in_pool_won": 0.9344666666666667,
+    "in_pool_wrong": 0.0002,
+    "novel_expert": 0.05193333333333333,
+    "novel_wrong": 0.0005333333333333334,
+    "wrong_in_pool_live_1": 0.0002,
+    "wrong_novel_live_1": 0.0003333333333333333,
+    "wrong_novel_live_2": 0.0002
+   },
+   "sigma": 0.25
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_novel": 0.0044,
+    "in_pool_expert": 0.00013333333333333334,
+    "in_pool_won": 0.943,
+    "novel_expert": 0.04513333333333333,
+    "novel_wrong": 0.011733333333333333,
+    "wrong_novel_live_na": 0.011733333333333333
+   },
+   "sigma": 0.25
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.012633333333333333,
+    "budget_end_expert_novel": 0.005,
+    "in_pool_expert": 0.10526666666666666,
+    "in_pool_won": 0.8411666666666666,
+    "in_pool_wrong": 0.0011333333333333334,
+    "novel_expert": 0.052,
+    "novel_wrong": 0.0004333333333333333,
+    "wrong_in_pool_live_1": 0.0011,
+    "wrong_in_pool_live_3": 3.3333333333333335e-05,
+    "wrong_novel_live_1": 0.0002666666666666667,
+    "wrong_novel_live_2": 0.0001,
+    "wrong_novel_live_3": 6.666666666666667e-05
+   },
+   "sigma": 0.25
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.025033333333333335,
+    "budget_end_expert_novel": 0.0074,
+    "in_pool_expert": 0.1166,
+    "in_pool_won": 0.8298333333333333,
+    "in_pool_wrong": 0.0011,
+    "novel_expert": 0.05196666666666667,
+    "novel_wrong": 0.0005,
+    "wrong_in_pool_live_1": 0.0011,
+    "wrong_novel_live_1": 0.0003333333333333333,
+    "wrong_novel_live_2": 0.00013333333333333334,
+    "wrong_novel_live_3": 3.3333333333333335e-05
+   },
+   "sigma": 0.25
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0008,
+    "budget_end_expert_novel": 0.004233333333333334,
+    "in_pool_expert": 0.0019333333333333333,
+    "in_pool_won": 0.9287666666666666,
+    "in_pool_wrong": 0.0123,
+    "novel_expert": 0.0447,
+    "novel_wrong": 0.0123,
+    "wrong_in_pool_live_na": 0.0123,
+    "wrong_novel_live_na": 0.0123
+   },
+   "sigma": 0.25
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_novel": 0.020066666666666667,
+    "in_pool_won": 0.8752,
+    "in_pool_wrong": 0.004266666666666667,
+    "novel_expert": 0.09073333333333333,
+    "novel_wrong": 0.0298,
+    "wrong_in_pool_live_1": 0.002266666666666667,
+    "wrong_in_pool_live_2": 0.0012,
+    "wrong_in_pool_live_3": 0.0008,
+    "wrong_novel_live_1": 0.019333333333333334,
+    "wrong_novel_live_2": 0.0071333333333333335,
+    "wrong_novel_live_3": 0.0033333333333333335
+   },
+   "sigma": 0.5
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_in_pool": 0.3811333333333333,
+    "budget_end_expert_novel": 0.0686,
+    "in_pool_expert": 0.3811333333333333,
+    "in_pool_won": 0.5048666666666667,
+    "in_pool_wrong": 0.0023333333333333335,
+    "novel_expert": 0.10453333333333334,
+    "novel_wrong": 0.0071333333333333335,
+    "wrong_in_pool_live_1": 0.0010666666666666667,
+    "wrong_in_pool_live_2": 0.0004,
+    "wrong_in_pool_live_3": 0.0008666666666666666,
+    "wrong_novel_live_1": 0.0052,
+    "wrong_novel_live_2": 0.0006,
+    "wrong_novel_live_3": 0.0013333333333333333
+   },
+   "sigma": 0.5
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_novel": 0.008666666666666666,
+    "in_pool_expert": 0.00013333333333333334,
+    "in_pool_won": 0.8489333333333333,
+    "in_pool_wrong": 0.0008666666666666666,
+    "novel_expert": 0.050333333333333334,
+    "novel_wrong": 0.09973333333333333,
+    "wrong_in_pool_live_na": 0.0008666666666666666,
+    "wrong_novel_live_na": 0.09973333333333333
+   },
+   "sigma": 0.5
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.018333333333333333,
+    "budget_end_expert_novel": 0.02033333333333333,
+    "in_pool_expert": 0.1054,
+    "in_pool_won": 0.7604333333333333,
+    "in_pool_wrong": 0.01633333333333333,
+    "novel_expert": 0.09406666666666667,
+    "novel_wrong": 0.023766666666666665,
+    "wrong_in_pool_live_1": 0.009166666666666667,
+    "wrong_in_pool_live_2": 0.0026,
+    "wrong_in_pool_live_3": 0.004566666666666667,
+    "wrong_novel_live_1": 0.0112,
+    "wrong_novel_live_2": 0.005333333333333333,
+    "wrong_novel_live_3": 0.007233333333333333
+   },
+   "sigma": 0.5
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.36743333333333333,
+    "budget_end_expert_novel": 0.06336666666666667,
+    "in_pool_expert": 0.4424666666666667,
+    "in_pool_won": 0.4353,
+    "in_pool_wrong": 0.0107,
+    "novel_expert": 0.10553333333333334,
+    "novel_wrong": 0.006,
+    "wrong_in_pool_live_1": 0.0062,
+    "wrong_in_pool_live_2": 0.0026,
+    "wrong_in_pool_live_3": 0.0019,
+    "wrong_novel_live_1": 0.003266666666666667,
+    "wrong_novel_live_2": 0.0015666666666666667,
+    "wrong_novel_live_3": 0.0011666666666666668
+   },
+   "sigma": 0.5
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0013,
+    "budget_end_expert_novel": 0.0096,
+    "in_pool_expert": 0.004566666666666667,
+    "in_pool_won": 0.8246666666666667,
+    "in_pool_wrong": 0.021766666666666667,
+    "novel_expert": 0.051366666666666665,
+    "novel_wrong": 0.09763333333333334,
+    "wrong_in_pool_live_na": 0.021766666666666667,
+    "wrong_novel_live_na": 0.09763333333333334
+   },
+   "sigma": 0.5
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0432,
+    "budget_end_expert_novel": 0.1512,
+    "in_pool_expert": 0.04326666666666667,
+    "in_pool_won": 0.5784,
+    "in_pool_wrong": 0.010133333333333333,
+    "novel_expert": 0.2634666666666667,
+    "novel_wrong": 0.10473333333333333,
+    "wrong_in_pool_live_1": 0.005,
+    "wrong_in_pool_live_2": 0.0034,
+    "wrong_in_pool_live_3": 0.0017333333333333333,
+    "wrong_novel_live_1": 0.07126666666666667,
+    "wrong_novel_live_2": 0.027,
+    "wrong_novel_live_3": 0.006466666666666667
+   },
+   "sigma": 0.75
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_in_pool": 0.651,
+    "budget_end_expert_novel": 0.3389333333333333,
+    "in_pool_expert": 0.6510666666666667,
+    "in_pool_won": 0.0015333333333333334,
+    "novel_expert": 0.3474
+   },
+   "sigma": 0.75
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.0,
+   "games": 15000,
+   "share": {
+    "budget_end_expert_novel": 0.017933333333333332,
+    "in_pool_expert": 0.0009333333333333333,
+    "in_pool_won": 0.5016,
+    "in_pool_wrong": 0.004333333333333333,
+    "novel_expert": 0.0586,
+    "novel_wrong": 0.4345333333333333,
+    "wrong_in_pool_live_na": 0.004333333333333333,
+    "wrong_novel_live_na": 0.4345333333333333
+   },
+   "sigma": 0.75
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.05823333333333333,
+    "budget_end_expert_novel": 0.1407,
+    "in_pool_expert": 0.17846666666666666,
+    "in_pool_won": 0.45116666666666666,
+    "in_pool_wrong": 0.0139,
+    "novel_expert": 0.30593333333333333,
+    "novel_wrong": 0.05053333333333333,
+    "wrong_in_pool_live_1": 0.0074,
+    "wrong_in_pool_live_2": 0.004833333333333334,
+    "wrong_in_pool_live_3": 0.0016666666666666668,
+    "wrong_novel_live_1": 0.029366666666666666,
+    "wrong_novel_live_2": 0.016966666666666668,
+    "wrong_novel_live_3": 0.0042
+   },
+   "sigma": 0.75
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.5979,
+    "budget_end_expert_novel": 0.3088666666666667,
+    "in_pool_expert": 0.6508333333333334,
+    "in_pool_won": 0.0017666666666666666,
+    "novel_expert": 0.3474
+   },
+   "sigma": 0.75
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "flip": 0.05,
+   "games": 30000,
+   "share": {
+    "budget_end_expert_in_pool": 0.0003,
+    "budget_end_expert_novel": 0.0187,
+    "in_pool_expert": 0.004833333333333334,
+    "in_pool_won": 0.4837666666666667,
+    "in_pool_wrong": 0.0233,
+    "novel_expert": 0.06146666666666667,
+    "novel_wrong": 0.4266333333333333,
+    "wrong_in_pool_live_na": 0.0233,
+    "wrong_novel_live_na": 0.4266333333333333
+   },
+   "sigma": 0.75
+  }
+ ],
+ "note": "exploratory, not registered; live_3 means >= 3",
+ "prior": "true",
+ "run_dir": "llm_rl_scripts/twenty_questions/jev/results/stress_st3_20261113",
+ "schema": "twenty_questions_st3_budget_end_v1"
+}
