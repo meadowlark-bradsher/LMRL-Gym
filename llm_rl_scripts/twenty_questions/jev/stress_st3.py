@@ -21,6 +21,9 @@
     # --plan / --self-test / --smoke / --run; replay committed jobs exactly:
     ... stress_st3 --run-dir <st3 run> --regress <job_id> [<job_id> ...]
 
+    # the end-game follow-up (STRESS_ST3_ENDGAME_PREREG.md): add --endgame to
+    # --plan / --self-test / --smoke / --run.
+
 Accumulation mode (``openworld.run_accumulation``) on a Pitman-Yor stream with
 an unbounded supply of species. Game n opens a new species with probability
 (theta + K sigma) / (theta + n), K the distinct species so far; otherwise it
@@ -80,8 +83,15 @@ PREREG = "llm_rl_scripts/twenty_questions/jev/STRESS_TAIL_PREREG.md"
 STREAMK_PREREG = "llm_rl_scripts/twenty_questions/jev/STRESS_ST3_STREAMK_PREREG.md"
 STREAMK_ARMS = [("primary", "soft", False), ("primary", "modeswitch_guard", False),
                 ("norepeat", "modeswitch_guard", True)]
+# End-game follow-up (STRESS_ST3_ENDGAME_PREREG.md): the budget-end rule changes,
+# everything else is ST-3's `true` arm. Job ids are ST-3's plus `_end<rule>`, with
+# the same streams and oracle seeds, so each job pairs with its committed ST-3 job.
+ENDGAME_PREREG = "llm_rl_scripts/twenty_questions/jev/STRESS_ST3_ENDGAME_PREREG.md"
+ENDGAME_RULES = ["half", "conf", "always"]
+ENDGAME_ARMS = STREAMK_ARMS
 MATRIX = "llm_rl_scripts/twenty_questions/jev/matrix_jev.json"
 OUTCOME_CODE = {"won": 0, "expert": 1, "wrong": 2, "false_confirm": 3}
+END_COLS = ("end_budget", "end_u_leads", "end_p_top", "end_p_unknown", "end_top_is_secret")
 
 
 def _sid(sigma: float) -> int:
@@ -114,6 +124,19 @@ def jobs_for(sigmas=SIGMAS, priors=PRIORS, flips=FLIPS, stream_seeds=STREAM_SEED
                                 + 100 * ss + ns})
     # Heavy tails grow the largest pools; start them first for load balance.
     jobs.sort(key=lambda j: (-j["sigma"], j["backend"] != "soft", j["job_id"]))
+    return jobs
+
+
+def endgame_jobs(rules=ENDGAME_RULES, **kw) -> List[dict]:
+    """ST-3's `true` jobs for ENDGAME_ARMS, once per end rule (``kw`` narrows the
+    grid as in ``jobs_for``)."""
+    kw.setdefault("arms", ENDGAME_ARMS)
+    base = jobs_for(priors=["true"], **kw)
+    jobs = [dict(j, job_id="{}_end{}".format(j["job_id"], r), end_rule=r)
+            for r in rules for j in base]
+    # Largest pools first: high sigma, and `always` (it admits the most).
+    jobs.sort(key=lambda j: (-j["sigma"], j["end_rule"] != "always",
+                             j["backend"] != "soft", j["job_id"]))
     return jobs
 
 
@@ -276,7 +299,13 @@ class Trace:
         from .bed import GUESS
         others = [s.qid for s in ep.steps if s.kind != GUESS]
         self.sink.append({"n_repeat_questions": len(others) - len(set(others)),
-                          "n_live_final": ep.n_live_final})
+                          "n_live_final": ep.n_live_final,
+                          "end_budget": int(ep.end_budget),
+                          "end_u_leads": int(ep.end_u_leads),
+                          "end_p_top": ep.end_p_top if ep.end_budget else -1.0,
+                          "end_p_unknown": ep.end_p_unknown if ep.end_budget else -1.0,
+                          "end_top_is_secret": (int(ep.end_top == ep.true_name)
+                                                if ep.end_budget else -1)})
 
 
 def make_oracle(job: dict, matrix):
@@ -335,12 +364,15 @@ def play(job: dict, matrix_mode: str, python_planner: bool = False) -> Tuple[dic
                             oracle=make_oracle(job, mtx), no_repeat=job["no_repeat"],
                             observer_factory=lambda known: Trace(traces),
                             prior_fn=prior,
-                            planner_factory=planner_factory(mtx, python_planner))
+                            planner_factory=planner_factory(mtx, python_planner),
+                            end_rule=job.get("end_rule", "top"))
     assert len(traces) == len(recs) == len(prior.priors) == games
     cols: Dict[str, list] = {k: [] for k in (
         "obj", "in_pool", "is_new", "outcome", "n_questions", "p_unknown_max",
         "fire_turn", "k_before", "prior", "n_retractions", "n_repeat_questions",
         "n_live_final")}
+    if "end_rule" in job:       # end-game jobs only: ST-3 records stay byte-identical
+        cols.update({k: [] for k in END_COLS})
     for g, (r, t) in enumerate(zip(recs, traces)):
         cols["obj"].append(stream[g])
         cols["in_pool"].append(int(r.in_pool))
@@ -354,6 +386,9 @@ def play(job: dict, matrix_mode: str, python_planner: bool = False) -> Tuple[dic
         cols["n_retractions"].append(r.n_retractions)
         cols["n_repeat_questions"].append(t["n_repeat_questions"])
         cols["n_live_final"].append(t["n_live_final"])
+        if "end_rule" in job:
+            for k in END_COLS:
+                cols[k].append(t[k])
     sc = scorecard(recs, confidence=CONFIDENCE)
     sc["species"] = max(stream) + 1
     sc["admitted"] = sum(1 for r in recs if r.expert_called and not r.in_pool)
@@ -592,6 +627,75 @@ def streamk_self_test() -> None:
     print("[self-test] stream-K follow-up OK")
 
 
+def endgame_self_test() -> None:
+    """Mechanics of the end-game rules (synthetic matrix only)."""
+    from .openworld import end_rule_escalates
+
+    # The decision itself, on the survivor backends' shares (1 - u) / n_live.
+    for u in (0.02, 0.05, 0.12, 0.2, 0.3):
+        for n_live in (1, 2, 3, 6):
+            p_top = (1 - u) / n_live
+            u_leads = u > p_top
+            esc = [end_rule_escalates(r, u_leads, p_top, CONFIDENCE)
+                   for r in ("top", "half", "conf", "always")]
+            assert esc == sorted(esc), ("rules not nested", u, n_live, esc)
+            assert esc[0] == (n_live > (1 - u) / u)
+            assert esc[1] == (u_leads or n_live >= 2)
+            assert esc[2] == (u_leads or n_live >= 2 or u > 1 - CONFIDENCE)
+            assert esc[3]
+    try:
+        end_rule_escalates("never", False, 0.9, CONFIDENCE)
+        raise AssertionError("unknown rule must fail")
+    except ValueError:
+        pass
+    print("[self-test] end rules OK (nested; survivor-backend thresholds as registered)")
+
+    # `top` given explicitly plays the committed path, and every rule pairs with
+    # it: identical games up to the first one the rule ends differently, which is
+    # a budget-end `wrong` it escalated. `always` leaves no `wrong` and flags
+    # every novel game.
+    for bk, nr in (("soft", False), ("modeswitch_guard", False), ("modeswitch_guard", True)):
+        for flip, ns in ((0.0, 0), (0.05, 1)):
+            base = {"job_id": "t", "sigma": 0.75, "theta": THETA, "prior": "true",
+                    "flip": flip, "stream_seed": 1, "noise_seed": ns, "arm": "x",
+                    "backend": bk, "no_repeat": nr, "oracle_seed": 9, "games": 1200}
+            ref, sc_ref = play(base, "synthetic")
+            top, sc_top = play(dict(base, end_rule="top"), "synthetic")
+            assert {k: top["games"][k] for k in ref["games"]} == ref["games"]
+            assert sc_top == sc_ref
+            msg = []
+            for rule in ENDGAME_RULES:
+                d, _ = play(dict(base, end_rule=rule), "synthetic")
+                g, r = d["games"], ref["games"]
+                diff = [i for i in range(1200) if any(g[k][i] != r[k][i] for k in r)]
+                if diff:
+                    i = diff[0]
+                    assert [k for k in r if g[k][i] != r[k][i]] == ["outcome"], (rule, i)
+                    assert r["outcome"][i] == OUTCOME_CODE["wrong"] and r["n_questions"][i] == BUDGET
+                    assert g["outcome"][i] == OUTCOME_CODE["expert"] and g["end_budget"][i] == 1
+                # In-run: a budget-end game escalates whenever UNKNOWN leads, and is
+                # `wrong` only if the rule answered.
+                for i in range(1200):
+                    if g["end_budget"][i]:
+                        assert g["outcome"][i] in (OUTCOME_CODE["expert"], OUTCOME_CODE["wrong"])
+                        if g["end_u_leads"][i]:
+                            assert g["outcome"][i] == OUTCOME_CODE["expert"]
+                    else:
+                        assert g["outcome"][i] != OUTCOME_CODE["wrong"]
+                        assert g["end_p_top"][i] == -1.0 and g["end_top_is_secret"][i] == -1
+                if rule == "always":
+                    assert OUTCOME_CODE["wrong"] not in g["outcome"]
+                    assert all(g["outcome"][i] == OUTCOME_CODE["expert"]
+                               for i in range(1200) if not g["in_pool"][i])
+                n_w = sum(1 for o in g["outcome"] if o == OUTCOME_CODE["wrong"])
+                msg.append("{} wrong {} first diff {}".format(
+                    rule, n_w, diff[0] if diff else "-"))
+            print("  {:16s} no_repeat={} flip {:<4g}: top wrong {:3d}; {}".format(
+                bk, nr, flip, sum(1 for o in ref["games"]["outcome"]
+                                  if o == OUTCOME_CODE["wrong"]), "; ".join(msg)))
+    print("[self-test] end-game follow-up OK")
+
+
 # --------------------------------------------------------------------------- #
 # Main                                                                         #
 # --------------------------------------------------------------------------- #
@@ -610,6 +714,8 @@ def main() -> None:
     ap.add_argument("--run-dir", default=None)
     ap.add_argument("--streamk", action="store_true",
                     help="the stream-K follow-up (STRESS_ST3_STREAMK_PREREG.md)")
+    ap.add_argument("--endgame", action="store_true",
+                    help="the end-game follow-up (STRESS_ST3_ENDGAME_PREREG.md)")
     ap.add_argument("--prereg-tag", default=None)
     ap.add_argument("--outdir", default=None)
     ap.add_argument("--out", default=None)
@@ -619,15 +725,19 @@ def main() -> None:
     pin_blas(args.blas_threads)
     hs = require_hash_seed()
 
+    if args.streamk and args.endgame:
+        raise SystemExit("--streamk and --endgame are separate follow-ups")
     sk = {"priors": ["stream"], "arms": STREAMK_ARMS} if args.streamk else {}
+    grid = endgame_jobs if args.endgame else (lambda **kw: jobs_for(**dict(sk, **kw)))
     if args.plan:
-        jobs = jobs_for(**sk)
+        jobs = grid()
         by: Dict[Tuple[str, str], int] = {}
         for j in jobs:
-            by[(j["arm"], j["backend"])] = by.get((j["arm"], j["backend"]), 0) + 1
+            k = (j["arm"], j["backend"], j.get("end_rule", ""))
+            by[k] = by.get(k, 0) + 1
         print("{} jobs of {} games".format(len(jobs), GAMES))
         for k in sorted(by):
-            print("  {:8s} {:16s} {}".format(k[0], k[1], by[k]))
+            print("  {:8s} {:16s} {:6s} {}".format(k[0], k[1], k[2], by[k]))
         return
 
     if args.stream_census:
@@ -653,16 +763,24 @@ def main() -> None:
         return
 
     if args.self_test:
-        streamk_self_test() if args.streamk else self_test()
+        if args.endgame:
+            endgame_self_test()
+        else:
+            streamk_self_test() if args.streamk else self_test()
         return
 
     if args.smoke:
         if not args.outdir:
             raise SystemExit("--smoke needs --outdir (smoke output is not a result)")
-        jobs = jobs_for(sigmas=[0.0, 0.75], flips=[0.0, 0.05], stream_seeds=[1],
-                        noise_seeds=[1],
-                        **(dict(sk, priors=["stream", "true"]) if args.streamk
-                           else {"priors": ["true", "online"]}))
+        narrow = dict(sigmas=[0.0, 0.75], flips=[0.0, 0.05], stream_seeds=[1],
+                      noise_seeds=[1])
+        if args.endgame:
+            # the rule jobs plus their ST-3-style `true` pairs, in one directory
+            jobs = (endgame_jobs(**narrow)
+                    + jobs_for(priors=["true"], arms=ENDGAME_ARMS, **narrow))
+        else:
+            jobs = jobs_for(**narrow, **(dict(sk, priors=["stream", "true"]) if args.streamk
+                                         else {"priors": ["true", "online"]}))
         config = {"mode": "smoke", "matrix": "synthetic", "games": GAMES,
                   "provenance": provenance()}
         run(args.outdir, jobs, "synthetic", config, args.workers)
@@ -672,18 +790,23 @@ def main() -> None:
         raise SystemExit("--run needs --prereg-tag")
     if hs != "0" or sys.version_info[:2] != (3, 9):
         raise SystemExit("--run is registered under PYTHONHASHSEED=0 and Python 3.9 (LLM_RL)")
-    reg = check_prereg(args.prereg_tag, STREAMK_PREREG if args.streamk else PREREG)
-    jobs = jobs_for(**sk)
+    follow = "_endgame" if args.endgame else ("_streamk" if args.streamk else "")
+    reg = check_prereg(args.prereg_tag, ENDGAME_PREREG if args.endgame
+                       else (STREAMK_PREREG if args.streamk else PREREG))
+    jobs = grid()
     stamp = _dt.datetime.utcnow().strftime("%Y%m%d_%H%M%S")
     outdir = args.outdir or os.path.join(
         "llm_rl_scripts/twenty_questions/jev/results",
-        "stress_st3{}_{}".format("_streamk" if args.streamk else "", stamp))
-    config = {"mode": "run_streamk" if args.streamk else "run",
+        "stress_st3{}_{}".format(follow, stamp))
+    config = {"mode": "run" + follow,
               "matrix": os.path.basename(MATRIX), "sigmas": SIGMAS,
-              "theta": THETA, "priors": sk.get("priors", PRIORS),
+              "theta": THETA,
+              "priors": ["true"] if args.endgame else sk.get("priors", PRIORS),
+              "end_rules": ENDGAME_RULES if args.endgame else None,
               "fixed": [FIXED_SIGMA, FIXED_THETA], "refit_every": REFIT_EVERY,
               "flips": FLIPS, "stream_seeds": STREAM_SEEDS, "noise_seeds": NOISE_SEEDS,
-              "arms": sk.get("arms", ARMS), "games": GAMES, "window": WINDOW, "rho_real": RHO_REAL,
+              "arms": ENDGAME_ARMS if args.endgame else sk.get("arms", ARMS),
+              "games": GAMES, "window": WINDOW, "rho_real": RHO_REAL,
               "budget": BUDGET, "confidence": CONFIDENCE, "eps": EPS, "tolerance_K": K,
               "registration": reg, "provenance": provenance(), "created": stamp}
     run(outdir, jobs, "real", config, args.workers)
