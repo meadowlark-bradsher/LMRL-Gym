@@ -5,7 +5,7 @@ plays a game on the real matrix. The self-test, the smoke run and the timing use
 synthetic matrix only. The stream census below plays no games: it is a property of
 the Pitman–Yor streams, not an ST-3 outcome.
 
-**Status (2026-11-13):** built and gated; not tagged, not run.
+**Status (2026-11-13):** registered (tag `prereg-stress-st3-20261113`), run and scored; results in `STRESS_ST3_RESULTS.md`.
 
 Everything runs under `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9) with
 `PYTHONHASHSEED=0` and one BLAS thread per worker.

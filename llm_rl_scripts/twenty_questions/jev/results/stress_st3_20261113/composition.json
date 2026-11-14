@@ -1,0 +1,8872 @@
+{
+ "n_real": 158,
+ "registered": false,
+ "rows": [
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 0.9984756097560976
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 657,
+    "tpr": 0.9984779299847792
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 0.9893617021276596
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 95,
+    "tpr": 0.9894736842105263
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 0.9984756097560976
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 657,
+    "tpr": 0.9984779299847792
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 0.998220640569395
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 563,
+    "tpr": 0.9982238010657194
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 328,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 281,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 47,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 656,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 562,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 656,
+    "tpr": 0.9969512195121951
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 658,
+    "tpr": 0.9969604863221885
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "all"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 562,
+    "tpr": 0.99644128113879
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 564,
+    "tpr": 0.9964539007092199
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "first_half"
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 94,
+    "tpr": 1.0
+   },
+   "sigma": 0.0,
+   "span": "second_half"
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9337579617834395
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 39,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 350,
+    "tpr": 0.74
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 0.9780564263322884
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 7,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 171,
+    "tpr": 0.8771929824561403
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.7414965986394558
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 32,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 179,
+    "tpr": 0.6089385474860335
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.8535031847133758
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 70,
+    "tpr": 0.05714285714285714
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 381,
+    "tpr": 0.5249343832020997
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 0.945141065830721
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 13,
+    "tpr": 0.07692307692307693
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 177,
+    "tpr": 0.7344632768361582
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.4557823129251701
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 57,
+    "tpr": 0.05263157894736842
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 204,
+    "tpr": 0.3431372549019608
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9936305732484076
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9792
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9659863945578231
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9562289562289562
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9936305732484076
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9792
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9659863945578231
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9562289562289562
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9942675159235669
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.3333333333333333
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9824
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9693877551020408
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.3333333333333333
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9629629629629629
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.935031847133758
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 57,
+    "tpr": 0.08771929824561403
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 679,
+    "tpr": 0.7731958762886598
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 0.9788401253918495
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 4,
+    "tpr": 0.25
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 332,
+    "tpr": 0.9096385542168675
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.7448979591836735
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 53,
+    "tpr": 0.07547169811320754
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 347,
+    "tpr": 0.6426512968299711
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9942675159235669
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.3333333333333333
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9824
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9693877551020408
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.3333333333333333
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9629629629629629
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.8324840764331211
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 956,
+    "tpr": 0.9884937238493724
+   },
+   "repeat_unadmitted": {
+    "novel_games": 147,
+    "tpr": 0.2108843537414966
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 761,
+    "tpr": 0.5164257555847569
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 0.9255485893416928
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 956,
+    "tpr": 0.9884937238493724
+   },
+   "repeat_unadmitted": {
+    "novel_games": 35,
+    "tpr": 0.4
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 355,
+    "tpr": 0.704225352112676
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.42857142857142855
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 112,
+    "tpr": 0.15178571428571427
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 406,
+    "tpr": 0.3522167487684729
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9337579617834395
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 39,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 350,
+    "tpr": 0.74
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 0.9780564263322884
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 7,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 171,
+    "tpr": 0.8771929824561403
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.7414965986394558
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 32,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 179,
+    "tpr": 0.6089385474860335
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.8496815286624204
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 77,
+    "tpr": 0.03896103896103896
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 388,
+    "tpr": 0.5051546391752577
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 0.9420062695924765
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 13,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 177,
+    "tpr": 0.7175141242937854
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.4489795918367347
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 64,
+    "tpr": 0.046875
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 211,
+    "tpr": 0.32701421800947866
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9942675159235669
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 624,
+    "tpr": 0.9823717948717948
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9693877551020408
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 296,
+    "tpr": 0.9628378378378378
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9942675159235669
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 624,
+    "tpr": 0.9823717948717948
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9693877551020408
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 296,
+    "tpr": 0.9628378378378378
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9936305732484076
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9792
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9659863945578231
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9562289562289562
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9356687898089172
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 72,
+    "tpr": 0.027777777777777776
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 694,
+    "tpr": 0.7536023054755043
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 0.9811912225705329
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 14,
+    "tpr": 0.07142857142857142
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 342,
+    "tpr": 0.8918128654970761
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.7380952380952381
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 58,
+    "tpr": 0.017241379310344827
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 352,
+    "tpr": 0.6193181818181818
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9936305732484076
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9792
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9659863945578231
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9562289562289562
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.8318471337579618
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 964,
+    "tpr": 0.9782157676348547
+   },
+   "repeat_unadmitted": {
+    "novel_games": 152,
+    "tpr": 0.18421052631578946
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 758,
+    "tpr": 0.5158311345646438
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 0.9247648902821317
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 956,
+    "tpr": 0.9811715481171548
+   },
+   "repeat_unadmitted": {
+    "novel_games": 34,
+    "tpr": 0.4411764705882353
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 354,
+    "tpr": 0.7259887005649718
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.42857142857142855
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 8,
+    "tpr": 0.625
+   },
+   "repeat_unadmitted": {
+    "novel_games": 118,
+    "tpr": 0.11016949152542373
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 404,
+    "tpr": 0.3316831683168317
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9337579617834395
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 39,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 350,
+    "tpr": 0.74
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 0.9780564263322884
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 7,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 171,
+    "tpr": 0.8771929824561403
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.7414965986394558
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 32,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 179,
+    "tpr": 0.6089385474860335
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.9923566878980892
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 313,
+    "tpr": 0.9744408945686901
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 164,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.9591836734693877
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 149,
+    "tpr": 0.9463087248322147
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 785,
+    "tpr": 0.8560509554140128
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 68,
+    "tpr": 0.07352941176470588
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 379,
+    "tpr": 0.5356200527704486
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 638,
+    "tpr": 0.945141065830721
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 13,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 177,
+    "tpr": 0.7288135593220338
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 147,
+    "tpr": 0.46938775510204084
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 55,
+    "tpr": 0.09090909090909091
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 202,
+    "tpr": 0.36633663366336633
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9936305732484076
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9792
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9659863945578231
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9562289562289562
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9936305732484076
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 625,
+    "tpr": 0.9792
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9659863945578231
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 3,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 297,
+    "tpr": 0.9562289562289562
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9929936305732484
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 4,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 626,
+    "tpr": 0.9760383386581469
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9625850340136054
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 4,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 298,
+    "tpr": 0.9496644295302014
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9356687898089172
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 67,
+    "tpr": 0.07462686567164178
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 689,
+    "tpr": 0.7634252539912917
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 0.9796238244514106
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 12,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 340,
+    "tpr": 0.888235294117647
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.7448979591836735
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 55,
+    "tpr": 0.09090909090909091
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 349,
+    "tpr": 0.6418338108882522
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.9929936305732484
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 4,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 626,
+    "tpr": 0.9760383386581469
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 328,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.9625850340136054
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 4,
+    "tpr": 0.0
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 298,
+    "tpr": 0.9496644295302014
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1570,
+    "tpr": 0.8375796178343949
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 962,
+    "tpr": 0.9802494802494802
+   },
+   "repeat_unadmitted": {
+    "novel_games": 140,
+    "tpr": 0.18571428571428572
+   },
+   "sigma": 0.25,
+   "span": "all",
+   "tail": {
+    "novel_games": 748,
+    "tpr": 0.5320855614973262
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1276,
+    "tpr": 0.9286833855799373
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 956,
+    "tpr": 0.9832635983263598
+   },
+   "repeat_unadmitted": {
+    "novel_games": 35,
+    "tpr": 0.2857142857142857
+   },
+   "sigma": 0.25,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 355,
+    "tpr": 0.7183098591549296
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 294,
+    "tpr": 0.4421768707482993
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 6,
+    "tpr": 0.5
+   },
+   "repeat_unadmitted": {
+    "novel_games": 105,
+    "tpr": 0.1523809523809524
+   },
+   "sigma": 0.25,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 393,
+    "tpr": 0.3638676844783715
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8211920529801324
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 133,
+    "tpr": 0.007518796992481203
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1320,
+    "tpr": 0.675
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9266136162687887
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 22,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 679,
+    "tpr": 0.845360824742268
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5962264150943396
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 111,
+    "tpr": 0.009009009009009009
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 641,
+    "tpr": 0.49453978159126366
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8211920529801324
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 133,
+    "tpr": 0.007518796992481203
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1320,
+    "tpr": 0.675
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9266136162687887
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 22,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 679,
+    "tpr": 0.845360824742268
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5962264150943396
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 111,
+    "tpr": 0.009009009009009009
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 641,
+    "tpr": 0.49453978159126366
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.831426851294401
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 88,
+    "tpr": 0.011363636363636364
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1275,
+    "tpr": 0.712156862745098
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9381078691423519
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 5,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 662,
+    "tpr": 0.8867069486404834
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.6037735849056604
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 83,
+    "tpr": 0.012048192771084338
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 613,
+    "tpr": 0.5236541598694943
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.6815171583383504
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 331,
+    "tpr": 0.012084592145015106
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1518,
+    "tpr": 0.43610013175230566
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.7992926613616269
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 78,
+    "tpr": 0.01282051282051282
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 735,
+    "tpr": 0.5863945578231292
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.43018867924528303
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 253,
+    "tpr": 0.011857707509881422
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 783,
+    "tpr": 0.2950191570881226
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.831426851294401
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 88,
+    "tpr": 0.011363636363636364
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1275,
+    "tpr": 0.712156862745098
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9381078691423519
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 5,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 662,
+    "tpr": 0.8867069486404834
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.6037735849056604
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 83,
+    "tpr": 0.012048192771084338
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 613,
+    "tpr": 0.5236541598694943
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.4497290788681517
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 475,
+    "tpr": 0.9957894736842106
+   },
+   "repeat_unadmitted": {
+    "novel_games": 562,
+    "tpr": 0.037366548042704624
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1748,
+    "tpr": 0.16876430205949658
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.632183908045977
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 475,
+    "tpr": 0.9957894736842106
+   },
+   "repeat_unadmitted": {
+    "novel_games": 165,
+    "tpr": 0.07878787878787878
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 821,
+    "tpr": 0.3105968331303289
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.06037735849056604
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 397,
+    "tpr": 0.020151133501259445
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 927,
+    "tpr": 0.043149946062567425
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8374473208910295
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 185,
+    "tpr": 0.22162162162162163
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2559,
+    "tpr": 0.7327080890973037
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9314765694076039
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 35,
+    "tpr": 0.2
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1349,
+    "tpr": 0.8643439584877687
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6367924528301887
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 150,
+    "tpr": 0.22666666666666666
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1210,
+    "tpr": 0.5859504132231405
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8374473208910295
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 185,
+    "tpr": 0.22162162162162163
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2559,
+    "tpr": 0.7327080890973037
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9314765694076039
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 35,
+    "tpr": 0.2
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1349,
+    "tpr": 0.8643439584877687
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6367924528301887
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 150,
+    "tpr": 0.22666666666666666
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1210,
+    "tpr": 0.5859504132231405
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8506923540036123
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 126,
+    "tpr": 0.11904761904761904
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2500,
+    "tpr": 0.7572
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9487179487179487
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 7,
+    "tpr": 0.42857142857142855
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1321,
+    "tpr": 0.9091597274791824
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6415094339622641
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 119,
+    "tpr": 0.10084033613445378
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1179,
+    "tpr": 0.5869380831212893
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.7010836845273931
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 566,
+    "tpr": 0.0812720848056537
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2940,
+    "tpr": 0.4853741496598639
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.8099027409372237
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 146,
+    "tpr": 0.0684931506849315
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1460,
+    "tpr": 0.6123287671232877
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.4688679245283019
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 420,
+    "tpr": 0.08571428571428572
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1480,
+    "tpr": 0.3601351351351351
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8506923540036123
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 126,
+    "tpr": 0.11904761904761904
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2500,
+    "tpr": 0.7572
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9487179487179487
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 7,
+    "tpr": 0.42857142857142855
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1321,
+    "tpr": 0.9091597274791824
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6415094339622641
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 119,
+    "tpr": 0.10084033613445378
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1179,
+    "tpr": 0.5869380831212893
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.4518362432269717
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 998,
+    "tpr": 0.9378757515030061
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1034,
+    "tpr": 0.0725338491295938
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 3358,
+    "tpr": 0.19058963668850507
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.6295313881520778
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 978,
+    "tpr": 0.9560327198364008
+   },
+   "repeat_unadmitted": {
+    "novel_games": 312,
+    "tpr": 0.13141025641025642
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1596,
+    "tpr": 0.33208020050125314
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.07264150943396226
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 20,
+    "tpr": 0.05
+   },
+   "repeat_unadmitted": {
+    "novel_games": 722,
+    "tpr": 0.04709141274238227
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1762,
+    "tpr": 0.06242905788876277
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8193859121011439
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 107,
+    "tpr": 0.08411214953271028
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1294,
+    "tpr": 0.6924265842349304
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9230769230769231
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 17,
+    "tpr": 0.29411764705882354
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 674,
+    "tpr": 0.8531157270029673
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5981132075471698
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 90,
+    "tpr": 0.044444444444444446
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 620,
+    "tpr": 0.5177419354838709
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8193859121011439
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 107,
+    "tpr": 0.08411214953271028
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1294,
+    "tpr": 0.6924265842349304
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9230769230769231
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 17,
+    "tpr": 0.29411764705882354
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 674,
+    "tpr": 0.8531157270029673
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5981132075471698
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 90,
+    "tpr": 0.044444444444444446
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 620,
+    "tpr": 0.5177419354838709
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.9319686935580975
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 26,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1213,
+    "tpr": 0.8854080791426217
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9964633068081344
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 657,
+    "tpr": 0.9939117199391172
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.7943396226415095
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 26,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 556,
+    "tpr": 0.7571942446043165
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8217940999397954
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 150,
+    "tpr": 0.02
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1337,
+    "tpr": 0.668661181750187
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9274977895667551
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 24,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 681,
+    "tpr": 0.8443465491923642
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5962264150943396
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 126,
+    "tpr": 0.023809523809523808
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 656,
+    "tpr": 0.48628048780487804
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.9319686935580975
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 26,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1213,
+    "tpr": 0.8854080791426217
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9964633068081344
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 657,
+    "tpr": 0.9939117199391172
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.7943396226415095
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 26,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 556,
+    "tpr": 0.7571942446043165
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.4473208910295003
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 475,
+    "tpr": 0.9936842105263158
+   },
+   "repeat_unadmitted": {
+    "novel_games": 565,
+    "tpr": 0.03185840707964602
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1751,
+    "tpr": 0.1650485436893204
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.6304155614500442
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 475,
+    "tpr": 0.9936842105263158
+   },
+   "repeat_unadmitted": {
+    "novel_games": 172,
+    "tpr": 0.06976744186046512
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 828,
+    "tpr": 0.3055555555555556
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.05660377358490566
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 393,
+    "tpr": 0.015267175572519083
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 923,
+    "tpr": 0.0390032502708559
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8440698374473209
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 192,
+    "tpr": 0.1875
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2566,
+    "tpr": 0.7373343725643025
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9274977895667551
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 35,
+    "tpr": 0.2571428571428571
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1349,
+    "tpr": 0.8591549295774648
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6660377358490566
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 157,
+    "tpr": 0.17197452229299362
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1217,
+    "tpr": 0.6023007395234182
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8440698374473209
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 192,
+    "tpr": 0.1875
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2566,
+    "tpr": 0.7373343725643025
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9274977895667551
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 35,
+    "tpr": 0.2571428571428571
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1349,
+    "tpr": 0.8591549295774648
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6660377358490566
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 157,
+    "tpr": 0.17197452229299362
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1217,
+    "tpr": 0.6023007395234182
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.9413004214328717
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 42,
+    "tpr": 0.14285714285714285
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2416,
+    "tpr": 0.9043874172185431
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9960212201591512
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1314,
+    "tpr": 0.9931506849315068
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.8245283018867925
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 42,
+    "tpr": 0.14285714285714285
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1102,
+    "tpr": 0.7985480943738656
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8232992173389524
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 243,
+    "tpr": 0.1646090534979424
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2617,
+    "tpr": 0.6981276270538785
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9279398762157383
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 48,
+    "tpr": 0.14583333333333334
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1362,
+    "tpr": 0.8502202643171806
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 195,
+    "tpr": 0.16923076923076924
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1255,
+    "tpr": 0.5330677290836653
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.9413004214328717
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 42,
+    "tpr": 0.14285714285714285
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2416,
+    "tpr": 0.9043874172185431
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9960212201591512
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1314,
+    "tpr": 0.9931506849315068
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.8245283018867925
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 42,
+    "tpr": 0.14285714285714285
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1102,
+    "tpr": 0.7985480943738656
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.44762191450933175
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 975,
+    "tpr": 0.96
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1062,
+    "tpr": 0.0696798493408663
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 3409,
+    "tpr": 0.18333822235259606
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.6242263483642794
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 958,
+    "tpr": 0.9770354906054279
+   },
+   "repeat_unadmitted": {
+    "novel_games": 325,
+    "tpr": 0.12307692307692308
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1629,
+    "tpr": 0.31675874769797424
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.07075471698113207
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 17,
+    "tpr": 0.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 737,
+    "tpr": 0.04613297150610583
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1780,
+    "tpr": 0.06123595505617978
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8145695364238411
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 147,
+    "tpr": 0.05442176870748299
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1334,
+    "tpr": 0.6649175412293853
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9168877099911583
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 28,
+    "tpr": 0.10714285714285714
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 685,
+    "tpr": 0.8262773722627738
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5962264150943396
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 119,
+    "tpr": 0.04201680672268908
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 649,
+    "tpr": 0.4946070878274268
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.8145695364238411
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 147,
+    "tpr": 0.05442176870748299
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1334,
+    "tpr": 0.6649175412293853
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9168877099911583
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 28,
+    "tpr": 0.10714285714285714
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 685,
+    "tpr": 0.8262773722627738
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.5962264150943396
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 119,
+    "tpr": 0.04201680672268908
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 649,
+    "tpr": 0.4946070878274268
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.9440096327513546
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 14,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1201,
+    "tpr": 0.9109075770191507
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9973474801061007
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 657,
+    "tpr": 0.9954337899543378
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.8301886792452831
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 14,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 544,
+    "tpr": 0.8088235294117647
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.851896447922938
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 100,
+    "tpr": 0.03
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1287,
+    "tpr": 0.7334887334887334
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9478337754199824
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 14,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 671,
+    "tpr": 0.8912071535022354
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.6471698113207547
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 86,
+    "tpr": 0.03488372093023256
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 616,
+    "tpr": 0.5616883116883117
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.9440096327513546
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 14,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1201,
+    "tpr": 0.9109075770191507
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.9973474801061007
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 657,
+    "tpr": 0.9954337899543378
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.8301886792452831
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 14,
+    "tpr": 0.0
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 544,
+    "tpr": 0.8088235294117647
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1661,
+    "tpr": 0.4461167971101746
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 475,
+    "tpr": 0.9936842105263158
+   },
+   "repeat_unadmitted": {
+    "novel_games": 590,
+    "tpr": 0.023728813559322035
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 1776,
+    "tpr": 0.15934684684684686
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1131,
+    "tpr": 0.627763041556145
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 475,
+    "tpr": 0.9936842105263158
+   },
+   "repeat_unadmitted": {
+    "novel_games": 177,
+    "tpr": 0.04519774011299435
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 833,
+    "tpr": 0.29531812725090034
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 530,
+    "tpr": 0.05849056603773585
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 413,
+    "tpr": 0.014527845036319613
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 943,
+    "tpr": 0.03923647932131495
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8395544852498494
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 213,
+    "tpr": 0.15492957746478872
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2587,
+    "tpr": 0.7243911867027445
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9221927497789567
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 45,
+    "tpr": 0.2
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1359,
+    "tpr": 0.8440029433406917
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6632075471698113
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 168,
+    "tpr": 0.14285714285714285
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1228,
+    "tpr": 0.5920195439739414
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8395544852498494
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 213,
+    "tpr": 0.15492957746478872
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2587,
+    "tpr": 0.7243911867027445
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9221927497789567
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 45,
+    "tpr": 0.2
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1359,
+    "tpr": 0.8440029433406917
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6632075471698113
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 168,
+    "tpr": 0.14285714285714285
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1228,
+    "tpr": 0.5920195439739414
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.9518362432269717
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 24,
+    "tpr": 0.16666666666666666
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2398,
+    "tpr": 0.9249374478732277
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9973474801061007
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1314,
+    "tpr": 0.9954337899543378
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.8547169811320755
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 24,
+    "tpr": 0.16666666666666666
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1084,
+    "tpr": 0.8394833948339483
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.8546056592414208
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 153,
+    "tpr": 0.21568627450980393
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2527,
+    "tpr": 0.7613771270280966
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9442970822281167
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 28,
+    "tpr": 0.25
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1342,
+    "tpr": 0.8904619970193741
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.6632075471698113
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 125,
+    "tpr": 0.208
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1185,
+    "tpr": 0.6151898734177215
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.9518362432269717
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 24,
+    "tpr": 0.16666666666666666
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 2398,
+    "tpr": 0.9249374478732277
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.9973474801061007
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1314,
+    "tpr": 0.9954337899543378
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.8547169811320755
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 24,
+    "tpr": 0.16666666666666666
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1084,
+    "tpr": 0.8394833948339483
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 3322,
+    "tpr": 0.446417820590006
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 971,
+    "tpr": 0.9670442842430484
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1148,
+    "tpr": 0.050522648083623695
+   },
+   "sigma": 0.5,
+   "span": "all",
+   "tail": {
+    "novel_games": 3499,
+    "tpr": 0.172049156901972
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 2262,
+    "tpr": 0.625552608311229
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 959,
+    "tpr": 0.9791449426485923
+   },
+   "repeat_unadmitted": {
+    "novel_games": 331,
+    "tpr": 0.07250755287009064
+   },
+   "sigma": 0.5,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 1634,
+    "tpr": 0.30599755201958384
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 1060,
+    "tpr": 0.06415094339622641
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 12,
+    "tpr": 0.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 817,
+    "tpr": 0.0416156670746634
+   },
+   "sigma": 0.5,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 1865,
+    "tpr": 0.054691689008042894
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.5002878526194589
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 842,
+    "tpr": 0.032066508313539195
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 5579,
+    "tpr": 0.3871661588098225
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.6513372472276582
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 230,
+    "tpr": 0.06956521739130435
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2822,
+    "tpr": 0.5453579021970234
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.28438228438228436
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 612,
+    "tpr": 0.017973856209150325
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2757,
+    "tpr": 0.2252448313384113
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.5002878526194589
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 842,
+    "tpr": 0.032066508313539195
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 5579,
+    "tpr": 0.3871661588098225
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.6513372472276582
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 230,
+    "tpr": 0.06956521739130435
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2822,
+    "tpr": 0.5453579021970234
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.28438228438228436
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 612,
+    "tpr": 0.017973856209150325
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2757,
+    "tpr": 0.2252448313384113
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.9180579543273844
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 56,
+    "tpr": 0.017857142857142856
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4793,
+    "tpr": 0.8994366784894638
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.9768427919112851
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 8,
+    "tpr": 0.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2600,
+    "tpr": 0.9696153846153847
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.8340326340326341
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 48,
+    "tpr": 0.020833333333333332
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2193,
+    "tpr": 0.8162334701322389
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.8353483016695452
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 154,
+    "tpr": 0.025974025974025976
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4891,
+    "tpr": 0.7939071764465344
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.9324853228962818
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 32,
+    "tpr": 0.0625
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2624,
+    "tpr": 0.9096798780487805
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.6965034965034965
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 122,
+    "tpr": 0.01639344262295082
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2267,
+    "tpr": 0.6599029554477283
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.9180579543273844
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 56,
+    "tpr": 0.017857142857142856
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4793,
+    "tpr": 0.8994366784894638
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.9768427919112851
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 8,
+    "tpr": 0.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2600,
+    "tpr": 0.9696153846153847
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.8340326340326341
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 48,
+    "tpr": 0.020833333333333332
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2193,
+    "tpr": 0.8162334701322389
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.15428900402993667
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 0.9936708860759493
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2150,
+    "tpr": 0.01674418604651163
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 6887,
+    "tpr": 0.05357920720197473
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.25212002609262885
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 474,
+    "tpr": 0.9936708860759493
+   },
+   "repeat_unadmitted": {
+    "novel_games": 752,
+    "tpr": 0.02526595744680851
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 3344,
+    "tpr": 0.09599282296650717
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.014452214452214453
+   },
+   "flip": 0.0,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 1398,
+    "tpr": 0.012160228898426323
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 3543,
+    "tpr": 0.013547840812870448
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.5575705238917674
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1195,
+    "tpr": 0.10125523012552301
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 10669,
+    "tpr": 0.46714781141625267
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.7082517938682322
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 319,
+    "tpr": 0.18495297805642633
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5503,
+    "tpr": 0.627657641286571
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.3421911421911422
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 876,
+    "tpr": 0.07077625570776255
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 5166,
+    "tpr": 0.2961672473867596
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.5575705238917674
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1195,
+    "tpr": 0.10125523012552301
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 10669,
+    "tpr": 0.46714781141625267
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.7082517938682322
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 319,
+    "tpr": 0.18495297805642633
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5503,
+    "tpr": 0.627657641286571
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.3421911421911422
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 876,
+    "tpr": 0.07077625570776255
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 5166,
+    "tpr": 0.2961672473867596
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.9176741508347726
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 119,
+    "tpr": 0.31092436974789917
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9593,
+    "tpr": 0.9020118836651725
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.9695042400521853
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 18,
+    "tpr": 0.2777777777777778
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5202,
+    "tpr": 0.9615532487504805
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.8435897435897436
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 101,
+    "tpr": 0.31683168316831684
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4391,
+    "tpr": 0.83147346845821
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.8319900211091921
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 247,
+    "tpr": 0.2591093117408907
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9721,
+    "tpr": 0.8010492747659705
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.9279191128506197
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 54,
+    "tpr": 0.3888888888888889
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5238,
+    "tpr": 0.9093165330278732
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.6948717948717948
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 193,
+    "tpr": 0.22279792746113988
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4483,
+    "tpr": 0.674548293553424
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.9176741508347726
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 119,
+    "tpr": 0.31092436974789917
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9593,
+    "tpr": 0.9020118836651725
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.9695042400521853
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 18,
+    "tpr": 0.2777777777777778
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5202,
+    "tpr": 0.9615532487504805
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.8435897435897436
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "repeat_unadmitted": {
+    "novel_games": 101,
+    "tpr": 0.31683168316831684
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4391,
+    "tpr": 0.83147346845821
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.15803108808290156
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 959,
+    "tpr": 0.9791449426485923
+   },
+   "repeat_unadmitted": {
+    "novel_games": 4115,
+    "tpr": 0.027703523693803158
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 13578,
+    "tpr": 0.06053910737958462
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.25391389432485323
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 958,
+    "tpr": 0.9801670146137788
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1475,
+    "tpr": 0.04
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 6649,
+    "tpr": 0.10181982252970372
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.02097902097902098
+   },
+   "flip": 0.05,
+   "prior": "fixed",
+   "real": {
+    "novel_games": 1,
+    "tpr": 0.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2640,
+    "tpr": 0.020833333333333332
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 6929,
+    "tpr": 0.020926540626353008
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.6810592976396085
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 385,
+    "tpr": 0.2
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 5122,
+    "tpr": 0.6153846153846154
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.7938682322243966
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 104,
+    "tpr": 0.36538461538461536
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2696,
+    "tpr": 0.7410979228486647
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.5198135198135199
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 281,
+    "tpr": 0.1387900355871886
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2426,
+    "tpr": 0.4756801319043693
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.6810592976396085
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 385,
+    "tpr": 0.2
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 5122,
+    "tpr": 0.6153846153846154
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.7938682322243966
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 104,
+    "tpr": 0.36538461538461536
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2696,
+    "tpr": 0.7410979228486647
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.5198135198135199
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 281,
+    "tpr": 0.1387900355871886
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2426,
+    "tpr": 0.4756801319043693
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4737,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2592,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4737,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2592,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4737,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2592,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.15448090577624257
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 476,
+    "tpr": 0.9852941176470589
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2184,
+    "tpr": 0.014194139194139194
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 6919,
+    "tpr": 0.053042347159994216
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.25407697325505546
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 474,
+    "tpr": 0.989451476793249
+   },
+   "repeat_unadmitted": {
+    "novel_games": 769,
+    "tpr": 0.02600780234070221
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 3361,
+    "tpr": 0.09818506396905682
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.012121212121212121
+   },
+   "flip": 0.0,
+   "prior": "online",
+   "real": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1415,
+    "tpr": 0.0077738515901060075
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 3558,
+    "tpr": 0.010399100618324901
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.851563999232393
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 298,
+    "tpr": 0.5973154362416108
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9772,
+    "tpr": 0.8294105607859189
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.8975864318330071
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 113,
+    "tpr": 0.6460176991150443
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5297,
+    "tpr": 0.873890881631112
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.7857808857808858
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 185,
+    "tpr": 0.5675675675675675
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4475,
+    "tpr": 0.7767597765363129
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.851563999232393
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 298,
+    "tpr": 0.5973154362416108
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9772,
+    "tpr": 0.8294105607859189
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.8975864318330071
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 113,
+    "tpr": 0.6460176991150443
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5297,
+    "tpr": 0.873890881631112
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.7857808857808858
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "repeat_unadmitted": {
+    "novel_games": 185,
+    "tpr": 0.5675675675675675
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4475,
+    "tpr": 0.7767597765363129
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9474,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5184,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9474,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5184,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9474,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5184,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.16234887737478412
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 971,
+    "tpr": 0.9629248197734295
+   },
+   "repeat_unadmitted": {
+    "novel_games": 4259,
+    "tpr": 0.030758393989199342
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 13710,
+    "tpr": 0.06477024070021882
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.25945857795172866
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 961,
+    "tpr": 0.9729448491155047
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1526,
+    "tpr": 0.047182175622542594
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 6697,
+    "tpr": 0.10870539047334628
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.023543123543123542
+   },
+   "flip": 0.05,
+   "prior": "online",
+   "real": {
+    "novel_games": 10,
+    "tpr": 0.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2733,
+    "tpr": 0.021587998536406878
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 7013,
+    "tpr": 0.02281477256523599
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.7415083477259643
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 312,
+    "tpr": 0.28205128205128205
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 5049,
+    "tpr": 0.6888492770845712
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.8206131767775603
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 122,
+    "tpr": 0.3442622950819672
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2714,
+    "tpr": 0.7678703021370671
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.6284382284382284
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 190,
+    "tpr": 0.24210526315789474
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2335,
+    "tpr": 0.5970021413276231
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.7415083477259643
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 312,
+    "tpr": 0.28205128205128205
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 5049,
+    "tpr": 0.6888492770845712
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.8206131767775603
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 122,
+    "tpr": 0.3442622950819672
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2714,
+    "tpr": 0.7678703021370671
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.6284382284382284
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 190,
+    "tpr": 0.24210526315789474
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2335,
+    "tpr": 0.5970021413276231
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4737,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2592,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4737,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2592,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 4737,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 2592,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 2145,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 5211,
+    "tpr": 0.15851084244866628
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 476,
+    "tpr": 0.9852941176470589
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2186,
+    "tpr": 0.0242451967063129
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 6921,
+    "tpr": 0.05923999422048837
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 3066,
+    "tpr": 0.2508153946510111
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 474,
+    "tpr": 0.989451476793249
+   },
+   "repeat_unadmitted": {
+    "novel_games": 777,
+    "tpr": 0.03732303732303732
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 3369,
+    "tpr": 0.09765509053131494
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 2145,
+    "tpr": 0.026573426573426574
+   },
+   "flip": 0.0,
+   "prior": "true",
+   "real": {
+    "novel_games": 2,
+    "tpr": 0.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1409,
+    "tpr": 0.017033356990773598
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 3552,
+    "tpr": 0.022804054054054054
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.8665323354442526
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 272,
+    "tpr": 0.5404411764705882
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9746,
+    "tpr": 0.844449004719885
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.9028049575994781
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 98,
+    "tpr": 0.7142857142857143
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5282,
+    "tpr": 0.8818629307080651
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.8146853146853147
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 174,
+    "tpr": 0.4425287356321839
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4464,
+    "tpr": 0.8001792114695341
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.8665323354442526
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 272,
+    "tpr": 0.5404411764705882
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9746,
+    "tpr": 0.844449004719885
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.9028049575994781
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "repeat_unadmitted": {
+    "novel_games": 98,
+    "tpr": 0.7142857142857143
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5282,
+    "tpr": 0.8818629307080651
+   }
+  },
+  {
+   "arm": "norepeat",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.8146853146853147
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "repeat_unadmitted": {
+    "novel_games": 174,
+    "tpr": 0.4425287356321839
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4464,
+    "tpr": 0.8001792114695341
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9474,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5184,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "hard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9474,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5184,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 9474,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 948,
+    "tpr": 1.0
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 5184,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "modeswitch_guard",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 4290,
+    "tpr": 1.0
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 10422,
+    "tpr": 0.1650355018230666
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 961,
+    "tpr": 0.9760665972944849
+   },
+   "repeat_unadmitted": {
+    "novel_games": 4221,
+    "tpr": 0.02937692489931296
+   },
+   "sigma": 0.75,
+   "span": "all",
+   "tail": {
+    "novel_games": 13682,
+    "tpr": 0.06621838912439702
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 6132,
+    "tpr": 0.2617416829745597
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 954,
+    "tpr": 0.9821802935010482
+   },
+   "repeat_unadmitted": {
+    "novel_games": 1476,
+    "tpr": 0.044715447154471545
+   },
+   "sigma": 0.75,
+   "span": "first_half",
+   "tail": {
+    "novel_games": 6654,
+    "tpr": 0.11030958821761347
+   }
+  },
+  {
+   "arm": "primary",
+   "backend": "soft",
+   "first_appearance": {
+    "novel_games": 4290,
+    "tpr": 0.026806526806526808
+   },
+   "flip": 0.05,
+   "prior": "true",
+   "real": {
+    "novel_games": 7,
+    "tpr": 0.14285714285714285
+   },
+   "repeat_unadmitted": {
+    "novel_games": 2745,
+    "tpr": 0.021129326047358836
+   },
+   "sigma": 0.75,
+   "span": "second_half",
+   "tail": {
+    "novel_games": 7028,
+    "tpr": 0.024473534433693798
+   }
+  }
+ ],
+ "run_dir": "llm_rl_scripts/twenty_questions/jev/results/stress_st3_20261113",
+ "schema": "twenty_questions_stress_st3_composition_v1"
+}

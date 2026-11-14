@@ -278,7 +278,8 @@ def figures(cells, streams, sigmas, run_dir: str) -> List[str]:
     plt.close(fig)
     paths.append(p)
 
-    fig, axes = plt.subplots(1, len(LOOP_FREE), figsize=(4 * len(LOOP_FREE), 3.2), sharey=True)
+    fig, axes = plt.subplots(1, len(LOOP_FREE), figsize=(4 * len(LOOP_FREE), 3.2),
+                             sharey=True, sharex=True)
     for ax, (arm, bk) in zip(axes, LOOP_FREE):
         for sg in sigmas:
             m = cells.get((sg, "true", 0.0, arm, bk))
@@ -292,6 +293,11 @@ def figures(cells, streams, sigmas, run_dir: str) -> List[str]:
                     ys.append(r["auc"])
             ax.plot(xs, ys, marker="o", label="σ={:g}".format(sg))
         ax.set_xscale("log")
+        edges = sorted({e for b in P5_BINS for e in b})
+        ax.set_xticks(edges)
+        ax.set_xticklabels([str(e) for e in edges])
+        ax.minorticks_off()
+        ax.set_xlim(edges[0], edges[-1])
         ax.set_title("{} ({})".format(bk, arm), fontsize=8)
         ax.set_xlabel("|H_known| entering the game (bin)")
     axes[0].set_ylabel("novelty AUC")
