@@ -1,7 +1,7 @@
 # ST-3 follow-up: the end-of-game rule — pre-registration
 
-**Status (2026-11-14):** draft, untagged. Not built. Nothing here has been played on
-the real matrix. The numbers under *Why* are read from ST-3's committed per-game
+**Status (2026-11-14):** draft, untagged. Built and gated (`STRESS_ST3_ENDGAME_BUILD.md`).
+Nothing here has been played on the real matrix. The numbers under *Why* are read from ST-3's committed per-game
 columns (`st3_budget_end.py`, `st3_composition.py`); no game was replayed for them.
 
 ## Question
@@ -242,6 +242,6 @@ is the reference where this wording is ambiguous.
 * The rule does not change when the loop escalates *during* a game, or which
   questions it asks. A rule that escalates earlier on near copies, or a planner that
   spends its last questions on the survivor against UNKNOWN, is a separate study.
-* No API calls. Expected CPU time is to be measured by the build's smoke run. A first
-  guess, from ST-3's paired jobs (about 2 CPU-hours per 108 jobs) plus larger pools
-  under `always`, is 1–1.5 h on 6 workers.
+* No API calls. The build's smoke run puts the grid at about 10 CPU-hours, or
+  1.5–2 h on 6 workers. `soft`'s rule jobs are about 3× slower than ST-3's, because
+  they admit far more.

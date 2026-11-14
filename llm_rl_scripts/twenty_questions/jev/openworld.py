@@ -218,6 +218,35 @@ class OWEpisode:
     steps: List[OWStep] = field(default_factory=list)
     n_live_final: int = -1       # live knowns when the budget ran out (survivor
                                  # backends only; -1 otherwise)
+    # Budget end (ST-3 end-game follow-up): the belief when the budget ran out.
+    # ``end_top`` is the leading known (None if no known is left), ``end_u_leads``
+    # whether UNKNOWN led -- the ST-3 rule's ``top`` test. Unset otherwise.
+    end_budget: bool = False
+    end_u_leads: bool = False
+    end_top: Optional[str] = None
+    end_p_top: float = float("nan")
+    end_p_unknown: float = float("nan")
+
+
+END_RULES = ("top", "half", "conf", "always")
+
+
+def end_rule_escalates(rule: str, u_leads: bool, p_top: float,
+                       confidence: float) -> bool:
+    """The budget-end decision (``STRESS_ST3_ENDGAME_PREREG.md``). Every rule
+    escalates when UNKNOWN leads; otherwise ``top`` (the committed rule) answers
+    the leading known, ``half`` answers it only with >= 0.5 of the belief, ``conf``
+    only with >= ``confidence``, and ``always`` never answers. Nested per game:
+    top <= half <= conf <= always (for confidence >= 0.5)."""
+    if rule not in END_RULES:
+        raise ValueError("unknown end rule {!r}".format(rule))
+    if u_leads or rule == "always":
+        return True
+    if rule == "half":
+        return p_top < 0.5
+    if rule == "conf":
+        return p_top < confidence
+    return False
 
 
 def run_openworld_episode(true_h: Hypothesis,
@@ -232,7 +261,8 @@ def run_openworld_episode(true_h: Hypothesis,
                           backend: str = "soft",
                           margin: float = 2.0, tolerance: int = 1,
                           observer=None, like_matrix=None,
-                          no_repeat: bool = False, planner=None) -> OWEpisode:
+                          no_repeat: bool = False, planner=None,
+                          end_rule: str = "top") -> OWEpisode:
     """Play one open-world game. Belief is maintained by the named ``BeliefBackend``
     (default ``"soft"`` = the §3.11 posterior); the EIG planner, the catch-all, and
     the commit loop are shared across backends, so a change of ``backend`` changes
@@ -249,7 +279,13 @@ def run_openworld_episode(true_h: Hypothesis,
     ``planner`` (default None: the Python path) supplies the EIG ranking, the
     per-pool ``like`` and question bank, and -- for ``soft`` -- the belief update,
     from precomputed arrays (``stress_fastplan.FastPlanner``, built once for a
-    fixed ``known_hyps``)."""
+    fixed ``known_hyps``).
+
+    ``end_rule`` (default ``"top"``: the committed rule, escalate iff UNKNOWN leads)
+    decides a game that reaches the budget end without a confirmed guess; see
+    ``end_rule_escalates``. It acts only after the last answer."""
+    if end_rule not in END_RULES:
+        raise ValueError("unknown end rule {!r}".format(end_rule))
     all_hyps = list(known_hyps) + [UNKNOWN_HYP]
     by_name = {h.name: h for h in all_hyps}
     # Belief uses ``like_matrix`` when supplied (ENV-704: a partially-elicited row for a
@@ -352,16 +388,27 @@ def run_openworld_episode(true_h: Hypothesis,
         if fire_turn is None and pu >= confidence:
             fire_turn = turn + 1  # crosses the gate entering the next turn
 
-    # Budget exhausted: expert iff UNKNOWN is on top, else a wrong guess.
+    # Budget exhausted. The committed rule (``top``): expert iff UNKNOWN is on
+    # top, else a wrong guess of the leading known. ``end_rule`` may escalate more.
     dist = bk.distribution()
     top_name = max(dist, key=lambda n: dist[n])
-    outcome = "expert" if top_name == UNKNOWN else "wrong"
+    u_leads = top_name == UNKNOWN
+    if u_leads:
+        knowns = [n for n in dist if n != UNKNOWN]
+        end_top = max(knowns, key=lambda n: dist[n]) if knowns else None
+    else:
+        end_top = top_name
+    p_top = dist[end_top] if end_top is not None else 0.0
+    escalate = end_rule_escalates(end_rule, u_leads, p_top, confidence)
+    outcome = "expert" if escalate else "wrong"
     return OWEpisode(
         true_name=true_h.name, true_category=true_h.category, in_pool=in_pool,
         outcome=outcome, n_questions=max_questions, p_unknown_max=p_unk_max,
         p_unknown_final=dist.get(UNKNOWN, 0.0), fire_turn=fire_turn,
         n_retractions=getattr(bk, "n_revives", 0), steps=steps,
         n_live_final=len(bk.survivors) if hasattr(bk, "survivors") else -1,
+        end_budget=True, end_u_leads=u_leads, end_top=end_top, end_p_top=p_top,
+        end_p_unknown=dist.get(UNKNOWN, 0.0),
     )
 
 
@@ -437,7 +484,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
                      tolerance: int = 1, observer_factory=None,
                      oracle: Optional[OracleModel] = None,
                      no_repeat: bool = False, prior_fn=None,
-                     planner_factory=None) -> List[GameRecord]:
+                     planner_factory=None, end_rule: str = "top") -> List[GameRecord]:
     """Play the stream. ``H_known`` grows by expert admission. The PY ``(sigma,
     theta)`` used for the live ``p_new`` prior are passed in (fit offline or set);
     the discovery curve itself is independent of them. ``oracle_noise > 0`` flips
@@ -451,7 +498,8 @@ def run_accumulation(objects: Sequence[Hypothesis],
     (``records`` is the history so far, so an online estimate sees no future game);
     the ``k_before == 0`` rule still sets the prior to 1. ``planner_factory(known)``
     returns a ``stress_fastplan.FastPlanner`` for the current ``H_known`` (or None);
-    it is called again only when ``H_known`` has grown since the last call."""
+    it is called again only when ``H_known`` has grown since the last call.
+    ``end_rule`` (default ``"top"``, the committed rule) is passed to every game."""
     if oracle is not None:
         if oracle_noise > 0.0:
             raise ValueError("pass oracle_noise or oracle, not both")
@@ -490,7 +538,7 @@ def run_accumulation(objects: Sequence[Hypothesis],
             true_h, known, matrix, p_unknown_prior, oracle,
             max_questions=max_questions, confidence=confidence, eps=eps,
             backend=backend, margin=margin, tolerance=tolerance, observer=obs,
-            no_repeat=no_repeat, planner=planner,
+            no_repeat=no_repeat, planner=planner, end_rule=end_rule,
         )
         if obs is not None:
             obs.finish(ep)
