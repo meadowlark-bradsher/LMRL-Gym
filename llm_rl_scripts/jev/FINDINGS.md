@@ -853,7 +853,7 @@ exposure for a soft posterior that also ends on a by-name guess. So the caveat a
 not to the choice of backend. This is another case of the recurring pattern: the load-bearing assumption sits at the
 model boundary, here the by-name answer, and the planner is not where the risk lives.
 
-### 3.14 Open-world Twenty Questions, ST-3 — on an endless tail the loop counts novelty only through its own expert calls; `soft` names the parent of a near copy, and past σ = 0.5 no backend is both autonomous and safe
+### 3.14 Open-world Twenty Questions, ST-3 — on an endless tail the loop counts novelty only through its own expert calls; `soft` names the parent of a near copy; past σ = 0.5 no backend is both autonomous and safe under ST-3's end-of-game rule, and calling the expert whenever the budget runs out makes P0a with `no_repeat` both
 
 §3.11's stream ran out of new species after 158. ST-3 asks what happens when the supply never runs out. It is the third
 of the 20Q stress tests (`twenty_questions/jev/STRESS_DESIGN.md`). It is pre-registered in `STRESS_TAIL_PREREG.md` (tag
@@ -861,8 +861,11 @@ of the 20Q stress tests (`twenty_questions/jev/STRESS_DESIGN.md`). It is pre-reg
 `results/stress_st3_20261113`, `analyze_st3.py`; exploratory split `st3_composition.py`, not registered). A
 registered follow-up, *stream-K*, gives the gate the stream's true species count. Its pre-registration is
 `STRESS_ST3_STREAMK_PREREG.md` (tag `prereg-stress-st3-streamk-20261113`), with results in
-`STRESS_ST3_STREAMK_RESULTS.md` (run `results/stress_st3_streamk_20261113`, `analyze_st3_streamk.py`). Both are
-offline on the cached matrix and deterministic. Backends are as in §3.13; P0a is `modeswitch_guard`.
+`STRESS_ST3_STREAMK_RESULTS.md` (run `results/stress_st3_streamk_20261113`, `analyze_st3_streamk.py`). A second
+registered follow-up, *end-game*, changes only the decision taken when the 20 questions run out. Its pre-registration
+is `STRESS_ST3_ENDGAME_PREREG.md` (tag `prereg-stress-st3-endgame-20261114`), with results in
+`STRESS_ST3_ENDGAME_RESULTS.md` (run `results/stress_st3_endgame_20261114`, `analyze_st3_endgame.py`; exploratory
+split `st3_endgame_crowding.py`, not registered). All three are offline on the cached matrix and deterministic. Backends are as in §3.13; P0a is `modeswitch_guard`.
 
 **Design.**
 - **The stream** is a Pitman–Yor (Chinese-restaurant) stream with θ = 20 and σ ∈ {0, 0.25, 0.5, 0.75}, 5000 games,
@@ -920,7 +923,8 @@ offline on the cached matrix and deterministic. Backends are as in §3.13; P0a i
     overwhelms the prior.
   - This extends §3.13's look-alike result from a fixed pool to a growing one. There the hard gate caught near copies
     and `soft` ended 14–20% of them `wrong`; here that gap compounds over the stream.
-- **Past σ = 0.5 no arm is both autonomous and safe.** Shares of all games, true prior, flip 0:
+- **Past σ = 0.5 no arm is both autonomous and safe under ST-3's end rule** (the end-game follow-up, below, changes
+  that rule). Shares of all games, true prior, flip 0:
 
   | σ | backend | won | expert | wrong |
   |---:|---|---:|---:|---:|
@@ -936,6 +940,45 @@ offline on the cached matrix and deterministic. Backends are as in §3.13; P0a i
   - The loop engages even under the fixed prior of ≈ 0.07, well below ST-0's 0.15 threshold for a 158-object pool.
   - At σ ≤ 0.25 every backend is fine. P0a with `no_repeat`: won 0.947, wrong 0.001, and its expert calls follow the
     stream's missing mass.
+- **The end-of-game rule makes P0a with `no_repeat` autonomous and safe at σ = 0.75; `soft` is made safe but
+  crowded** (end-game follow-up: EG0, EG2 and EG5 PASS; EG1 and EG4 FAIL on `soft` at σ = 0.75 only; EG3 *neutral*).
+  - Every ST-3 `wrong` is a game that used all 20 questions with no confirmed guess and ended with a known object,
+    not UNKNOWN, on top. ST-3 answered with that object.
+  - The follow-up replays ST-3's `true` jobs with three stricter rules for that moment:
+    - `half` answers only if the leading known holds ≥ 0.5 of the belief;
+    - `conf` answers only if it holds ≥ 0.9;
+    - `always` never answers and calls the expert.
+
+    That is 324 jobs, each paired game for game with its ST-3 job up to the first decision the rule changes.
+  - Definitions: *autonomous* means FPR ≤ 0.20, *safe* means wrong ≤ 0.05. At σ = 0.75, flip 0:
+
+    | backend | rule | wrong | FPR | won |
+    |---|---|---:|---:|---:|
+    | P0a, norepeat | ST-3 | 0.115 | 0.068 | 0.578 |
+    | P0a, norepeat | `always` | 0.000 | 0.099 | 0.588 |
+    | `soft` | ST-3 | 0.439 | 0.002 | 0.502 |
+    | `soft` | `half` | 0.042 | 0.215 | 0.497 |
+    | `soft` | `always` | 0.000 | 0.245 | 0.493 |
+
+  - **P0a with `no_repeat` meets both definitions under `always`.** All three stream seeds agree in sign.
+    - At σ = 0.75, `conf` is the same rule as `always`: the UNKNOWN mass is ≥ 0.233 at every budget-end game, so a
+      sole survivor never reaches 0.9.
+    - `half` leaves it unsafe (wrong 0.065), as registered. `half` only catches games with ≥ 2 live knowns; in two
+      thirds of ST-3's novel wrong answers a single known was still live.
+    - Under 5% answer flips it is not autonomous under any rule (FPR 0.314). The in-pool games fail on flipped
+      answers, not at the end of the game.
+  - **`soft` trades wrong answers for crowded games.** Under `always`, every novel game is escalated and admitted:
+    1737 species per job against 293 under ST-3. Pairing each game with its ST-3 twin:
+    - repeats of the newly admitted species win 0.097 of all games;
+    - 0.107 of all games are in-pool games `soft` used to win that now run out of budget. The admitted near copies
+      make their parents' and siblings' games harder to finish in 20 questions.
+    - The two cancel, so won changes by −0.009.
+  - **The gap is the likelihood, not the pool.** Under `always` every backend ends with the same pool, yet `soft`'s
+    FPR is 0.245 and P0a's 0.099. This agrees with SK1.
+  - The rule gives up few right answers: unconfirmed correct guesses are ≤ 0.012 of games, except `soft` at σ = 0.75
+    with 0.022 (EG4's bar is 0.02). Those come from a nearly flat belief (median top mass 0.058), and `conf` gives
+    them up too.
+  - At σ = 0.5 every new rule makes both `soft` and P0a with `no_repeat` autonomous and safe.
 - **Under crowding, the discrete prior trades escalations against wrong answers** (P2 FAIL at σ ≥ 0.5).
   - P2 assumed the discrete expert call fires only when the live set empties. Once the pool is crowded, a novel
     child's known parent is often still alive at the end of the game, and the gate weighs the UNKNOWN mass against
@@ -967,6 +1010,9 @@ offline on the cached matrix and deterministic. Backends are as in §3.13; P0a i
   - Children differ from their parent only by the generator's ρ_real resampling.
   - Every ST-3 prior arm reads K from the loop's own admissions. The stream-K follow-up removes that, but only as an
     oracle bound, on three arm-backends.
+  - The end-game rules act only after the 20th answer. They change no question, and the planner is unchanged.
+    `soft`'s crowded games are what a planner or a larger budget for games still ambiguous near the end would have
+    to win back. That is untested.
   - The build order (real objects first) confounds P1.
 
 **Role lesson:** an open-world loop learns how much it does not know only from the novelty it catches. Every
@@ -979,6 +1025,10 @@ starves the prior, and once the pool is crowded even the hard gate has to choose
 everything and guessing wrong. This is again the pattern of §3.13: the load-bearing quantity is the one at the model
 boundary. Here that is the expert-call record the loop learns from, not the planner's arithmetic. And the lever is
 the end-of-game decision between a surviving known object and UNKNOWN on a near copy, not a better estimate of K.
+The end-game follow-up pulls it. Calling the expert whenever the budget runs out removes every wrong answer, and it
+leaves the hard-gated backend autonomous (FPR 0.099). It does not rescue `soft`: the near copies it admits crowd the
+games it used to win. A decision rule fixes a gate that already tells the near copy apart, not a likelihood that
+cannot.
 
 ## 4. The design patterns
 
