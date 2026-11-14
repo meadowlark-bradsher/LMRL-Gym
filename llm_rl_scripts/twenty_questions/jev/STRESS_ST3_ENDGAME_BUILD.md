@@ -5,7 +5,7 @@ played under a new rule here. The self-test and the smoke run use the synthetic
 matrix only. The regression gate replays committed ST-3 jobs, whose outcomes are
 already published.
 
-**Status (2026-11-14):** built and gated; not registered.
+**Status (2026-11-14):** built and gated; registered at tag `prereg-stress-st3-endgame-20261114`.
 
 The environment is ST-3's: `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9),
 `PYTHONHASHSEED=0`, and one BLAS thread per worker.
