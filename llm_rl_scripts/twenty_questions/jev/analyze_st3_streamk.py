@@ -192,12 +192,13 @@ def figure(C: Dict[tuple, dict], run_dir: str, base_dir: str) -> str:
         ax.set_title("{} ({})".format(bk, arm), fontsize=8)
         ax.set_xlabel("σ")
         ax.set_xticks(SIGMAS)
-    axes[0].set_ylabel("rate (all games; TPR of novel, FPR of in-pool)")
+    axes[0].set_ylabel("rate")
     axes[0].legend(fontsize=6)
     fig.text(0.01, 0.005, "ST-3 stream-K, flip 0, pooled over stream seeds; solid = stream-K "
-             "prior, dashed = ST-3 true prior (K = |H_known|). analyze_st3_streamk, {} vs {}".format(
+             "prior, dashed = ST-3 true prior (K = |H_known|); TPR of novel, FPR of in-pool, wrong of all games.\n"
+             "analyze_st3_streamk, {} vs {}".format(
                  run_dir, base_dir), fontsize=6)
-    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.tight_layout(rect=(0, 0.08, 1, 1))
     p = os.path.join(run_dir, "fig_streamk_vs_true.png")
     fig.savefig(p, dpi=150)
     plt.close(fig)

@@ -5,7 +5,7 @@ played under the new prior here. The self-test and the smoke run use the synthet
 matrix only. The regression gate replays committed ST-3 jobs, whose outcomes are
 already published.
 
-**Status (2026-11-13):** built and gated; not tagged, not run.
+**Status (2026-11-13):** registered (tag `prereg-stress-st3-streamk-20261113`), run and scored; results in `STRESS_ST3_STREAMK_RESULTS.md`.
 
 The environment is ST-3's: `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9),
 `PYTHONHASHSEED=0`, and one BLAS thread per worker.
