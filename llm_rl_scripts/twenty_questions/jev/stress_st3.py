@@ -17,6 +17,10 @@
     # the pre-registration is unchanged since it):
     ... stress_st3 --run --prereg-tag prereg-stress-st3-<date> --workers 6
 
+    # the stream-K follow-up (STRESS_ST3_STREAMK_PREREG.md): add --streamk to
+    # --plan / --self-test / --smoke / --run; replay committed jobs exactly:
+    ... stress_st3 --run-dir <st3 run> --regress <job_id> [<job_id> ...]
+
 Accumulation mode (``openworld.run_accumulation``) on a Pitman-Yor stream with
 an unbounded supply of species. Game n opens a new species with probability
 (theta + K sigma) / (theta + n), K the distinct species so far; otherwise it
@@ -70,6 +74,12 @@ CONFIDENCE = 0.9
 EPS = 0.05
 K = 3
 PREREG = "llm_rl_scripts/twenty_questions/jev/STRESS_TAIL_PREREG.md"
+# Stream-K follow-up (STRESS_ST3_STREAMK_PREREG.md): the generating (sigma, theta)
+# with K = the stream's distinct species so far, not |H_known|. Same streams,
+# oracle seeds and job ids as ST-3's `true` arm, so the two pair game for game.
+STREAMK_PREREG = "llm_rl_scripts/twenty_questions/jev/STRESS_ST3_STREAMK_PREREG.md"
+STREAMK_ARMS = [("primary", "soft", False), ("primary", "modeswitch_guard", False),
+                ("norepeat", "modeswitch_guard", True)]
 MATRIX = "llm_rl_scripts/twenty_questions/jev/matrix_jev.json"
 OUTCOME_CODE = {"won": 0, "expert": 1, "wrong": 2, "false_confirm": 3}
 
@@ -208,12 +218,27 @@ class Prior:
     theta); ``fixed``: the §3.11 fit; ``online``: the fixed values until game
     REFIT_EVERY, then the PY MLE refitted every REFIT_EVERY games on the loop's
     own history -- a game is "new" iff it ended in an admission, so K in the fit
-    is |H_known|, the same K the gate reads. Logs the prior of every game."""
+    is |H_known|, the same K the gate reads. ``stream`` (the stream-K follow-up):
+    the generating (sigma, theta) with K = the stream's distinct species before
+    game g, whatever the loop admitted -- the missing mass a correctly specified
+    gate would carry. Logs the prior of every game."""
 
-    def __init__(self, kind: str, sigma: float, theta: float):
+    def __init__(self, kind: str, sigma: float, theta: float,
+                 stream: Optional[Sequence[int]] = None):
         self.kind = kind
+        self.stream_k: Optional[List[int]] = None
         if kind == "true":
             self.sigma, self.theta = sigma, theta
+        elif kind == "stream":
+            if stream is None:
+                raise ValueError("the stream prior needs the stream")
+            self.sigma, self.theta = sigma, theta
+            # ids are numbered by first appearance, so K before game g is
+            # 1 + max(stream[:g]).
+            self.stream_k, top = [], -1
+            for sp in stream:
+                self.stream_k.append(top + 1)
+                top = max(top, sp)
         elif kind in ("fixed", "online"):
             self.sigma, self.theta = FIXED_SIGMA, FIXED_THETA
         else:
@@ -227,7 +252,8 @@ class Prior:
             flags = [r.expert_called and not r.in_pool for r in records]
             self.sigma, self.theta, _ = fit_pitman_yor(flags)
             self.fits.append((g, self.sigma, self.theta))
-        p = py_p_new(k_before, g, self.sigma, self.theta)
+        k = self.stream_k[g] if self.stream_k is not None else k_before
+        p = py_p_new(k, g, self.sigma, self.theta)
         self.priors.append(1.0 if k_before == 0 else p)
         return p
 
@@ -301,7 +327,7 @@ def play(job: dict, matrix_mode: str, python_planner: bool = False) -> Tuple[dic
 
     games = job.get("games", GAMES)
     objects, mtx, stream = build(job["sigma"], job["stream_seed"], games, matrix_mode)
-    prior = Prior(job["prior"], job["sigma"], job["theta"])
+    prior = Prior(job["prior"], job["sigma"], job["theta"], stream=stream)
     traces: List[dict] = []
     recs = run_accumulation(objects, mtx, stream, prior.sigma, prior.theta,
                             max_questions=BUDGET, confidence=CONFIDENCE, eps=EPS,
@@ -358,14 +384,16 @@ def play_job(args) -> Tuple[str, dict, float]:
 # Provenance and run                                                           #
 # --------------------------------------------------------------------------- #
 
-def check_prereg(tag: str) -> dict:
+def check_prereg(tag: str, prereg: str = PREREG) -> dict:
     """The tag must exist, be an ancestor of HEAD, and the pre-registration must
     be unchanged since it."""
     import subprocess
     tag_commit = _git("rev-list", "-n", "1", tag)
     subprocess.run(["git", "merge-base", "--is-ancestor", tag_commit, "HEAD"], check=True)
-    if _git("diff", tag_commit, "HEAD", "--", PREREG):
-        raise SystemExit("{} changed since {}: a registered design is frozen".format(PREREG, tag))
+    if not _git("ls-tree", tag_commit, "--", prereg):
+        raise SystemExit("{} is not in {}".format(prereg, tag))
+    if _git("diff", tag_commit, "HEAD", "--", prereg):
+        raise SystemExit("{} changed since {}: a registered design is frozen".format(prereg, tag))
     return {"prereg_tag": tag, "prereg_commit": tag_commit}
 
 
@@ -497,6 +525,73 @@ def self_test() -> None:
         os.environ.get("PYTHONHASHSEED")))
 
 
+def regress(run_dir: str, job_ids: Sequence[str]) -> None:
+    """Replay committed jobs of a finished run on the real matrix and require
+    every per-game column to match the committed record exactly."""
+    for jid in job_ids:
+        with gzip.open(os.path.join(run_dir, "jobs", jid + ".json.gz"), "rt") as f:
+            rec = json.load(f)
+        t0 = time.time()
+        data, sc = play(rec["job"], "real")
+        same = data["games"] == rec["games"] and sc == rec["scorecard"]
+        print("  {:48s} {} ({:.0f} s)".format(jid, "identical" if same else "DIFFERS",
+                                             time.time() - t0), flush=True)
+        if not same:
+            raise SystemExit("regression: {} does not reproduce".format(jid))
+    print("[regress] {} committed jobs reproduce exactly".format(len(job_ids)))
+
+
+def streamk_self_test() -> None:
+    """Mechanics of the stream-K prior (synthetic matrix only)."""
+    from .openworld import py_p_new
+
+    # K before game g is the stream's distinct species so far, whatever the loop
+    # admitted; the k_before == 0 override still applies.
+    st = [0, 1, 0, 2, 1, 3, 3]
+    p = Prior("stream", 0.5, THETA, stream=st)
+    assert p.stream_k == [0, 1, 2, 2, 3, 3, 4], p.stream_k
+    vals = [p(g, 0 if g == 0 else 1, []) for g in range(len(st))]
+    assert p.priors[0] == 1.0
+    for g in range(1, len(st)):
+        assert abs(vals[g] - py_p_new(p.stream_k[g], g, 0.5, THETA)) < 1e-12
+    big = py_stream(0.75, THETA, 3000, 5)
+    pk = Prior("stream", 0.75, THETA, stream=big)
+    assert all(pk.stream_k[g] == len(set(big[:g])) for g in range(0, 3000, 97))
+    try:
+        Prior("stream", 0.5, THETA)
+        raise AssertionError("stream prior without a stream must fail")
+    except ValueError:
+        pass
+    print("[self-test] stream prior OK (K = distinct species before game g)")
+
+    # At sigma = 0 the PY prior is theta / (theta + g) whatever K is, so the
+    # stream arm must play exactly the true arm's games.
+    for bk, nr in (("soft", False), ("modeswitch_guard", True)):
+        base = {"job_id": "t", "sigma": 0.0, "theta": THETA, "flip": 0.05,
+                "stream_seed": 1, "noise_seed": 1, "arm": "x", "backend": bk,
+                "no_repeat": nr, "oracle_seed": 9, "games": 1500}
+        a, _ = play(dict(base, prior="true"), "synthetic")
+        b, _ = play(dict(base, prior="stream"), "synthetic")
+        assert a["games"] == b["games"], "{}: stream != true at sigma = 0".format(bk)
+        print("  sigma=0 identity {:16s} no_repeat={}: 1500/1500 games identical".format(bk, nr))
+
+    # At sigma > 0 the stream prior is never below the true arm's (stream K >=
+    # |H_known|: the loop admits only species the stream has shown).
+    base = {"job_id": "t", "sigma": 0.75, "theta": THETA, "flip": 0.0,
+            "stream_seed": 1, "noise_seed": 0, "arm": "x", "backend": "soft",
+            "no_repeat": False, "oracle_seed": 9, "games": 800}
+    b, _ = play(dict(base, prior="stream"), "synthetic")
+    kb, pr = b["games"]["k_before"], b["games"]["prior"]
+    ks = Prior("stream", 0.75, THETA, stream=b["games"]["obj"]).stream_k
+    assert all(k_loop <= k_s for k_loop, k_s in zip(kb, ks))
+    assert all(abs(pr[g] - (1.0 if kb[g] == 0 else py_p_new(ks[g], g, 0.75, THETA))) < 1e-12
+               for g in range(800))
+    gap = sum(ks[g] - kb[g] for g in range(800)) / 800
+    print("  sigma=0.75 soft: stream K >= |H_known| in 800/800 games "
+          "(mean gap {:.1f} species)".format(gap))
+    print("[self-test] stream-K follow-up OK")
+
+
 # --------------------------------------------------------------------------- #
 # Main                                                                         #
 # --------------------------------------------------------------------------- #
@@ -510,6 +605,11 @@ def main() -> None:
     mode.add_argument("--self-test", action="store_true")
     mode.add_argument("--smoke", action="store_true")
     mode.add_argument("--run", action="store_true")
+    mode.add_argument("--regress", nargs="+", metavar="JOB_ID",
+                      help="replay these committed jobs of --run-dir and compare")
+    ap.add_argument("--run-dir", default=None)
+    ap.add_argument("--streamk", action="store_true",
+                    help="the stream-K follow-up (STRESS_ST3_STREAMK_PREREG.md)")
     ap.add_argument("--prereg-tag", default=None)
     ap.add_argument("--outdir", default=None)
     ap.add_argument("--out", default=None)
@@ -519,8 +619,9 @@ def main() -> None:
     pin_blas(args.blas_threads)
     hs = require_hash_seed()
 
+    sk = {"priors": ["stream"], "arms": STREAMK_ARMS} if args.streamk else {}
     if args.plan:
-        jobs = jobs_for()
+        jobs = jobs_for(**sk)
         by: Dict[Tuple[str, str], int] = {}
         for j in jobs:
             by[(j["arm"], j["backend"])] = by.get((j["arm"], j["backend"]), 0) + 1
@@ -545,15 +646,23 @@ def main() -> None:
             print("wrote {}".format(args.out))
         return
 
+    if args.regress:
+        if not args.run_dir:
+            raise SystemExit("--regress needs --run-dir")
+        regress(args.run_dir, args.regress)
+        return
+
     if args.self_test:
-        self_test()
+        streamk_self_test() if args.streamk else self_test()
         return
 
     if args.smoke:
         if not args.outdir:
             raise SystemExit("--smoke needs --outdir (smoke output is not a result)")
-        jobs = jobs_for(sigmas=[0.0, 0.75], priors=["true", "online"], flips=[0.0, 0.05],
-                        stream_seeds=[1], noise_seeds=[1])
+        jobs = jobs_for(sigmas=[0.0, 0.75], flips=[0.0, 0.05], stream_seeds=[1],
+                        noise_seeds=[1],
+                        **(dict(sk, priors=["stream", "true"]) if args.streamk
+                           else {"priors": ["true", "online"]}))
         config = {"mode": "smoke", "matrix": "synthetic", "games": GAMES,
                   "provenance": provenance()}
         run(args.outdir, jobs, "synthetic", config, args.workers)
@@ -563,16 +672,18 @@ def main() -> None:
         raise SystemExit("--run needs --prereg-tag")
     if hs != "0" or sys.version_info[:2] != (3, 9):
         raise SystemExit("--run is registered under PYTHONHASHSEED=0 and Python 3.9 (LLM_RL)")
-    reg = check_prereg(args.prereg_tag)
-    jobs = jobs_for()
+    reg = check_prereg(args.prereg_tag, STREAMK_PREREG if args.streamk else PREREG)
+    jobs = jobs_for(**sk)
     stamp = _dt.datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-    outdir = args.outdir or os.path.join("llm_rl_scripts/twenty_questions/jev/results",
-                                         "stress_st3_{}".format(stamp))
-    config = {"mode": "run", "matrix": os.path.basename(MATRIX), "sigmas": SIGMAS,
-              "theta": THETA, "priors": PRIORS,
+    outdir = args.outdir or os.path.join(
+        "llm_rl_scripts/twenty_questions/jev/results",
+        "stress_st3{}_{}".format("_streamk" if args.streamk else "", stamp))
+    config = {"mode": "run_streamk" if args.streamk else "run",
+              "matrix": os.path.basename(MATRIX), "sigmas": SIGMAS,
+              "theta": THETA, "priors": sk.get("priors", PRIORS),
               "fixed": [FIXED_SIGMA, FIXED_THETA], "refit_every": REFIT_EVERY,
               "flips": FLIPS, "stream_seeds": STREAM_SEEDS, "noise_seeds": NOISE_SEEDS,
-              "arms": ARMS, "games": GAMES, "window": WINDOW, "rho_real": RHO_REAL,
+              "arms": sk.get("arms", ARMS), "games": GAMES, "window": WINDOW, "rho_real": RHO_REAL,
               "budget": BUDGET, "confidence": CONFIDENCE, "eps": EPS, "tolerance_K": K,
               "registration": reg, "provenance": provenance(), "created": stamp}
     run(outdir, jobs, "real", config, args.workers)
