@@ -1,7 +1,8 @@
 # Shadow-mode `soft` beside P0a — pre-registration
 
-**Status (2026-11-15):** built and gated (`STRESS_SHADOW_BUILD.md`), untagged. Jira: EE-40 (ENV-705, under EE-33). The thresholds below are
-proposals and need the user's go before the tag.
+**Status (2026-11-15):** built and gated (`STRESS_SHADOW_BUILD.md`); registered at tag
+`prereg-stress-shadow-20261115` (user go: "Register and queue"), with the thresholds and the build's wording
+changes as written here. Jira: EE-40 (ENV-705, under EE-33).
 
 ## Question
 
