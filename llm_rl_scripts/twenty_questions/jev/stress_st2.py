@@ -239,8 +239,21 @@ def stream_and_prior(n_objects: int, games: int):
     return stream, index_rank, sigma, theta
 
 
-def play(job: dict, matrix_mode: str) -> Tuple[dict, dict]:
-    """(per-game columns, scorecard) for one job."""
+def _observers(trace_cls, traces: List[dict], shadow, objects, mtx):
+    """The per-game observer factory: the job's own trace, wrapped by the shadow
+    observer when ``shadow`` is given (``stress_shadow``)."""
+    if shadow is None:
+        return lambda known: trace_cls(traces)
+    make = shadow(objects, mtx)
+    return lambda known: make(known, trace_cls(traces))
+
+
+def play(job: dict, matrix_mode: str, shadow=None) -> Tuple[dict, dict]:
+    """(per-game columns, scorecard) for one job.
+
+    ``shadow`` (default None: the committed path) is the shadow-mode study's hook
+    (``stress_shadow``): ``shadow(objects, matrix)`` returns ``make(known, trace)``,
+    an observer that wraps this job's own per-game trace. It only reads the game."""
     from .openworld import run_accumulation
     from .stress_harness import scorecard
 
@@ -251,7 +264,7 @@ def play(job: dict, matrix_mode: str) -> Tuple[dict, dict]:
     recs = run_accumulation(objects, mtx, stream, sigma, theta, max_questions=BUDGET,
                             confidence=CONFIDENCE, eps=EPS, backend=job["backend"],
                             tolerance=K, oracle=make_oracle(job, mtx, parent_of),
-                            observer_factory=lambda known: GameTrace(traces))
+                            observer_factory=_observers(GameTrace, traces, shadow, objects, mtx))
     assert len(traces) == len(recs)
     names = {h.name for h in objects}
     idx = {h.name: i for i, h in enumerate(objects)}
