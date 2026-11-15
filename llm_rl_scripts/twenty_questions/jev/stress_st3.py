@@ -349,8 +349,22 @@ def known_census(objects, matrix, recs, window: int = WINDOW) -> List[dict]:
     return out
 
 
-def play(job: dict, matrix_mode: str, python_planner: bool = False) -> Tuple[dict, dict]:
-    """(per-game columns + job metadata, scorecard) for one job."""
+def _observers(trace_cls, traces: List[dict], shadow, objects, mtx):
+    """The per-game observer factory: the job's own trace, wrapped by the shadow
+    observer when ``shadow`` is given (``stress_shadow``)."""
+    if shadow is None:
+        return lambda known: trace_cls(traces)
+    make = shadow(objects, mtx)
+    return lambda known: make(known, trace_cls(traces))
+
+
+def play(job: dict, matrix_mode: str, python_planner: bool = False,
+         shadow=None) -> Tuple[dict, dict]:
+    """(per-game columns + job metadata, scorecard) for one job.
+
+    ``shadow`` (default None: the committed path) is the shadow-mode study's hook
+    (``stress_shadow``): ``shadow(objects, matrix)`` returns ``make(known, trace)``,
+    an observer that wraps this job's own per-game trace. It only reads the game."""
     from .openworld import run_accumulation
     from .stress_harness import scorecard
 
@@ -362,7 +376,7 @@ def play(job: dict, matrix_mode: str, python_planner: bool = False) -> Tuple[dic
                             max_questions=BUDGET, confidence=CONFIDENCE, eps=EPS,
                             backend=job["backend"], tolerance=K,
                             oracle=make_oracle(job, mtx), no_repeat=job["no_repeat"],
-                            observer_factory=lambda known: Trace(traces),
+                            observer_factory=_observers(Trace, traces, shadow, objects, mtx),
                             prior_fn=prior,
                             planner_factory=planner_factory(mtx, python_planner),
                             end_rule=job.get("end_rule", "top"))

@@ -1,6 +1,6 @@
 # Shadow-mode `soft` beside P0a — pre-registration
 
-**Status (2026-11-15):** draft, not built, untagged. Jira: EE-40 (ENV-705, under EE-33). The thresholds below are
+**Status (2026-11-15):** built and gated (`STRESS_SHADOW_BUILD.md`), untagged. Jira: EE-40 (ENV-705, under EE-33). The thresholds below are
 proposals and need the user's go before the tag.
 
 ## Question
@@ -55,7 +55,8 @@ whether `soft`'s ranking points the test at the right object.
 * **Per-turn record.** After each answer, the observer records:
   * the hard survivor set S_t;
   * `soft`'s leading known L_t. It is the argmax of `soft` over known objects only, with ties broken in
-    `known_hyps` order, as the backends do;
+    `known_hyps` order, as the backends do. `soft` treats category and by-name answers as exact, so every known
+    can reach mass 0. Then there is no leader: L_t is undefined, and the turn cannot disagree;
   * π_t(L_t) and π_t(UNKNOWN);
   * whether L_t ∈ S_t.
 * **Disagreement.** A turn *disagrees* when L_t ∉ S_t: `soft`'s leader is an object the hard view has struck.
@@ -70,25 +71,29 @@ whether `soft`'s ranking points the test at the right object.
   * ties are broken in `known_hyps` order;
   * the comparison is against the pool at the start of the game.
 
-  In ST-2 the build checks that this is the recorded look-alike parent. ST-3's generator does not record parents,
-  so there the reference is defined only by distance.
-* **P0a's revivals.** When the survivor set grows during a turn, that is a revival. At each revival the observer
-  records:
+  ST-2 records each look-alike's parent, and SH2 uses that; the nearest-known reference is reported.
+  ST-3's generator does not record parents, so there the reference is defined only by distance.
+* **P0a's revivals.** A revival happens inside P0a's update, when the live set empties. At each revival the
+  observer records:
   * the object P0a revived;
-  * L at the turn before;
+  * L after the same answer;
   * whether each is the secret.
-* **Per-game columns** (new; the ST-2 and ST-3 columns are unchanged):
-  * `sh_disagree_turns`;
-  * `sh_first_disagree`: the turn, or −1;
-  * `sh_leader_at_decision_is_secret`;
-  * `sh_leader_at_decision_is_ref`;
-  * `sh_leader_at_decision_struck`;
-  * `sh_p_leader_at_decision`;
-  * `sh_p_unknown_at_decision`;
-  * `sh_turns_left_at_decision`;
-  * `sh_revivals`;
-  * `sh_revived_is_secret`;
-  * `sh_leader_before_revival_is_secret`.
+* **Per-game columns** (new; the ST-2 and ST-3 columns are unchanged). Objects are stored as indices into the
+  job's object list, and the analyzer derives "is the secret", "is the parent" and "is the reference" from them:
+  * `sh_n_obs`: answers the shadow saw;
+  * `sh_disagree`: disagreeing turns;
+  * `sh_first_disagree`: the first disagreeing turn, or −1;
+  * `sh_leader_first`: L at that turn, or −1;
+  * `sh_leader_dec`: L at the decision, or −1 if no answer was seen;
+  * `sh_struck_dec`: whether that L is struck;
+  * `sh_p_leader_dec` and `sh_p_unknown_dec`;
+  * `sh_turns_left_dec`;
+  * `sh_ref`: the near-copy reference for a novel game, or −1;
+  * `sh_revivals`: one pair per P0a revival, the revived object and L after the same answer;
+  * `sh_guesses`: every by-name guess P0a made, as a turn and the object named.
+
+  Each record also carries the committed `obj`, `in_pool`, `outcome`, `n_questions` and `n_retractions`. ST-2
+  records also carry every object's parent.
 
 ## Predictions
 
@@ -107,11 +112,22 @@ pooled over d.
   * Prediction: **≥ 0.5.**
   * Basis: `soft` keeps 0.136 more in-pool games than `hard` at 10% flips. That is games in which one flipped
     answer barely moves it.
-* **SH2: on look-alikes, a disagreeing `soft` leader is usually the parent.**
-  * Scope: ST-2 at d ≤ 2, all flips, novel look-alike games with at least one disagreeing turn.
-  * Measure: the share in which L at the first disagreement is the near-copy reference.
+* **SH2: on look-alikes, P0a already tests the parent by name before the two views disagree.**
+  * Scope: ST-2 at d ≤ 2, all flips, novel look-alike games whose parent is already in `H_known`.
+  * Measure: the share in which P0a guesses the recorded parent by name no later than the first disagreeing
+    turn. In a game with no disagreeing turn, any by-name guess of the parent counts.
   * Prediction: **≥ 0.7.**
-  * Basis: `soft` guessed the parent 0.99 of the time in ST-2's look-alike games.
+  * Why this replaced the draft's SH2. The draft predicted that `soft`'s leader at the first disagreement would
+    be the parent. On the synthetic smoke that almost never happened (0.017), because the parent was usually
+    already gone from both views:
+    * P0a guesses a sole survivor by name, and on a near copy that is usually the parent;
+    * the "no" sets the parent to 0 in both views.
+
+    In a synthetic-only probe, the parent had `soft` mass 0 at the first disagreement in 83% of disagreeing
+    look-alike games. P0a had guessed it by name first in 89 of 111. If this holds on the real matrix, the exact
+    test the dual design would add on near copies is one P0a already runs.
+  * Basis: ST-2 found P0a re-guesses a refuted parent about 0.97 times per game (§3.13).
+  * The draft's measure (leader at the first disagreement is the parent) is reported, not scored.
 * **SH3: the headroom under noise is large.**
   * Scope: noisy ST-2, P0a's in-pool games that end with the expert or at the budget end.
   * Measure: the share in which the leader at decision is the secret.
@@ -127,8 +143,8 @@ pooled over d.
     secret.
 * **SH5: `soft` points the revival test better than P0a's own rule.**
   * Scope: P0a's revivals in noisy ST-2, paired per revival.
-  * Measure: the share in which L at the turn before is the secret, minus the share in which P0a's revived object
-    is the secret.
+  * Measure: the share in which L after the same answer is the secret, minus the share in which P0a's revived
+    object is the secret. P0a revives right after that answer, so both views have the same information.
   * Prediction: **≥ +0.10.**
   * Basis: P0a revives the candidate struck by the fewest answers. At K = 1 that barely recovered anything (in-pool
     failure 0.173 against `hard`'s 0.175), so the fewest-killer pick is rarely the flip victim.
@@ -159,8 +175,9 @@ wording is ambiguous.
 
 * **SH1 fails.** Under noise, `soft`'s disagreeing leader is rarely the true object. Its ranking adds nothing to
   P0a's own pick, and the dual design has no lever on noise.
-* **SH2 fails.** On look-alikes, `soft` does not lean on the parent at the moment of disagreement. Then §3.13's
-  "`soft` names the parent" is an end-of-game effect, not a turn-by-turn one.
+* **SH2 fails.** P0a often reaches a disagreement before it has tested the parent by name. Then near copies are
+  a second place where a `soft`-chosen by-name test could act, besides noise, and the follow-on should target
+  them too.
 * **SH3 fails.** There is little to win back on noise. Do not build the follow-on for noise.
 * **SH4 fails** (headroom > 0.3 on the tail). `soft`'s ranking still picks out the secret in crowded games. A
   `soft`-chosen test could cut the crowding cost the end-game study found, not only the noise cost.
@@ -182,5 +199,6 @@ wording is ambiguous.
   * ST-3's 108 jobs about 2.5;
   * the shadow's Python posterior over pools of up to about 1700 knowns about 2–3 more.
 
-  That is **about 11–12 CPU-hours, about 2 h on 6 workers.** Restricting ST-2 to d ∈ {1, 2, 4, 12} cuts the run to
-  about 1.5 h. The build's smoke run will pin this.
+  That was the draft's estimate: **about 11–12 CPU-hours, about 2 h on 6 workers.** The build measured 52–151 s
+  per real job with the shadow on, which puts the grid at about 4 CPU-hours, **about 45 min on 6 workers**
+  (`STRESS_SHADOW_BUILD.md`).
