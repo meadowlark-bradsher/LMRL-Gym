@@ -3,6 +3,8 @@
 **Status (2026-11-15):** built and gated (`STRESS_SHADOW_BUILD.md`); registered at tag
 `prereg-stress-shadow-20261115` (user go: "Register and queue"), with the thresholds and the build's wording
 changes as written here. Jira: EE-40 (ENV-705, under EE-33).
+**Run done 2026-11-15** (jobq 13): SH0, SH2 and SH4 pass; SH1, SH3 and SH5 fail, so the follow-on is not
+built. See `STRESS_SHADOW_RESULTS.md`. The predictions and thresholds above are unchanged from the tag.
 
 ## Question
 

@@ -7,7 +7,8 @@ This is the tooling for `STRESS_SHADOW_PREREG.md` (Jira EE-40, ENV-705).
   timing, and discards the shadow's output.
 * The self-test and the smoke run use the synthetic matrix.
 
-**Status (2026-11-15):** built and gated; registered at tag `prereg-stress-shadow-20261115`.
+**Status (2026-11-15):** built and gated; registered at tag `prereg-stress-shadow-20261115`; run and scored
+(`STRESS_SHADOW_RESULTS.md`).
 
 The environment is the stress tests' own: `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9),
 `PYTHONHASHSEED=0`, and one BLAS thread per worker.
