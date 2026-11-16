@@ -865,7 +865,11 @@ registered follow-up, *stream-K*, gives the gate the stream's true species count
 registered follow-up, *end-game*, changes only the decision taken when the 20 questions run out. Its pre-registration
 is `STRESS_ST3_ENDGAME_PREREG.md` (tag `prereg-stress-st3-endgame-20261114`), with results in
 `STRESS_ST3_ENDGAME_RESULTS.md` (run `results/stress_st3_endgame_20261114`, `analyze_st3_endgame.py`; exploratory
-split `st3_endgame_crowding.py`, not registered). All three are offline on the cached matrix and deterministic. Backends are as in §3.13; P0a is `modeswitch_guard`.
+split `st3_endgame_crowding.py`, not registered). A third registered follow-up, *shadow*, runs `soft` passively
+beside P0a on the committed P0a games of ST-2, ST-3 and the end-game run, and asks whether `soft`'s ranking could
+pick P0a's by-name re-tests. Its pre-registration is `STRESS_SHADOW_PREREG.md` (tag `prereg-stress-shadow-20261115`),
+with results in `STRESS_SHADOW_RESULTS.md` (run `results/stress_shadow_20261115`, `analyze_shadow.py`; exploratory
+diagnostic `shadow_why_leader.py`, not registered). All four are offline on the cached matrix and deterministic. Backends are as in §3.13; P0a is `modeswitch_guard`.
 
 **Design.**
 - **The stream** is a Pitman–Yor (Chinese-restaurant) stream with θ = 20 and σ ∈ {0, 0.25, 0.5, 0.75}, 5000 games,
@@ -979,6 +983,37 @@ split `st3_endgame_crowding.py`, not registered). All three are offline on the c
     with 0.022 (EG4's bar is 0.02). Those come from a nearly flat belief (median top mass 0.058), and `conf` gives
     them up too.
   - At σ = 0.5 every new rule makes both `soft` and P0a with `no_repeat` autonomous and safe.
+- **`soft`'s ranking does not tell P0a what to re-test** (shadow follow-up: SH0, SH2 and SH4 PASS; SH1, SH3 and
+  SH5 FAIL, so the arm in which P0a tests `soft`'s leader at a revival is not built).
+  - The shadow is a `soft` posterior updated on exactly P0a's questions and answers; it changes no game. All 255
+    replayed jobs are identical to their committed records.
+    - Its *leader* is its top-weighted known object.
+    - A turn *disagrees* when the leader is an object P0a has struck.
+  - **Under answer noise the leader is rarely the secret.** These are ST-2's look-alike jobs at 5% and 10% flips:
+
+    | measure | registered | measured | n |
+    |---|---|---:|---:|
+    | leader is the secret at the first disagreement, in-pool games (SH1) | ≥ 0.5 | 0.092 | 56,611 |
+    | leader is the secret when P0a ends an in-pool game with the expert or at the budget (SH3) | ≥ 0.5 | 0.108 | 56,337 |
+    | at P0a's revivals, leader is the secret minus revived object is the secret (SH5) | ≥ +0.10 | +0.042 (0.064 − 0.022) | 243,773 |
+
+    Both rates are nearly flat in look-alike distance (about 0.06 at d = 1 to 0.13 at d = 12), so this is not a
+    look-alike effect.
+  - **Why** (exploratory, one job at d = 1 and 10% flips, 450 disagreeing in-pool games). In 99% of the games where the
+    leader was not the secret, the leader had itself been contradicted by exactly one answer, a confident one (median
+    answer likelihood 0.08). The secret was never at mass 0; it sat at median rank 6. One flipped answer leaves the
+    true object looking like every other object that one answer ruled out. `soft` orders that crowd only by the
+    remaining answers, which were P0a's questions, chosen to split P0a's survivors.
+  - **The prediction's basis did not carry over.** In the retraction study `soft` recovered 0.136 more in-pool games
+    than `hard` at 10% flips, but there it chose its own questions. That its gain came from the questions rather
+    than the ranking is a reading of the two runs, not a tested claim.
+  - **On near copies P0a already runs the exact test** (SH2). At d ≤ 2, in novel look-alike games whose parent is
+    known, P0a guesses the parent by name no later than the first disagreement in 0.732 of games (n = 1,554). The
+    "no" removes the parent from both views. So the draft measure, whether the leader at the first disagreement is
+    the parent, is only 0.040.
+  - **On the crowded tail there is little to win back** (SH4). At σ = 0.75 under `no_repeat` + `always`, the leader
+    is the secret in 0.120 of the 967 in-pool expert calls (bar ≤ 0.3). Under ST-3's original end rule, the leader is
+    the secret in 0.059 of P0a's wrong answers.
 - **Under crowding, the discrete prior trades escalations against wrong answers** (P2 FAIL at σ ≥ 0.5).
   - P2 assumed the discrete expert call fires only when the live set empties. Once the pool is crowded, a novel
     child's known parent is often still alive at the end of the game, and the gate weighs the UNKNOWN mass against
@@ -1014,6 +1049,8 @@ split `st3_endgame_crowding.py`, not registered). All three are offline on the c
     `soft`'s crowded games are what a planner or a larger budget for games still ambiguous near the end would have
     to win back. That is untested.
   - The build order (real objects first) confounds P1.
+  - The shadow measures a signal, not a backend: it rides on P0a's questions. A `soft` that plans the questions
+    behind the hard gate is untested. The shadow's mechanism diagnostic is one job.
 
 **Role lesson:** an open-world loop learns how much it does not know only from the novelty it catches. Every
 estimate downstream of the expert call inherits the detector's misses: the count K, the fitted tail and the prior the
@@ -1028,7 +1065,9 @@ the end-of-game decision between a surviving known object and UNKNOWN on a near 
 The end-game follow-up pulls it. Calling the expert whenever the budget runs out removes every wrong answer, and it
 leaves the hard-gated backend autonomous (FPR 0.099). It does not rescue `soft`: the near copies it admits crowd the
 games it used to win. A decision rule fixes a gate that already tells the near copy apart, not a likelihood that
-cannot.
+cannot. The shadow follow-up closes the remaining shortcut: laid over the hard gate's questions, `soft`'s ranking
+points at the true object about one time in ten under noise, so it cannot choose the re-test either. What `soft` adds
+under noise, if anything, has to come through the questions it asks.
 
 ## 4. The design patterns
 
@@ -1286,7 +1325,9 @@ when evaluating structured-decision models:
   follow-up removes that only as an oracle bound, on `soft` and the two P0a arms, and shows it is not the cause.
   Real objects come first in the stream, which
   confounds P1's between-halves comparison; the real-vs-child split is exploratory; the matched-pool AUC gap is
-  read, untested, as the share of novel objects with a known near copy.
+  read, untested, as the share of novel objects with a known near copy. The shadow follow-up measures `soft`'s
+  ranking only on P0a's questions; `soft` planning behind the hard gate is unbuilt, and the shadow's "why" rests on
+  one exploratory job.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's
@@ -1312,6 +1353,7 @@ when evaluating structured-decision models:
 | Open-world 20Q ST-2 (look-alikes) | merged, complete | (offline, no Jev call) `Noul`-matrix look-alikes at distance d vs four belief backends; near-name confusion arm | P0a (`modeswitch_guard`): look-alike `wrong` 0 at every d and flip rate, extra ≈ 0.7 Q at d ≤ 2; G arm `false_confirm` ≈ g × P(parent guessed) for every backend (P4b FAIL: `soft` as exposed); unsafe at g = 0.20, d = 1: 0.105 P0a vs 0.226 `soft`; parent tax wrong sign (paired −0.95 [−1.60, −0.29]) |
 | Open-world 20Q ST-3 (endless tail) | merged, complete | (offline, no Jev call) Pitman–Yor stream with unbounded species (σ ≤ 0.75) vs `true` / `fixed` / `online` novelty priors and five backend arms | P2b PASS, P1–P5 FAIL; online σ̂ at game 2000 0.00 (`soft`) / 0.57–0.67 (P0a) at σ = 0.75 (self-censored K); `soft` flags 0.10 of near-copy children at σ = 0.75, wrong 0.44; P0a at σ = 0.75: published won 0.002 (FPR 0.998), norepeat wrong 0.115; at σ = 0.25 P0a won 0.947, wrong 0.001 |
 | Open-world 20Q ST-3 stream-K | merged, complete | (offline, no Jev call) ST-3's streams with the gate given the stream's true species count (oracle prior), paired with ST-3's `true` jobs | SK0/SK1/SK3 PASS, SK2 FAIL; `soft` at σ = 0.75: prior 0.265 vs 0.049, TPR 0.119 → 0.107, wrong 0.439 → 0.449 (reading *likelihood*); norepeat P0a wrong 0.115 → 0.111 (flat); published P0a identical |
+| Open-world 20Q shadow (`soft` beside P0a) | merged, complete | (offline, no Jev call) passive `soft` posterior on P0a's own questions and answers, over ST-2's, ST-3's and the end-game run's committed P0a jobs | SH0/SH2/SH4 PASS, SH1/SH3/SH5 FAIL; under noise `soft`'s leader is the secret 0.092 at the first disagreement and 0.108 at P0a's expert or budget end; revival pick +0.042 over P0a's; P0a guesses the near-copy parent by the first disagreement 0.732; follow-on not built |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
 
 ---
