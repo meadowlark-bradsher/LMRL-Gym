@@ -95,7 +95,7 @@ bound, not a model of Jev.
 | ST-7 (draft) | `STRESS_OPENSIDE_PREREG.md` | As the novelty share grows, how far does the lumped catch-all's EIG drift from an exact treatment of the open side, and what does that cost? | none |
 | ST-3 stream-K | `STRESS_ST3_STREAMK_PREREG.md` | With the gate given the stream's true species count K instead of its own admissions, how much of ST-3's `soft` collapse and norepeat P0a's wrong rate was self-censoring? | none |
 | ST-3 end-game | `STRESS_ST3_ENDGAME_PREREG.md` | If the loop escalates more often when the budget runs out, instead of answering with an unconfirmed known, is any arm both autonomous and safe at σ = 0.75, and what do the extra admissions cost? | none |
-| Shadow (draft) | `STRESS_SHADOW_PREREG.md` | With a passive `soft` belief beside P0a on the same answers, does their disagreement point at the true object under noise and at the parent on near copies, and how much could a `soft`-chosen by-name test win back? | none |
+| Shadow | `STRESS_SHADOW_PREREG.md` | With a passive `soft` belief beside P0a on the same answers, does their disagreement point at the true object under noise and at the parent on near copies, and how much could a `soft`-chosen by-name test win back? | none |
 
 ## Shared infrastructure (ST-0)
 

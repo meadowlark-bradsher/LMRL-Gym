@@ -1,0 +1,1813 @@
+{
+ "config": {
+  "blas": {
+   "MKL_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "budget": 20,
+  "check_games": 50,
+  "created": "20261115_141616",
+  "eps": 0.05,
+  "matrix_mode": "real",
+  "mode": "run",
+  "n_jobs": 255,
+  "prereg_commit": "850967d4f09a4baf86da1aac1ce3b36eeb8d8eb6",
+  "prereg_tag": "prereg-stress-shadow-20261115",
+  "pythonhashseed": "0",
+  "sources": {
+   "end": "llm_rl_scripts/twenty_questions/jev/results/stress_st3_endgame_20261114",
+   "st2": "llm_rl_scripts/twenty_questions/jev/results/stress_st2_20261112",
+   "st3": "llm_rl_scripts/twenty_questions/jev/results/stress_st3_20261113"
+  }
+ },
+ "jobs": [
+  {
+   "id": "end__s75_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 185.16841292381287,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 185.3764021396637,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 252.74875688552856,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 251.25275707244873,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 234.25564813613892,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 234.26067686080933,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 225.6788477897644,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 277.12683606147766,
+   "src": "end"
+  },
+  {
+   "id": "end__s75_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s75_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 254.80160188674927,
+   "src": "end"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "seconds": 188.8860421180725,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "seconds": 257.8389549255371,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "seconds": 179.84923911094666,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "seconds": 240.94899892807007,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "seconds": 216.44331216812134,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "seconds": 287.25104308128357,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "seconds": 217.2934730052948,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "seconds": 285.30718898773193,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "seconds": 196.3038158416748,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "seconds": 253.22512006759644,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "seconds": 181.81711673736572,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "seconds": 248.6505217552185,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "seconds": 129.70503497123718,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "seconds": 222.92204117774963,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "seconds": 175.66927409172058,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "seconds": 275.0737190246582,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "seconds": 171.13571405410767,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s75_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s75_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "seconds": 261.8971321582794,
+   "src": "st3"
+  },
+  {
+   "id": "end__s50_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 69.32086706161499,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 69.27867007255554,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 56.75597095489502,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 61.00499200820923,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 61.485349893569946,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 61.739173889160156,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 77.40899300575256,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 62.930737018585205,
+   "src": "end"
+  },
+  {
+   "id": "end__s50_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s50_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 60.52578783035278,
+   "src": "end"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "seconds": 67.09837889671326,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "seconds": 89.90040588378906,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "seconds": 64.12045192718506,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "seconds": 87.00720191001892,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "seconds": 53.846275091171265,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "seconds": 66.41104412078857,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "seconds": 54.0153911113739,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "seconds": 66.72348999977112,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "seconds": 51.645097970962524,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "seconds": 66.13034081459045,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "seconds": 53.0442419052124,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "seconds": 66.39904689788818,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "seconds": 59.757506132125854,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "seconds": 89.29724788665771,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "seconds": 52.653034925460815,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "seconds": 67.13484001159668,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "seconds": 50.61652183532715,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s50_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s50_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "seconds": 66.20158100128174,
+   "src": "st3"
+  },
+  {
+   "id": "end__s25_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 39.99123668670654,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 40.34617781639099,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 37.57472610473633,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 37.70950508117676,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 39.79218292236328,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 39.45485210418701,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 38.99190402030945,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 37.208731174468994,
+   "src": "end"
+  },
+  {
+   "id": "end__s25_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s25_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 39.38517928123474,
+   "src": "end"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "seconds": 40.489288091659546,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "seconds": 40.459304332733154,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "seconds": 40.20569205284119,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "seconds": 39.92566514015198,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "seconds": 36.96000695228577,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "seconds": 36.88394021987915,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "seconds": 37.16709280014038,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "seconds": 36.70460486412048,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "seconds": 38.87691807746887,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "seconds": 39.285346031188965,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "seconds": 39.40036106109619,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "seconds": 39.67088198661804,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "seconds": 38.21679496765137,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "seconds": 38.69204807281494,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "seconds": 36.46600794792175,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "seconds": 36.119959115982056,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "seconds": 38.74872589111328,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s25_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s25_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "seconds": 38.688395977020264,
+   "src": "st3"
+  },
+  {
+   "id": "end__s00_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss1_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 24.757528066635132,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss1_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 24.71824598312378,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss2_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 21.83781886100769,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss2_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 21.7929949760437,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss3_ns1_norepeat_modeswitch_guard_endalways",
+   "seconds": 24.237388134002686,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss3_ns2_norepeat_modeswitch_guard_endalways",
+   "seconds": 24.19469904899597,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0_ss1_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 25.236029863357544,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0_ss2_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 21.75088906288147,
+   "src": "end"
+  },
+  {
+   "id": "end__s00_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "identical": true,
+   "job_id": "s00_true_f0_ss3_ns0_norepeat_modeswitch_guard_endalways",
+   "seconds": 24.188773155212402,
+   "src": "end"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss1_ns1_norepeat_modeswitch_guard",
+   "seconds": 24.349445104599,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss1_ns1_primary_modeswitch_guard",
+   "seconds": 24.265671253204346,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss1_ns2_norepeat_modeswitch_guard",
+   "seconds": 24.2598078250885,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss1_ns2_primary_modeswitch_guard",
+   "seconds": 24.032882928848267,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss2_ns1_norepeat_modeswitch_guard",
+   "seconds": 21.52771782875061,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss2_ns1_primary_modeswitch_guard",
+   "seconds": 20.850089073181152,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss2_ns2_norepeat_modeswitch_guard",
+   "seconds": 21.703767776489258,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss2_ns2_primary_modeswitch_guard",
+   "seconds": 21.41205620765686,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss3_ns1_norepeat_modeswitch_guard",
+   "seconds": 24.27449107170105,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss3_ns1_primary_modeswitch_guard",
+   "seconds": 23.849820137023926,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss3_ns2_norepeat_modeswitch_guard",
+   "seconds": 24.604101181030273,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0.05_ss3_ns2_primary_modeswitch_guard",
+   "seconds": 23.88957190513611,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0_ss1_ns0_norepeat_modeswitch_guard",
+   "seconds": 24.878017902374268,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0_ss1_ns0_primary_modeswitch_guard",
+   "seconds": 24.54516315460205,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0_ss2_ns0_norepeat_modeswitch_guard",
+   "seconds": 21.82717514038086,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0_ss2_ns0_primary_modeswitch_guard",
+   "seconds": 21.286518812179565,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0_ss3_ns0_norepeat_modeswitch_guard",
+   "seconds": 24.27161693572998,
+   "src": "st3"
+  },
+  {
+   "id": "st3__s00_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "identical": true,
+   "job_id": "s00_true_f0_ss3_ns0_primary_modeswitch_guard",
+   "seconds": 23.818416118621826,
+   "src": "st3"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 88.12804198265076,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 87.29566216468811,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 87.41216492652893,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 86.8404061794281,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 85.78747415542603,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 86.44585394859314,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 92.25087571144104,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 98.61226105690002,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 98.55117201805115,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 98.08895587921143,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 95.82138991355896,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 96.2535948753357,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 94.25576901435852,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 98.85532784461975,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 87.88024592399597,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 89.44442081451416,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 89.89035487174988,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 88.51971507072449,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 88.82250881195068,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 87.0435779094696,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d12_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d12_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 90.99591970443726,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 98.84787678718567,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 98.60657477378845,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 96.86022806167603,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 96.94488501548767,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 94.03750085830688,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 94.87304997444153,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 100.7836799621582,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 114.54018688201904,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 114.11349391937256,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 114.87142992019653,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 108.46955704689026,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 110.44775485992432,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 110.84686422348022,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 118.83533477783203,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 106.35299396514893,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 105.5961709022522,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 107.69461417198181,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 103.39466333389282,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 104.54317688941956,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 103.51027798652649,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d1_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d1_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 109.53964471817017,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 94.95593500137329,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 97.25715804100037,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 96.726735830307,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 95.69968795776367,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 94.0629289150238,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 95.61655497550964,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 97.53702926635742,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 112.258309841156,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 112.24087715148926,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 113.73358798027039,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 110.28585600852966,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 110.24828815460205,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 107.98719692230225,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 117.958261013031,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 108.18054699897766,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 107.71322393417358,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 106.09805417060852,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 104.2569649219513,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 103.6171441078186,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 104.51129388809204,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d2_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d2_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 110.57730317115784,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 100.29652976989746,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 99.45672988891602,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 99.72932195663452,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 95.57391500473022,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 97.0781581401825,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 96.84586477279663,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 101.9011640548706,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 107.8743269443512,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 109.05897808074951,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 106.51617503166199,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 105.09112405776978,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 105.84551882743835,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 105.61551594734192,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 112.21516799926758,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 103.92139101028442,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 103.2699990272522,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 104.4059648513794,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 102.53107476234436,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 102.39296293258667,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 101.58764743804932,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d3_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d3_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 107.13974499702454,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 97.98725819587708,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 98.82243728637695,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 99.43492984771729,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 98.36915302276611,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 96.39918899536133,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 96.55970597267151,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 100.04978799819946,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 107.81473994255066,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 107.059809923172,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 107.15445303916931,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 103.64568400382996,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 104.18099808692932,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 102.86208629608154,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 111.63187408447266,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 102.69729495048523,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 102.32651209831238,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 101.62476801872253,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 99.70456290245056,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 97.22911095619202,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 98.24008011817932,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d4_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d4_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 104.35466003417969,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 95.13690495491028,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 94.4766571521759,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 94.77355122566223,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 90.82024669647217,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 92.70301699638367,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 93.49131083488464,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 97.4160361289978,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 103.99036908149719,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 105.20703196525574,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 104.20391392707825,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 103.65516805648804,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 102.77208018302917,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 102.27036690711975,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 108.81227087974548,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 97.42222571372986,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 95.11978912353516,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 95.23195385932922,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 93.59706974029541,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 93.23664593696594,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 92.939138174057,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d6_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d6_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 98.01071810722351,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 93.90013408660889,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 95.06000590324402,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 95.54186010360718,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 93.00541806221008,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 92.10488200187683,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 93.09051990509033,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la1_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la1_f0_s0_g0_modeswitch_guard",
+   "seconds": 96.9436149597168,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 97.45597386360168,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 98.85480999946594,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 98.46267104148865,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 95.49876189231873,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 95.81901788711548,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 93.02201771736145,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la2_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la2_f0_s0_g0_modeswitch_guard",
+   "seconds": 100.16641998291016,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0.05_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0.05_s1_g0_modeswitch_guard",
+   "seconds": 94.31105613708496,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0.05_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0.05_s2_g0_modeswitch_guard",
+   "seconds": 94.5592839717865,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0.05_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0.05_s3_g0_modeswitch_guard",
+   "seconds": 92.42906713485718,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0.1_s1_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0.1_s1_g0_modeswitch_guard",
+   "seconds": 89.39721202850342,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0.1_s2_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0.1_s2_g0_modeswitch_guard",
+   "seconds": 83.31891322135925,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0.1_s3_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0.1_s3_g0_modeswitch_guard",
+   "seconds": 63.44595813751221,
+   "src": "st2"
+  },
+  {
+   "id": "st2__exact_d8_la3_f0_s0_g0_modeswitch_guard",
+   "identical": true,
+   "job_id": "exact_d8_la3_f0_s0_g0_modeswitch_guard",
+   "seconds": 65.02583599090576,
+   "src": "st2"
+  }
+ ],
+ "schema": "twenty_questions_stress_shadow_v1"
+}

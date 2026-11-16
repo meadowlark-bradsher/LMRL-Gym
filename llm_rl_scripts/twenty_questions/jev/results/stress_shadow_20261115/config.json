@@ -1,0 +1,23 @@
+{
+  "blas": {
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "budget": 20,
+  "check_games": 50,
+  "created": "20261115_141616",
+  "eps": 0.05,
+  "matrix_mode": "real",
+  "mode": "run",
+  "n_jobs": 255,
+  "prereg_commit": "850967d4f09a4baf86da1aac1ce3b36eeb8d8eb6",
+  "prereg_tag": "prereg-stress-shadow-20261115",
+  "pythonhashseed": "0",
+  "sources": {
+    "end": "llm_rl_scripts/twenty_questions/jev/results/stress_st3_endgame_20261114",
+    "st2": "llm_rl_scripts/twenty_questions/jev/results/stress_st2_20261112",
+    "st3": "llm_rl_scripts/twenty_questions/jev/results/stress_st3_20261113"
+  }
+}
