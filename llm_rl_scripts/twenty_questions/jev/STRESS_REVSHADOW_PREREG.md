@@ -1,7 +1,7 @@
 # Reverse shadow: a hard survivor set beside a playing `soft` — pre-registration
 
-**Status (2026-11-16):** draft, untagged, unbuilt. Jira: EE-41 (ENV-706, under EE-33). The thresholds below need
-the user's go before the tag.
+**Status (2026-11-16):** draft, untagged; built and gated (`STRESS_REVSHADOW_BUILD.md`). Jira: EE-41 (ENV-706,
+under EE-33). The thresholds below, and the build note's wording points, need the user's go before the tag.
 
 ## Question
 
