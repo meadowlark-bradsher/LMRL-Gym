@@ -869,7 +869,12 @@ split `st3_endgame_crowding.py`, not registered). A third registered follow-up, 
 beside P0a on the committed P0a games of ST-2, ST-3 and the end-game run, and asks whether `soft`'s ranking could
 pick P0a's by-name re-tests. Its pre-registration is `STRESS_SHADOW_PREREG.md` (tag `prereg-stress-shadow-20261115`),
 with results in `STRESS_SHADOW_RESULTS.md` (run `results/stress_shadow_20261115`, `analyze_shadow.py`; exploratory
-diagnostic `shadow_why_leader.py`, not registered). All four are offline on the cached matrix and deterministic. Backends are as in §3.13; P0a is `modeswitch_guard`.
+diagnostic `shadow_why_leader.py`, not registered). A fourth registered follow-up, *reverse shadow*, swaps the
+roles. `soft` plays its committed games of ST-2, ST-3 and the end-game run's `always` rule, and a passive hard
+survivor set rides along on `soft`'s own questions. It asks whether a hard veto at the budget end, or an alarm when
+that set empties, could gate `soft`'s answers. Its pre-registration is `STRESS_REVSHADOW_PREREG.md` (tag
+`prereg-stress-revshadow-20261116`), with results in `STRESS_REVSHADOW_RESULTS.md` (run
+`results/stress_revshadow_20261116`, `analyze_revshadow.py`). All five are offline on the cached matrix and deterministic. Backends are as in §3.13; P0a is `modeswitch_guard`.
 
 **Design.**
 - **The stream** is a Pitman–Yor (Chinese-restaurant) stream with θ = 20 and σ ∈ {0, 0.25, 0.5, 0.75}, 5000 games,
@@ -1014,6 +1019,37 @@ diagnostic `shadow_why_leader.py`, not registered). All four are offline on the 
   - **On the crowded tail there is little to win back** (SH4). At σ = 0.75 under `no_repeat` + `always`, the leader
     is the secret in 0.120 of the 967 in-pool expert calls (bar ≤ 0.3). Under ST-3's original end rule, the leader is
     the secret in 0.059 of P0a's wrong answers.
+- **A hard check on `soft`'s own questions gates its answers only while the pool is small** (reverse-shadow
+  follow-up: RS0, RS2 and RS4 PASS; RS1 and RS3 FAIL, so the played arm, in which `soft` asks and a hard view gates
+  the answer, is not built).
+  - The hard view strikes a known object on one contradicting answer and never revives it. It changes no game: all
+    219 replayed `soft` jobs are identical to their committed records.
+    - The *veto* answers `soft`'s leading known at the budget end only if the hard view has not struck it, and
+      otherwise calls the expert.
+    - The *alarm* calls the expert as soon as the hard set empties.
+    - Outcomes are per-game counterfactuals. They ignore admission feedback, which the two tail brackets bound: ST-3's
+      `top` rule under-admits and `always` over-admits.
+  - **The veto's catch rate follows pool size, not σ alone:**
+
+    | scope | `soft`'s wrong answers the veto catches (RS1, bar ≥ 0.5) | wrong with the veto (RS3, bar ≤ 0.05) | FPR with the veto (bar ≤ 0.20) |
+    |---|---:|---:|---:|
+    | ST-3 tail (σ = 0.75), pool ≈ 290 knowns | 0.871 (n = 6,525) | 0.056 (from 0.435) | 0.002 |
+    | `always` tail (σ = 0.75), pool ≈ 1,500–1,860 | **0.293** (n = 6,462) | **0.305** (from 0.431) | 0.007 |
+    | ST-2 look-alikes, d ≤ 2 | 0.997 (n = 2,364) | 0.00006 (from 0.0225) | 0.029 |
+
+    In the crowded pool, 68% of `soft`'s wrong games end with two or more knowns still consistent with every answer
+    (4,394 of 6,462). Twenty questions cannot separate them, so the hard view cannot decide either. Both brackets
+    play the same secret stream; only the admissions differ.
+  - **A played arm would likely land in the crowded bracket.** On the ST-3 tail the veto sends 0.44 of games to the
+    expert, near `always`'s 0.51, and every escalated novel object is admitted. This is an inference; the arm was not
+    run.
+  - **On look-alikes in a fixed pool, the veto is a cheap safety layer.** At 10% flips, wrong falls from 0.034 to
+    about 0 and FPR rises from 0.012 to 0.047. The price is almost every right-but-unconfirmed answer (99.96%): under
+    noise those secrets had been contradicted, so the hard view had struck them.
+  - **The raw alarm is too eager under noise** (RS2). It fires before `soft`'s winning guess in 0.234 of won in-pool
+    games at 10% flips (0.127 at 5%), for an FPR of 0.269. It does see novel objects: 0.873 of novel games on the
+    ST-3 tail (RS4), a median of 5 questions before `soft`'s end. On the ST-3 tail the alarm and the veto give
+    identical outcomes.
 - **Under crowding, the discrete prior trades escalations against wrong answers** (P2 FAIL at σ ≥ 0.5).
   - P2 assumed the discrete expert call fires only when the live set empties. Once the pool is crowded, a novel
     child's known parent is often still alive at the end of the game, and the gate weighs the UNKNOWN mass against
@@ -1049,8 +1085,10 @@ diagnostic `shadow_why_leader.py`, not registered). All four are offline on the 
     `soft`'s crowded games are what a planner or a larger budget for games still ambiguous near the end would have
     to win back. That is untested.
   - The build order (real objects first) confounds P1.
-  - The shadow measures a signal, not a backend: it rides on P0a's questions. A `soft` that plans the questions
-    behind the hard gate is untested. The shadow's mechanism diagnostic is one job.
+  - The shadow measures a signal, not a backend: it rides on P0a's questions. The shadow's mechanism diagnostic is
+    one job.
+  - The reverse shadow measures `soft` planning behind a hard gate only as per-game counterfactuals that ignore
+    admission feedback. The played arm is unbuilt; that it would crowd like `always` is read from the two brackets.
 
 **Role lesson:** an open-world loop learns how much it does not know only from the novelty it catches. Every
 estimate downstream of the expert call inherits the detector's misses: the count K, the fitted tail and the prior the
@@ -1067,7 +1105,12 @@ leaves the hard-gated backend autonomous (FPR 0.099). It does not rescue `soft`:
 games it used to win. A decision rule fixes a gate that already tells the near copy apart, not a likelihood that
 cannot. The shadow follow-up closes the remaining shortcut: laid over the hard gate's questions, `soft`'s ranking
 points at the true object about one time in ten under noise, so it cannot choose the re-test either. What `soft` adds
-under noise, if anything, has to come through the questions it asks.
+under noise, if anything, has to come through the questions it asks. The reverse-shadow follow-up tests that last
+route on the tail. A hard check on `soft`'s own questions catches 0.87 of its wrong answers while the pool is small,
+but only 0.29 once escalations have crowded it, and a gated `soft` would crowd it. The hard gate's value is
+deferring to the expert on a contradiction, which is nearly free in a fixed pool. It cannot separate near copies
+that no question in the budget tells apart. Only P0a's own questions, aimed at emptying the hard set, keep that
+regime both autonomous and safe.
 
 ## 4. The design patterns
 
@@ -1326,8 +1369,9 @@ when evaluating structured-decision models:
   Real objects come first in the stream, which
   confounds P1's between-halves comparison; the real-vs-child split is exploratory; the matched-pool AUC gap is
   read, untested, as the share of novel objects with a known near copy. The shadow follow-up measures `soft`'s
-  ranking only on P0a's questions; `soft` planning behind the hard gate is unbuilt, and the shadow's "why" rests on
-  one exploratory job.
+  ranking only on P0a's questions, and the shadow's "why" rests on one exploratory job. The reverse shadow's
+  outcomes for `soft` behind a hard gate are per-game counterfactuals without admission feedback; the played arm is
+  unbuilt.
 - **Not yet built:** a real BED-LLM loop on Guess-My-City, the other task where Jev's
   `Noul` would be the answer likelihood — the 20Q result predicts the same division of
   labor (likelihood consumed by an external loop; Jev weak as the planner). Jev's
@@ -1354,6 +1398,7 @@ when evaluating structured-decision models:
 | Open-world 20Q ST-3 (endless tail) | merged, complete | (offline, no Jev call) Pitman–Yor stream with unbounded species (σ ≤ 0.75) vs `true` / `fixed` / `online` novelty priors and five backend arms | P2b PASS, P1–P5 FAIL; online σ̂ at game 2000 0.00 (`soft`) / 0.57–0.67 (P0a) at σ = 0.75 (self-censored K); `soft` flags 0.10 of near-copy children at σ = 0.75, wrong 0.44; P0a at σ = 0.75: published won 0.002 (FPR 0.998), norepeat wrong 0.115; at σ = 0.25 P0a won 0.947, wrong 0.001 |
 | Open-world 20Q ST-3 stream-K | merged, complete | (offline, no Jev call) ST-3's streams with the gate given the stream's true species count (oracle prior), paired with ST-3's `true` jobs | SK0/SK1/SK3 PASS, SK2 FAIL; `soft` at σ = 0.75: prior 0.265 vs 0.049, TPR 0.119 → 0.107, wrong 0.439 → 0.449 (reading *likelihood*); norepeat P0a wrong 0.115 → 0.111 (flat); published P0a identical |
 | Open-world 20Q shadow (`soft` beside P0a) | merged, complete | (offline, no Jev call) passive `soft` posterior on P0a's own questions and answers, over ST-2's, ST-3's and the end-game run's committed P0a jobs | SH0/SH2/SH4 PASS, SH1/SH3/SH5 FAIL; under noise `soft`'s leader is the secret 0.092 at the first disagreement and 0.108 at P0a's expert or budget end; revival pick +0.042 over P0a's; P0a guesses the near-copy parent by the first disagreement 0.732; follow-on not built |
+| Open-world 20Q reverse shadow (hard view beside `soft`) | merged, complete | (offline, no Jev call) passive `HardMonotone` survivor set on `soft`'s own questions, over ST-2's, ST-3's and the end-game `always` run's committed `soft` jobs | RS0/RS2/RS4 PASS, RS1/RS3 FAIL; veto catches `soft`'s wrong answers 0.871 (ST-3 tail), 0.293 (`always` tail, crowded), 0.997 (ST-2 d ≤ 2); with the veto, tail wrong 0.056 / 0.305; ST-2 at 10% flips wrong 0.034 → ≈0, FPR 0.012 → 0.047; raw alarm FPR 0.269 at 10% flips; alarm sees 0.873 of novel games; played arm not built |
 | Guess-My-City | not built | (predicted) `Noul` = answer likelihood | — |
 
 ---
