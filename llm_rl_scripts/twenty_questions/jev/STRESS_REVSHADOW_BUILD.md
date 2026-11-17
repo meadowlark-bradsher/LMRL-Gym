@@ -8,7 +8,7 @@ This is the tooling for `STRESS_REVSHADOW_PREREG.md` (Jira EE-41, ENV-706).
 * The self-test and the smoke run use the synthetic matrix.
 
 **Status (2026-11-16):** built and gated; registered at tag `prereg-stress-revshadow-20261116`, with the
-thresholds and the wording points below accepted as they stand.
+thresholds and the wording points below accepted as they stand. Run and scored (`STRESS_REVSHADOW_RESULTS.md`).
 
 The environment is the stress tests' own: `/opt/miniconda3/envs/LLM_RL/bin/python` (Python 3.9),
 `PYTHONHASHSEED=0`, and one BLAS thread per worker.
