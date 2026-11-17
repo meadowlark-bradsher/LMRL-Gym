@@ -1,0 +1,4578 @@
+{
+ "RS0": {
+  "a_identical": true,
+  "b_rederived": true,
+  "c_secret_never_struck_at_flip0": true,
+  "flip0_in_pool_games": 148485,
+  "flip0_in_pool_violations": 0,
+  "games_rederived": 10950,
+  "n_jobs": 219,
+  "not_identical": [],
+  "pass": true,
+  "rederive_bad": []
+ },
+ "RS1": {
+  "pass": false,
+  "st2_d_le_2": {
+   "n": 2364,
+   "pass": true,
+   "share": 0.9974619289340102
+  },
+  "tail_end": {
+   "n": 6462,
+   "pass": false,
+   "share": 0.2930981120396162
+  },
+  "tail_st3": {
+   "n": 6525,
+   "pass": true,
+   "share": 0.8714176245210727
+  }
+ },
+ "RS2": {
+  "n": 135218,
+  "pass": true,
+  "share_f0.05": 0.12738560918715233,
+  "share_f0.10": 0.2337484654409916
+ },
+ "RS3": {
+  "one_bracket": false,
+  "pass": false,
+  "tail_end": {
+   "base": {
+    "expert": 0.0544,
+    "fpr": 0.0015323322096230463,
+    "right_unconf": 0.0222,
+    "won": 0.4926,
+    "wrong": 0.4308,
+    "wrong_incl_right_unconf": 0.453
+   },
+   "committed": {
+    "expert": 0.5074,
+    "fpr": 0.2451731535396874,
+    "right_unconf": 0.0,
+    "won": 0.4926,
+    "wrong": 0.0,
+    "wrong_incl_right_unconf": 0.0
+   },
+   "fpr": 0.006640106241699867,
+   "pass": false,
+   "wrong": 0.3045333333333333
+  },
+  "tail_st3": {
+   "base": {
+    "expert": 0.059533333333333334,
+    "fpr": 0.0018413784032618704,
+    "right_unconf": 0.0038666666666666667,
+    "won": 0.5016,
+    "wrong": 0.435,
+    "wrong_incl_right_unconf": 0.4388666666666667
+   },
+   "committed": {
+    "expert": 0.059533333333333334,
+    "fpr": 0.0018413784032618704,
+    "right_unconf": 0.0038666666666666667,
+    "won": 0.5016,
+    "wrong": 0.435,
+    "wrong_incl_right_unconf": 0.4388666666666667
+   },
+   "fpr": 0.0018413784032618704,
+   "pass": false,
+   "wrong": 0.055933333333333335
+  }
+ },
+ "RS4": {
+  "n": 7397,
+  "pass": true,
+  "reported": {
+   "alarm_given_soft_did_not_escalate": 0.8723534826633936,
+   "alarm_or_soft_expert": 0.8875219683655536,
+   "n": 7397,
+   "share": 0.8730566445856428,
+   "soft_expert": 0.11883195890225767
+  },
+  "share": 0.8730566445856428
+ },
+ "cells": {
+  "end_s0.0_f0.0": {
+   "alarm_before_win": {
+    "n": 14670,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 0,
+    "n": 303,
+    "q25": 0,
+    "q75": 0
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": NaN,
+    "alarm_or_soft_expert": 1.0,
+    "n": 328,
+    "share": 0.9237804878048781,
+    "soft_expert": 1.0
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "base": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "committed": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 15000,
+    "in_pool": 14672,
+    "veto": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    }
+   },
+   "surv_end_in_wrong": {},
+   "veto_catch": {
+    "n": 0,
+    "share": NaN,
+    "share_tol1": NaN
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "end_s0.0_f0.05": {
+   "alarm_before_win": {
+    "n": 29197,
+    "share": 0.08819399253347947,
+    "share_tol1": 0.0035962598897146965
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 3324,
+    "q25": 4,
+    "q75": 9
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 656,
+    "share": 0.9237804878048781,
+    "soft_expert": 0.9969512195121951
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.1126,
+     "fpr": 0.09276172300981461,
+     "right_unconf": 0.0,
+     "won": 0.8874,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.02723333333333333,
+     "fpr": 0.00552071973827699,
+     "right_unconf": 0.0019666666666666665,
+     "won": 0.9697333333333333,
+     "wrong": 0.0010666666666666667,
+     "wrong_incl_right_unconf": 0.003033333333333333
+    },
+    "base": {
+     "expert": 0.022733333333333335,
+     "fpr": 0.0009541984732824427,
+     "right_unconf": 0.0025,
+     "won": 0.9732333333333333,
+     "wrong": 0.0015333333333333334,
+     "wrong_incl_right_unconf": 0.004033333333333333
+    },
+    "both": {
+     "expert": 0.1126,
+     "fpr": 0.09276172300981461,
+     "right_unconf": 0.0,
+     "won": 0.8874,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.02723333333333333,
+     "fpr": 0.00552071973827699,
+     "right_unconf": 0.0019666666666666665,
+     "won": 0.9697333333333333,
+     "wrong": 0.0010666666666666667,
+     "wrong_incl_right_unconf": 0.003033333333333333
+    },
+    "committed": {
+     "expert": 0.026766666666666668,
+     "fpr": 0.005009541984732824,
+     "right_unconf": 0.0,
+     "won": 0.9732333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 30000,
+    "in_pool": 29344,
+    "veto": {
+     "expert": 0.026766666666666668,
+     "fpr": 0.005009541984732824,
+     "right_unconf": 0.0,
+     "won": 0.9732333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.023733333333333332,
+     "fpr": 0.0019424754634678298,
+     "right_unconf": 0.0019666666666666665,
+     "won": 0.9732333333333333,
+     "wrong": 0.0010666666666666667,
+     "wrong_incl_right_unconf": 0.003033333333333333
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 46
+   },
+   "veto_catch": {
+    "n": 46,
+    "share": 1.0,
+    "share_tol1": 0.30434782608695654
+   },
+   "veto_gives_up_right": {
+    "n": 75,
+    "share": 1.0
+   }
+  },
+  "end_s0.25_f0.0": {
+   "alarm_before_win": {
+    "n": 14206,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 0,
+    "n": 751,
+    "q25": 0,
+    "q75": 5
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9538461538461539,
+    "alarm_or_soft_expert": 0.9923566878980892,
+    "n": 785,
+    "share": 0.956687898089172,
+    "soft_expert": 0.8343949044585988
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.052066666666666664,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.00046666666666666666,
+     "wrong_incl_right_unconf": 0.0008666666666666666
+    },
+    "alarm1": {
+     "expert": 0.0438,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.008733333333333333,
+     "wrong_incl_right_unconf": 0.009133333333333334
+    },
+    "base": {
+     "expert": 0.0438,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.008733333333333333,
+     "wrong_incl_right_unconf": 0.009133333333333334
+    },
+    "both": {
+     "expert": 0.052066666666666664,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.00046666666666666666,
+     "wrong_incl_right_unconf": 0.0008666666666666666
+    },
+    "both1": {
+     "expert": 0.04613333333333333,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.0064,
+     "wrong_incl_right_unconf": 0.0068
+    },
+    "committed": {
+     "expert": 0.05293333333333333,
+     "fpr": 0.0006331340133661625,
+     "right_unconf": 0.0,
+     "won": 0.9470666666666666,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 15000,
+    "in_pool": 14215,
+    "veto": {
+     "expert": 0.052066666666666664,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.00046666666666666666,
+     "wrong_incl_right_unconf": 0.0008666666666666666
+    },
+    "veto1": {
+     "expert": 0.04613333333333333,
+     "fpr": 0.00014069644741470278,
+     "right_unconf": 0.0004,
+     "won": 0.9470666666666666,
+     "wrong": 0.0064,
+     "wrong_incl_right_unconf": 0.0068
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 124,
+    "1": 2,
+    "2+": 5
+   },
+   "veto_catch": {
+    "n": 131,
+    "share": 0.9465648854961832,
+    "share_tol1": 0.26717557251908397
+   },
+   "veto_gives_up_right": {
+    "n": 6,
+    "share": 0.0
+   }
+  },
+  "end_s0.25_f0.05": {
+   "alarm_before_win": {
+    "n": 27854,
+    "share": 0.10565807424427372,
+    "share_tol1": 0.004559488762834781
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 5001,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.961038961038961,
+    "alarm_or_soft_expert": 0.9923566878980892,
+    "n": 1570,
+    "share": 0.956687898089172,
+    "soft_expert": 0.8038216560509555
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.1687,
+     "fpr": 0.12321491382342596,
+     "right_unconf": 0.0004,
+     "won": 0.8303666666666667,
+     "wrong": 0.0005333333333333334,
+     "wrong_incl_right_unconf": 0.0009333333333333333
+    },
+    "alarm1": {
+     "expert": 0.052366666666666666,
+     "fpr": 0.009743228983468168,
+     "right_unconf": 0.0059,
+     "won": 0.9242333333333334,
+     "wrong": 0.0175,
+     "wrong_incl_right_unconf": 0.0234
+    },
+    "base": {
+     "expert": 0.04416666666666667,
+     "fpr": 0.0022159690467815686,
+     "right_unconf": 0.007,
+     "won": 0.9284666666666667,
+     "wrong": 0.02036666666666667,
+     "wrong_incl_right_unconf": 0.027366666666666668
+    },
+    "both": {
+     "expert": 0.1687,
+     "fpr": 0.12321491382342596,
+     "right_unconf": 0.0004,
+     "won": 0.8303666666666667,
+     "wrong": 0.0005333333333333334,
+     "wrong_incl_right_unconf": 0.0009333333333333333
+    },
+    "both1": {
+     "expert": 0.054966666666666664,
+     "fpr": 0.009954273654590222,
+     "right_unconf": 0.005833333333333334,
+     "won": 0.9242333333333334,
+     "wrong": 0.014966666666666666,
+     "wrong_incl_right_unconf": 0.0208
+    },
+    "committed": {
+     "expert": 0.07153333333333334,
+     "fpr": 0.0202602884277172,
+     "right_unconf": 0.0,
+     "won": 0.9284666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 30000,
+    "in_pool": 28430,
+    "veto": {
+     "expert": 0.0706,
+     "fpr": 0.01969750263805839,
+     "right_unconf": 0.0004,
+     "won": 0.9284666666666667,
+     "wrong": 0.0005333333333333334,
+     "wrong_incl_right_unconf": 0.0009333333333333333
+    },
+    "veto1": {
+     "expert": 0.05073333333333333,
+     "fpr": 0.0054871614491734085,
+     "right_unconf": 0.005833333333333334,
+     "won": 0.9284666666666667,
+     "wrong": 0.014966666666666666,
+     "wrong_incl_right_unconf": 0.0208
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 595,
+    "1": 7,
+    "2+": 9
+   },
+   "veto_catch": {
+    "n": 611,
+    "share": 0.9738134206219312,
+    "share_tol1": 0.265139116202946
+   },
+   "veto_gives_up_right": {
+    "n": 210,
+    "share": 0.9428571428571428
+   }
+  },
+  "end_s0.5_f0.0": {
+   "alarm_before_win": {
+    "n": 12795,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 3,
+    "n": 1342,
+    "q25": 0,
+    "q75": 7
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.7113289760348583,
+    "alarm_or_soft_expert": 0.8404575556893438,
+    "n": 1661,
+    "share": 0.8079470198675497,
+    "soft_expert": 0.4473208910295003
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.09326666666666666,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.04153333333333333,
+     "wrong_incl_right_unconf": 0.053733333333333334
+    },
+    "alarm1": {
+     "expert": 0.049933333333333337,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.08486666666666667,
+     "wrong_incl_right_unconf": 0.09706666666666666
+    },
+    "base": {
+     "expert": 0.04973333333333333,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.08506666666666667,
+     "wrong_incl_right_unconf": 0.09726666666666667
+    },
+    "both": {
+     "expert": 0.09326666666666666,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.04153333333333333,
+     "wrong_incl_right_unconf": 0.053733333333333334
+    },
+    "both1": {
+     "expert": 0.057666666666666665,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.07713333333333333,
+     "wrong_incl_right_unconf": 0.08933333333333333
+    },
+    "committed": {
+     "expert": 0.147,
+     "fpr": 0.04078266736636929,
+     "right_unconf": 0.0,
+     "won": 0.853,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 15000,
+    "in_pool": 13339,
+    "veto": {
+     "expert": 0.09326666666666666,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.04153333333333333,
+     "wrong_incl_right_unconf": 0.053733333333333334
+    },
+    "veto1": {
+     "expert": 0.057666666666666665,
+     "fpr": 0.00022490441562336008,
+     "right_unconf": 0.0122,
+     "won": 0.853,
+     "wrong": 0.07713333333333333,
+     "wrong_incl_right_unconf": 0.08933333333333333
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 653,
+    "1": 65,
+    "2+": 558
+   },
+   "veto_catch": {
+    "n": 1276,
+    "share": 0.5117554858934169,
+    "share_tol1": 0.0932601880877743
+   },
+   "veto_gives_up_right": {
+    "n": 183,
+    "share": 0.0
+   }
+  },
+  "end_s0.5_f0.05": {
+   "alarm_before_win": {
+    "n": 24155,
+    "share": 0.10353963982612295,
+    "share_tol1": 0.004264127509832333
+   },
+   "alarm_questions_saved": {
+    "median": 7,
+    "n": 6700,
+    "q25": 3,
+    "q75": 10
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.7567424643046008,
+    "alarm_or_soft_expert": 0.8615291992775437,
+    "n": 3322,
+    "share": 0.8290186634557496,
+    "soft_expert": 0.43076459963877184
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.22723333333333334,
+     "fpr": 0.14824949396506484,
+     "right_unconf": 0.010233333333333334,
+     "won": 0.7218,
+     "wrong": 0.04073333333333334,
+     "wrong_incl_right_unconf": 0.05096666666666667
+    },
+    "alarm1": {
+     "expert": 0.0648,
+     "fpr": 0.015443436539470725,
+     "right_unconf": 0.01806666666666667,
+     "won": 0.8017333333333333,
+     "wrong": 0.1154,
+     "wrong_incl_right_unconf": 0.13346666666666668
+    },
+    "base": {
+     "expert": 0.05396666666666667,
+     "fpr": 0.007047005022865282,
+     "right_unconf": 0.0189,
+     "won": 0.8051666666666667,
+     "wrong": 0.12196666666666667,
+     "wrong_incl_right_unconf": 0.14086666666666667
+    },
+    "both": {
+     "expert": 0.22723333333333334,
+     "fpr": 0.14824949396506484,
+     "right_unconf": 0.010233333333333334,
+     "won": 0.7218,
+     "wrong": 0.04073333333333334,
+     "wrong_incl_right_unconf": 0.05096666666666667
+    },
+    "both1": {
+     "expert": 0.07243333333333334,
+     "fpr": 0.016268086063423046,
+     "right_unconf": 0.01806666666666667,
+     "won": 0.8017333333333333,
+     "wrong": 0.10776666666666666,
+     "wrong_incl_right_unconf": 0.12583333333333332
+    },
+    "committed": {
+     "expert": 0.19483333333333333,
+     "fpr": 0.09457230676962292,
+     "right_unconf": 0.0,
+     "won": 0.8051666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 30000,
+    "in_pool": 26678,
+    "veto": {
+     "expert": 0.14386666666666667,
+     "fpr": 0.05450183671939426,
+     "right_unconf": 0.010233333333333334,
+     "won": 0.8051666666666667,
+     "wrong": 0.04073333333333334,
+     "wrong_incl_right_unconf": 0.05096666666666667
+    },
+    "veto1": {
+     "expert": 0.069,
+     "fpr": 0.012407226928555363,
+     "right_unconf": 0.01806666666666667,
+     "won": 0.8051666666666667,
+     "wrong": 0.10776666666666666,
+     "wrong_incl_right_unconf": 0.12583333333333332
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 2437,
+    "1": 161,
+    "2+": 1061
+   },
+   "veto_catch": {
+    "n": 3659,
+    "share": 0.6660289696638426,
+    "share_tol1": 0.11642525280131183
+   },
+   "veto_gives_up_right": {
+    "n": 567,
+    "share": 0.4585537918871252
+   }
+  },
+  "end_s0.75_f0.0": {
+   "alarm_before_win": {
+    "n": 7389,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 3,
+    "n": 2490,
+    "q25": 1,
+    "q75": 6
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.408390022675737,
+    "alarm_or_soft_expert": 0.4993283438879294,
+    "n": 5211,
+    "share": 0.47783534830166957,
+    "soft_expert": 0.153713298791019
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.17446666666666666,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.3107333333333333,
+     "wrong_incl_right_unconf": 0.33293333333333336
+    },
+    "alarm1": {
+     "expert": 0.05506666666666667,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.4301333333333333,
+     "wrong_incl_right_unconf": 0.4523333333333333
+    },
+    "base": {
+     "expert": 0.0544,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.4308,
+     "wrong_incl_right_unconf": 0.453
+    },
+    "both": {
+     "expert": 0.18066666666666667,
+     "fpr": 0.006640106241699867,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.3045333333333333,
+     "wrong_incl_right_unconf": 0.3267333333333333
+    },
+    "both1": {
+     "expert": 0.07593333333333334,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.40926666666666667,
+     "wrong_incl_right_unconf": 0.43146666666666667
+    },
+    "committed": {
+     "expert": 0.5074,
+     "fpr": 0.2451731535396874,
+     "right_unconf": 0.0,
+     "won": 0.4926,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 15000,
+    "in_pool": 9789,
+    "veto": {
+     "expert": 0.18066666666666667,
+     "fpr": 0.006640106241699867,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.3045333333333333,
+     "wrong_incl_right_unconf": 0.3267333333333333
+    },
+    "veto1": {
+     "expert": 0.07593333333333334,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.40926666666666667,
+     "wrong_incl_right_unconf": 0.43146666666666667
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 1801,
+    "1": 267,
+    "2+": 4394
+   },
+   "veto_catch": {
+    "n": 6462,
+    "share": 0.2930981120396162,
+    "share_tol1": 0.04998452491488703
+   },
+   "veto_gives_up_right": {
+    "n": 333,
+    "share": 0.0
+   }
+  },
+  "end_s0.75_f0.05": {
+   "alarm_before_win": {
+    "n": 13101,
+    "share": 0.09747347530722845,
+    "share_tol1": 0.0035111823524921764
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 9340,
+    "q25": 2,
+    "q75": 10
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.4957086522848527,
+    "alarm_or_soft_expert": 0.5828056035309921,
+    "n": 10422,
+    "share": 0.5604490500863558,
+    "soft_expert": 0.17271157167530224
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.32033333333333336,
+     "fpr": 0.1806108897742364,
+     "right_unconf": 0.0163,
+     "won": 0.39413333333333334,
+     "wrong": 0.2692333333333333,
+     "wrong_incl_right_unconf": 0.2855333333333333
+    },
+    "alarm1": {
+     "expert": 0.09313333333333333,
+     "fpr": 0.0353457963019716,
+     "right_unconf": 0.022366666666666667,
+     "won": 0.43516666666666665,
+     "wrong": 0.4493333333333333,
+     "wrong_incl_right_unconf": 0.4717
+    },
+    "base": {
+     "expert": 0.07596666666666667,
+     "fpr": 0.02446623761364797,
+     "right_unconf": 0.022866666666666667,
+     "won": 0.4367,
+     "wrong": 0.4644666666666667,
+     "wrong_incl_right_unconf": 0.48733333333333334
+    },
+    "both": {
+     "expert": 0.32666666666666666,
+     "fpr": 0.18597405250791704,
+     "right_unconf": 0.016233333333333332,
+     "won": 0.39413333333333334,
+     "wrong": 0.2629666666666667,
+     "wrong_incl_right_unconf": 0.2792
+    },
+    "both1": {
+     "expert": 0.1135,
+     "fpr": 0.03932986004699152,
+     "right_unconf": 0.0223,
+     "won": 0.43516666666666665,
+     "wrong": 0.4290333333333333,
+     "wrong_incl_right_unconf": 0.4513333333333333
+    },
+    "committed": {
+     "expert": 0.5633,
+     "fpr": 0.3308305240576157,
+     "right_unconf": 0.0,
+     "won": 0.4367,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 30000,
+    "in_pool": 19578,
+    "veto": {
+     "expert": 0.2841,
+     "fpr": 0.12074777811829604,
+     "right_unconf": 0.016233333333333332,
+     "won": 0.4367,
+     "wrong": 0.2629666666666667,
+     "wrong_incl_right_unconf": 0.2792
+    },
+    "veto1": {
+     "expert": 0.11196666666666667,
+     "fpr": 0.036980283992236185,
+     "right_unconf": 0.0223,
+     "won": 0.4367,
+     "wrong": 0.4290333333333333,
+     "wrong_incl_right_unconf": 0.4513333333333333
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 5857,
+    "1": 543,
+    "2+": 7534
+   },
+   "veto_catch": {
+    "n": 13934,
+    "share": 0.43383091718099615,
+    "share_tol1": 0.07628821587483853
+   },
+   "veto_gives_up_right": {
+    "n": 686,
+    "share": 0.29008746355685133
+   }
+  },
+  "st2_d12_f0.0": {
+   "alarm_before_win": {
+    "n": 6724,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 5,
+    "n": 752,
+    "q25": 2,
+    "q75": 9
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 773,
+    "share": 0.9728331177231565,
+    "soft_expert": 0.7761966364812419
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.10346666666666667,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.08746666666666666,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.016,
+     "wrong_incl_right_unconf": 0.016
+    },
+    "base": {
+     "expert": 0.0804,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.023066666666666666,
+     "wrong_incl_right_unconf": 0.023066666666666666
+    },
+    "both": {
+     "expert": 0.10346666666666667,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.10026666666666667,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.0032,
+     "wrong_incl_right_unconf": 0.0032
+    },
+    "committed": {
+     "expert": 0.0804,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.023066666666666666,
+     "wrong_incl_right_unconf": 0.023066666666666666
+    },
+    "games": 7500,
+    "in_pool": 6727,
+    "veto": {
+     "expert": 0.10346666666666667,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.10026666666666667,
+     "fpr": 0.0004459640255686041,
+     "right_unconf": 0.0,
+     "won": 0.8965333333333333,
+     "wrong": 0.0032,
+     "wrong_incl_right_unconf": 0.0032
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 173
+   },
+   "veto_catch": {
+    "n": 173,
+    "share": 1.0,
+    "share_tol1": 0.861271676300578
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d12_f0.05": {
+   "alarm_before_win": {
+    "n": 19885,
+    "share": 0.16208197133517727,
+    "share_tol1": 0.011365350766909732
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 5766,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2286,
+    "share": 0.9728783902012248,
+    "soft_expert": 0.7882764654418197
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.2594666666666667,
+     "fpr": 0.1757197981596913,
+     "right_unconf": 0.0,
+     "won": 0.7405333333333334,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.10897777777777778,
+     "fpr": 0.02305332937568022,
+     "right_unconf": 0.0017333333333333333,
+     "won": 0.8737333333333334,
+     "wrong": 0.015555555555555555,
+     "wrong_incl_right_unconf": 0.01728888888888889
+    },
+    "base": {
+     "expert": 0.08555555555555555,
+     "fpr": 0.006084891659246067,
+     "right_unconf": 0.004711111111111111,
+     "won": 0.8837777777777778,
+     "wrong": 0.025955555555555555,
+     "wrong_incl_right_unconf": 0.030666666666666665
+    },
+    "both": {
+     "expert": 0.2594666666666667,
+     "fpr": 0.1757197981596913,
+     "right_unconf": 0.0,
+     "won": 0.7405333333333334,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.11964444444444444,
+     "fpr": 0.02325121203126546,
+     "right_unconf": 0.0016888888888888889,
+     "won": 0.8737333333333334,
+     "wrong": 0.004933333333333333,
+     "wrong_incl_right_unconf": 0.006622222222222222
+    },
+    "committed": {
+     "expert": 0.08555555555555555,
+     "fpr": 0.006084891659246067,
+     "right_unconf": 0.004711111111111111,
+     "won": 0.8837777777777778,
+     "wrong": 0.025955555555555555,
+     "wrong_incl_right_unconf": 0.030666666666666665
+    },
+    "games": 22500,
+    "in_pool": 20214,
+    "veto": {
+     "expert": 0.11622222222222223,
+     "fpr": 0.01627584842188582,
+     "right_unconf": 0.0,
+     "won": 0.8837777777777778,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.1096,
+     "fpr": 0.012070841990699516,
+     "right_unconf": 0.0016888888888888889,
+     "won": 0.8837777777777778,
+     "wrong": 0.004933333333333333,
+     "wrong_incl_right_unconf": 0.006622222222222222
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 584
+   },
+   "veto_catch": {
+    "n": 584,
+    "share": 1.0,
+    "share_tol1": 0.809931506849315
+   },
+   "veto_gives_up_right": {
+    "n": 106,
+    "share": 1.0
+   }
+  },
+  "st2_d12_f0.1": {
+   "alarm_before_win": {
+    "n": 19235,
+    "share": 0.2922796984663374,
+    "share_tol1": 0.03893943332466857
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 8815,
+    "q25": 4,
+    "q75": 10
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2289,
+    "share": 0.9729139362166885,
+    "soft_expert": 0.7854958497160333
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.39497777777777776,
+     "fpr": 0.32645589035673644,
+     "right_unconf": 0.0,
+     "won": 0.6050222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.15942222222222222,
+     "fpr": 0.07639404284795409,
+     "right_unconf": 0.003511111111111111,
+     "won": 0.8216,
+     "wrong": 0.015466666666666667,
+     "wrong_incl_right_unconf": 0.018977777777777777
+    },
+    "base": {
+     "expert": 0.09897777777777778,
+     "fpr": 0.021226065014101233,
+     "right_unconf": 0.0116,
+     "won": 0.8548888888888889,
+     "wrong": 0.03453333333333333,
+     "wrong_incl_right_unconf": 0.04613333333333333
+    },
+    "both": {
+     "expert": 0.39497777777777776,
+     "fpr": 0.32645589035673644,
+     "right_unconf": 0.0,
+     "won": 0.6050222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.16813333333333333,
+     "fpr": 0.07718569096036812,
+     "right_unconf": 0.0032,
+     "won": 0.8216,
+     "wrong": 0.007066666666666666,
+     "wrong_incl_right_unconf": 0.010266666666666667
+    },
+    "committed": {
+     "expert": 0.09897777777777778,
+     "fpr": 0.021226065014101233,
+     "right_unconf": 0.0116,
+     "won": 0.8548888888888889,
+     "wrong": 0.03453333333333333,
+     "wrong_incl_right_unconf": 0.04613333333333333
+    },
+    "games": 22500,
+    "in_pool": 20211,
+    "veto": {
+     "expert": 0.1451111111111111,
+     "fpr": 0.04829053485725595,
+     "right_unconf": 0.0,
+     "won": 0.8548888888888889,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.13484444444444443,
+     "fpr": 0.040126663697986245,
+     "right_unconf": 0.0032,
+     "won": 0.8548888888888889,
+     "wrong": 0.007066666666666666,
+     "wrong_incl_right_unconf": 0.010266666666666667
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 777
+   },
+   "veto_catch": {
+    "n": 777,
+    "share": 1.0,
+    "share_tol1": 0.7953667953667953
+   },
+   "veto_gives_up_right": {
+    "n": 261,
+    "share": 1.0
+   }
+  },
+  "st2_d1_f0.0": {
+   "alarm_before_win": {
+    "n": 6809,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 1,
+    "n": 661,
+    "q25": 0,
+    "q75": 5
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 688,
+    "share": 0.9607558139534884,
+    "soft_expert": 0.8982558139534884
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.09213333333333333,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.0832,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.008933333333333333,
+     "wrong_incl_right_unconf": 0.008933333333333333
+    },
+    "base": {
+     "expert": 0.0828,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.009333333333333334,
+     "wrong_incl_right_unconf": 0.009333333333333334
+    },
+    "both": {
+     "expert": 0.09213333333333333,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.088,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.0041333333333333335,
+     "wrong_incl_right_unconf": 0.0041333333333333335
+    },
+    "committed": {
+     "expert": 0.0828,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.009333333333333334,
+     "wrong_incl_right_unconf": 0.009333333333333334
+    },
+    "games": 7500,
+    "in_pool": 6812,
+    "veto": {
+     "expert": 0.09213333333333333,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.088,
+     "fpr": 0.00044039929536112744,
+     "right_unconf": 0.0,
+     "won": 0.9078666666666667,
+     "wrong": 0.0041333333333333335,
+     "wrong_incl_right_unconf": 0.0041333333333333335
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 70
+   },
+   "veto_catch": {
+    "n": 70,
+    "share": 1.0,
+    "share_tol1": 0.5571428571428572
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d1_f0.05": {
+   "alarm_before_win": {
+    "n": 19950,
+    "share": 0.09764411027568923,
+    "share_tol1": 0.004661654135338346
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 4399,
+    "q25": 2,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9811320754716981,
+    "alarm_or_soft_expert": 0.9976269577598481,
+    "n": 2107,
+    "share": 0.9591836734693877,
+    "soft_expert": 0.8742287612719506
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.1995111111111111,
+     "fpr": 0.11704996812631785,
+     "right_unconf": 0.00017777777777777779,
+     "won": 0.8000888888888888,
+     "wrong": 0.00022222222222222223,
+     "wrong_incl_right_unconf": 0.0004
+    },
+    "alarm1": {
+     "expert": 0.09284444444444444,
+     "fpr": 0.009807286814102879,
+     "right_unconf": 0.010222222222222223,
+     "won": 0.8825333333333333,
+     "wrong": 0.0144,
+     "wrong_incl_right_unconf": 0.024622222222222222
+    },
+    "base": {
+     "expert": 0.08373333333333334,
+     "fpr": 0.0020595302309616044,
+     "right_unconf": 0.011377777777777778,
+     "won": 0.8866666666666667,
+     "wrong": 0.018222222222222223,
+     "wrong_incl_right_unconf": 0.0296
+    },
+    "both": {
+     "expert": 0.1995111111111111,
+     "fpr": 0.11704996812631785,
+     "right_unconf": 0.00017777777777777779,
+     "won": 0.8000888888888888,
+     "wrong": 0.00022222222222222223,
+     "wrong_incl_right_unconf": 0.0004
+    },
+    "both1": {
+     "expert": 0.09733333333333333,
+     "fpr": 0.010101505418525964,
+     "right_unconf": 0.010088888888888889,
+     "won": 0.8825333333333333,
+     "wrong": 0.010044444444444444,
+     "wrong_incl_right_unconf": 0.020133333333333333
+    },
+    "committed": {
+     "expert": 0.08373333333333334,
+     "fpr": 0.0020595302309616044,
+     "right_unconf": 0.011377777777777778,
+     "won": 0.8866666666666667,
+     "wrong": 0.018222222222222223,
+     "wrong_incl_right_unconf": 0.0296
+    },
+    "games": 22500,
+    "in_pool": 20393,
+    "veto": {
+     "expert": 0.11293333333333333,
+     "fpr": 0.02152699455695582,
+     "right_unconf": 0.00017777777777777779,
+     "won": 0.8866666666666667,
+     "wrong": 0.00022222222222222223,
+     "wrong_incl_right_unconf": 0.0004
+    },
+    "veto1": {
+     "expert": 0.0932,
+     "fpr": 0.005541117049968126,
+     "right_unconf": 0.010088888888888889,
+     "won": 0.8866666666666667,
+     "wrong": 0.010044444444444444,
+     "wrong_incl_right_unconf": 0.020133333333333333
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 405,
+    "1": 5
+   },
+   "veto_catch": {
+    "n": 410,
+    "share": 0.9878048780487805,
+    "share_tol1": 0.44878048780487806
+   },
+   "veto_gives_up_right": {
+    "n": 256,
+    "share": 0.984375
+   }
+  },
+  "st2_d1_f0.1": {
+   "alarm_before_win": {
+    "n": 19406,
+    "share": 0.18623106255797175,
+    "share_tol1": 0.01674739771204782
+   },
+   "alarm_questions_saved": {
+    "median": 7,
+    "n": 6616,
+    "q25": 3,
+    "q75": 11
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9966887417218543,
+    "alarm_or_soft_expert": 0.9995324918186068,
+    "n": 2139,
+    "share": 0.9616643291257597,
+    "soft_expert": 0.8588125292192613
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.29804444444444445,
+     "fpr": 0.22435047394528757,
+     "right_unconf": 4.4444444444444447e-05,
+     "won": 0.7018666666666666,
+     "wrong": 4.4444444444444447e-05,
+     "wrong_incl_right_unconf": 8.888888888888889e-05
+    },
+    "alarm1": {
+     "expert": 0.11564444444444444,
+     "fpr": 0.03369186189283434,
+     "right_unconf": 0.017155555555555556,
+     "won": 0.8480444444444445,
+     "wrong": 0.019155555555555554,
+     "wrong_incl_right_unconf": 0.03631111111111111
+    },
+    "base": {
+     "expert": 0.08795555555555555,
+     "fpr": 0.006974117184814105,
+     "right_unconf": 0.02,
+     "won": 0.8624888888888889,
+     "wrong": 0.029555555555555557,
+     "wrong_incl_right_unconf": 0.049555555555555554
+    },
+    "both": {
+     "expert": 0.29804444444444445,
+     "fpr": 0.22435047394528757,
+     "right_unconf": 4.4444444444444447e-05,
+     "won": 0.7018666666666666,
+     "wrong": 4.4444444444444447e-05,
+     "wrong_incl_right_unconf": 8.888888888888889e-05
+    },
+    "both1": {
+     "expert": 0.12097777777777778,
+     "fpr": 0.03482147242276902,
+     "right_unconf": 0.016444444444444446,
+     "won": 0.8480444444444445,
+     "wrong": 0.014533333333333334,
+     "wrong_incl_right_unconf": 0.030977777777777778
+    },
+    "committed": {
+     "expert": 0.08795555555555555,
+     "fpr": 0.006974117184814105,
+     "right_unconf": 0.02,
+     "won": 0.8624888888888889,
+     "wrong": 0.029555555555555557,
+     "wrong_incl_right_unconf": 0.049555555555555554
+    },
+    "games": 22500,
+    "in_pool": 20361,
+    "veto": {
+     "expert": 0.13742222222222222,
+     "fpr": 0.04685428024163843,
+     "right_unconf": 4.4444444444444447e-05,
+     "won": 0.8624888888888889,
+     "wrong": 4.4444444444444447e-05,
+     "wrong_incl_right_unconf": 8.888888888888889e-05
+    },
+    "veto1": {
+     "expert": 0.10653333333333333,
+     "fpr": 0.018859584499778988,
+     "right_unconf": 0.016444444444444446,
+     "won": 0.8624888888888889,
+     "wrong": 0.014533333333333334,
+     "wrong_incl_right_unconf": 0.030977777777777778
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 664,
+    "1": 1
+   },
+   "veto_catch": {
+    "n": 665,
+    "share": 0.9984962406015038,
+    "share_tol1": 0.5082706766917293
+   },
+   "veto_gives_up_right": {
+    "n": 450,
+    "share": 0.9977777777777778
+   }
+  },
+  "st2_d2_f0.0": {
+   "alarm_before_win": {
+    "n": 6790,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 2,
+    "n": 681,
+    "q25": 0,
+    "q75": 5
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 707,
+    "share": 0.9632248939179632,
+    "soft_expert": 0.8642149929278642
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.09466666666666666,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.08453333333333334,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.010133333333333333,
+     "wrong_incl_right_unconf": 0.010133333333333333
+    },
+    "base": {
+     "expert": 0.08186666666666667,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0128,
+     "wrong_incl_right_unconf": 0.0128
+    },
+    "both": {
+     "expert": 0.09466666666666666,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.08986666666666666,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0048,
+     "wrong_incl_right_unconf": 0.0048
+    },
+    "committed": {
+     "expert": 0.08186666666666667,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0128,
+     "wrong_incl_right_unconf": 0.0128
+    },
+    "games": 7500,
+    "in_pool": 6793,
+    "veto": {
+     "expert": 0.09466666666666666,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.08986666666666666,
+     "fpr": 0.00044163109082879436,
+     "right_unconf": 0.0,
+     "won": 0.9053333333333333,
+     "wrong": 0.0048,
+     "wrong_incl_right_unconf": 0.0048
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 96
+   },
+   "veto_catch": {
+    "n": 96,
+    "share": 1.0,
+    "share_tol1": 0.625
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d2_f0.05": {
+   "alarm_before_win": {
+    "n": 19950,
+    "share": 0.10616541353383459,
+    "share_tol1": 0.004661654135338346
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 4582,
+    "q25": 2,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2135,
+    "share": 0.9639344262295082,
+    "soft_expert": 0.8562060889929742
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.20746666666666666,
+     "fpr": 0.12438006383501105,
+     "right_unconf": 0.0,
+     "won": 0.7925333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.09431111111111111,
+     "fpr": 0.01075374416891726,
+     "right_unconf": 0.0088,
+     "won": 0.8825333333333333,
+     "wrong": 0.014355555555555555,
+     "wrong_incl_right_unconf": 0.023155555555555554
+    },
+    "base": {
+     "expert": 0.08395555555555556,
+     "fpr": 0.0029953351338080038,
+     "right_unconf": 0.010044444444444444,
+     "won": 0.8866666666666667,
+     "wrong": 0.019333333333333334,
+     "wrong_incl_right_unconf": 0.029377777777777777
+    },
+    "both": {
+     "expert": 0.20746666666666666,
+     "fpr": 0.12438006383501105,
+     "right_unconf": 0.0,
+     "won": 0.7925333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.09933333333333333,
+     "fpr": 0.010851951878222441,
+     "right_unconf": 0.00871111111111111,
+     "won": 0.8825333333333333,
+     "wrong": 0.009422222222222222,
+     "wrong_incl_right_unconf": 0.018133333333333335
+    },
+    "committed": {
+     "expert": 0.08395555555555556,
+     "fpr": 0.0029953351338080038,
+     "right_unconf": 0.010044444444444444,
+     "won": 0.8866666666666667,
+     "wrong": 0.019333333333333334,
+     "wrong_incl_right_unconf": 0.029377777777777777
+    },
+    "games": 22500,
+    "in_pool": 20365,
+    "veto": {
+     "expert": 0.11333333333333333,
+     "fpr": 0.020378099680824945,
+     "right_unconf": 0.0,
+     "won": 0.8866666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.0952,
+     "fpr": 0.006285293395531549,
+     "right_unconf": 0.00871111111111111,
+     "won": 0.8866666666666667,
+     "wrong": 0.009422222222222222,
+     "wrong_incl_right_unconf": 0.018133333333333335
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 435
+   },
+   "veto_catch": {
+    "n": 435,
+    "share": 1.0,
+    "share_tol1": 0.5126436781609195
+   },
+   "veto_gives_up_right": {
+    "n": 226,
+    "share": 1.0
+   }
+  },
+  "st2_d2_f0.1": {
+   "alarm_before_win": {
+    "n": 19423,
+    "share": 0.19636513411934306,
+    "share_tol1": 0.014621840086495391
+   },
+   "alarm_questions_saved": {
+    "median": 7,
+    "n": 6805,
+    "q25": 3,
+    "q75": 10
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2157,
+    "share": 0.9643022716736208,
+    "soft_expert": 0.8456189151599444
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.3062666666666667,
+     "fpr": 0.23270903996460698,
+     "right_unconf": 0.0,
+     "won": 0.6937333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.11684444444444445,
+     "fpr": 0.03372167330285602,
+     "right_unconf": 0.014311111111111111,
+     "won": 0.8506222222222222,
+     "wrong": 0.018222222222222223,
+     "wrong_incl_right_unconf": 0.03253333333333333
+    },
+    "base": {
+     "expert": 0.08662222222222223,
+     "fpr": 0.006144619770928575,
+     "right_unconf": 0.019555555555555555,
+     "won": 0.8632444444444445,
+     "wrong": 0.030577777777777777,
+     "wrong_incl_right_unconf": 0.050133333333333335
+    },
+    "both": {
+     "expert": 0.3062666666666667,
+     "fpr": 0.23270903996460698,
+     "right_unconf": 0.0,
+     "won": 0.6937333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.12115555555555556,
+     "fpr": 0.03436071375903259,
+     "right_unconf": 0.013955555555555556,
+     "won": 0.8506222222222222,
+     "wrong": 0.014266666666666667,
+     "wrong_incl_right_unconf": 0.02822222222222222
+    },
+    "committed": {
+     "expert": 0.08662222222222223,
+     "fpr": 0.006144619770928575,
+     "right_unconf": 0.019555555555555555,
+     "won": 0.8632444444444445,
+     "wrong": 0.030577777777777777,
+     "wrong_incl_right_unconf": 0.050133333333333335
+    },
+    "games": 22500,
+    "in_pool": 20343,
+    "veto": {
+     "expert": 0.13675555555555555,
+     "fpr": 0.04522440151403431,
+     "right_unconf": 0.0,
+     "won": 0.8632444444444445,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.10853333333333333,
+     "fpr": 0.020400137639482868,
+     "right_unconf": 0.013955555555555556,
+     "won": 0.8632444444444445,
+     "wrong": 0.014266666666666667,
+     "wrong_incl_right_unconf": 0.02822222222222222
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 688
+   },
+   "veto_catch": {
+    "n": 688,
+    "share": 1.0,
+    "share_tol1": 0.5334302325581395
+   },
+   "veto_gives_up_right": {
+    "n": 440,
+    "share": 1.0
+   }
+  },
+  "st2_d3_f0.0": {
+   "alarm_before_win": {
+    "n": 6767,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 3,
+    "n": 706,
+    "q25": 0,
+    "q75": 6
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 730,
+    "share": 0.9671232876712329,
+    "soft_expert": 0.8246575342465754
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.09773333333333334,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.0836,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.014133333333333333,
+     "wrong_incl_right_unconf": 0.014133333333333333
+    },
+    "base": {
+     "expert": 0.08066666666666666,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.017066666666666667,
+     "wrong_incl_right_unconf": 0.017066666666666667
+    },
+    "both": {
+     "expert": 0.09773333333333334,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.09093333333333334,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.0068,
+     "wrong_incl_right_unconf": 0.0068
+    },
+    "committed": {
+     "expert": 0.08066666666666666,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.017066666666666667,
+     "wrong_incl_right_unconf": 0.017066666666666667
+    },
+    "games": 7500,
+    "in_pool": 6770,
+    "veto": {
+     "expert": 0.09773333333333334,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.09093333333333334,
+     "fpr": 0.0004431314623338257,
+     "right_unconf": 0.0,
+     "won": 0.9022666666666667,
+     "wrong": 0.0068,
+     "wrong_incl_right_unconf": 0.0068
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 128
+   },
+   "veto_catch": {
+    "n": 128,
+    "share": 1.0,
+    "share_tol1": 0.6015625
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d3_f0.05": {
+   "alarm_before_win": {
+    "n": 19886,
+    "share": 0.11515639143115759,
+    "share_tol1": 0.004525797043145932
+   },
+   "alarm_questions_saved": {
+    "median": 5,
+    "n": 4823,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2191,
+    "share": 0.9671382930168873,
+    "soft_expert": 0.8238247375627568
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.21795555555555557,
+     "fpr": 0.1335860948348023,
+     "right_unconf": 0.0,
+     "won": 0.7820444444444444,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.09457777777777777,
+     "fpr": 0.010980353537840366,
+     "right_unconf": 0.008444444444444444,
+     "won": 0.8798222222222222,
+     "wrong": 0.017155555555555556,
+     "wrong_incl_right_unconf": 0.0256
+    },
+    "base": {
+     "expert": 0.08253333333333333,
+     "fpr": 0.002560441183711655,
+     "right_unconf": 0.009866666666666666,
+     "won": 0.8838222222222222,
+     "wrong": 0.023777777777777776,
+     "wrong_incl_right_unconf": 0.03364444444444444
+    },
+    "both": {
+     "expert": 0.21795555555555557,
+     "fpr": 0.1335860948348023,
+     "right_unconf": 0.0,
+     "won": 0.7820444444444444,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.10048888888888889,
+     "fpr": 0.011374267566103697,
+     "right_unconf": 0.008133333333333333,
+     "won": 0.8798222222222222,
+     "wrong": 0.011555555555555555,
+     "wrong_incl_right_unconf": 0.019688888888888888
+    },
+    "committed": {
+     "expert": 0.08253333333333333,
+     "fpr": 0.002560441183711655,
+     "right_unconf": 0.009866666666666666,
+     "won": 0.8838222222222222,
+     "wrong": 0.023777777777777776,
+     "wrong_incl_right_unconf": 0.03364444444444444
+    },
+    "games": 22500,
+    "in_pool": 20309,
+    "veto": {
+     "expert": 0.11617777777777778,
+     "fpr": 0.020828204244423654,
+     "right_unconf": 0.0,
+     "won": 0.8838222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.09648888888888889,
+     "fpr": 0.006942734748141218,
+     "right_unconf": 0.008133333333333333,
+     "won": 0.8838222222222222,
+     "wrong": 0.011555555555555555,
+     "wrong_incl_right_unconf": 0.019688888888888888
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 535
+   },
+   "veto_catch": {
+    "n": 535,
+    "share": 1.0,
+    "share_tol1": 0.514018691588785
+   },
+   "veto_gives_up_right": {
+    "n": 222,
+    "share": 1.0
+   }
+  },
+  "st2_d3_f0.1": {
+   "alarm_before_win": {
+    "n": 19311,
+    "share": 0.20314846460566516,
+    "share_tol1": 0.015638755113665786
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 7030,
+    "q25": 3,
+    "q75": 10
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2234,
+    "share": 0.9677708146821844,
+    "soft_expert": 0.8088630259623992
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.31608888888888886,
+     "fpr": 0.2406987071943156,
+     "right_unconf": 0.0,
+     "won": 0.6839111111111111,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.12022222222222222,
+     "fpr": 0.03715582749432547,
+     "right_unconf": 0.014533333333333334,
+     "won": 0.8448444444444444,
+     "wrong": 0.0204,
+     "wrong_incl_right_unconf": 0.03493333333333333
+    },
+    "base": {
+     "expert": 0.08764444444444444,
+     "fpr": 0.008141715187999604,
+     "right_unconf": 0.01937777777777778,
+     "won": 0.8582666666666666,
+     "wrong": 0.03471111111111111,
+     "wrong_incl_right_unconf": 0.05408888888888889
+    },
+    "both": {
+     "expert": 0.31608888888888886,
+     "fpr": 0.2406987071943156,
+     "right_unconf": 0.0,
+     "won": 0.6839111111111111,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.12746666666666667,
+     "fpr": 0.03888285798874963,
+     "right_unconf": 0.013466666666666667,
+     "won": 0.8448444444444444,
+     "wrong": 0.014222222222222223,
+     "wrong_incl_right_unconf": 0.027688888888888888
+    },
+    "committed": {
+     "expert": 0.08764444444444444,
+     "fpr": 0.008141715187999604,
+     "right_unconf": 0.01937777777777778,
+     "won": 0.8582666666666666,
+     "wrong": 0.03471111111111111,
+     "wrong_incl_right_unconf": 0.05408888888888889
+    },
+    "games": 22500,
+    "in_pool": 20266,
+    "veto": {
+     "expert": 0.14173333333333332,
+     "fpr": 0.04712326063357347,
+     "right_unconf": 0.0,
+     "won": 0.8582666666666666,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.11404444444444445,
+     "fpr": 0.023981052008289747,
+     "right_unconf": 0.013466666666666667,
+     "won": 0.8582666666666666,
+     "wrong": 0.014222222222222223,
+     "wrong_incl_right_unconf": 0.027688888888888888
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 781
+   },
+   "veto_catch": {
+    "n": 781,
+    "share": 1.0,
+    "share_tol1": 0.5902688860435339
+   },
+   "veto_gives_up_right": {
+    "n": 436,
+    "share": 1.0
+   }
+  },
+  "st2_d4_f0.0": {
+   "alarm_before_win": {
+    "n": 6743,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 3,
+    "n": 730,
+    "q25": 0,
+    "q75": 6
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 754,
+    "share": 0.9681697612732095,
+    "soft_expert": 0.786472148541114
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.10093333333333333,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.0828,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.018133333333333335,
+     "wrong_incl_right_unconf": 0.018133333333333335
+    },
+    "base": {
+     "expert": 0.07946666666666667,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.021466666666666665,
+     "wrong_incl_right_unconf": 0.021466666666666665
+    },
+    "both": {
+     "expert": 0.10093333333333333,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.09346666666666667,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.007466666666666667,
+     "wrong_incl_right_unconf": 0.007466666666666667
+    },
+    "committed": {
+     "expert": 0.07946666666666667,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.021466666666666665,
+     "wrong_incl_right_unconf": 0.021466666666666665
+    },
+    "games": 7500,
+    "in_pool": 6746,
+    "veto": {
+     "expert": 0.10093333333333333,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.09346666666666667,
+     "fpr": 0.0004447079750963534,
+     "right_unconf": 0.0,
+     "won": 0.8990666666666667,
+     "wrong": 0.007466666666666667,
+     "wrong_incl_right_unconf": 0.007466666666666667
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 161
+   },
+   "veto_catch": {
+    "n": 161,
+    "share": 1.0,
+    "share_tol1": 0.6521739130434783
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d4_f0.05": {
+   "alarm_before_win": {
+    "n": 19896,
+    "share": 0.12133092078809811,
+    "share_tol1": 0.006332931242460796
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 4938,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2254,
+    "share": 0.9685004436557232,
+    "soft_expert": 0.7972493345164152
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.22302222222222223,
+     "fpr": 0.1365207942309592,
+     "right_unconf": 0.0,
+     "won": 0.7769777777777778,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.09724444444444444,
+     "fpr": 0.013335967598537982,
+     "right_unconf": 0.005911111111111111,
+     "won": 0.8786666666666667,
+     "wrong": 0.01817777777777778,
+     "wrong_incl_right_unconf": 0.02408888888888889
+    },
+    "base": {
+     "expert": 0.08288888888888889,
+     "fpr": 0.0033586881359280846,
+     "right_unconf": 0.007333333333333333,
+     "won": 0.8842666666666666,
+     "wrong": 0.02551111111111111,
+     "wrong_incl_right_unconf": 0.03284444444444445
+    },
+    "both": {
+     "expert": 0.22302222222222223,
+     "fpr": 0.1365207942309592,
+     "right_unconf": 0.0,
+     "won": 0.7769777777777778,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.10515555555555556,
+     "fpr": 0.01363232243406105,
+     "right_unconf": 0.0057777777777777775,
+     "won": 0.8786666666666667,
+     "wrong": 0.0104,
+     "wrong_incl_right_unconf": 0.016177777777777777
+    },
+    "committed": {
+     "expert": 0.08288888888888889,
+     "fpr": 0.0033586881359280846,
+     "right_unconf": 0.007333333333333333,
+     "won": 0.8842666666666666,
+     "wrong": 0.02551111111111111,
+     "wrong_incl_right_unconf": 0.03284444444444445
+    },
+    "games": 22500,
+    "in_pool": 20246,
+    "veto": {
+     "expert": 0.11573333333333333,
+     "fpr": 0.0172873654055122,
+     "right_unconf": 0.0,
+     "won": 0.8842666666666666,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.09955555555555555,
+     "fpr": 0.007408870888076657,
+     "right_unconf": 0.0057777777777777775,
+     "won": 0.8842666666666666,
+     "wrong": 0.0104,
+     "wrong_incl_right_unconf": 0.016177777777777777
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 574
+   },
+   "veto_catch": {
+    "n": 574,
+    "share": 1.0,
+    "share_tol1": 0.5923344947735192
+   },
+   "veto_gives_up_right": {
+    "n": 165,
+    "share": 1.0
+   }
+  },
+  "st2_d4_f0.1": {
+   "alarm_before_win": {
+    "n": 19329,
+    "share": 0.2233431631227689,
+    "share_tol1": 0.021729008225981686
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 7412,
+    "q25": 3,
+    "q75": 10
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2280,
+    "share": 0.9697368421052631,
+    "soft_expert": 0.7846491228070176
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.3328,
+     "fpr": 0.257566765578635,
+     "right_unconf": 0.0,
+     "won": 0.6672,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.12773333333333334,
+     "fpr": 0.044164193867457964,
+     "right_unconf": 0.011422222222222222,
+     "won": 0.8404,
+     "wrong": 0.020444444444444446,
+     "wrong_incl_right_unconf": 0.03186666666666667
+    },
+    "base": {
+     "expert": 0.08786666666666666,
+     "fpr": 0.009297725024727992,
+     "right_unconf": 0.016844444444444443,
+     "won": 0.8590666666666666,
+     "wrong": 0.036222222222222225,
+     "wrong_incl_right_unconf": 0.053066666666666665
+    },
+    "both": {
+     "expert": 0.3328,
+     "fpr": 0.257566765578635,
+     "right_unconf": 0.0,
+     "won": 0.6672,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.13471111111111111,
+     "fpr": 0.045103857566765576,
+     "right_unconf": 0.010888888888888889,
+     "won": 0.8404,
+     "wrong": 0.014,
+     "wrong_incl_right_unconf": 0.024888888888888887
+    },
+    "committed": {
+     "expert": 0.08786666666666666,
+     "fpr": 0.009297725024727992,
+     "right_unconf": 0.016844444444444443,
+     "won": 0.8590666666666666,
+     "wrong": 0.036222222222222225,
+     "wrong_incl_right_unconf": 0.053066666666666665
+    },
+    "games": 22500,
+    "in_pool": 20220,
+    "veto": {
+     "expert": 0.14093333333333333,
+     "fpr": 0.04406528189910979,
+     "right_unconf": 0.0,
+     "won": 0.8590666666666666,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.11604444444444445,
+     "fpr": 0.02433234421364985,
+     "right_unconf": 0.010888888888888889,
+     "won": 0.8590666666666666,
+     "wrong": 0.014,
+     "wrong_incl_right_unconf": 0.024888888888888887
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 815
+   },
+   "veto_catch": {
+    "n": 815,
+    "share": 1.0,
+    "share_tol1": 0.6134969325153374
+   },
+   "veto_gives_up_right": {
+    "n": 379,
+    "share": 1.0
+   }
+  },
+  "st2_d6_f0.0": {
+   "alarm_before_win": {
+    "n": 6738,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 4,
+    "n": 737,
+    "q25": 1,
+    "q75": 7
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 759,
+    "share": 0.9710144927536232,
+    "soft_expert": 0.7733860342555995
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.1016,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.08293333333333333,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.018666666666666668,
+     "wrong_incl_right_unconf": 0.018666666666666668
+    },
+    "base": {
+     "expert": 0.07866666666666666,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.022933333333333333,
+     "wrong_incl_right_unconf": 0.022933333333333333
+    },
+    "both": {
+     "expert": 0.1016,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.094,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.0076,
+     "wrong_incl_right_unconf": 0.0076
+    },
+    "committed": {
+     "expert": 0.07866666666666666,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.022933333333333333,
+     "wrong_incl_right_unconf": 0.022933333333333333
+    },
+    "games": 7500,
+    "in_pool": 6741,
+    "veto": {
+     "expert": 0.1016,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.094,
+     "fpr": 0.0004450378282153983,
+     "right_unconf": 0.0,
+     "won": 0.8984,
+     "wrong": 0.0076,
+     "wrong_incl_right_unconf": 0.0076
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 172
+   },
+   "veto_catch": {
+    "n": 172,
+    "share": 1.0,
+    "share_tol1": 0.6686046511627907
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d6_f0.05": {
+   "alarm_before_win": {
+    "n": 19933,
+    "share": 0.14052074449405508,
+    "share_tol1": 0.007675713640696333
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 5294,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2252,
+    "share": 0.9711367673179396,
+    "soft_expert": 0.7948490230905861
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.23857777777777778,
+     "fpr": 0.15389174239431055,
+     "right_unconf": 0.0,
+     "won": 0.7614222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.09911111111111111,
+     "fpr": 0.015310154089292769,
+     "right_unconf": 0.004577777777777778,
+     "won": 0.8791111111111111,
+     "wrong": 0.0172,
+     "wrong_incl_right_unconf": 0.021777777777777778
+    },
+    "base": {
+     "expert": 0.08306666666666666,
+     "fpr": 0.003901619913077835,
+     "right_unconf": 0.0064444444444444445,
+     "won": 0.8859111111111111,
+     "wrong": 0.024577777777777778,
+     "wrong_incl_right_unconf": 0.031022222222222222
+    },
+    "both": {
+     "expert": 0.23857777777777778,
+     "fpr": 0.15389174239431055,
+     "right_unconf": 0.0,
+     "won": 0.7614222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.10844444444444444,
+     "fpr": 0.015804030027657054,
+     "right_unconf": 0.004355555555555555,
+     "won": 0.8791111111111111,
+     "wrong": 0.008088888888888889,
+     "wrong_incl_right_unconf": 0.012444444444444444
+    },
+    "committed": {
+     "expert": 0.08306666666666666,
+     "fpr": 0.003901619913077835,
+     "right_unconf": 0.0064444444444444445,
+     "won": 0.8859111111111111,
+     "wrong": 0.024577777777777778,
+     "wrong_incl_right_unconf": 0.031022222222222222
+    },
+    "games": 22500,
+    "in_pool": 20248,
+    "veto": {
+     "expert": 0.11408888888888889,
+     "fpr": 0.01555709205847491,
+     "right_unconf": 0.0,
+     "won": 0.8859111111111111,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.10164444444444444,
+     "fpr": 0.008247728170683524,
+     "right_unconf": 0.004355555555555555,
+     "won": 0.8859111111111111,
+     "wrong": 0.008088888888888889,
+     "wrong_incl_right_unconf": 0.012444444444444444
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 553
+   },
+   "veto_catch": {
+    "n": 553,
+    "share": 1.0,
+    "share_tol1": 0.6708860759493671
+   },
+   "veto_gives_up_right": {
+    "n": 145,
+    "share": 1.0
+   }
+  },
+  "st2_d6_f0.1": {
+   "alarm_before_win": {
+    "n": 19326,
+    "share": 0.2560281486080927,
+    "share_tol1": 0.028717789506364482
+   },
+   "alarm_questions_saved": {
+    "median": 7,
+    "n": 8049,
+    "q25": 4,
+    "q75": 10
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2275,
+    "share": 0.9718681318681318,
+    "soft_expert": 0.7789010989010989
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.3609777777777778,
+     "fpr": 0.28909765142150806,
+     "right_unconf": 0.0,
+     "won": 0.6390222222222223,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.14137777777777777,
+     "fpr": 0.058294190358467245,
+     "right_unconf": 0.007511111111111111,
+     "won": 0.8342666666666667,
+     "wrong": 0.016844444444444443,
+     "wrong_incl_right_unconf": 0.024355555555555554
+    },
+    "base": {
+     "expert": 0.09035555555555555,
+     "fpr": 0.012904820766378245,
+     "right_unconf": 0.015288888888888888,
+     "won": 0.8589333333333333,
+     "wrong": 0.03542222222222222,
+     "wrong_incl_right_unconf": 0.05071111111111111
+    },
+    "both": {
+     "expert": 0.3609777777777778,
+     "fpr": 0.28909765142150806,
+     "right_unconf": 0.0,
+     "won": 0.6390222222222223,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.14924444444444446,
+     "fpr": 0.05898640296662546,
+     "right_unconf": 0.0071111111111111115,
+     "won": 0.8342666666666667,
+     "wrong": 0.009377777777777778,
+     "wrong_incl_right_unconf": 0.01648888888888889
+    },
+    "committed": {
+     "expert": 0.09035555555555555,
+     "fpr": 0.012904820766378245,
+     "right_unconf": 0.015288888888888888,
+     "won": 0.8589333333333333,
+     "wrong": 0.03542222222222222,
+     "wrong_incl_right_unconf": 0.05071111111111111
+    },
+    "games": 22500,
+    "in_pool": 20225,
+    "veto": {
+     "expert": 0.14106666666666667,
+     "fpr": 0.044449938195302845,
+     "right_unconf": 0.0,
+     "won": 0.8589333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.12457777777777777,
+     "fpr": 0.0315451174289246,
+     "right_unconf": 0.0071111111111111115,
+     "won": 0.8589333333333333,
+     "wrong": 0.009377777777777778,
+     "wrong_incl_right_unconf": 0.01648888888888889
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 797
+   },
+   "veto_catch": {
+    "n": 797,
+    "share": 1.0,
+    "share_tol1": 0.7352572145545797
+   },
+   "veto_gives_up_right": {
+    "n": 344,
+    "share": 1.0
+   }
+  },
+  "st2_d8_f0.0": {
+   "alarm_before_win": {
+    "n": 6707,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 4,
+    "n": 766,
+    "q25": 2,
+    "q75": 7
+   },
+   "games": 7500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 790,
+    "share": 0.9696202531645569,
+    "soft_expert": 0.7443037974683544
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.10573333333333333,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.0824,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.023333333333333334,
+     "wrong_incl_right_unconf": 0.023333333333333334
+    },
+    "base": {
+     "expert": 0.0788,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.026933333333333333,
+     "wrong_incl_right_unconf": 0.026933333333333333
+    },
+    "both": {
+     "expert": 0.10573333333333333,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.09866666666666667,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.007066666666666666,
+     "wrong_incl_right_unconf": 0.007066666666666666
+    },
+    "committed": {
+     "expert": 0.0788,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.026933333333333333,
+     "wrong_incl_right_unconf": 0.026933333333333333
+    },
+    "games": 7500,
+    "in_pool": 6710,
+    "veto": {
+     "expert": 0.10573333333333333,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.09866666666666667,
+     "fpr": 0.00044709388971684054,
+     "right_unconf": 0.0,
+     "won": 0.8942666666666667,
+     "wrong": 0.007066666666666666,
+     "wrong_incl_right_unconf": 0.007066666666666666
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 202
+   },
+   "veto_catch": {
+    "n": 202,
+    "share": 1.0,
+    "share_tol1": 0.7376237623762376
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st2_d8_f0.05": {
+   "alarm_before_win": {
+    "n": 19825,
+    "share": 0.14900378310214377,
+    "share_tol1": 0.009836065573770493
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 5549,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2290,
+    "share": 0.9689956331877729,
+    "soft_expert": 0.7786026200873363
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.2501777777777778,
+     "fpr": 0.16521523998020782,
+     "right_unconf": 0.0,
+     "won": 0.7498222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.10493333333333334,
+     "fpr": 0.019841662543295398,
+     "right_unconf": 0.004622222222222222,
+     "won": 0.8724444444444445,
+     "wrong": 0.018,
+     "wrong_incl_right_unconf": 0.02262222222222222
+    },
+    "base": {
+     "expert": 0.08377777777777778,
+     "fpr": 0.005047006432459178,
+     "right_unconf": 0.0067555555555555554,
+     "won": 0.8811111111111111,
+     "wrong": 0.028355555555555554,
+     "wrong_incl_right_unconf": 0.035111111111111114
+    },
+    "both": {
+     "expert": 0.2501777777777778,
+     "fpr": 0.16521523998020782,
+     "right_unconf": 0.0,
+     "won": 0.7498222222222222,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.11475555555555556,
+     "fpr": 0.02008906481939634,
+     "right_unconf": 0.004488888888888889,
+     "won": 0.8724444444444445,
+     "wrong": 0.008311111111111111,
+     "wrong_incl_right_unconf": 0.0128
+    },
+    "committed": {
+     "expert": 0.08377777777777778,
+     "fpr": 0.005047006432459178,
+     "right_unconf": 0.0067555555555555554,
+     "won": 0.8811111111111111,
+     "wrong": 0.028355555555555554,
+     "wrong_incl_right_unconf": 0.035111111111111114
+    },
+    "games": 22500,
+    "in_pool": 20210,
+    "veto": {
+     "expert": 0.11888888888888889,
+     "fpr": 0.01904997525977239,
+     "right_unconf": 0.0,
+     "won": 0.8811111111111111,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.10608888888888889,
+     "fpr": 0.010440376051459673,
+     "right_unconf": 0.004488888888888889,
+     "won": 0.8811111111111111,
+     "wrong": 0.008311111111111111,
+     "wrong_incl_right_unconf": 0.0128
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 638
+   },
+   "veto_catch": {
+    "n": 638,
+    "share": 1.0,
+    "share_tol1": 0.7068965517241379
+   },
+   "veto_gives_up_right": {
+    "n": 152,
+    "share": 1.0
+   }
+  },
+  "st2_d8_f0.1": {
+   "alarm_before_win": {
+    "n": 19188,
+    "share": 0.279810298102981,
+    "share_tol1": 0.035490931832395246
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 8601,
+    "q25": 4,
+    "q75": 10
+   },
+   "games": 22500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 2302,
+    "share": 0.9691572545612511,
+    "soft_expert": 0.7736750651607298
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.38582222222222223,
+     "fpr": 0.31582334884642044,
+     "right_unconf": 0.0,
+     "won": 0.6141777777777778,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.15222222222222223,
+     "fpr": 0.07055153975641153,
+     "right_unconf": 0.006266666666666667,
+     "won": 0.8225333333333333,
+     "wrong": 0.018977777777777777,
+     "wrong_incl_right_unconf": 0.025244444444444444
+    },
+    "base": {
+     "expert": 0.09395555555555556,
+     "fpr": 0.01648678086939301,
+     "right_unconf": 0.014622222222222222,
+     "won": 0.8528,
+     "wrong": 0.038622222222222224,
+     "wrong_incl_right_unconf": 0.05324444444444444
+    },
+    "both": {
+     "expert": 0.38582222222222223,
+     "fpr": 0.31582334884642044,
+     "right_unconf": 0.0,
+     "won": 0.6141777777777778,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.1620888888888889,
+     "fpr": 0.07129418754332112,
+     "right_unconf": 0.005955555555555556,
+     "won": 0.8225333333333333,
+     "wrong": 0.009422222222222222,
+     "wrong_incl_right_unconf": 0.015377777777777778
+    },
+    "committed": {
+     "expert": 0.09395555555555556,
+     "fpr": 0.01648678086939301,
+     "right_unconf": 0.014622222222222222,
+     "won": 0.8528,
+     "wrong": 0.038622222222222224,
+     "wrong_incl_right_unconf": 0.05324444444444444
+    },
+    "games": 22500,
+    "in_pool": 20198,
+    "veto": {
+     "expert": 0.1472,
+     "fpr": 0.050004950985246065,
+     "right_unconf": 0.0,
+     "won": 0.8528,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.13182222222222223,
+     "fpr": 0.03757797801762551,
+     "right_unconf": 0.005955555555555556,
+     "won": 0.8528,
+     "wrong": 0.009422222222222222,
+     "wrong_incl_right_unconf": 0.015377777777777778
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 869
+   },
+   "veto_catch": {
+    "n": 869,
+    "share": 1.0,
+    "share_tol1": 0.7560414269275029
+   },
+   "veto_gives_up_right": {
+    "n": 329,
+    "share": 1.0
+   }
+  },
+  "st3_s0.0_f0.0": {
+   "alarm_before_win": {
+    "n": 14670,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 0,
+    "n": 303,
+    "q25": 0,
+    "q75": 0
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": NaN,
+    "alarm_or_soft_expert": 1.0,
+    "n": 328,
+    "share": 0.9237804878048781,
+    "soft_expert": 1.0
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "base": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "committed": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 15000,
+    "in_pool": 14672,
+    "veto": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.022,
+     "fpr": 0.00013631406761177754,
+     "right_unconf": 0.0,
+     "won": 0.978,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    }
+   },
+   "surv_end_in_wrong": {},
+   "veto_catch": {
+    "n": 0,
+    "share": NaN,
+    "share_tol1": NaN
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st3_s0.0_f0.05": {
+   "alarm_before_win": {
+    "n": 29191,
+    "share": 0.0883491487102189,
+    "share_tol1": 0.0036655133431537116
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 3334,
+    "q25": 4,
+    "q75": 9
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 658,
+    "share": 0.9240121580547113,
+    "soft_expert": 0.9969604863221885
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.11293333333333333,
+     "fpr": 0.09304069252266375,
+     "right_unconf": 0.0,
+     "won": 0.8870666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.027166666666666665,
+     "fpr": 0.005384772680798855,
+     "right_unconf": 0.0020666666666666667,
+     "won": 0.9694666666666667,
+     "wrong": 0.0013,
+     "wrong_incl_right_unconf": 0.0033666666666666667
+    },
+    "base": {
+     "expert": 0.0227,
+     "fpr": 0.0008520209937972872,
+     "right_unconf": 0.002533333333333333,
+     "won": 0.9730333333333333,
+     "wrong": 0.0017333333333333333,
+     "wrong_incl_right_unconf": 0.004266666666666667
+    },
+    "both": {
+     "expert": 0.11293333333333333,
+     "fpr": 0.09304069252266375,
+     "right_unconf": 0.0,
+     "won": 0.8870666666666667,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.027166666666666665,
+     "fpr": 0.005384772680798855,
+     "right_unconf": 0.0020666666666666667,
+     "won": 0.9694666666666667,
+     "wrong": 0.0013,
+     "wrong_incl_right_unconf": 0.0033666666666666667
+    },
+    "committed": {
+     "expert": 0.0227,
+     "fpr": 0.0008520209937972872,
+     "right_unconf": 0.002533333333333333,
+     "won": 0.9730333333333333,
+     "wrong": 0.0017333333333333333,
+     "wrong_incl_right_unconf": 0.004266666666666667
+    },
+    "games": 30000,
+    "in_pool": 29342,
+    "veto": {
+     "expert": 0.026966666666666667,
+     "fpr": 0.005146206802535615,
+     "right_unconf": 0.0,
+     "won": 0.9730333333333333,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.0236,
+     "fpr": 0.0017381228273464658,
+     "right_unconf": 0.0020666666666666667,
+     "won": 0.9730333333333333,
+     "wrong": 0.0013,
+     "wrong_incl_right_unconf": 0.0033666666666666667
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 52
+   },
+   "veto_catch": {
+    "n": 52,
+    "share": 1.0,
+    "share_tol1": 0.25
+   },
+   "veto_gives_up_right": {
+    "n": 76,
+    "share": 1.0
+   }
+  },
+  "st3_s0.25_f0.0": {
+   "alarm_before_win": {
+    "n": 14145,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 1,
+    "n": 825,
+    "q25": 0,
+    "q75": 5
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 1.0,
+    "alarm_or_soft_expert": 1.0,
+    "n": 853,
+    "share": 0.9671746776084408,
+    "soft_expert": 0.7936694021101993
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.057,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "alarm1": {
+     "expert": 0.04526666666666666,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.011733333333333333,
+     "wrong_incl_right_unconf": 0.011733333333333333
+    },
+    "base": {
+     "expert": 0.04526666666666666,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.011733333333333333,
+     "wrong_incl_right_unconf": 0.011733333333333333
+    },
+    "both": {
+     "expert": 0.057,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "both1": {
+     "expert": 0.0494,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.0076,
+     "wrong_incl_right_unconf": 0.0076
+    },
+    "committed": {
+     "expert": 0.04526666666666666,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.011733333333333333,
+     "wrong_incl_right_unconf": 0.011733333333333333
+    },
+    "games": 15000,
+    "in_pool": 14147,
+    "veto": {
+     "expert": 0.057,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "veto1": {
+     "expert": 0.0494,
+     "fpr": 0.0001413727292005372,
+     "right_unconf": 0.0,
+     "won": 0.943,
+     "wrong": 0.0076,
+     "wrong_incl_right_unconf": 0.0076
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 176
+   },
+   "veto_catch": {
+    "n": 176,
+    "share": 1.0,
+    "share_tol1": 0.3522727272727273
+   },
+   "veto_gives_up_right": {
+    "n": 0,
+    "share": NaN
+   }
+  },
+  "st3_s0.25_f0.05": {
+   "alarm_before_win": {
+    "n": 27863,
+    "share": 0.108818145928292,
+    "share_tol1": 0.005275813803251624
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 5101,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.983739837398374,
+    "alarm_or_soft_expert": 0.9964912280701754,
+    "n": 1710,
+    "share": 0.9637426900584796,
+    "soft_expert": 0.7842105263157895
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.17203333333333334,
+     "fpr": 0.12219865676917639,
+     "right_unconf": 6.666666666666667e-05,
+     "won": 0.8277,
+     "wrong": 0.0002,
+     "wrong_incl_right_unconf": 0.0002666666666666667
+    },
+    "alarm1": {
+     "expert": 0.05536666666666667,
+     "fpr": 0.00989749027925062,
+     "right_unconf": 0.0042,
+     "won": 0.9238666666666666,
+     "wrong": 0.016566666666666667,
+     "wrong_incl_right_unconf": 0.020766666666666666
+    },
+    "base": {
+     "expert": 0.04663333333333333,
+     "fpr": 0.002050194414987628,
+     "right_unconf": 0.0053,
+     "won": 0.9287666666666666,
+     "wrong": 0.0193,
+     "wrong_incl_right_unconf": 0.0246
+    },
+    "both": {
+     "expert": 0.17203333333333334,
+     "fpr": 0.12219865676917639,
+     "right_unconf": 6.666666666666667e-05,
+     "won": 0.8277,
+     "wrong": 0.0002,
+     "wrong_incl_right_unconf": 0.0002666666666666667
+    },
+    "both1": {
+     "expert": 0.05823333333333333,
+     "fpr": 0.009968186638388122,
+     "right_unconf": 0.004166666666666667,
+     "won": 0.9238666666666666,
+     "wrong": 0.013733333333333334,
+     "wrong_incl_right_unconf": 0.0179
+    },
+    "committed": {
+     "expert": 0.04663333333333333,
+     "fpr": 0.002050194414987628,
+     "right_unconf": 0.0053,
+     "won": 0.9287666666666666,
+     "wrong": 0.0193,
+     "wrong_incl_right_unconf": 0.0246
+    },
+    "games": 30000,
+    "in_pool": 28290,
+    "veto": {
+     "expert": 0.07096666666666666,
+     "fpr": 0.015022976316719689,
+     "right_unconf": 6.666666666666667e-05,
+     "won": 0.9287666666666666,
+     "wrong": 0.0002,
+     "wrong_incl_right_unconf": 0.0002666666666666667
+    },
+    "veto1": {
+     "expert": 0.05333333333333334,
+     "fpr": 0.004772004241781549,
+     "right_unconf": 0.004166666666666667,
+     "won": 0.9287666666666666,
+     "wrong": 0.013733333333333334,
+     "wrong_incl_right_unconf": 0.0179
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 573,
+    "1": 6
+   },
+   "veto_catch": {
+    "n": 579,
+    "share": 0.9896373056994818,
+    "share_tol1": 0.28842832469775476
+   },
+   "veto_gives_up_right": {
+    "n": 159,
+    "share": 0.9874213836477987
+   }
+  },
+  "st3_s0.5_f0.0": {
+   "alarm_before_win": {
+    "n": 12734,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 4,
+    "n": 2031,
+    "q25": 2,
+    "q75": 8
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.8890374331550802,
+    "alarm_or_soft_expert": 0.926254997778765,
+    "n": 2251,
+    "share": 0.902265659706797,
+    "soft_expert": 0.3354064860062195
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.13913333333333333,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.011066666666666667,
+     "wrong_incl_right_unconf": 0.011933333333333334
+    },
+    "alarm1": {
+     "expert": 0.05073333333333333,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.09946666666666666,
+     "wrong_incl_right_unconf": 0.10033333333333333
+    },
+    "base": {
+     "expert": 0.05046666666666667,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.09973333333333333,
+     "wrong_incl_right_unconf": 0.1006
+    },
+    "both": {
+     "expert": 0.13913333333333333,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.011066666666666667,
+     "wrong_incl_right_unconf": 0.011933333333333334
+    },
+    "both1": {
+     "expert": 0.07073333333333333,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.07946666666666667,
+     "wrong_incl_right_unconf": 0.08033333333333334
+    },
+    "committed": {
+     "expert": 0.05046666666666667,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.09973333333333333,
+     "wrong_incl_right_unconf": 0.1006
+    },
+    "games": 15000,
+    "in_pool": 12749,
+    "veto": {
+     "expert": 0.13913333333333333,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.011066666666666667,
+     "wrong_incl_right_unconf": 0.011933333333333334
+    },
+    "veto1": {
+     "expert": 0.07073333333333333,
+     "fpr": 0.0001568750490234528,
+     "right_unconf": 0.0008666666666666666,
+     "won": 0.8489333333333333,
+     "wrong": 0.07946666666666667,
+     "wrong_incl_right_unconf": 0.08033333333333334
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 1330,
+    "1": 166
+   },
+   "veto_catch": {
+    "n": 1496,
+    "share": 0.8890374331550802,
+    "share_tol1": 0.20320855614973263
+   },
+   "veto_gives_up_right": {
+    "n": 13,
+    "share": 0.0
+   }
+  },
+  "st3_s0.5_f0.05": {
+   "alarm_before_win": {
+    "n": 24740,
+    "share": 0.10937752627324171,
+    "share_tol1": 0.003961196443007276
+   },
+   "alarm_questions_saved": {
+    "median": 7,
+    "n": 7434,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.8668487538409013,
+    "alarm_or_soft_expert": 0.912751677852349,
+    "n": 4470,
+    "share": 0.888814317673378,
+    "soft_expert": 0.3447427293064877
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.25153333333333333,
+     "fpr": 0.13576184880532707,
+     "right_unconf": 0.0009,
+     "won": 0.7344666666666667,
+     "wrong": 0.0131,
+     "wrong_incl_right_unconf": 0.014
+    },
+    "alarm1": {
+     "expert": 0.06676666666666667,
+     "fpr": 0.012260086173129651,
+     "right_unconf": 0.008966666666666666,
+     "won": 0.8214,
+     "wrong": 0.10286666666666666,
+     "wrong_incl_right_unconf": 0.11183333333333334
+    },
+    "base": {
+     "expert": 0.055933333333333335,
+     "fpr": 0.00536623580101841,
+     "right_unconf": 0.010133333333333333,
+     "won": 0.8246666666666667,
+     "wrong": 0.10926666666666666,
+     "wrong_incl_right_unconf": 0.1194
+    },
+    "both": {
+     "expert": 0.25153333333333333,
+     "fpr": 0.13576184880532707,
+     "right_unconf": 0.0009,
+     "won": 0.7344666666666667,
+     "wrong": 0.0131,
+     "wrong_incl_right_unconf": 0.014
+    },
+    "both1": {
+     "expert": 0.0804,
+     "fpr": 0.012260086173129651,
+     "right_unconf": 0.008966666666666666,
+     "won": 0.8214,
+     "wrong": 0.08923333333333333,
+     "wrong_incl_right_unconf": 0.0982
+    },
+    "committed": {
+     "expert": 0.055933333333333335,
+     "fpr": 0.00536623580101841,
+     "right_unconf": 0.010133333333333333,
+     "won": 0.8246666666666667,
+     "wrong": 0.10926666666666666,
+     "wrong_incl_right_unconf": 0.1194
+    },
+    "games": 30000,
+    "in_pool": 25530,
+    "veto": {
+     "expert": 0.16133333333333333,
+     "fpr": 0.029768899334116725,
+     "right_unconf": 0.0009,
+     "won": 0.8246666666666667,
+     "wrong": 0.0131,
+     "wrong_incl_right_unconf": 0.014
+    },
+    "veto1": {
+     "expert": 0.07713333333333333,
+     "fpr": 0.008421464943204074,
+     "right_unconf": 0.008966666666666666,
+     "won": 0.8246666666666667,
+     "wrong": 0.08923333333333333,
+     "wrong_incl_right_unconf": 0.0982
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 2885,
+    "1": 393
+   },
+   "veto_catch": {
+    "n": 3278,
+    "share": 0.8801098230628432,
+    "share_tol1": 0.18334350213544845
+   },
+   "veto_gives_up_right": {
+    "n": 304,
+    "share": 0.9111842105263158
+   }
+  },
+  "st3_s0.75_f0.0": {
+   "alarm_before_win": {
+    "n": 7524,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 5,
+    "n": 6458,
+    "q25": 3,
+    "q75": 8
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.8723534826633936,
+    "alarm_or_soft_expert": 0.8875219683655536,
+    "n": 7397,
+    "share": 0.8730566445856428,
+    "soft_expert": 0.11883195890225767
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.4386,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.055933333333333335,
+     "wrong_incl_right_unconf": 0.0598
+    },
+    "alarm1": {
+     "expert": 0.06113333333333333,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.4334,
+     "wrong_incl_right_unconf": 0.4372666666666667
+    },
+    "base": {
+     "expert": 0.059533333333333334,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.435,
+     "wrong_incl_right_unconf": 0.4388666666666667
+    },
+    "both": {
+     "expert": 0.4386,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.055933333333333335,
+     "wrong_incl_right_unconf": 0.0598
+    },
+    "both1": {
+     "expert": 0.10866666666666666,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.3858666666666667,
+     "wrong_incl_right_unconf": 0.3897333333333333
+    },
+    "committed": {
+     "expert": 0.059533333333333334,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.435,
+     "wrong_incl_right_unconf": 0.4388666666666667
+    },
+    "games": 15000,
+    "in_pool": 7603,
+    "veto": {
+     "expert": 0.4386,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.055933333333333335,
+     "wrong_incl_right_unconf": 0.0598
+    },
+    "veto1": {
+     "expert": 0.10866666666666666,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.3858666666666667,
+     "wrong_incl_right_unconf": 0.3897333333333333
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 5686,
+    "1": 738,
+    "2+": 101
+   },
+   "veto_catch": {
+    "n": 6525,
+    "share": 0.8714176245210727,
+    "share_tol1": 0.11295019157088122
+   },
+   "veto_gives_up_right": {
+    "n": 58,
+    "share": 0.0
+   }
+  },
+  "st3_s0.75_f0.05": {
+   "alarm_before_win": {
+    "n": 14513,
+    "share": 0.09715427547715841,
+    "share_tol1": 0.0035829945566044235
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 14970,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 30000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.8780373466677084,
+    "alarm_or_soft_expert": 0.8933961619886636,
+    "n": 14643,
+    "share": 0.8782353342894216,
+    "soft_expert": 0.1259304787270368
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.5076333333333334,
+     "fpr": 0.13980595168327148,
+     "right_unconf": 0.0024666666666666665,
+     "won": 0.4367666666666667,
+     "wrong": 0.05313333333333333,
+     "wrong_incl_right_unconf": 0.0556
+    },
+    "alarm1": {
+     "expert": 0.08883333333333333,
+     "fpr": 0.016409454971674155,
+     "right_unconf": 0.008766666666666667,
+     "won": 0.4820333333333333,
+     "wrong": 0.42036666666666667,
+     "wrong_incl_right_unconf": 0.4291333333333333
+    },
+    "base": {
+     "expert": 0.0663,
+     "fpr": 0.009441948297193463,
+     "right_unconf": 0.0091,
+     "won": 0.4837666666666667,
+     "wrong": 0.44083333333333335,
+     "wrong_incl_right_unconf": 0.44993333333333335
+    },
+    "both": {
+     "expert": 0.5076333333333334,
+     "fpr": 0.13980595168327148,
+     "right_unconf": 0.0024666666666666665,
+     "won": 0.4367666666666667,
+     "wrong": 0.05313333333333333,
+     "wrong_incl_right_unconf": 0.0556
+    },
+    "both1": {
+     "expert": 0.12756666666666666,
+     "fpr": 0.017190857589372926,
+     "right_unconf": 0.008733333333333333,
+     "won": 0.4820333333333333,
+     "wrong": 0.38166666666666665,
+     "wrong_incl_right_unconf": 0.3904
+    },
+    "committed": {
+     "expert": 0.0663,
+     "fpr": 0.009441948297193463,
+     "right_unconf": 0.0091,
+     "won": 0.4837666666666667,
+     "wrong": 0.44083333333333335,
+     "wrong_incl_right_unconf": 0.44993333333333335
+    },
+    "games": 30000,
+    "in_pool": 15357,
+    "veto": {
+     "expert": 0.46063333333333334,
+     "fpr": 0.04799114410366608,
+     "right_unconf": 0.0024666666666666665,
+     "won": 0.4837666666666667,
+     "wrong": 0.05313333333333333,
+     "wrong_incl_right_unconf": 0.0556
+    },
+    "veto1": {
+     "expert": 0.12583333333333332,
+     "fpr": 0.013804779579344924,
+     "right_unconf": 0.008733333333333333,
+     "won": 0.4837666666666667,
+     "wrong": 0.38166666666666665,
+     "wrong_incl_right_unconf": 0.3904
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 11631,
+    "1": 1049,
+    "2+": 545
+   },
+   "veto_catch": {
+    "n": 13225,
+    "share": 0.8794706994328922,
+    "share_tol1": 0.1342155009451796
+   },
+   "veto_gives_up_right": {
+    "n": 273,
+    "share": 0.7289377289377289
+   }
+  }
+ },
+ "follow_on": {
+  "alarm_behind_reinstate": false,
+  "build_played_arm": false,
+  "include_alarm": false,
+  "rs3_one_bracket_only": false
+ },
+ "n_jobs": 219,
+ "run_dir": "llm_rl_scripts/twenty_questions/jev/results/stress_revshadow_20261116",
+ "scopes": {
+  "st2_all": {
+   "alarm_before_win": {
+    "n": 321821,
+    "share": 0.15336165135277063,
+    "share_tol1": 0.013336606374350959
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 93712,
+    "q25": 3,
+    "q75": 10
+   },
+   "games": 367500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9991351974632459,
+    "alarm_or_soft_expert": 0.9998351285996923,
+    "n": 36392,
+    "share": 0.9678775555067047,
+    "soft_expert": 0.8093537041107935
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.2585659863945578,
+     "fpr": 0.17709327470190994,
+     "right_unconf": 1.3605442176870749e-05,
+     "won": 0.741404081632653,
+     "wrong": 1.6326530612244897e-05,
+     "wrong_incl_right_unconf": 2.9931972789115647e-05
+    },
+    "alarm1": {
+     "expert": 0.11149659863945578,
+     "fpr": 0.028015028329125242,
+     "right_unconf": 0.007287074829931973,
+     "won": 0.8640244897959184,
+     "wrong": 0.017191836734693877,
+     "wrong_incl_right_unconf": 0.024478911564625852
+    },
+    "base": {
+     "expert": 0.08610884353741496,
+     "fpr": 0.0066171762687703105,
+     "right_unconf": 0.0106421768707483,
+     "won": 0.8757034013605443,
+     "wrong": 0.027545578231292518,
+     "wrong_incl_right_unconf": 0.03818775510204082
+    },
+    "both": {
+     "expert": 0.2585659863945578,
+     "fpr": 0.17709327470190994,
+     "right_unconf": 1.3605442176870749e-05,
+     "won": 0.741404081632653,
+     "wrong": 1.6326530612244897e-05,
+     "wrong_incl_right_unconf": 2.9931972789115647e-05
+    },
+    "both1": {
+     "expert": 0.11922448979591836,
+     "fpr": 0.028546576947702865,
+     "right_unconf": 0.006995918367346939,
+     "won": 0.8640244897959184,
+     "wrong": 0.009755102040816326,
+     "wrong_incl_right_unconf": 0.016751020408163265
+    },
+    "committed": {
+     "expert": 0.08610884353741496,
+     "fpr": 0.0066171762687703105,
+     "right_unconf": 0.0106421768707483,
+     "won": 0.8757034013605443,
+     "wrong": 0.027545578231292518,
+     "wrong_incl_right_unconf": 0.03818775510204082
+    },
+    "games": 367500,
+    "in_pool": 331108,
+    "veto": {
+     "expert": 0.12426666666666666,
+     "fpr": 0.02803314930475857,
+     "right_unconf": 1.3605442176870749e-05,
+     "won": 0.8757034013605443,
+     "wrong": 1.6326530612244897e-05,
+     "wrong_incl_right_unconf": 2.9931972789115647e-05
+    },
+    "veto1": {
+     "expert": 0.10754557823129252,
+     "fpr": 0.015584039044662164,
+     "right_unconf": 0.006995918367346939,
+     "won": 0.8757034013605443,
+     "wrong": 0.009755102040816326,
+     "wrong_incl_right_unconf": 0.016751020408163265
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 10117,
+    "1": 6
+   },
+   "veto_catch": {
+    "n": 10123,
+    "share": 0.9994072903289538,
+    "share_tol1": 0.6458559715499358
+   },
+   "veto_gives_up_right": {
+    "n": 3911,
+    "share": 0.998721554589619
+   }
+  },
+  "st2_d_le_2": {
+   "alarm_before_win": {
+    "n": 92328,
+    "share": 0.12449094532536176,
+    "share_tol1": 0.008610605666753314
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 23744,
+    "q25": 2,
+    "q75": 10
+   },
+   "games": 105000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9956300072833212,
+    "alarm_or_soft_expert": 0.9993959528843249,
+    "n": 9933,
+    "share": 0.9622470552703111,
+    "soft_expert": 0.861773885029699
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.23004761904761906,
+     "fpr": 0.1496628693447779,
+     "right_unconf": 4.761904761904762e-05,
+     "won": 0.769847619047619,
+     "wrong": 5.714285714285714e-05,
+     "wrong_incl_right_unconf": 0.00010476190476190476
+    },
+    "alarm1": {
+     "expert": 0.1019047619047619,
+     "fpr": 0.018902458266275363,
+     "right_unconf": 0.010819047619047619,
+     "won": 0.8717428571428572,
+     "wrong": 0.015533333333333333,
+     "wrong_incl_right_unconf": 0.026352380952380954
+    },
+    "base": {
+     "expert": 0.0851047619047619,
+     "fpr": 0.003955105346755446,
+     "right_unconf": 0.013066666666666667,
+     "won": 0.8793142857142857,
+     "wrong": 0.022514285714285716,
+     "wrong_incl_right_unconf": 0.03558095238095238
+    },
+    "both": {
+     "expert": 0.23004761904761906,
+     "fpr": 0.1496628693447779,
+     "right_unconf": 4.761904761904762e-05,
+     "won": 0.769847619047619,
+     "wrong": 5.714285714285714e-05,
+     "wrong_incl_right_unconf": 0.00010476190476190476
+    },
+    "both1": {
+     "expert": 0.10673333333333333,
+     "fpr": 0.01936528974302334,
+     "right_unconf": 0.010542857142857142,
+     "won": 0.8717428571428572,
+     "wrong": 0.010980952380952381,
+     "wrong_incl_right_unconf": 0.021523809523809525
+    },
+    "committed": {
+     "expert": 0.0851047619047619,
+     "fpr": 0.003955105346755446,
+     "right_unconf": 0.013066666666666667,
+     "won": 0.8793142857142857,
+     "wrong": 0.022514285714285716,
+     "wrong_incl_right_unconf": 0.03558095238095238
+    },
+    "games": 105000,
+    "in_pool": 95067,
+    "veto": {
+     "expert": 0.12058095238095239,
+     "fpr": 0.028758664941567525,
+     "right_unconf": 4.761904761904762e-05,
+     "won": 0.8793142857142857,
+     "wrong": 5.714285714285714e-05,
+     "wrong_incl_right_unconf": 0.00010476190476190476
+    },
+    "veto1": {
+     "expert": 0.09916190476190476,
+     "fpr": 0.01100276646996329,
+     "right_unconf": 0.010542857142857142,
+     "won": 0.8793142857142857,
+     "wrong": 0.010980952380952381,
+     "wrong_incl_right_unconf": 0.021523809523809525
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 2358,
+    "1": 6
+   },
+   "veto_catch": {
+    "n": 2364,
+    "share": 0.9974619289340102,
+    "share_tol1": 0.5122673434856176
+   },
+   "veto_gives_up_right": {
+    "n": 1372,
+    "share": 0.9963556851311953
+   }
+  },
+  "st2_noisy": {
+   "alarm_before_win": {
+    "n": 274543,
+    "share": 0.17977147477808578,
+    "share_tol1": 0.015633252350269355
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 88679,
+    "q25": 3,
+    "q75": 10
+   },
+   "games": 315000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.998989218328841,
+    "alarm_or_soft_expert": 0.999807636818313,
+    "n": 31191,
+    "share": 0.967907409188548,
+    "soft_expert": 0.8096886922509698
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.28508253968253966,
+     "fpr": 0.20653326709160033,
+     "right_unconf": 1.5873015873015872e-05,
+     "won": 0.7148825396825397,
+     "wrong": 1.9047619047619046e-05,
+     "wrong_incl_right_unconf": 3.492063492063492e-05
+    },
+    "alarm1": {
+     "expert": 0.1161047619047619,
+     "fpr": 0.03260995951502595,
+     "right_unconf": 0.008501587301587302,
+     "won": 0.8579396825396826,
+     "wrong": 0.017453968253968253,
+     "wrong_incl_right_unconf": 0.025955555555555555
+    },
+    "base": {
+     "expert": 0.08706349206349207,
+     "fpr": 0.0076459872660838805,
+     "right_unconf": 0.012415873015873016,
+     "won": 0.8715650793650793,
+     "wrong": 0.028955555555555554,
+     "wrong_incl_right_unconf": 0.04137142857142857
+    },
+    "both": {
+     "expert": 0.28508253968253966,
+     "fpr": 0.20653326709160033,
+     "right_unconf": 1.5873015873015872e-05,
+     "won": 0.7148825396825397,
+     "wrong": 1.9047619047619046e-05,
+     "wrong_incl_right_unconf": 3.492063492063492e-05
+    },
+    "both1": {
+     "expert": 0.12349523809523809,
+     "fpr": 0.03323009488775902,
+     "right_unconf": 0.008161904761904763,
+     "won": 0.8579396825396826,
+     "wrong": 0.010403174603174603,
+     "wrong_incl_right_unconf": 0.018565079365079364
+    },
+    "committed": {
+     "expert": 0.08706349206349207,
+     "fpr": 0.0076459872660838805,
+     "right_unconf": 0.012415873015873016,
+     "won": 0.8715650793650793,
+     "wrong": 0.028955555555555554,
+     "wrong_incl_right_unconf": 0.04137142857142857
+    },
+    "games": 315000,
+    "in_pool": 283809,
+    "veto": {
+     "expert": 0.1284,
+     "fpr": 0.03263110049364185,
+     "right_unconf": 1.5873015873015872e-05,
+     "won": 0.8715650793650793,
+     "wrong": 1.9047619047619046e-05,
+     "wrong_incl_right_unconf": 3.492063492063492e-05
+    },
+    "veto1": {
+     "expert": 0.10986984126984127,
+     "fpr": 0.018107248184518462,
+     "right_unconf": 0.008161904761904763,
+     "won": 0.8715650793650793,
+     "wrong": 0.010403174603174603,
+     "wrong_incl_right_unconf": 0.018565079365079364
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 9115,
+    "1": 6
+   },
+   "veto_catch": {
+    "n": 9121,
+    "share": 0.9993421773928297,
+    "share_tol1": 0.6407192193838395
+   },
+   "veto_gives_up_right": {
+    "n": 3911,
+    "share": 0.998721554589619
+   }
+  },
+  "st2_noisy_f0.05": {
+   "alarm_before_win": {
+    "n": 139325,
+    "share": 0.12738560918715233,
+    "share_tol1": 0.007005203660506011
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 35351,
+    "q25": 3,
+    "q75": 9
+   },
+   "games": 157500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9982566248256625,
+    "alarm_or_soft_expert": 0.999677731227844,
+    "n": 15515,
+    "share": 0.9675153077666774,
+    "soft_expert": 0.815146632291331
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.22802539682539683,
+     "fpr": 0.14370532098461106,
+     "right_unconf": 2.5396825396825397e-05,
+     "won": 0.7719174603174603,
+     "wrong": 3.1746031746031745e-05,
+     "wrong_incl_right_unconf": 5.714285714285714e-05
+    },
+    "alarm1": {
+     "expert": 0.09885714285714285,
+     "fpr": 0.014712821776948269,
+     "right_unconf": 0.00633015873015873,
+     "won": 0.8784063492063492,
+     "wrong": 0.016406349206349206,
+     "wrong_incl_right_unconf": 0.022736507936507937
+    },
+    "base": {
+     "expert": 0.08364444444444444,
+     "fpr": 0.003711659682360813,
+     "right_unconf": 0.008076190476190476,
+     "won": 0.8846031746031746,
+     "wrong": 0.023676190476190476,
+     "wrong_incl_right_unconf": 0.031752380952380956
+    },
+    "both": {
+     "expert": 0.22802539682539683,
+     "fpr": 0.14370532098461106,
+     "right_unconf": 2.5396825396825397e-05,
+     "won": 0.7719174603174603,
+     "wrong": 3.1746031746031745e-05,
+     "wrong_incl_right_unconf": 5.714285714285714e-05
+    },
+    "both1": {
+     "expert": 0.10645079365079366,
+     "fpr": 0.01500158467443744,
+     "right_unconf": 0.006177777777777778,
+     "won": 0.8784063492063492,
+     "wrong": 0.008965079365079365,
+     "wrong_incl_right_unconf": 0.015142857142857144
+    },
+    "committed": {
+     "expert": 0.08364444444444444,
+     "fpr": 0.003711659682360813,
+     "right_unconf": 0.008076190476190476,
+     "won": 0.8846031746031746,
+     "wrong": 0.023676190476190476,
+     "wrong_incl_right_unconf": 0.031752380952380956
+    },
+    "games": 157500,
+    "in_pool": 141985,
+    "veto": {
+     "expert": 0.11533968253968253,
+     "fpr": 0.018706201359298517,
+     "right_unconf": 2.5396825396825397e-05,
+     "won": 0.8846031746031746,
+     "wrong": 3.1746031746031745e-05,
+     "wrong_incl_right_unconf": 5.714285714285714e-05
+    },
+    "veto1": {
+     "expert": 0.10025396825396825,
+     "fpr": 0.008127619114695214,
+     "right_unconf": 0.006177777777777778,
+     "won": 0.8846031746031746,
+     "wrong": 0.008965079365079365,
+     "wrong_incl_right_unconf": 0.015142857142857144
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 3724,
+    "1": 5
+   },
+   "veto_catch": {
+    "n": 3729,
+    "share": 0.9986591579511933,
+    "share_tol1": 0.6213462054170019
+   },
+   "veto_gives_up_right": {
+    "n": 1272,
+    "share": 0.9968553459119497
+   }
+  },
+  "st2_noisy_f0.1": {
+   "alarm_before_win": {
+    "n": 135218,
+    "share": 0.2337484654409916,
+    "share_tol1": 0.02452336227425343
+   },
+   "alarm_questions_saved": {
+    "median": 6,
+    "n": 53328,
+    "q25": 4,
+    "q75": 10
+   },
+   "games": 157500,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.9996740547588006,
+    "alarm_or_soft_expert": 0.9999362082163817,
+    "n": 15676,
+    "share": 0.9682954835417198,
+    "soft_expert": 0.8042868078591477
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.3421396825396825,
+     "fpr": 0.26943253610108303,
+     "right_unconf": 6.349206349206349e-06,
+     "won": 0.657847619047619,
+     "wrong": 6.349206349206349e-06,
+     "wrong_incl_right_unconf": 1.2698412698412699e-05
+    },
+    "alarm1": {
+     "expert": 0.13335238095238094,
+     "fpr": 0.0505274142599278,
+     "right_unconf": 0.010673015873015872,
+     "won": 0.8374730158730159,
+     "wrong": 0.0185015873015873,
+     "wrong_incl_right_unconf": 0.029174603174603176
+    },
+    "base": {
+     "expert": 0.09048253968253968,
+     "fpr": 0.011584781137184115,
+     "right_unconf": 0.016755555555555555,
+     "won": 0.8585269841269841,
+     "wrong": 0.03423492063492063,
+     "wrong_incl_right_unconf": 0.05099047619047619
+    },
+    "both": {
+     "expert": 0.3421396825396825,
+     "fpr": 0.26943253610108303,
+     "right_unconf": 6.349206349206349e-06,
+     "won": 0.657847619047619,
+     "wrong": 6.349206349206349e-06,
+     "wrong_incl_right_unconf": 1.2698412698412699e-05
+    },
+    "both1": {
+     "expert": 0.14053968253968255,
+     "fpr": 0.05147929828519856,
+     "right_unconf": 0.010146031746031747,
+     "won": 0.8374730158730159,
+     "wrong": 0.011841269841269842,
+     "wrong_incl_right_unconf": 0.021987301587301587
+    },
+    "committed": {
+     "expert": 0.09048253968253968,
+     "fpr": 0.011584781137184115,
+     "right_unconf": 0.016755555555555555,
+     "won": 0.8585269841269841,
+     "wrong": 0.03423492063492063,
+     "wrong_incl_right_unconf": 0.05099047619047619
+    },
+    "games": 157500,
+    "in_pool": 141824,
+    "veto": {
+     "expert": 0.14146031746031745,
+     "fpr": 0.04657180731046932,
+     "right_unconf": 6.349206349206349e-06,
+     "won": 0.8585269841269841,
+     "wrong": 6.349206349206349e-06,
+     "wrong_incl_right_unconf": 1.2698412698412699e-05
+    },
+    "veto1": {
+     "expert": 0.11948571428571429,
+     "fpr": 0.028098206227436823,
+     "right_unconf": 0.010146031746031747,
+     "won": 0.8585269841269841,
+     "wrong": 0.011841269841269842,
+     "wrong_incl_right_unconf": 0.021987301587301587
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 5391,
+    "1": 1
+   },
+   "veto_catch": {
+    "n": 5392,
+    "share": 0.9998145400593472,
+    "share_tol1": 0.6541172106824926
+   },
+   "veto_gives_up_right": {
+    "n": 2639,
+    "share": 0.9996210685865858
+   }
+  },
+  "tail_end": {
+   "alarm_before_win": {
+    "n": 7389,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 3,
+    "n": 2490,
+    "q25": 1,
+    "q75": 6
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.408390022675737,
+    "alarm_or_soft_expert": 0.4993283438879294,
+    "n": 5211,
+    "share": 0.47783534830166957,
+    "soft_expert": 0.153713298791019
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.17446666666666666,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.3107333333333333,
+     "wrong_incl_right_unconf": 0.33293333333333336
+    },
+    "alarm1": {
+     "expert": 0.05506666666666667,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.4301333333333333,
+     "wrong_incl_right_unconf": 0.4523333333333333
+    },
+    "base": {
+     "expert": 0.0544,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.4308,
+     "wrong_incl_right_unconf": 0.453
+    },
+    "both": {
+     "expert": 0.18066666666666667,
+     "fpr": 0.006640106241699867,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.3045333333333333,
+     "wrong_incl_right_unconf": 0.3267333333333333
+    },
+    "both1": {
+     "expert": 0.07593333333333334,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.40926666666666667,
+     "wrong_incl_right_unconf": 0.43146666666666667
+    },
+    "committed": {
+     "expert": 0.5074,
+     "fpr": 0.2451731535396874,
+     "right_unconf": 0.0,
+     "won": 0.4926,
+     "wrong": 0.0,
+     "wrong_incl_right_unconf": 0.0
+    },
+    "games": 15000,
+    "in_pool": 9789,
+    "veto": {
+     "expert": 0.18066666666666667,
+     "fpr": 0.006640106241699867,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.3045333333333333,
+     "wrong_incl_right_unconf": 0.3267333333333333
+    },
+    "veto1": {
+     "expert": 0.07593333333333334,
+     "fpr": 0.0015323322096230463,
+     "right_unconf": 0.0222,
+     "won": 0.4926,
+     "wrong": 0.40926666666666667,
+     "wrong_incl_right_unconf": 0.43146666666666667
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 1801,
+    "1": 267,
+    "2+": 4394
+   },
+   "veto_catch": {
+    "n": 6462,
+    "share": 0.2930981120396162,
+    "share_tol1": 0.04998452491488703
+   },
+   "veto_gives_up_right": {
+    "n": 333,
+    "share": 0.0
+   }
+  },
+  "tail_st3": {
+   "alarm_before_win": {
+    "n": 7524,
+    "share": 0.0,
+    "share_tol1": 0.0
+   },
+   "alarm_questions_saved": {
+    "median": 5,
+    "n": 6458,
+    "q25": 3,
+    "q75": 8
+   },
+   "games": 15000,
+   "novel_alarm": {
+    "alarm_given_soft_did_not_escalate": 0.8723534826633936,
+    "alarm_or_soft_expert": 0.8875219683655536,
+    "n": 7397,
+    "share": 0.8730566445856428,
+    "soft_expert": 0.11883195890225767
+   },
+   "rates": {
+    "alarm": {
+     "expert": 0.4386,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.055933333333333335,
+     "wrong_incl_right_unconf": 0.0598
+    },
+    "alarm1": {
+     "expert": 0.06113333333333333,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.4334,
+     "wrong_incl_right_unconf": 0.4372666666666667
+    },
+    "base": {
+     "expert": 0.059533333333333334,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.435,
+     "wrong_incl_right_unconf": 0.4388666666666667
+    },
+    "both": {
+     "expert": 0.4386,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.055933333333333335,
+     "wrong_incl_right_unconf": 0.0598
+    },
+    "both1": {
+     "expert": 0.10866666666666666,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.3858666666666667,
+     "wrong_incl_right_unconf": 0.3897333333333333
+    },
+    "committed": {
+     "expert": 0.059533333333333334,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.435,
+     "wrong_incl_right_unconf": 0.4388666666666667
+    },
+    "games": 15000,
+    "in_pool": 7603,
+    "veto": {
+     "expert": 0.4386,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.055933333333333335,
+     "wrong_incl_right_unconf": 0.0598
+    },
+    "veto1": {
+     "expert": 0.10866666666666666,
+     "fpr": 0.0018413784032618704,
+     "right_unconf": 0.0038666666666666667,
+     "won": 0.5016,
+     "wrong": 0.3858666666666667,
+     "wrong_incl_right_unconf": 0.3897333333333333
+    }
+   },
+   "surv_end_in_wrong": {
+    "0": 5686,
+    "1": 738,
+    "2+": 101
+   },
+   "veto_catch": {
+    "n": 6525,
+    "share": 0.8714176245210727,
+    "share_tol1": 0.11295019157088122
+   },
+   "veto_gives_up_right": {
+    "n": 58,
+    "share": 0.0
+   }
+  }
+ }
+}

@@ -1,7 +1,10 @@
 # Reverse shadow: a hard survivor set beside a playing `soft` — pre-registration
 
-**Status (2026-11-16):** draft, untagged; built and gated (`STRESS_REVSHADOW_BUILD.md`). Jira: EE-41 (ENV-706,
-under EE-33). The thresholds below, and the build note's wording points, need the user's go before the tag.
+**Status (2026-11-16):** registered at tag `prereg-stress-revshadow-20261116` with the thresholds as drafted and
+the build note's wording points as built (user: "Register and queue"). Built and gated
+(`STRESS_REVSHADOW_BUILD.md`). Jira: EE-41 (ENV-706, under EE-33).
+**Run done 2026-11-16** (jobq 26): RS0, RS2 and RS4 pass; RS1 and RS3 fail, so the played arm is not
+built. See `STRESS_REVSHADOW_RESULTS.md`. The predictions and thresholds above are unchanged from the tag.
 
 ## Question
 
