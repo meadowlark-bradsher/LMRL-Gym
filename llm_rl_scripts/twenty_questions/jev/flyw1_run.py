@@ -366,10 +366,11 @@ SMOKE_MAPS = ("cat17", "k4_bal_align", "k8_skew_mix05_s1", "k4_bal_mix15_s1",
               "k8_bal_rand_s1")
 
 
-def smoke(outdir: str, workers: int) -> dict:
-    """Part 1: one map per construction, flips 0.05/0.10, seeds 1-2. Part 2: two
-    rotations, flip 0.10, seed 1. Projects the full cost and the paired SE."""
-    p1 = part1_jobs(2, SMOKE_MAPS, flips=(0.05, 0.10))
+def smoke(outdir: str, workers: int, n_seeds: int = 2) -> dict:
+    """Part 1: one map per construction, flips 0.05/0.10, seeds 1..n_seeds (2 in the
+    first smoke; 5 for the seed rule, ``flyw1_seed_rule.py``). Part 2: two rotations,
+    flip 0.10, seed 1. Projects the full cost."""
+    p1 = part1_jobs(n_seeds, SMOKE_MAPS, flips=(0.05, 0.10))
     rots = [r["rotation"] for r in rotations()]
     p2 = part2_jobs(1, 4, [rots[0], rots[-1]], flips=(0.10,))
     run(outdir, p1 + p2, workers, {"mode": "smoke"})
@@ -388,7 +389,7 @@ def smoke(outdir: str, workers: int) -> dict:
         cls = maps[m]["classes"]
         dp, dw = [], []
         for flip in (0.05, 0.10):
-            for s in (1, 2):
+            for s in range(1, n_seeds + 1):
                 a = jobs["p1_A_f{}_s{}".format(flip, s)]["games"]
                 b = jobs["p1_B_{}_f{}_s{}".format(m, flip, s)]["games"]
                 for ra, rb in zip(a, b):
@@ -397,9 +398,8 @@ def smoke(outdir: str, workers: int) -> dict:
                     dw.append(sa["wrong"] - rb["wrong"])
         paired[m] = {"construction": maps[m]["alignment_construction"],
                      "sd_probes": round(statistics.pstdev(dp), 4),
-                     "sd_wrong": round(statistics.pstdev(dw), 4),
-                     "mean_probes_A_minus_B": round(statistics.mean(dp), 4),
-                     "mean_wrong_A_minus_B": round(statistics.mean(dw), 4)}
+                     "sd_wrong": round(statistics.pstdev(dw), 4)}
+        # No paired means are computed or written: the build stays blind to B vs A.
     # Projection.
     n_maps_by_c = {"align": 8, "mix05": 16, "mix15": 16, "rand": 16, "category": 1}
     seeds_needed = {}
@@ -451,6 +451,8 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--in-pool-reps", type=int, default=4)
+    ap.add_argument("--smoke-seeds", action="store_true",
+                    help="smoke: use --seeds (the seed-rule smoke uses --seeds 5)")
     ap.add_argument("--trim", action="store_true",
                     help="Part 1: seed-1 maps plus align and cat17 (the prereg's trim)")
     a = ap.parse_args()
@@ -460,7 +462,9 @@ def main() -> None:
         print(json.dumps({k: v for k, v in res.items() if k != "part2_rotations"}, indent=1))
         sys.exit(0 if res["PASS"] else 1)
     if a.smoke:
-        print(json.dumps(smoke(a.out, a.workers), indent=1))
+        out = smoke(a.out, a.workers, a.seeds if a.smoke_seeds else 2)
+        # The smoke's own summary includes paired means; print only cost and spread.
+        print(json.dumps({k: out[k] for k in ("secs_per_job", "projection")}, indent=1))
         return
     if a.part == 1:
         _, _, maps = load_inputs()

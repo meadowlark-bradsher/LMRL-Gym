@@ -134,9 +134,31 @@ maps). P0a does not follow that tree: it asks the exact category questions one a
   trimmed bases in the table apply.
 * **Checkpointing.** The runner writes each (map, arm, flip) cell to disk as it finishes and resumes from
   those files after a stop, as the ST and Split Deal runners do.
-* **Seeds.** The smoke run also measures the standard error of the paired A − B difference per construction ×
-  flip. If any SE is above a third of that unit's margin (0.1 for DE1(a), 0.02 for DE1(c)), raise the noise
-  seeds from 5 until it is not, before the main run. The seed count actually used is recorded.
+* **Seeds (rule set 2026-11-18, user).** The quantity each cell measures is the mean arm difference over this
+  fixed pool of 158 secrets, so the only randomness is the answer noise. Its standard error is estimated
+  within secrets, which is a one-way ANOVA within-secret mean square:
+  * for each secret, take the variance of the paired difference across its seeds, and pool over the secrets
+    (158 × (S − 1) degrees of freedom);
+  * SE of a pooled mean over N (map, secret) pairs = √(Σ σᵢ²) ÷ (N √S);
+  * flip-0 cells are deterministic, with SE 0.
+
+  The per-game SE of the first draft counted the spread *between* secrets as sampling error, and it asked for
+  40–512 seeds that could not reduce that spread.
+
+  **The rule.**
+  * For each pooled Part 1 test at a noisy flip (DE1(a), (b), (c), DE3(b), DE5),
+    S = max(5, ⌈5 × (SE₅ ÷ (margin ÷ 3))²⌉). SE₅ comes from a 5-seed smoke: one map per construction, whose
+    within-secret variance stands in for its construction's maps.
+  * The run uses the largest S over the tests, **capped at 8 hours on 6 workers**.
+  * If the cap binds, the analyzer reports SE for every scored test and calls a result within 2 SE of its bar
+    **inconclusive** rather than pass or fail.
+  * Part 2 uses the same seed count, unless that projects past its 4-hour budget; in that case it uses
+    5 seeds, and SE is reported.
+
+  **Blind.** SE₅ is computed by `flyw1_seed_rule.py`, which forms and prints only variances, standard errors and
+  seed counts, never the arms' mean differences. This step used the smoke's spread and nothing else. The
+  first smoke's summary file did contain the paired means, written by the code; they were never read, and the
+  code no longer writes them.
 
 **Per-game record:** map, arm, flip, noise seed, secret, secret's class, probes to decide, questions,
 actions, wrong actions, outcome (`right` / `expert`), reinstates used, and the live-set size and class count
@@ -260,6 +282,11 @@ run out. Under a decision goal an unknown secret matters only if it would change
   because no known class contains the secret. T-mass never acts there, so its rate is 0 by construction.
 * **Wrong actions before the trigger point** on new-class novels are the stopping rule's, not the trigger's,
   and are the same under both triggers. They are reported per arm.
+* **The original missed-call measure,** reported and not scored: a new-class novel game with any wrong action
+  before the expert, or no expert call. It is kept as a finding for SRE. A novel incident costs wrong actions
+  before the escalation logic is even consulted, because both triggers fire only when the live set empties
+  or the probes run out. That points to a gap in the design: escalation should probably be considered at every
+  action, not only at those points.
 * **Total cost per game:** 1 per probe, c_expert = 10 per expert call, and c_wrong = 10 ÷ ratio per wrong
   action.
 
@@ -302,6 +329,9 @@ is adopted only together with an alignment check on the class map; the note says
 * **Classes are synthetic stand-ins for remediations.** Except for `cat17`, they are not meaningful groups of
   objects. What carries over to SRE is the alignment measure, not a particular map.
 * **One cause per game.** Two-cause games are Experiment 2 (FLYW-2).
+* **Scope: this pool.** The secrets are treated as fixed: they are the whole pool, not a sample, and the only
+  randomness modelled is the answer noise. So the conclusions hold for this 158-object pool. Generalisation
+  comes from the variation across maps (alignment, K, size profile), not from sampling secrets.
 * **Compute** goes through `jobq` with `OMP/OPENBLAS/MKL/VECLIB_MAXIMUM_THREADS=1` per worker. BLAS pinning was
   the whole speed fix in ST-1.
 
@@ -350,9 +380,26 @@ never follows that tree.
 wrong action before any trigger point, under every arm (A 7.1 per game, B 2.7, D 3.0). So no trigger could
 meet a 0.10 bar.
 
+* **The look, disclosed.** The change followed a look at Part 2 output from the same trial run: one rotation of
+  `k4_bal_align` (the old, version-2 map) at flip 0.10, seed 1, for arms A, B and D. The analyzer's printout
+  showed, for that one rotation:
+  * spurious-call rates (B 0.000 under both triggers, D 0.009 under both);
+  * per-game costs, also equal under both triggers;
+  * the old missed-call rate of 1.0;
+  * a follow-up count showing that every new-class game had a wrong action before any trigger point, under
+    every arm.
+
+  No other Part 2 output was looked at.
+* **Why the change is not outcome-driven.** The reason is structural. Wrong actions before the trigger point
+  happen before either trigger is consulted, so they are identical under T-mass and T-loss, and the original
+  ET2 could not tell the triggers apart, whatever the results. That holds by construction of the arms, not
+  because of the trial's numbers.
 * **The change (user: "Score T-loss's own acts").** A missed call is T-loss acting at the trigger point on a
   new-class novel. Wrong actions before the trigger point are reported per arm. ET2 and ET3 pool flips 0.05
-  and 0.10, as ET1 does.
+  and 0.10, as ET1 does. The original measure is kept as reported (Part 2, Measures).
 
-**Before registering:** this draft merges, the smoke run sets the seed count and confirms the cost, and the
-prereg is tagged, as the ST studies were.
+**3. The seed rule** was set by the user after the first smoke (Part 1, "Seeds"). It replaced a per-game SE
+rule that treated the spread between secrets as noise.
+
+**Before registering:** the 5-seed smoke sets the seed count (`flyw1_seed_rule.py`, `seed_rule.json`), this
+draft merges, and the prereg is tagged, as the ST studies were.

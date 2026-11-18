@@ -24,6 +24,7 @@ import argparse
 import glob
 import gzip
 import json
+import math
 import os
 import statistics
 from collections import defaultdict
@@ -65,7 +66,8 @@ def mean(v: Sequence[float]) -> Optional[float]:
 # Part 1                                                                       #
 # --------------------------------------------------------------------------- #
 
-def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
+def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
+          cap_binds: bool = False) -> dict:
     jobs = load_jobs(d)
     a_by = {}                                   # (flip, seed) -> games
     arm_by = defaultdict(dict)                  # (map, arm, flip) -> seed -> games
@@ -135,7 +137,39 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
             v.extend(r[field] for r in per.get((m, arm, flip), []))
         return statistics.mean(v) if v else None
 
+    def se_diff(ms, x, y, flip, field="probes") -> float:
+        """Within-secret SE of the pooled mean of (x - y) (seed rule, 2026-11-18): the
+        secrets are the whole pool, so only seed-to-seed noise counts.
+        SE = sqrt(sum_i var_i) / (N sqrt(S)), N = (map, secret) pairs."""
+        if flip == 0.0:
+            return 0.0
+        tot, n, s_seen = 0.0, 0, set()
+        for m in ms:
+            rx = {r["key"]: r[field] for r in per.get((m, x, flip), [])}
+            ry = {r["key"]: r[field] for r in per.get((m, y, flip), [])}
+            by_secret = defaultdict(list)
+            for k in rx:
+                if k in ry:
+                    by_secret[k[1]].append(rx[k] - ry[k])
+                    s_seen.add(k[0])
+            for v in by_secret.values():
+                if len(v) > 1:
+                    tot += statistics.variance(v)
+                n += 1
+        S = len(s_seen)
+        return math.sqrt(tot) / (n * math.sqrt(S)) if n and S else float("nan")
+
+    def ms_of(c):
+        return [m for m in map_ids if maps[m]["alignment_construction"] == c]
+
+    def verdict(stat, bar, se, passes):
+        """PASS/FAIL, or INCONCLUSIVE within 2 SE of the bar when the seed cap bound."""
+        if cap_binds and se == se and abs(stat - bar) < 2 * se:
+            return "INCONCLUSIVE"
+        return "PASS" if passes else "FAIL"
+
     res: Dict[str, object] = {"maps_run": len(map_ids), "flips": flips,
+                              "seed_cap_binds": cap_binds,
                               "arms": ["A"] + arms_present}
 
     # DE0(c) over every flip-0 job.
@@ -165,19 +199,28 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
             pa, pb = pooled("A", c, flip), pooled("B", c, flip)
             if pa is None or pb is None:
                 continue
+            se = se_diff(ms_of(c), "B", "A", flip)
+            v = verdict(pb - pa, 0.1, se, pb <= pa + 0.1)
             d1a["{}|{}".format(c, flip)] = {"A": round(pa, 4), "B": round(pb, 4),
-                                            "pass": pb <= pa + 0.1}
+                                            "se": round(se, 5), "verdict": v,
+                                            "pass": v == "PASS"}
             if flip > 0:
                 wa, wb = pooled("A", c, flip, "wrong"), pooled("B", c, flip, "wrong")
+                se = se_diff(ms_of(c), "B", "A", flip, "wrong")
+                v = verdict(wb - wa, 0.02, se, wb <= wa + 0.02)
                 d1c["{}|{}".format(c, flip)] = {"A": round(wa, 4), "B": round(wb, 4),
-                                                "pass": wb <= wa + 0.02}
+                                                "se": round(se, 5), "verdict": v,
+                                                "pass": v == "PASS"}
     # Bars rescaled 2026-11-18 (user) to the P0a-tree basis: align >= 0.5, mix05 >= 0.3.
     for c, bar in (("align", 0.5), ("mix05", 0.3)):
         for flip in (0.0, 0.05):
             pa, pb = pooled("A", c, flip), pooled("B", c, flip)
             if pa is not None and pb is not None:
+                se = se_diff(ms_of(c), "A", "B", flip)
+                v = verdict(pa - pb, bar, se, pa - pb >= bar)
                 d1b["{}|{}".format(c, flip)] = {"saving": round(pa - pb, 4), "bar": bar,
-                                                "pass": pa - pb >= bar}
+                                                "se": round(se, 5), "verdict": v,
+                                                "pass": v == "PASS"}
     res["DE1"] = {"a": d1a, "b": d1b, "c": d1c,
                   "PASS": bool(d1a and d1b and d1c
                                and all(x["pass"] for x in list(d1a.values())
@@ -203,7 +246,10 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
         out = {"a_c_minus_b": round(cb, 4), "a_pass": cb >= 1.0}
         if 0.1 in flips:
             wc = pooled("C", "rand", 0.1, "wrong") - pooled("B", "rand", 0.1, "wrong")
-            out.update({"b_c_minus_b_wrong": round(wc, 4), "b_pass": wc >= 0.02})
+            se = se_diff(rand, "C", "B", 0.1, "wrong")
+            v = verdict(wc, 0.02, se, wc >= 0.02)
+            out.update({"b_c_minus_b_wrong": round(wc, 4), "b_se": round(se, 5),
+                        "b_verdict": v, "b_pass": v == "PASS"})
         out["PASS_a"] = out["a_pass"]
         out["PASS_b"] = out.get("b_pass")
         res["DE3"] = out
@@ -231,8 +277,13 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
                                            for r in per.get((m, arm, 0.05), []))
         b = allp("B")
         sc, sd = b - allp("C"), b - allp("D")
+        se_c = se_diff(map_ids, "B", "C", 0.05)
+        se_d = se_diff(map_ids, "B", "D", 0.05)
+        best, se_b = (sc, se_c) if sc >= sd else (sd, se_d)
+        v = verdict(best, 0.5, se_b, best < 0.5)
         res["DE5"] = {"c_saves_over_b": round(sc, 4), "d_saves_over_b": round(sd, 4),
-                      "PASS": max(sc, sd) < 0.5}
+                      "se_c": round(se_c, 5), "se_d": round(se_d, 5), "verdict": v,
+                      "PASS": v == "PASS"}
         # Reported ratio.
         gb = gbest = 0.0
         for m in map_ids:
@@ -296,7 +347,7 @@ def part2(d: str, maps: Dict[str, dict]) -> dict:
                     (g, p2_outcome(g, t, cls)))
 
     def rates(ms, arm, flips, trig, ratio):
-        w_sp = n_sp = w_new = n_miss = cost = w_all = pre = 0.0
+        w_sp = n_sp = w_new = n_miss = cost = w_all = pre = n_orig = 0.0
         for (m, a, f, t, rot), lst in rows.items():
             if m not in ms or a != arm or f not in flips or t != trig:
                 continue
@@ -315,9 +366,14 @@ def part2(d: str, maps: Dict[str, dict]) -> dict:
                     # the stopping rule's and are the same under every trigger.
                     n_miss += w * o["acted_at_trigger"]
                     pre += w * o["pre_wrong"]
+                    # The original measure, reported (user, 2026-11-18): any wrong action
+                    # before the expert, or no expert at all. It shows that a novel
+                    # incident costs wrong actions before escalation is ever consulted.
+                    n_orig += w * (o["wrong"] >= 1 or not o["expert"])
         return {"spurious": round(n_sp / w_sp, 4) if w_sp else None,
                 "missed": round(n_miss / w_new, 4) if w_new else None,
                 "pre_trigger_wrong_per_new_game": round(pre / w_new, 4) if w_new else None,
+                "missed_original_reported": round(n_orig / w_new, 4) if w_new else None,
                 "cost": round(cost / w_all, 4) if w_all else None}
 
     all_maps = sorted({k[0] for k in rows})
@@ -393,6 +449,7 @@ def main() -> None:
     ap.add_argument("--part2")
     ap.add_argument("--gate")
     ap.add_argument("--maps", default=MAPS)
+    ap.add_argument("--seed-rule", help="seed_rule.json (sets whether the seed cap bound)")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     maps = load_maps(a.maps)
@@ -401,8 +458,12 @@ def main() -> None:
         with open(a.gate) as f:
             gate = json.load(f)
     out = {}
+    cap = False
+    if a.seed_rule:
+        with open(a.seed_rule) as f:
+            cap = bool(json.load(f)["cap_binds"])
     if a.part1:
-        out["part1"] = part1(a.part1, maps, gate)
+        out["part1"] = part1(a.part1, maps, gate, cap)
     if a.part2:
         out["part2"] = part2(a.part2, maps)
     with open(a.out, "w") as f:

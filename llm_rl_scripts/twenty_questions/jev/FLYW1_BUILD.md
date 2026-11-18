@@ -1,7 +1,7 @@
 # FLYW-1 build: arms, runner, analyzer, gate and smoke
 
 Builds what `FLYW1_DECISION_PREREG.md` registers (Jira FLYW-1; Part 1 = FLYW-4, Part 2 = FLYW-5). The
-prereg is **not registered yet**. One choice is still open: the seed rule (below).
+prereg is **not registered yet**.
 
 ## What is built
 
@@ -12,6 +12,7 @@ prereg is **not registered yet**. One choice is still open: the seed rule (below
 | `analyze_flyw1.py` | Scores DE0–DE5 and ET1–ET3 and the decision rules; writes the reported tables |
 | `class_maps.py` (v3) | The maps, now cut from P0a's own question tree; see `FLYW1_CLASS_MAPS.md` |
 | `flyw1_a_calibration.py` | The disclosed control-arm run and the bases |
+| `flyw1_seed_rule.py` | The seed rule: within-secret SE from the 5-seed smoke, and the seed count |
 
 **How the pieces fit.**
 
@@ -78,19 +79,20 @@ Neither the trimming rule (> 8 h) nor Part 2's cut (> 4 h) applies at 5 seeds.
 
 * **Per-game spread of the paired A − B difference:** 1.9–2.8 probes and 1.9–2.4 wrong actions.
 
-**The open choice: the seed rule.** The prereg says to raise seeds until the paired SE is at most a third
-of the margin. Measured per game, that needs 2–20 seeds for DE1(a) but 40–512 for DE1(c), whose margin is
-0.02 wrong actions. The 512 is for `cat17`, a single map. That is roughly 14,000 jobs per noisy flip, about
-7 h on 6 workers.
+## Seed rule (user decision 2026-11-18)
 
-Most of that per-game spread is *between secrets*. The 158 secrets are the whole pool, not a sample, so it is
-not noise that more seeds would average away. The options are:
+The per-game SE in the first draft counted the spread *between* secrets as sampling error. The secrets are
+the whole pool, so the only randomness is the answer noise. The rule registered instead:
 
-* the rule as written (about 7 h);
-* SE from seed-to-seed variation of the pooled difference, which treats the secrets as the population and
-  the noise as the only sampling error. It needs 5 seeds to estimate;
-* 5 seeds, with SE reported only. The user's call on choice 2 offered pooled scoring *or* SE-driven seeds,
-  and pooled scoring is already in.
+* **Estimate within secrets.** Take the variance of the paired difference across seeds for each secret, and
+  pool over secrets (one-way ANOVA within-secret mean square, 158 × 4 degrees of freedom from a 5-seed smoke).
+* **SE of a pooled mean** over N (map, secret) pairs = √(Σ σᵢ²) ÷ (N √S).
+* **Seed count:** S = max(5, ⌈5 (SE₅ ÷ (margin ÷ 3))²⌉) per pooled test. The run uses the largest S, capped at
+  8 h on 6 workers. If the cap binds, a result within 2 SE of its bar is inconclusive.
+* **Blind:** `flyw1_seed_rule.py` forms only variances and SEs. The smoke code no longer writes paired means.
+  The first smoke's summary did contain them; they were never read.
+
+SEEDRULE_RESULT
 
 ## Commands
 
