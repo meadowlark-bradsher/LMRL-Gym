@@ -1,0 +1,304 @@
+{
+ "keyed_order_free": true,
+ "keyed_flip_rate_at_0.1": 0.0982,
+ "de0a_flip0_matches_calibration": true,
+ "de0a_flip0_mismatches": [],
+ "de0a_noisy_matches_direct": true,
+ "de0b_one_class": true,
+ "de0c_sample_maps": [
+  "cat17",
+  "k2_bal_rand_s1",
+  "k4_skew_mix15_s1",
+  "k8_bal_mix05_s2",
+  "k16_skew_align",
+  "k16_bal_rand_s2"
+ ],
+ "de0c_flip0_wrong_only_unresolvable": true,
+ "de0c_violations": [],
+ "de0c_secs_per_game": 0.0489,
+ "de0d_maps_registered": true,
+ "part2_n_rotations": 31,
+ "part2_every_class_kept": true,
+ "part2_rotations": [
+  {
+   "rotation": "cat17_r7",
+   "held_class": 7,
+   "n_new": 9,
+   "n_same": 16,
+   "n_known": 133,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.1326
+  },
+  {
+   "rotation": "cat17_r5",
+   "held_class": 5,
+   "n_new": 10,
+   "n_same": 16,
+   "n_known": 132,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.1528
+  },
+  {
+   "rotation": "cat17_r15",
+   "held_class": 15,
+   "n_new": 10,
+   "n_same": 16,
+   "n_known": 132,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.1558
+  },
+  {
+   "rotation": "k4_bal_align_r0",
+   "held_class": 0,
+   "n_new": 39,
+   "n_same": 12,
+   "n_known": 107,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.4338
+  },
+  {
+   "rotation": "k4_bal_align_r1",
+   "held_class": 1,
+   "n_new": 39,
+   "n_same": 12,
+   "n_known": 107,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3389
+  },
+  {
+   "rotation": "k4_bal_align_r2",
+   "held_class": 2,
+   "n_new": 40,
+   "n_same": 12,
+   "n_known": 106,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3239
+  },
+  {
+   "rotation": "k4_bal_align_r3",
+   "held_class": 3,
+   "n_new": 40,
+   "n_same": 12,
+   "n_known": 106,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3743
+  },
+  {
+   "rotation": "k4_skew_align_r0",
+   "held_class": 0,
+   "n_new": 84,
+   "n_same": 7,
+   "n_known": 67,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.2252
+  },
+  {
+   "rotation": "k4_skew_align_r1",
+   "held_class": 1,
+   "n_new": 42,
+   "n_same": 11,
+   "n_known": 105,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.5424
+  },
+  {
+   "rotation": "k4_skew_align_r2",
+   "held_class": 2,
+   "n_new": 21,
+   "n_same": 13,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.5457
+  },
+  {
+   "rotation": "k4_skew_align_r3",
+   "held_class": 3,
+   "n_new": 11,
+   "n_same": 14,
+   "n_known": 133,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.4147
+  },
+  {
+   "rotation": "k8_bal_align_r2",
+   "held_class": 2,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3594
+  },
+  {
+   "rotation": "k8_bal_align_r4",
+   "held_class": 4,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3845
+  },
+  {
+   "rotation": "k8_bal_align_r5",
+   "held_class": 5,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.1599
+  },
+  {
+   "rotation": "k8_skew_align_r7",
+   "held_class": 7,
+   "n_new": 2,
+   "n_same": 16,
+   "n_known": 140,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.434
+  },
+  {
+   "rotation": "k8_skew_align_r3",
+   "held_class": 3,
+   "n_new": 10,
+   "n_same": 15,
+   "n_known": 133,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3674
+  },
+  {
+   "rotation": "k8_skew_align_r2",
+   "held_class": 2,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.3749
+  },
+  {
+   "rotation": "k4_bal_rand_s1_r0",
+   "held_class": 0,
+   "n_new": 39,
+   "n_same": 12,
+   "n_known": 107,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0487
+  },
+  {
+   "rotation": "k4_bal_rand_s1_r1",
+   "held_class": 1,
+   "n_new": 39,
+   "n_same": 12,
+   "n_known": 107,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.058
+  },
+  {
+   "rotation": "k4_bal_rand_s1_r2",
+   "held_class": 2,
+   "n_new": 40,
+   "n_same": 12,
+   "n_known": 106,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0611
+  },
+  {
+   "rotation": "k4_bal_rand_s1_r3",
+   "held_class": 3,
+   "n_new": 40,
+   "n_same": 12,
+   "n_known": 106,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0477
+  },
+  {
+   "rotation": "k4_skew_rand_s1_r0",
+   "held_class": 0,
+   "n_new": 84,
+   "n_same": 7,
+   "n_known": 67,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.049
+  },
+  {
+   "rotation": "k4_skew_rand_s1_r1",
+   "held_class": 1,
+   "n_new": 42,
+   "n_same": 11,
+   "n_known": 105,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.1475
+  },
+  {
+   "rotation": "k4_skew_rand_s1_r2",
+   "held_class": 2,
+   "n_new": 21,
+   "n_same": 13,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.07
+  },
+  {
+   "rotation": "k4_skew_rand_s1_r3",
+   "held_class": 3,
+   "n_new": 11,
+   "n_same": 14,
+   "n_known": 133,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0699
+  },
+  {
+   "rotation": "k8_bal_rand_s1_r2",
+   "held_class": 2,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0093
+  },
+  {
+   "rotation": "k8_bal_rand_s1_r4",
+   "held_class": 4,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0312
+  },
+  {
+   "rotation": "k8_bal_rand_s1_r5",
+   "held_class": 5,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0198
+  },
+  {
+   "rotation": "k8_skew_rand_s1_r7",
+   "held_class": 7,
+   "n_new": 2,
+   "n_same": 16,
+   "n_known": 140,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0213
+  },
+  {
+   "rotation": "k8_skew_rand_s1_r3",
+   "held_class": 3,
+   "n_new": 10,
+   "n_same": 15,
+   "n_known": 133,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0524
+  },
+  {
+   "rotation": "k8_skew_rand_s1_r2",
+   "held_class": 2,
+   "n_new": 20,
+   "n_same": 14,
+   "n_known": 124,
+   "every_class_kept": true,
+   "alignment_reduced_pool": 0.0595
+  }
+ ],
+ "PASS": true
+}
