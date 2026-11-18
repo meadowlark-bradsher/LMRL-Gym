@@ -1,6 +1,6 @@
 {
  "map_id": "k4_skew_rand_s2",
- "version": 1,
+ "version": 2,
  "family": "synthetic",
  "k": 4,
  "profile": "skew",
@@ -182,7 +182,10 @@
   "unresolvable": 15,
   "class_tree_stuck": 15,
   "ec2_tree_stuck": 15,
-  "h_class_bits": 1.6473
+  "h_class_bits": 1.6473,
+  "pure_cost": 7.9177,
+  "class_cost": 9.7785,
+  "ec2_cost": 7.7278
  },
  "assignment_sha256_12": "32492f15d12a",
  "provenance": {
@@ -194,6 +197,6 @@
   "n_questions": 61,
   "threshold": 0.5,
   "generator": "class_maps.py",
-  "generator_version": 1
+  "generator_version": 2
  }
 }

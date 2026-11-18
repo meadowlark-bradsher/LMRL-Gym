@@ -1,6 +1,6 @@
 {
  "map_id": "k2_skew_mix15_s1",
- "version": 1,
+ "version": 2,
  "family": "synthetic",
  "k": 2,
  "profile": "skew",
@@ -180,7 +180,10 @@
   "unresolvable": 3,
   "class_tree_stuck": 3,
   "ec2_tree_stuck": 3,
-  "h_class_bits": 0.9204
+  "h_class_bits": 0.9204,
+  "pure_cost": 6.1076,
+  "class_cost": 6.538,
+  "ec2_cost": 6.2152
  },
  "assignment_sha256_12": "e518a2188f66",
  "provenance": {
@@ -192,6 +195,6 @@
   "n_questions": 61,
   "threshold": 0.5,
   "generator": "class_maps.py",
-  "generator_version": 1
+  "generator_version": 2
  }
 }

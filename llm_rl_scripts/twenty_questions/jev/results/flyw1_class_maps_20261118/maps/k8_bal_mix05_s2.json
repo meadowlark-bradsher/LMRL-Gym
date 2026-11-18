@@ -1,6 +1,6 @@
 {
  "map_id": "k8_bal_mix05_s2",
- "version": 1,
+ "version": 2,
  "family": "synthetic",
  "k": 8,
  "profile": "bal",
@@ -186,7 +186,10 @@
   "unresolvable": 4,
   "class_tree_stuck": 4,
   "ec2_tree_stuck": 4,
-  "h_class_bits": 2.9997
+  "h_class_bits": 2.9997,
+  "pure_cost": 6.1519,
+  "class_cost": 6.0886,
+  "ec2_cost": 6.038
  },
  "assignment_sha256_12": "bbc225464ab2",
  "provenance": {
@@ -198,6 +201,6 @@
   "n_questions": 61,
   "threshold": 0.5,
   "generator": "class_maps.py",
-  "generator_version": 1
+  "generator_version": 2
  }
 }

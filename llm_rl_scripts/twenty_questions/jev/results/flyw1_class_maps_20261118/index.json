@@ -1,6 +1,6 @@
 {
  "generator": "class_maps.py",
- "generator_version": 1,
+ "generator_version": 2,
  "provenance": {
   "matrix_file": "matrix_jev.json",
   "matrix_sha256_12": "9a1cc695b026",
@@ -47,7 +47,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 4.0424
+   "h_class_bits": 4.0424,
+   "pure_cost": 7.0949,
+   "class_cost": 6.0127,
+   "ec2_cost": 6.4937
   },
   {
    "map_id": "k2_bal_align",
@@ -69,7 +72,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 3.2089,
+   "class_cost": 3.2089,
+   "ec2_cost": 3.519
   },
   {
    "map_id": "k2_bal_mix05_s1",
@@ -91,7 +97,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 5.6772,
+   "class_cost": 4.9241,
+   "ec2_cost": 4.8671
   },
   {
    "map_id": "k2_bal_mix05_s2",
@@ -113,7 +122,10 @@
    "unresolvable": 5,
    "class_tree_stuck": 5,
    "ec2_tree_stuck": 5,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 5.2405,
+   "class_cost": 5.0949,
+   "ec2_cost": 4.9114
   },
   {
    "map_id": "k2_bal_mix15_s1",
@@ -135,7 +147,10 @@
    "unresolvable": 9,
    "class_tree_stuck": 9,
    "ec2_tree_stuck": 9,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 6.981,
+   "class_cost": 8.2025,
+   "ec2_cost": 6.5
   },
   {
    "map_id": "k2_bal_mix15_s2",
@@ -157,7 +172,10 @@
    "unresolvable": 15,
    "class_tree_stuck": 15,
    "ec2_tree_stuck": 15,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 6.6899,
+   "class_cost": 7.2215,
+   "ec2_cost": 6.0696
   },
   {
    "map_id": "k2_bal_rand_s1",
@@ -179,7 +197,10 @@
    "unresolvable": 18,
    "class_tree_stuck": 18,
    "ec2_tree_stuck": 18,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 7.7911,
+   "class_cost": 11.8291,
+   "ec2_cost": 7.481
   },
   {
    "map_id": "k2_bal_rand_s2",
@@ -201,7 +222,10 @@
    "unresolvable": 17,
    "class_tree_stuck": 17,
    "ec2_tree_stuck": 17,
-   "h_class_bits": 1.0
+   "h_class_bits": 1.0,
+   "pure_cost": 7.9114,
+   "class_cost": 10.8418,
+   "ec2_cost": 7.5063
   },
   {
    "map_id": "k2_skew_align",
@@ -223,7 +247,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 2.8987,
+   "class_cost": 2.8861,
+   "ec2_cost": 2.8861
   },
   {
    "map_id": "k2_skew_mix05_s1",
@@ -245,7 +272,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 5.7911,
+   "class_cost": 5.4367,
+   "ec2_cost": 5.1709
   },
   {
    "map_id": "k2_skew_mix05_s2",
@@ -267,7 +297,10 @@
    "unresolvable": 3,
    "class_tree_stuck": 3,
    "ec2_tree_stuck": 3,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 4.943,
+   "class_cost": 4.3038,
+   "ec2_cost": 4.1835
   },
   {
    "map_id": "k2_skew_mix15_s1",
@@ -289,7 +322,10 @@
    "unresolvable": 3,
    "class_tree_stuck": 3,
    "ec2_tree_stuck": 3,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 6.1076,
+   "class_cost": 6.538,
+   "ec2_cost": 6.2152
   },
   {
    "map_id": "k2_skew_mix15_s2",
@@ -311,7 +347,10 @@
    "unresolvable": 10,
    "class_tree_stuck": 10,
    "ec2_tree_stuck": 10,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 6.5823,
+   "class_cost": 7.8038,
+   "ec2_cost": 6.3481
   },
   {
    "map_id": "k2_skew_rand_s1",
@@ -333,7 +372,10 @@
    "unresolvable": 17,
    "class_tree_stuck": 17,
    "ec2_tree_stuck": 17,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 7.6772,
+   "class_cost": 11.2405,
+   "ec2_cost": 7.3734
   },
   {
    "map_id": "k2_skew_rand_s2",
@@ -355,7 +397,10 @@
    "unresolvable": 11,
    "class_tree_stuck": 11,
    "ec2_tree_stuck": 11,
-   "h_class_bits": 0.9204
+   "h_class_bits": 0.9204,
+   "pure_cost": 7.7785,
+   "class_cost": 10.2025,
+   "ec2_cost": 7.1456
   },
   {
    "map_id": "k4_bal_align",
@@ -379,7 +424,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 4.519,
+   "class_cost": 4.3671,
+   "ec2_cost": 4.3608
   },
   {
    "map_id": "k4_bal_mix05_s1",
@@ -403,7 +451,10 @@
    "unresolvable": 9,
    "class_tree_stuck": 9,
    "ec2_tree_stuck": 9,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 6.0063,
+   "class_cost": 5.4367,
+   "ec2_cost": 5.3101
   },
   {
    "map_id": "k4_bal_mix05_s2",
@@ -427,7 +478,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 6.1203,
+   "class_cost": 5.2911,
+   "ec2_cost": 5.3987
   },
   {
    "map_id": "k4_bal_mix15_s1",
@@ -451,7 +505,10 @@
    "unresolvable": 7,
    "class_tree_stuck": 7,
    "ec2_tree_stuck": 7,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 6.8924,
+   "class_cost": 7.0063,
+   "ec2_cost": 6.1772
   },
   {
    "map_id": "k4_bal_mix15_s2",
@@ -475,7 +532,10 @@
    "unresolvable": 9,
    "class_tree_stuck": 9,
    "ec2_tree_stuck": 9,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 6.9367,
+   "class_cost": 7.5253,
+   "ec2_cost": 6.443
   },
   {
    "map_id": "k4_bal_rand_s1",
@@ -499,7 +559,10 @@
    "unresolvable": 31,
    "class_tree_stuck": 31,
    "ec2_tree_stuck": 31,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 8.1203,
+   "class_cost": 12.6709,
+   "ec2_cost": 7.9494
   },
   {
    "map_id": "k4_bal_rand_s2",
@@ -523,7 +586,10 @@
    "unresolvable": 23,
    "class_tree_stuck": 23,
    "ec2_tree_stuck": 23,
-   "h_class_bits": 1.9999
+   "h_class_bits": 1.9999,
+   "pure_cost": 8.1772,
+   "class_cost": 12.7975,
+   "ec2_cost": 7.9304
   },
   {
    "map_id": "k4_skew_align",
@@ -547,7 +613,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 4.3101,
+   "class_cost": 3.8481,
+   "ec2_cost": 3.9367
   },
   {
    "map_id": "k4_skew_mix05_s1",
@@ -571,7 +640,10 @@
    "unresolvable": 9,
    "class_tree_stuck": 9,
    "ec2_tree_stuck": 9,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 5.8038,
+   "class_cost": 5.3734,
+   "ec2_cost": 5.6266
   },
   {
    "map_id": "k4_skew_mix05_s2",
@@ -595,7 +667,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 6.038,
+   "class_cost": 5.2342,
+   "ec2_cost": 5.1519
   },
   {
    "map_id": "k4_skew_mix15_s1",
@@ -619,7 +694,10 @@
    "unresolvable": 13,
    "class_tree_stuck": 13,
    "ec2_tree_stuck": 13,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 7.0949,
+   "class_cost": 6.6772,
+   "ec2_cost": 6.6203
   },
   {
    "map_id": "k4_skew_mix15_s2",
@@ -643,7 +721,10 @@
    "unresolvable": 7,
    "class_tree_stuck": 7,
    "ec2_tree_stuck": 7,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 6.8924,
+   "class_cost": 7.3671,
+   "ec2_cost": 6.4747
   },
   {
    "map_id": "k4_skew_rand_s1",
@@ -667,7 +748,10 @@
    "unresolvable": 25,
    "class_tree_stuck": 25,
    "ec2_tree_stuck": 25,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 7.8671,
+   "class_cost": 11.5949,
+   "ec2_cost": 7.6646
   },
   {
    "map_id": "k4_skew_rand_s2",
@@ -691,7 +775,10 @@
    "unresolvable": 15,
    "class_tree_stuck": 15,
    "ec2_tree_stuck": 15,
-   "h_class_bits": 1.6473
+   "h_class_bits": 1.6473,
+   "pure_cost": 7.9177,
+   "class_cost": 9.7785,
+   "ec2_cost": 7.7278
   },
   {
    "map_id": "k8_bal_align",
@@ -719,7 +806,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 5.3608,
+   "class_cost": 5.2152,
+   "ec2_cost": 5.1139
   },
   {
    "map_id": "k8_bal_mix05_s1",
@@ -747,7 +837,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 6.3608,
+   "class_cost": 6.0886,
+   "ec2_cost": 5.9177
   },
   {
    "map_id": "k8_bal_mix05_s2",
@@ -775,7 +868,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 6.1519,
+   "class_cost": 6.0886,
+   "ec2_cost": 6.038
   },
   {
    "map_id": "k8_bal_mix15_s1",
@@ -803,7 +899,10 @@
    "unresolvable": 6,
    "class_tree_stuck": 6,
    "ec2_tree_stuck": 6,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 7.0063,
+   "class_cost": 6.9114,
+   "ec2_cost": 6.8228
   },
   {
    "map_id": "k8_bal_mix15_s2",
@@ -831,7 +930,10 @@
    "unresolvable": 10,
    "class_tree_stuck": 10,
    "ec2_tree_stuck": 10,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 6.8797,
+   "class_cost": 6.7848,
+   "ec2_cost": 6.5506
   },
   {
    "map_id": "k8_bal_rand_s1",
@@ -859,7 +961,10 @@
    "unresolvable": 27,
    "class_tree_stuck": 27,
    "ec2_tree_stuck": 27,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 8.2911,
+   "class_cost": 10.5127,
+   "ec2_cost": 8.1329
   },
   {
    "map_id": "k8_bal_rand_s2",
@@ -887,7 +992,10 @@
    "unresolvable": 29,
    "class_tree_stuck": 29,
    "ec2_tree_stuck": 29,
-   "h_class_bits": 2.9997
+   "h_class_bits": 2.9997,
+   "pure_cost": 8.2595,
+   "class_cost": 10.4241,
+   "ec2_cost": 8.2215
   },
   {
    "map_id": "k8_skew_align",
@@ -915,7 +1023,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 4.9873,
+   "class_cost": 4.8671,
+   "ec2_cost": 5.8291
   },
   {
    "map_id": "k8_skew_mix05_s1",
@@ -943,7 +1054,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 6.1519,
+   "class_cost": 6.3354,
+   "ec2_cost": 5.7468
   },
   {
    "map_id": "k8_skew_mix05_s2",
@@ -971,7 +1085,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 6.1772,
+   "class_cost": 6.5506,
+   "ec2_cost": 5.9177
   },
   {
    "map_id": "k8_skew_mix15_s1",
@@ -999,7 +1116,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 6.981,
+   "class_cost": 6.9177,
+   "ec2_cost": 6.4557
   },
   {
    "map_id": "k8_skew_mix15_s2",
@@ -1027,7 +1147,10 @@
    "unresolvable": 8,
    "class_tree_stuck": 8,
    "ec2_tree_stuck": 8,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 7.1203,
+   "class_cost": 8.481,
+   "ec2_cost": 6.7405
   },
   {
    "map_id": "k8_skew_rand_s1",
@@ -1055,7 +1178,10 @@
    "unresolvable": 21,
    "class_tree_stuck": 21,
    "ec2_tree_stuck": 21,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 8.0696,
+   "class_cost": 12.5127,
+   "ec2_cost": 7.7975
   },
   {
    "map_id": "k8_skew_rand_s2",
@@ -1083,7 +1209,10 @@
    "unresolvable": 23,
    "class_tree_stuck": 23,
    "ec2_tree_stuck": 23,
-   "h_class_bits": 2.0275
+   "h_class_bits": 2.0275,
+   "pure_cost": 8.038,
+   "class_cost": 9.7658,
+   "ec2_cost": 7.8101
   },
   {
    "map_id": "k16_bal_align",
@@ -1119,7 +1248,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 6.462,
+   "class_cost": 6.1899,
+   "ec2_cost": 6.1582
   },
   {
    "map_id": "k16_bal_mix05_s1",
@@ -1155,7 +1287,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 7.1139,
+   "class_cost": 6.7342,
+   "ec2_cost": 6.6709
   },
   {
    "map_id": "k16_bal_mix05_s2",
@@ -1191,7 +1326,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 6.7215,
+   "class_cost": 6.5316,
+   "ec2_cost": 6.3987
   },
   {
    "map_id": "k16_bal_mix15_s1",
@@ -1227,7 +1365,10 @@
    "unresolvable": 6,
    "class_tree_stuck": 6,
    "ec2_tree_stuck": 6,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 7.1203,
+   "class_cost": 6.8544,
+   "ec2_cost": 6.7722
   },
   {
    "map_id": "k16_bal_mix15_s2",
@@ -1263,7 +1404,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 7.3481,
+   "class_cost": 7.0759,
+   "ec2_cost": 6.981
   },
   {
    "map_id": "k16_bal_rand_s1",
@@ -1299,7 +1443,10 @@
    "unresolvable": 31,
    "class_tree_stuck": 31,
    "ec2_tree_stuck": 31,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 8.3291,
+   "class_cost": 9.5127,
+   "ec2_cost": 8.2595
   },
   {
    "map_id": "k16_bal_rand_s2",
@@ -1335,7 +1482,10 @@
    "unresolvable": 31,
    "class_tree_stuck": 31,
    "ec2_tree_stuck": 31,
-   "h_class_bits": 3.9992
+   "h_class_bits": 3.9992,
+   "pure_cost": 8.2785,
+   "class_cost": 9.7152,
+   "ec2_cost": 8.2405
   },
   {
    "map_id": "k16_skew_align",
@@ -1371,7 +1521,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 5.1266,
+   "class_cost": 5.5506,
+   "ec2_cost": 5.8481
   },
   {
    "map_id": "k16_skew_mix05_s1",
@@ -1407,7 +1560,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 6.2975,
+   "class_cost": 7.1139,
+   "ec2_cost": 5.9177
   },
   {
    "map_id": "k16_skew_mix05_s2",
@@ -1443,7 +1599,10 @@
    "unresolvable": 0,
    "class_tree_stuck": 0,
    "ec2_tree_stuck": 0,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 5.7215,
+   "class_cost": 7.0949,
+   "ec2_cost": 5.4684
   },
   {
    "map_id": "k16_skew_mix15_s1",
@@ -1479,7 +1638,10 @@
    "unresolvable": 4,
    "class_tree_stuck": 4,
    "ec2_tree_stuck": 4,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 6.9051,
+   "class_cost": 7.8734,
+   "ec2_cost": 6.6709
   },
   {
    "map_id": "k16_skew_mix15_s2",
@@ -1515,7 +1677,10 @@
    "unresolvable": 2,
    "class_tree_stuck": 2,
    "ec2_tree_stuck": 2,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 6.8481,
+   "class_cost": 7.0127,
+   "ec2_cost": 6.4937
   },
   {
    "map_id": "k16_skew_rand_s1",
@@ -1551,7 +1716,10 @@
    "unresolvable": 25,
    "class_tree_stuck": 25,
    "ec2_tree_stuck": 25,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 8.019,
+   "class_cost": 10.0063,
+   "ec2_cost": 7.9114
   },
   {
    "map_id": "k16_skew_rand_s2",
@@ -1587,7 +1755,10 @@
    "unresolvable": 24,
    "class_tree_stuck": 24,
    "ec2_tree_stuck": 24,
-   "h_class_bits": 2.4878
+   "h_class_bits": 2.4878,
+   "pure_cost": 8.0253,
+   "class_cost": 10.2342,
+   "ec2_cost": 7.8608
   }
  ]
 }

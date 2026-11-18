@@ -1,6 +1,6 @@
 {
  "map_id": "cat17",
- "version": 1,
+ "version": 2,
  "family": "natural",
  "k": 17,
  "profile": "natural",
@@ -214,7 +214,10 @@
   "unresolvable": 0,
   "class_tree_stuck": 0,
   "ec2_tree_stuck": 0,
-  "h_class_bits": 4.0424
+  "h_class_bits": 4.0424,
+  "pure_cost": 7.0949,
+  "class_cost": 6.0127,
+  "ec2_cost": 6.4937
  },
  "assignment_sha256_12": "339cd79b7732",
  "provenance": {
@@ -226,6 +229,6 @@
   "n_questions": 61,
   "threshold": 0.5,
   "generator": "class_maps.py",
-  "generator_version": 1
+  "generator_version": 2
  }
 }

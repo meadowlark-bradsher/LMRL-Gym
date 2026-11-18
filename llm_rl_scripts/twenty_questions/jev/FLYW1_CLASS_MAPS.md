@@ -51,9 +51,10 @@ final guess or action is not counted, because every arm spends exactly one.
 | `class_depth` | Questions for a greedy tree that maximises information about the class (arm C, noise-free) |
 | `ec2_depth` | Questions for the greedy EC² tree, uniform prior (arm D, noise-free) |
 | `best_q_nmi` | The best single question's information about the class, as a share of the class entropy |
+| `pure_cost`, `class_cost`, `ec2_cost` | Probes to decide for B, C and D: questions plus actions, counting the failed actions an arm takes on unresolvable objects (it acts on the biggest class first). Added in generator version 2; the assignments did not change |
 | `unresolvable` | Objects that share every answer with an object of a different class. No question separates them; only a by-name guess or an action can. This is the 20q version of fault-graph's kill/pause pair |
 
-These trees are a design-time check on the answer table, not the arms themselves: the arms run P0a with
+Arm A's cost is not modelled here: P0a guesses before one object is left, so it is measured by a calibration run (`flyw1_a_calibration.py`, see the prereg). These trees are a design-time check on the answer table, not the arms themselves: the arms run P0a with
 the graded likelihood. They are used as the basis for the pre-registered predictions.
 
 ## What the maps look like
@@ -92,5 +93,5 @@ PYTHONHASHSEED=0 PYTHONPATH=. /opt/miniconda3/envs/LLM_RL/bin/python -m llm_rl_s
 ```
 
 The build is deterministic and takes a few seconds. Each map file records its `assignment_sha256_12`, the
-matrix hash (`matrix_sha256_12`) and `generator_version` (1). An arm loads a map with `class_maps.load_map`
+matrix hash (`matrix_sha256_12`) and `generator_version` (2). An arm loads a map with `class_maps.load_map`
 and should refuse a map whose version or hash differs from the one registered.

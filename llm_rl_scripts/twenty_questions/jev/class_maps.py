@@ -81,7 +81,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 from .bed import ATTRIBUTE_BANK, load_hypotheses
 
-GENERATOR_VERSION = 1
+GENERATOR_VERSION = 2   # 2: adds the *_cost measures (questions + actions); assignments unchanged
 MATRIX_FILE = os.path.join(os.path.dirname(__file__), "matrix_jev.json")
 KS = (2, 4, 8, 16)
 PROFILES = ("bal", "skew")
@@ -152,13 +152,23 @@ def identity_tree(objs: Sequence[str], qids: Sequence[str], table: Table
     return order, paths
 
 
+def actions_needed(node: Sequence[str], cls: Dict[str, int], o: str) -> int:
+    """Actions an arm takes on ``o`` at a node no question splits: it acts on the
+    class with the most members first (ties: lowest id), and a failed action strikes
+    that class, so ``o`` is reached at its class's rank + 1. A pure node needs 1."""
+    counts = Counter(cls[x] for x in node)
+    order = sorted(counts, key=lambda c: (-counts[c], c))
+    return order.index(cls[o]) + 1
+
+
 def class_greedy_depth(objs: Sequence[str], qids: Sequence[str], table: Table,
-                       cls: Dict[str, int], score: str) -> Tuple[float, int]:
+                       cls: Dict[str, int], score: str) -> Tuple[float, int, float]:
     """Mean depth of a greedy tree that stops at class-pure nodes. ``score`` is
     ``"ig"`` (information about the class label, arm C) or ``"ec2"`` (weight of
     cross-class edges cut, arm D). Returns (mean depth, objects left in impure
-    nodes no question splits)."""
+    nodes no question splits, mean actions to the right class)."""
     depth: Dict[str, int] = {}
+    acts: Dict[str, int] = {}
     stuck = 0
 
     def edges(node: Sequence[str]) -> float:
@@ -171,6 +181,7 @@ def class_greedy_depth(objs: Sequence[str], qids: Sequence[str], table: Table,
         if len({cls[o] for o in node}) == 1:
             for o in node:
                 depth[o] = d
+                acts[o] = 1
             return
         n = len(node)
         hc = _h(list(Counter(cls[o] for o in node).values()))
@@ -199,13 +210,14 @@ def class_greedy_depth(objs: Sequence[str], qids: Sequence[str], table: Table,
         if best is None:
             for o in node:
                 depth[o] = d
+                acts[o] = actions_needed(node, cls, o)
             stuck += len(node)
             return
         grow([o for o in node if table[o][best]], d + 1)
         grow([o for o in node if not table[o][best]], d + 1)
 
     grow(list(objs), 0)
-    return sum(depth.values()) / len(depth), stuck
+    return sum(depth.values()) / len(depth), stuck, sum(acts.values()) / len(acts)
 
 
 # --------------------------------------------------------------------------- #
@@ -269,6 +281,7 @@ def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
              paths: Dict[str, List[Tuple[str, ...]]], cls: Dict[str, int]) -> dict:
     id_depth = sum(len(paths[o]) - 1 for o in objs) / len(objs)
     pure = []
+    pure_acts = []
     unresolvable = 0
     for o in objs:
         d = next((i for i, node in enumerate(paths[o])
@@ -276,10 +289,13 @@ def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
         if d is None:               # the leaf itself mixes classes
             unresolvable += 1
             d = len(paths[o]) - 1
+            pure_acts.append(actions_needed(paths[o][-1], cls, o))
+        else:
+            pure_acts.append(1)
         pure.append(d)
     pure_depth = sum(pure) / len(pure)
-    class_depth, class_stuck = class_greedy_depth(objs, qids, table, cls, "ig")
-    ec2_depth, ec2_stuck = class_greedy_depth(objs, qids, table, cls, "ec2")
+    class_depth, class_stuck, class_acts = class_greedy_depth(objs, qids, table, cls, "ig")
+    ec2_depth, ec2_stuck, ec2_acts = class_greedy_depth(objs, qids, table, cls, "ec2")
     labels = [cls[o] for o in objs]
     h_cls = _h(list(Counter(labels).values()))
     best_nmi = 0.0
@@ -295,7 +311,13 @@ def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
             "class_depth": round(class_depth, 4), "ec2_depth": round(ec2_depth, 4),
             "best_q_nmi": round(best_nmi, 4), "unresolvable": unresolvable,
             "class_tree_stuck": class_stuck, "ec2_tree_stuck": ec2_stuck,
-            "h_class_bits": round(h_cls, 4)}
+            "h_class_bits": round(h_cls, 4),
+            # Probes to decide, noise-free: questions plus actions (a failed action on an
+            # unresolvable object counts). Identity-tree arm A's equivalent is measured by
+            # running it (flyw1_a_calibration.py), since A may guess before one is left.
+            "pure_cost": round(pure_depth + sum(pure_acts) / len(pure_acts), 4),
+            "class_cost": round(class_depth + class_acts, 4),
+            "ec2_cost": round(ec2_depth + ec2_acts, 4)}
 
 
 def build_all(matrix_path: str = MATRIX_FILE) -> Tuple[List[dict], dict]:
