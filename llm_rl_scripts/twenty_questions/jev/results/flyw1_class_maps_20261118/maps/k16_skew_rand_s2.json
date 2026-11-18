@@ -1,6 +1,6 @@
 {
  "map_id": "k16_skew_rand_s2",
- "version": 2,
+ "version": 3,
  "family": "synthetic",
  "k": 16,
  "profile": "skew",
@@ -187,7 +187,7 @@
  "measures": {
   "id_depth": 7.2342,
   "pure_depth": 6.9494,
-  "alignment": 0.0394,
+  "alignment_bintree": 0.0394,
   "class_depth": 9.1582,
   "ec2_depth": 6.7848,
   "best_q_nmi": 0.0525,
@@ -197,7 +197,12 @@
   "h_class_bits": 2.4878,
   "pure_cost": 8.0253,
   "class_cost": 10.2342,
-  "ec2_cost": 7.8608
+  "ec2_cost": 7.8608,
+  "p0a_id_depth": 6.1076,
+  "p0a_pure_depth": 6.1076,
+  "alignment": 0.0,
+  "p0a_pure_cost": 8.019,
+  "p0a_unresolvable": 149
  },
  "assignment_sha256_12": "076b10d2032f",
  "provenance": {
@@ -208,7 +213,9 @@
   "n_objects": 158,
   "n_questions": 61,
   "threshold": 0.5,
+  "p0a_tree_from": "results/flyw1_a_calibration_20261118/a_games.json",
+  "p0a_tree_sha256_12": "4d4ed2796f10",
   "generator": "class_maps.py",
-  "generator_version": 2
+  "generator_version": 3
  }
 }

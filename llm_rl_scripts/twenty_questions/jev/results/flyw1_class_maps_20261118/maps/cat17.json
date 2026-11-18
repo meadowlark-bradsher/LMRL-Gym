@@ -1,6 +1,6 @@
 {
  "map_id": "cat17",
- "version": 2,
+ "version": 3,
  "family": "natural",
  "k": 17,
  "profile": "natural",
@@ -207,7 +207,7 @@
  "measures": {
   "id_depth": 7.2342,
   "pure_depth": 6.0949,
-  "alignment": 0.1575,
+  "alignment_bintree": 0.1575,
   "class_depth": 5.0127,
   "ec2_depth": 5.4937,
   "best_q_nmi": 0.2043,
@@ -217,7 +217,12 @@
   "h_class_bits": 4.0424,
   "pure_cost": 7.0949,
   "class_cost": 6.0127,
-  "ec2_cost": 6.4937
+  "ec2_cost": 6.4937,
+  "p0a_id_depth": 6.1076,
+  "p0a_pure_depth": 5.5506,
+  "alignment": 0.0912,
+  "p0a_pure_cost": 6.5506,
+  "p0a_unresolvable": 0
  },
  "assignment_sha256_12": "339cd79b7732",
  "provenance": {
@@ -228,7 +233,9 @@
   "n_objects": 158,
   "n_questions": 61,
   "threshold": 0.5,
+  "p0a_tree_from": "results/flyw1_a_calibration_20261118/a_games.json",
+  "p0a_tree_sha256_12": "4d4ed2796f10",
   "generator": "class_maps.py",
-  "generator_version": 2
+  "generator_version": 3
  }
 }

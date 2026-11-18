@@ -271,7 +271,7 @@ def gate(outdir: str) -> dict:
         calib = {g["secret"]: g for g in json.load(f)}
     a_recs = play_part1({"part": 1, "arm": "A", "map_id": None, "flip": 0.0, "seed": 0})
     mism = [r["secret"] for r in a_recs
-            if [[k[0], key] for k, key, _ in calib[r["secret"]]["steps"]] != r["steps"]
+            if [[k[0], key, a] for k, key, a in calib[r["secret"]]["steps"]] != r["steps"]
             or calib[r["secret"]]["outcome"] != r["outcome"]]
     res["de0a_flip0_matches_calibration"] = not mism
     res["de0a_flip0_mismatches"] = mism[:10]
@@ -285,7 +285,8 @@ def gate(outdir: str) -> dict:
         ep = run_openworld_episode(h, hyps, matrix, 0.0, o2, max_questions=20,
                                    confidence=0.9, eps=0.05, backend="modeswitch_guard",
                                    tolerance=3, no_repeat=True, end_rule="always")
-        if [[s.kind[0], s.qid.split(":", 1)[1]] for s in ep.steps] != r["steps"]:
+        if [[s.kind[0], s.qid.split(":", 1)[1], s.answer_yes] for s in ep.steps] \
+                != r["steps"]:
             direct_ok = False
     res["de0a_noisy_matches_direct"] = direct_ok
 
@@ -341,7 +342,7 @@ def gate(outdir: str) -> dict:
                          "n_new": len(r["new_class_novels"]),
                          "n_same": len(r["same_class_novels"]), "n_known": len(known),
                          "every_class_kept": others <= kept,
-                         "alignment_reduced_pool": meas["alignment"]})
+                         "alignment_bintree_reduced_pool": meas["alignment_bintree"]})
     res["part2_n_rotations"] = len(rots)
     res["part2_every_class_kept"] = all(r["every_class_kept"] for r in rot_rows)
     res["part2_rotations"] = rot_rows

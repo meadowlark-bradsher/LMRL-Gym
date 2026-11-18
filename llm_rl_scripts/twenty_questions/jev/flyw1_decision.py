@@ -102,7 +102,8 @@ def play_a(true_h: Hypothesis, known: Sequence[Hypothesis], matrix: Matrix,
     return {"arm": "A", "secret": true_h.name, "outcome": ep.outcome,
             "n_probes": len(ep.steps), "reinstates": ep.n_retractions,
             "flips": oracle.n_flips,
-            "steps": [[s.kind[0], s.qid.split(":", 1)[1]] for s in ep.steps],
+            "steps": [[s.kind[0], s.qid.split(":", 1)[1], s.answer_yes]
+                      for s in ep.steps],
             "live": live_sizes}
 
 
@@ -111,7 +112,7 @@ def score_a_record(rec: dict, cls: ClassMap) -> dict:
     decision'). A guess of an object in the secret's class ends the game right."""
     target = cls.get(rec["secret"])
     wrong = 0
-    for i, (kind, key) in enumerate(rec["steps"], start=1):
+    for i, (kind, key, *_ans) in enumerate(rec["steps"], start=1):
         if kind == "g":
             if cls.get(key) == target:
                 return {"probes": i, "actions": wrong + 1, "wrong": wrong,

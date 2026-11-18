@@ -81,7 +81,9 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 from .bed import ATTRIBUTE_BANK, load_hypotheses
 
-GENERATOR_VERSION = 2   # 2: adds the *_cost measures (questions + actions); assignments unchanged
+GENERATOR_VERSION = 3   # 2: *_cost measures. 3: align/mix maps cut from P0a's question tree
+A_GAMES = os.path.join(os.path.dirname(__file__), "results", "flyw1_a_calibration_20261118",
+                       "a_games.json")
 MATRIX_FILE = os.path.join(os.path.dirname(__file__), "matrix_jev.json")
 KS = (2, 4, 8, 16)
 PROFILES = ("bal", "skew")
@@ -277,8 +279,59 @@ def shuffled(objs: Sequence[str], sizes: Sequence[int], seed: int) -> Dict[str, 
     return blocks(perm, sizes)
 
 
+def p0a_paths(objs: Sequence[str], a_games_path: str = A_GAMES
+              ) -> Tuple[List[str], Dict[str, Tuple[Tuple[str, bool], ...]], str]:
+    """P0a's own question tree, read off the control arm's disclosed flip-0 run: each
+    object's sequence of (question, answer) pairs, by-name guesses dropped. P0a is
+    deterministic at flip 0, so the sequences form a trie; sorting them (yes before
+    no, a prefix before its extensions, ties in benchmark order) is its leaf order."""
+    with open(a_games_path) as f:
+        games = {g["secret"]: g for g in json.load(f)}
+    seqs = {o: tuple((qid if ":" in qid else kind + ":" + qid, bool(ans))
+                     for kind, qid, ans in games[o]["steps"] if kind != "guess")
+            for o in objs}
+    pos = {o: i for i, o in enumerate(objs)}
+    order = sorted(objs, key=lambda o: (tuple((q, 0 if a else 1) for q, a in seqs[o]),
+                                        pos[o]))
+    with open(a_games_path, "rb") as f:
+        sha = hashlib.sha256(f.read()).hexdigest()[:12]
+    return order, seqs, sha
+
+
+def p0a_measures(objs: Sequence[str], seqs: Dict[str, tuple], cls: Dict[str, int]) -> dict:
+    """Alignment on P0a's question tree. An object's node at depth d holds the objects
+    whose first d (question, answer) pairs match its own. B asks P0a's questions, so
+    it can act once that node is class-pure. If no node on the path is pure, the
+    objects sharing its whole path (A told them apart only by guessing) are taken in
+    the plurality order, as an arm acts on an unresolvable set."""
+    id_depth = sum(len(seqs[o]) for o in objs) / len(objs)
+    pure, acts, unres = [], [], 0
+    for o in objs:
+        so = seqs[o]
+        d_pure = None
+        for d in range(len(so) + 1):
+            node = [x for x in objs if seqs[x][:d] == so[:d]]
+            if len({cls[x] for x in node}) == 1:
+                d_pure = d
+                break
+        if d_pure is None:
+            group = [x for x in objs if seqs[x] == so]
+            unres += len({cls[x] for x in group}) > 1
+            d_pure = len(so)
+            acts.append(actions_needed(group, cls, o))
+        else:
+            acts.append(1)
+        pure.append(d_pure)
+    pd = sum(pure) / len(pure)
+    return {"p0a_id_depth": round(id_depth, 4), "p0a_pure_depth": round(pd, 4),
+            "alignment": round(1.0 - pd / id_depth, 4) if id_depth else None,
+            "p0a_pure_cost": round(pd + sum(acts) / len(acts), 4),
+            "p0a_unresolvable": unres}
+
+
 def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
-             paths: Dict[str, List[Tuple[str, ...]]], cls: Dict[str, int]) -> dict:
+             paths: Dict[str, List[Tuple[str, ...]]], cls: Dict[str, int],
+             seqs: Optional[Dict[str, tuple]] = None) -> dict:
     id_depth = sum(len(paths[o]) - 1 for o in objs) / len(objs)
     pure = []
     pure_acts = []
@@ -306,8 +359,8 @@ def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
         mi = h_cls - len(yes) / n * _h(list(Counter(yes).values())) \
                    - len(no) / n * _h(list(Counter(no).values()))
         best_nmi = max(best_nmi, mi / h_cls if h_cls else 0.0)
-    return {"id_depth": round(id_depth, 4), "pure_depth": round(pure_depth, 4),
-            "alignment": round(1.0 - pure_depth / id_depth, 4),
+    out = {"id_depth": round(id_depth, 4), "pure_depth": round(pure_depth, 4),
+            "alignment_bintree": round(1.0 - pure_depth / id_depth, 4),
             "class_depth": round(class_depth, 4), "ec2_depth": round(ec2_depth, 4),
             "best_q_nmi": round(best_nmi, 4), "unresolvable": unresolvable,
             "class_tree_stuck": class_stuck, "ec2_tree_stuck": ec2_stuck,
@@ -318,11 +371,17 @@ def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
             "pure_cost": round(pure_depth + sum(pure_acts) / len(pure_acts), 4),
             "class_cost": round(class_depth + class_acts, 4),
             "ec2_cost": round(ec2_depth + ec2_acts, 4)}
+    if seqs is not None:
+        out.update(p0a_measures(objs, seqs, cls))
+    return out
 
 
 def build_all(matrix_path: str = MATRIX_FILE) -> Tuple[List[dict], dict]:
     objs, qids, table, prov = load_table(matrix_path)
-    order, paths = identity_tree(objs, qids, table)
+    _, paths = identity_tree(objs, qids, table)
+    order, seqs, a_sha = p0a_paths(objs)
+    prov = dict(prov, p0a_tree_from=os.path.relpath(A_GAMES, os.path.dirname(__file__)),
+                p0a_tree_sha256_12=a_sha)
     hyps = load_hypotheses()
     maps: List[dict] = []
 
@@ -335,7 +394,7 @@ def build_all(matrix_path: str = MATRIX_FILE) -> Tuple[List[dict], dict]:
                 "sizes": sizes, "classes": {o: cls[o] for o in objs}}
         if class_names:
             body["class_names"] = class_names
-        body["measures"] = measures(objs, qids, table, paths, cls)
+        body["measures"] = measures(objs, qids, table, paths, cls, seqs)
         digest = hashlib.sha256(json.dumps(body["classes"], sort_keys=True).encode()).hexdigest()
         body["assignment_sha256_12"] = digest[:12]
         body["provenance"] = dict(prov, generator="class_maps.py",
@@ -387,8 +446,18 @@ def load_map(path: str) -> Dict[str, int]:
 def self_test() -> None:
     objs, qids, table, _ = load_table()
     assert len(objs) == 158 and len(qids) == 44 + 17
-    order, paths = identity_tree(objs, qids, table)
+    _, paths = identity_tree(objs, qids, table)
+    order, seqs, _ = p0a_paths(objs)
     assert sorted(order) == sorted(objs)
+    # The P0a sequences form a trie: at every node the next question is shared by all
+    # objects that go on asking (the planner is deterministic).
+    for o in objs:
+        for x in objs:
+            k = 0
+            while k < min(len(seqs[o]), len(seqs[x])) and seqs[o][k] == seqs[x][k]:
+                k += 1
+            if k < len(seqs[o]) and k < len(seqs[x]):
+                assert seqs[o][k][0] == seqs[x][k][0], (o, x, k)
     for k in KS:
         for p in PROFILES:
             s = profile_sizes(158, k, p)
@@ -398,23 +467,21 @@ def self_test() -> None:
     mx = mix(al, objs, 0.5, seed=3)
     assert Counter(mx.values()) == Counter(al.values())          # sizes preserved
     assert sum(al[o] != mx[o] for o in objs) in (79, 80)          # half moved (pairs)
-    m_al = measures(objs, qids, table, paths, al)
-    m_rd = measures(objs, qids, table, paths, shuffled(objs, sizes, seed=1))
+    m_al = measures(objs, qids, table, paths, al, seqs)
+    m_rd = measures(objs, qids, table, paths, shuffled(objs, sizes, seed=1), seqs)
     assert m_al["alignment"] > m_rd["alignment"], (m_al, m_rd)
-    # A one-class map is pure at the root.
     one = {o: 0 for o in objs}
-    m_one = measures(objs, qids, table, paths, one)
-    assert m_one["pure_depth"] == 0 and m_one["alignment"] == 1.0
-    # Identity map: purity only at the leaves, so alignment is 0 up to identical leaves.
+    m_one = measures(objs, qids, table, paths, one, seqs)
+    assert m_one["p0a_pure_depth"] == 0 and m_one["alignment"] == 1.0
+    assert m_one["pure_depth"] == 0 and m_one["alignment_bintree"] == 1.0
     ident = {o: i for i, o in enumerate(objs)}
-    assert measures(objs, qids, table, paths, ident)["alignment"] == 0.0
-    # Determinism.
+    assert measures(objs, qids, table, paths, ident)["alignment_bintree"] == 0.0
     a, _ = build_all()
     b, _ = build_all()
     assert [x["assignment_sha256_12"] for x in a] == [x["assignment_sha256_12"] for x in b]
     assert len(a) == 57
-    print("class_maps self-test PASS (57 maps; aligned {:.3f} > random {:.3f} at K=4 bal)"
-          .format(m_al["alignment"], m_rd["alignment"]))
+    print("class_maps self-test PASS (57 maps; P0a-tree alignment aligned {:.3f} > random "
+          "{:.3f} at K=4 bal)".format(m_al["alignment"], m_rd["alignment"]))
 
 
 def main() -> None:
@@ -432,10 +499,10 @@ def main() -> None:
     print("wrote {} maps to {}".format(len(maps), a.out))
     for mp in maps:
         m = mp["measures"]
-        print("{:24s} sizes={:<40s} align={:.3f} pure={:.2f} class={:.2f} ec2={:.2f} "
-              "nmi={:.3f} unres={}".format(mp["map_id"], str(mp["sizes"])[:40], m["alignment"],
-                                           m["pure_depth"], m["class_depth"], m["ec2_depth"],
-                                           m["best_q_nmi"], m["unresolvable"]))
+        print("{:24s} align={:.3f} (bintree {:.3f}) p0a_pure_cost={:.2f} class={:.2f} "
+              "ec2={:.2f} unres={}".format(mp["map_id"], m["alignment"], m["alignment_bintree"],
+                                           m["p0a_pure_cost"], m["class_cost"], m["ec2_cost"],
+                                           m["p0a_unresolvable"]))
 
 
 if __name__ == "__main__":

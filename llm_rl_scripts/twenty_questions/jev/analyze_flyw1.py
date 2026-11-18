@@ -14,6 +14,8 @@ Readings fixed here (see ``FLYW1_BUILD.md``):
 * ET2 and ET3 pool flips 0.05 and 0.10, as ET1 states; flip 0 is reported.
 * Part 2 rates weight each game by its ``weight`` (in-pool games at flip 0 are played
   once with the weight of their repeats).
+* ET2's missed call is T-loss acting at the trigger point on a new-class novel (user
+  decision 2026-11-18); wrong actions before the trigger point are reported per arm.
 """
 
 from __future__ import annotations
@@ -169,12 +171,13 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
                 wa, wb = pooled("A", c, flip, "wrong"), pooled("B", c, flip, "wrong")
                 d1c["{}|{}".format(c, flip)] = {"A": round(wa, 4), "B": round(wb, 4),
                                                 "pass": wb <= wa + 0.02}
-    for c in ("align", "mix05"):
+    # Bars rescaled 2026-11-18 (user) to the P0a-tree basis: align >= 0.5, mix05 >= 0.3.
+    for c, bar in (("align", 0.5), ("mix05", 0.3)):
         for flip in (0.0, 0.05):
             pa, pb = pooled("A", c, flip), pooled("B", c, flip)
             if pa is not None and pb is not None:
-                d1b["{}|{}".format(c, flip)] = {"saving": round(pa - pb, 4),
-                                                "pass": pa - pb >= 1.0}
+                d1b["{}|{}".format(c, flip)] = {"saving": round(pa - pb, 4), "bar": bar,
+                                                "pass": pa - pb >= bar}
     res["DE1"] = {"a": d1a, "b": d1b, "c": d1c,
                   "PASS": bool(d1a and d1b and d1c
                                and all(x["pass"] for x in list(d1a.values())
@@ -190,7 +193,8 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
         x = [maps[m]["measures"]["alignment"] for m in syn]
         y = [map_mean(m, "A", 0.0) - map_mean(m, "B", 0.0) for m in syn]
         rho = spearman(x, y)
-        res["DE2"] = {"spearman": round(rho, 4), "n_maps": len(syn), "PASS": rho >= 0.8}
+        res["DE2"] = {"spearman": round(rho, 4), "n_maps": len(syn), "bar": 0.5,
+                      "PASS": rho >= 0.5}
 
     # DE3.
     rand = [m for m in map_ids if maps[m]["alignment_construction"] == "rand"]
@@ -213,11 +217,13 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict]) -> dict:
         if cross and al:
             a = bd(cross) - bd(al)
             dc = [m for m in rand if map_mean(m, "D", 0.0) <= map_mean(m, "C", 0.0)]
+            # DE4(a) is reported only (2026-11-18: its P0a-tree basis, 0.04, is inside
+            # the noise); DE4 is scored on (b).
             res["DE4"] = {"b_minus_d_cross": round(bd(cross), 4),
-                          "b_minus_d_align": round(bd(al), 4), "a_diff": round(a, 4),
-                          "a_pass": a >= 0.2, "b_rand_d_le_c": len(dc),
+                          "b_minus_d_align": round(bd(al), 4),
+                          "a_diff_reported": round(a, 4), "b_rand_d_le_c": len(dc),
                           "b_rand_maps": len(rand), "b_pass": len(dc) == len(rand)}
-            res["DE4"]["PASS"] = res["DE4"]["a_pass"] and res["DE4"]["b_pass"]
+            res["DE4"]["PASS"] = res["DE4"]["b_pass"]
 
     # DE5.
     if 0.05 in flips:
@@ -261,14 +267,17 @@ def p2_outcome(g: dict, trigger: str, cls: Dict[str, int]) -> dict:
     if g["arm"] == "A":
         r = score_a_record(g, cls)
         return {"expert": r["outcome"] != "right", "wrong": r["wrong"],
-                "probes": r["probes"]}
+                "probes": r["probes"], "pre_wrong": r["wrong"], "acted_at_trigger": False}
     if g["outcome"] == "right":
-        return {"expert": False, "wrong": g["wrong"], "probes": g["probes"]}
+        return {"expert": False, "wrong": g["wrong"], "probes": g["probes"],
+                "pre_wrong": g["wrong"], "acted_at_trigger": False}
     if trigger == "mass":
-        return {"expert": True, "wrong": g["wrong"], "probes": g["probes"]}
+        return {"expert": True, "wrong": g["wrong"], "probes": g["probes"],
+                "pre_wrong": g["wrong"], "acted_at_trigger": False}
     t = g["tloss"][trigger]
     return {"expert": t["outcome"] == "expert", "wrong": g["wrong"] + t["extra_wrong"],
-            "probes": g["probes"] + t["extra_actions"]}
+            "probes": g["probes"] + t["extra_actions"], "pre_wrong": g["wrong"],
+            "acted_at_trigger": t["extra_actions"] >= 1}
 
 
 def part2(d: str, maps: Dict[str, dict]) -> dict:
@@ -287,7 +296,7 @@ def part2(d: str, maps: Dict[str, dict]) -> dict:
                     (g, p2_outcome(g, t, cls)))
 
     def rates(ms, arm, flips, trig, ratio):
-        w_sp = n_sp = w_new = n_miss = cost = w_all = 0.0
+        w_sp = n_sp = w_new = n_miss = cost = w_all = pre = 0.0
         for (m, a, f, t, rot), lst in rows.items():
             if m not in ms or a != arm or f not in flips or t != trig:
                 continue
@@ -301,9 +310,14 @@ def part2(d: str, maps: Dict[str, dict]) -> dict:
                     n_sp += w * o["expert"]
                 else:
                     w_new += w
-                    n_miss += w * (o["wrong"] >= 1 or not o["expert"])
+                    # ET2 (amended 2026-11-18): a missed call is the trigger *acting*
+                    # on a new-class novel. Wrong actions before the trigger point are
+                    # the stopping rule's and are the same under every trigger.
+                    n_miss += w * o["acted_at_trigger"]
+                    pre += w * o["pre_wrong"]
         return {"spurious": round(n_sp / w_sp, 4) if w_sp else None,
                 "missed": round(n_miss / w_new, 4) if w_new else None,
+                "pre_trigger_wrong_per_new_game": round(pre / w_new, 4) if w_new else None,
                 "cost": round(cost / w_all, 4) if w_all else None}
 
     all_maps = sorted({k[0] for k in rows})
@@ -354,6 +368,22 @@ def part2(d: str, maps: Dict[str, dict]) -> dict:
                     if r["spurious"] is not None:
                         rep["{}|{}|{}|{}".format(c, flip, arm, t)] = r
     res["reported"] = rep
+    # Reported: alignment of each rotation's reduced known pool on P0a's own question
+    # tree, read off A's flip-0 in-pool games of that rotation (control arm only).
+    from .class_maps import p0a_measures
+    align = {}
+    for j in jobs:
+        jb = j["job"]
+        if jb["arm"] != "A" or jb["flip"] != 0.0:
+            continue
+        cls = maps[jb["map_id"]]["classes"]
+        games = [g for g in j["games"] if g["kind"] == "in_pool"]
+        seqs = {g["secret"]: tuple((st[0] + ":" + st[1], st[2]) for st in g["steps"]
+                                   if st[0] != "g")
+                for g in games}
+        objs = [g["secret"] for g in games]
+        align[jb["rotation"]] = p0a_measures(objs, seqs, cls)["alignment"]
+    res["reduced_pool_alignment_p0a"] = align
     return res
 
 

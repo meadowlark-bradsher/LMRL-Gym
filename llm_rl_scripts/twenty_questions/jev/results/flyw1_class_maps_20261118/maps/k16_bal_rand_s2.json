@@ -1,6 +1,6 @@
 {
  "map_id": "k16_bal_rand_s2",
- "version": 2,
+ "version": 3,
  "family": "synthetic",
  "k": 16,
  "profile": "bal",
@@ -187,7 +187,7 @@
  "measures": {
   "id_depth": 7.2342,
   "pure_depth": 7.1709,
-  "alignment": 0.0087,
+  "alignment_bintree": 0.0087,
   "class_depth": 8.6076,
   "ec2_depth": 7.1329,
   "best_q_nmi": 0.036,
@@ -197,7 +197,12 @@
   "h_class_bits": 3.9992,
   "pure_cost": 8.2785,
   "class_cost": 9.7152,
-  "ec2_cost": 8.2405
+  "ec2_cost": 8.2405,
+  "p0a_id_depth": 6.1076,
+  "p0a_pure_depth": 6.1076,
+  "alignment": 0.0,
+  "p0a_pure_cost": 9.2532,
+  "p0a_unresolvable": 153
  },
  "assignment_sha256_12": "8ec79cf9b2bc",
  "provenance": {
@@ -208,7 +213,9 @@
   "n_objects": 158,
   "n_questions": 61,
   "threshold": 0.5,
+  "p0a_tree_from": "results/flyw1_a_calibration_20261118/a_games.json",
+  "p0a_tree_sha256_12": "4d4ed2796f10",
   "generator": "class_maps.py",
-  "generator_version": 2
+  "generator_version": 3
  }
 }
