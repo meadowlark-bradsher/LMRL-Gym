@@ -1,0 +1,35 @@
+{
+ "part": 1,
+ "seeds": 66,
+ "trim": false,
+ "in_pool_reps": 4,
+ "pythonhashseed": "0",
+ "p0a": {
+  "max_probes": 20,
+  "confidence": 0.9,
+  "eps": 0.05,
+  "tolerance": 3
+ },
+ "flips": [
+  0.0,
+  0.05,
+  0.1
+ ],
+ "ratios": [
+  0.5,
+  0.2,
+  0.05
+ ],
+ "pu_scales": [
+  1.0,
+  0.5,
+  2.0
+ ],
+ "segments": [
+  {
+   "started": "2026-11-18 17:06:14",
+   "n_jobs": 30590,
+   "workers": 6
+  }
+ ]
+}
