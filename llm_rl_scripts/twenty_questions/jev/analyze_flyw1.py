@@ -40,11 +40,21 @@ CONSTRUCTIONS = ("align", "mix05", "mix15", "rand", "category")
 C_EXPERT = 10.0
 
 
-def load_jobs(d: str) -> List[dict]:
+# Part 1 fields the scoring reads; the rest (live sets, flips, step lists of B/C/D)
+# is dropped on load so 33k jobs fit well under the 8 GB per-job memory rule.
+P1_KEEP_A = ("secret", "outcome", "n_probes", "steps")
+P1_KEEP_ARM = ("secret", "outcome", "probes", "actions", "wrong", "fallbacks")
+
+
+def load_jobs(d: str, slim: bool = False) -> List[dict]:
     out = []
     for p in sorted(glob.glob(os.path.join(d, "jobs", "*.json.gz"))):
         with gzip.open(p, "rt") as f:
-            out.append(json.load(f))
+            j = json.load(f)
+        if slim:
+            keep = P1_KEEP_A if j["job"]["arm"] == "A" else P1_KEEP_ARM
+            j["games"] = [{k: g[k] for k in keep if k in g} for g in j["games"]]
+        out.append(j)
     return out
 
 
@@ -72,7 +82,7 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
     """``ext``/``ext_cells``: Addendum 1's DE1 extension (A and B on seeds 67..S in the
     cells whose blind S > 66). DE1(a)/(c) in those cells are scored on seeds 1..S, and
     the registered 66-seed result is kept beside them as the primary-protocol result."""
-    jobs = load_jobs(d)
+    jobs = load_jobs(d, slim=True)
     a_by = {}                                   # (flip, seed) -> games
     arm_by = defaultdict(dict)                  # (map, arm, flip) -> seed -> games
     for j in jobs:
@@ -239,7 +249,7 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
         for k, v in arm_by.items():
             if k[1] == "B":
                 earm_by[k] = dict(v)
-        for j in load_jobs(ext):
+        for j in load_jobs(ext, slim=True):
             jb = j["job"]
             assert jb["arm"] in ("A", "B"), jb["job_id"]
             if jb["arm"] == "A":
