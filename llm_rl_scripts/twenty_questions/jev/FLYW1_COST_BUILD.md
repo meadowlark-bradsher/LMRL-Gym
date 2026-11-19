@@ -63,8 +63,9 @@ cause is seed-to-seed variation that FLYW-1's SE understates:
   unchanged on `cat17`.
 * **S = 20 is still ample.** With the corrected SE, the prereg's seed rule asks for 5 seeds in every scored noisy cell,
   for P1 and P2.
-* **The prereg text still defines the SE per (map, secret)** (Terms table). Amending it is the user's call before
-  registration.
+* **The prereg is amended to the secret unit** (user, 2026-11-19, before registration): its Terms table, seed-count
+  note and basis SE column. `flyw1_cost_basis.py` now writes both SEs to `cost_var.json` (jobq 76; the earlier
+  fields are unchanged), and with the secret unit the seed rule still asks for 5 seeds everywhere.
 * **FLYW-1's own verdicts do not change.** Its reported SEs on multi-map cells are understated by the same factor, but
   every scored FLYW-1 test sits far beyond its bar; the closest is DE1(b) on `mix05` at flip 0.05, 0.186 against 0.3,
   about 7 corrected SEs away.
@@ -89,5 +90,4 @@ PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.anal
 2. P2's cheap wrong action (c_wrong = 5).
 3. Dropping C.
 4. Whether one fresh map going the wrong way (P4) should block adopting the label.
-5. The SE unit: amend the prereg's Terms table to the secret unit (as built), or keep FLYW-1's (map, secret) unit
-   (`SE_UNIT = "map_secret"`).
+Settled: the SE unit is the secret (user, 2026-11-19).

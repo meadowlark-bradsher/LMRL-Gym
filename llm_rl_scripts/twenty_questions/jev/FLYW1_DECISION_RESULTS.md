@@ -262,6 +262,14 @@ at the same ratio. No verdict uses the reported block: ET1–ET3 and the adoptio
 * **Basis miss.** DE1's and DE5's bars were derived from a tree model of B that undercounts B's real probes on
   cut-across maps by up to 1.8. A rerun on corrected bases would not change the direction of DE1(a) on `mix15` and
   `rand`, where B is above A, but the bars as registered were not well calibrated there.
+* **Standard errors on multi-map cells are understated (found 2026-11-19, `FLYW1_COST_BUILD.md`).** The
+  within-secret SE treats each (map, secret) as an independent unit, but A plays each (secret, seed) game once and
+  is scored on every map, and the keyed noise is shared by every arm's game of that secret and seed. On `align` at
+  flip 0.05 (A − B total cost, 20 seeds) it gives 0.53, against 1.42 with the secret as the unit and 1.60 measured
+  across seeds; on multi-map cells the understatement is 2.1–3.5×. No verdict changes: the closest scored test,
+  DE1(b) on `mix05` at flip 0.05 (0.186 against 0.3), stays about 7 corrected SEs from its bar. The SEs quoted
+  above and in `flyw1_analysis_20261119.json` for multi-map cells, and the Addendum 1 seed counts derived from
+  them, carry this understatement; `cat17` (one map) is unaffected. The total-cost follow-up uses the secret unit.
 * **Part 2 at 5 seeds.** Its own seed rule asked for no more, and its SEs are well inside its margins.
 * **Synthetic classes.** Except `cat17`, the class maps are constructed; real remediation classes may sit anywhere on
   the alignment axis. DE2 says that position decides whether a class stopping rule saves questions.
