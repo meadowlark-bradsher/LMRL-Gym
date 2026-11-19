@@ -1,6 +1,8 @@
 # Aim at a decision, not an identity — pre-registration (Flywheel experiment 1)
 
-**Status (2026-11-18): DRAFT, not registered.** Revised twice the same day:
+**Status (2026-11-18): REGISTERED** at tag `prereg-flyw1-decision-20261118` (commit 1762523, the merge of PR #100;
+user: "Tag, and queue both parts"). Thresholds, seed counts and rules are as written below; nothing has
+changed since the tag. Before registration it was revised twice the same day:
 
 * after the user's calls on the four open choices (Jira FLYW-1, comment 10584) and a disclosed calibration run
   of the control arm (§Basis);
