@@ -4,7 +4,9 @@
 user: "Tag, and queue both parts"). Thresholds, seed counts and rules are as written below; nothing has
 changed since the tag except **Addendum 1** (end of this file; tag `prereg-flyw1-addendum1-20261119`, Jira
 FLYW-1 comment 10593), which was tagged while Part 1 was still running, before any Part 1 or Part 2 outcome was
-read. Before registration it was revised twice the same day:
+read. **Run and scored 2026-11-19**: DE1 fails, so the registered decision is "class targeting does not pay on
+P0a"; T-loss is not adopted. Results in `FLYW1_DECISION_RESULTS.md`. Before registration it was revised twice
+the same day:
 
 * after the user's calls on the four open choices (Jira FLYW-1, comment 10584) and a disclosed calibration run
   of the control arm (§Basis);

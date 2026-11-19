@@ -180,3 +180,19 @@ roughly. The level itself was not printed or read.
 ```bash
 PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1 --part1 .../flyw1_part1_20261118 --part1-ext .../flyw1_part1ext_20261119 --part2 .../flyw1_part2_20261118 --gate .../flyw1_gate_20261118/gate.json --seed-rule .../flyw1_smoke_20261118/seed_rule.json --out .../flyw1_analysis_20261119.json
 ```
+
+## Reported tables (`flyw1_report.py`, after scoring)
+
+`flyw1_report.py` writes the numbers `FLYW1_DECISION_RESULTS.md` quotes beyond the verdicts. It reads the
+analyzer's output and the Part 2 jobs, and scores nothing:
+
+* Part 1 cells pooled per construction with the analyzer's own pooling, plus the class-map basis beside B's
+  observed flip-0 probes;
+* how often T-loss acts at Part 2's trigger points, and P(X\*) there;
+* T-mass against T-loss costed at the *same* ratio. The analyzer's `part2.reported` block costs T-mass at 0.2
+  only, so its T-loss costs at 0.5 and 0.05 are not comparable with the T-mass cost beside them. No verdict uses
+  that block.
+
+```bash
+PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.flyw1_report --analysis .../flyw1_analysis_20261119.json --part2 .../flyw1_part2_20261118 --out .../flyw1_report_20261119.json
+```
