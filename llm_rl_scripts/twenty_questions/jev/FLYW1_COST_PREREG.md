@@ -183,6 +183,10 @@ the bar. **An inconclusive test counts as not passed.**
   not from sampling objects.
 * **Synthetic classes.** Except `cat17`, the class maps are constructed. Real remediation classes may sit anywhere
   on the alignment axis; the per-map cost against alignment is reported for that reason.
+* **Bitmask form only.** P0a eliminates objects one by one with independent masks. The sre-flywheel README
+  ("Bitmask or graph", under the meet-semilattice claims) notes that a constraint-graph form, where one
+  elimination cascades to dependent hypotheses, is closer to diagnosis. This run says nothing about that form: a
+  cascade could change B's question count and A's guessing alike.
 * **Escalation is out of scope.** FLYW-1 Part 2 showed that escalation is consulted only once the live set
   empties or the probes run out, and that every new-class incident takes wrong actions first. A trigger checked
   before each action is a separate prereg.
