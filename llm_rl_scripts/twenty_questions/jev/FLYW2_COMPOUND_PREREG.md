@@ -1,9 +1,10 @@
 # More than one cause — pre-registration (Flywheel experiment 2, FLYW-7)
 
-**Status (2026-11-19): DRAFT, not registered, not tagged.** Registration is the user's call. The open choices
-are decided (§Decisions; the recommended option on each). Before the tag, the runner, analyzer and blind seed
-tool are built; the CX0 gate passes; and the 5-seed smoke sets the seed count (§Seeds). Nothing has been run
-except the disclosed noise-free calibration (§Basis). No noisy game has been played.
+**Status (2026-11-19): DRAFT, built and gated, not registered, not tagged.** Registration is the user's call.
+The open choices are decided (§Decisions; the recommended option on each). The runner, analyzer and blind seed
+tool are built (`FLYW2_BUILD.md`), and the CX0 gate passes (jobq 77). The 5-seed smoke (jobq 78) was read only by
+the blind seed tool, which sets **S = 5** (§Seeds). Apart from the disclosed noise-free calibration (§Basis), no
+outcome has been read. The smoke's noisy games were played, and only their within-unit variances were computed.
 
 Jira: epic FLYW-2. This is FLYW-7 (the two-secret oracle). FLYW-8 (fixes) and FLYW-9 (the two-fault composition
 study in fault-graph) are decided from it. Design source: sre-flywheel README, "Experiment 2: more than one cause",
@@ -307,8 +308,28 @@ the pair, with its members' single games from the same seed.
   seeds.
 * **Blind.** `flyw2_seed_rule.py`, to be built, reads the smoke and prints only variances, standard errors and
   seed counts, never a rate, a cost or a difference. The smoke's games are not otherwise read.
-* **Cost estimate.** At flip 0 a full set of games takes 243 s on one core. If noisy games take up to twice as
-  long, one (flip, seed) is ≤ 8 core-minutes, and the 4-hour cap allows about 90 seeds per flip on 6 workers.
+* **Cost estimate.** At flip 0 a full set of games takes 243 s on one core. The smoke measured 429 core-seconds
+  per noisy (flip, seed), so the 4-hour cap allows 100 seeds per flip on 6 workers.
+
+**The seed count (smoke jobq 78, 2026-11-19, `results/flyw2_smoke_20261119/seed_rule.json`).**
+
+| test | flip | SE₅ | margin | S |
+|---|---|---:|---:|---:|
+| CX1(a) | 0.05 / 0.10 | 0.0105 / 0.0145 | 0.084 | 5 / 5 |
+| CX1(b) | 0.05 / 0.10 | 0 / 0 | 0.10 | 5 / 5 |
+| CX2 | pooled | 0.379 | 15.0 | 5 |
+| CX3(a) | 0.05 / 0.10 | 0.0012 / 0.0016 | 0.185 | 5 / 5 |
+| CX3(b) | 0.05 / 0.10 | 0.0013 / 0.0017 | 0.276 | 5 / 5 |
+
+* **Every test needs only the rule's floor, so the run uses S = 5 seeds** per noisy flip. That is about 12 minutes
+  on 6 workers. The cap does not bind.
+* **Disclosed:** CX1(b)'s within-unit variance is exactly 0 at both flips. For every pair and every single, the
+  catch-all-firing indicator was the same on all five seeds. The tool computes no rate, so whether it was always
+  0 or always 1 for a given unit was not read. The smoke's seeds 1–5 are the run's seeds 1–5, under the same keyed
+  noise.
+* **TW1 and TW2 have no seed rule** (as drafted). At S = 5 they rest on about 85 novel games per flip, so their
+  bootstrap SE over 5 seeds will be coarse. Running more seeds would cost about 2.4 minutes of wall time per extra
+  seed. That would be a change to the rule, and so the user's call before the tag.
 
 ## FLYW-8: the fixes (listed, not in this prereg)
 
@@ -361,8 +382,9 @@ was not raised and stays as drafted. Nothing in the design changed.
 ## Before registering
 
 1. ~~The user decides the open choices~~ (done, §Decisions); this draft merges.
-2. Build `flyw2_run.py` (resumable, one job per flip × seed × kind block, checkpointed), `analyze_flyw2.py` and
-   `flyw2_seed_rule.py`, with a build note.
-3. Run the CX0 gate.
-4. Run the 5-seed smoke and the blind seed tool; record S here.
-5. Tag `prereg-flyw2-compound-<date>`, then queue the run.
+2. ~~Build `flyw2_run.py`, `analyze_flyw2.py` and `flyw2_seed_rule.py`, with a build note~~ (done:
+   `FLYW2_BUILD.md`).
+3. ~~Run the CX0 gate~~ (PASS, jobq 77).
+4. ~~Run the 5-seed smoke and the blind seed tool~~ (S = 5, jobq 78; §Seeds).
+5. The draft merges. Tag `prereg-flyw2-compound-<date>`, then queue
+   `flyw2_run --run --seeds 5` through `jobq -N 6`.
