@@ -67,7 +67,11 @@ def mean(v: Sequence[float]) -> Optional[float]:
 # --------------------------------------------------------------------------- #
 
 def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
-          cap_binds: bool = False) -> dict:
+          cap_binds: bool = False, ext: Optional[str] = None,
+          ext_cells: Optional[List[dict]] = None) -> dict:
+    """``ext``/``ext_cells``: Addendum 1's DE1 extension (A and B on seeds 67..S in the
+    cells whose blind S > 66). DE1(a)/(c) in those cells are scored on seeds 1..S, and
+    the registered 66-seed result is kept beside them as the primary-protocol result."""
     jobs = load_jobs(d)
     a_by = {}                                   # (flip, seed) -> games
     arm_by = defaultdict(dict)                  # (map, arm, flip) -> seed -> games
@@ -82,11 +86,11 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
     arms_present = sorted({k[1] for k in arm_by})
 
     # Per-game rows: (map, flip) -> arm -> list of dicts aligned on (seed, secret).
-    def a_rows(m, flip):
+    def a_rows(m, flip, src=None, s_max=None):
         cls = maps[m]["classes"]
         rows = []
-        for (f, s), games in sorted(a_by.items()):
-            if f != flip:
+        for (f, s), games in sorted((src if src is not None else a_by).items()):
+            if f != flip or (s_max is not None and s > s_max):
                 continue
             for g in games:
                 r = score_a_record(g, cls)
@@ -95,9 +99,12 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
                 rows.append(r)
         return rows
 
-    def arm_rows(m, arm, flip):
+    def arm_rows(m, arm, flip, src=None, s_max=None):
         rows = []
-        for s, games in sorted(arm_by.get((m, arm, flip), {}).items()):
+        for s, games in sorted((src if src is not None else arm_by).get((m, arm, flip),
+                                                                       {}).items()):
+            if s_max is not None and s > s_max:
+                continue
             for g in games:
                 rows.append(dict(g, key=(s, g["secret"])))
         return rows
@@ -129,24 +136,26 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
             "fallbacks": (round(sum(r.get("fallbacks", 0) for r in rows) / n, 4)
                           if arm != "A" else None)}
 
-    def pooled(arm, constr, flip, field="probes"):
+    def pooled(arm, constr, flip, field="probes", src=None):
+        src = per if src is None else src
         v = []
         for m in map_ids:
             if maps[m]["alignment_construction"] != constr:
                 continue
-            v.extend(r[field] for r in per.get((m, arm, flip), []))
+            v.extend(r[field] for r in src.get((m, arm, flip), []))
         return statistics.mean(v) if v else None
 
-    def se_diff(ms, x, y, flip, field="probes") -> float:
+    def se_diff(ms, x, y, flip, field="probes", src=None) -> float:
         """Within-secret SE of the pooled mean of (x - y) (seed rule, 2026-11-18): the
         secrets are the whole pool, so only seed-to-seed noise counts.
         SE = sqrt(sum_i var_i) / (N sqrt(S)), N = (map, secret) pairs."""
         if flip == 0.0:
             return 0.0
+        src = per if src is None else src
         tot, n, s_seen = 0.0, 0, set()
         for m in ms:
-            rx = {r["key"]: r[field] for r in per.get((m, x, flip), [])}
-            ry = {r["key"]: r[field] for r in per.get((m, y, flip), [])}
+            rx = {r["key"]: r[field] for r in src.get((m, x, flip), [])}
+            ry = {r["key"]: r[field] for r in src.get((m, y, flip), [])}
             by_secret = defaultdict(list)
             for k in rx:
                 if k in ry:
@@ -221,10 +230,64 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
                 d1b["{}|{}".format(c, flip)] = {"saving": round(pa - pb, 4), "bar": bar,
                                                 "se": round(se, 5), "verdict": v,
                                                 "pass": v == "PASS"}
+    # Addendum 1, item 2: the DE1 extension. In each extended cell, A and B are
+    # re-pooled over seeds 1..S (registered run + extension); the 66-seed entry is kept
+    # as "primary_protocol". The cells come from the blind seed-rule file.
+    ext_info = None
+    if ext:
+        ea_by, earm_by = dict(a_by), defaultdict(dict)
+        for k, v in arm_by.items():
+            if k[1] == "B":
+                earm_by[k] = dict(v)
+        for j in load_jobs(ext):
+            jb = j["job"]
+            assert jb["arm"] in ("A", "B"), jb["job_id"]
+            if jb["arm"] == "A":
+                assert (jb["flip"], jb["seed"]) not in a_by, jb["job_id"]
+                ea_by[(jb["flip"], jb["seed"])] = j["games"]
+            else:
+                key = (jb["map_id"], "B", jb["flip"])
+                assert jb["seed"] not in arm_by.get(key, {}), jb["job_id"]
+                earm_by[key][jb["seed"]] = j["games"]
+        ext_info = {"dir": ext, "cells": []}
+        for cell in ext_cells or []:
+            c, flip, S = cell["construction"], cell["flip"], cell["seeds"]
+            ms = ms_of(c)
+            eper = {}
+            complete = True
+            for m in ms:
+                eper[(m, "A", flip)] = a_rows(m, flip, ea_by, S)
+                eper[(m, "B", flip)] = arm_rows(m, "B", flip, earm_by, S)
+                seeds_b = set(earm_by.get((m, "B", flip), {}))
+                seeds_a = {s for (f, s) in ea_by if f == flip}
+                need = set(range(1, S + 1))
+                complete = complete and need <= seeds_a and need <= seeds_b
+            ck = "{}|{}".format(c, flip)
+            ext_info["cells"].append(dict(cell, complete=complete))
+            if not complete:
+                for dd in (d1a, d1c):
+                    if ck in dd:
+                        dd[ck]["extension"] = "INCOMPLETE: scored on the 66-seed run only"
+                continue
+            for dd, field, bar in ((d1a, "probes", 0.1), (d1c, "wrong", 0.02)):
+                if ck not in dd:
+                    continue
+                pa = pooled("A", c, flip, field, eper)
+                pb = pooled("B", c, flip, field, eper)
+                se = se_diff(ms, "B", "A", flip, field, eper)
+                v = verdict(pb - pa, bar, se, pb <= pa + bar)
+                prim = {k2: dd[ck][k2] for k2 in ("A", "B", "se", "verdict", "pass")}
+                dd[ck] = {"A": round(pa, 4), "B": round(pb, 4), "se": round(se, 5),
+                          "verdict": v, "pass": v == "PASS", "seeds": S,
+                          "primary_protocol": dict(prim, seeds=66)}
+    res["DE1_extension"] = ext_info
+    d1_all = list(d1a.values()) + list(d1b.values()) + list(d1c.values())
     res["DE1"] = {"a": d1a, "b": d1b, "c": d1c,
-                  "PASS": bool(d1a and d1b and d1c
-                               and all(x["pass"] for x in list(d1a.values())
-                                       + list(d1b.values()) + list(d1c.values())))}
+                  "PASS": bool(d1a and d1b and d1c and all(x["pass"] for x in d1_all)),
+                  # Addendum 1, item 1: an inconclusive DE1 counts as not passed.
+                  "INCONCLUSIVE": bool(d1_all) and not any(x["verdict"] == "FAIL"
+                                                           for x in d1_all)
+                  and any(x["verdict"] == "INCONCLUSIVE" for x in d1_all)}
 
     def map_mean(m, arm, flip, field="probes"):
         rows = per.get((m, arm, flip), [])
@@ -302,6 +365,10 @@ def part1(d: str, maps: Dict[str, dict], gate: Optional[dict],
         sc, sd = res["DE5"]["c_saves_over_b"], res["DE5"]["d_saves_over_b"]
         rule = "question score matters: recommend {} if within DE1(c)'s bound".format(
             "C" if sc >= sd else "D")
+    elif res["DE1"]["INCONCLUSIVE"]:
+        # Addendum 1, item 1.
+        rule = ("DE1 inconclusive (counts as not passed): B is not recommended; the SEs "
+                "are reported and more seeds are needed")
     else:
         rule = "class targeting does not pay on P0a; FLYW-6 records why no label"
     res["decision"] = rule
@@ -450,6 +517,7 @@ def main() -> None:
     ap.add_argument("--gate")
     ap.add_argument("--maps", default=MAPS)
     ap.add_argument("--seed-rule", help="seed_rule.json (sets whether the seed cap bound)")
+    ap.add_argument("--part1-ext", help="Addendum 1 DE1 extension dir (needs --seed-rule)")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     maps = load_maps(a.maps)
@@ -462,8 +530,14 @@ def main() -> None:
     if a.seed_rule:
         with open(a.seed_rule) as f:
             cap = bool(json.load(f)["cap_binds"])
+    ext_cells = None
+    if a.part1_ext:
+        if not a.seed_rule:
+            ap.error("--part1-ext needs --seed-rule")
+        from .flyw1_run import extension_cells
+        ext_cells = extension_cells(a.seed_rule)
     if a.part1:
-        out["part1"] = part1(a.part1, maps, gate, cap)
+        out["part1"] = part1(a.part1, maps, gate, cap, a.part1_ext, ext_cells)
     if a.part2:
         out["part2"] = part2(a.part2, maps)
     with open(a.out, "w") as f:

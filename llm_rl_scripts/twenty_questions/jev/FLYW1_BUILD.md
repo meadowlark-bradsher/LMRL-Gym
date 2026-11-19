@@ -152,3 +152,31 @@ applies as registered, and it cannot make a zero-SE result inconclusive.
 
 **Disclosure.** ET1's SE is scaled by T-mass's level, so a reader who knew the variance could infer that level
 roughly. The level itself was not printed or read.
+
+## DE1 extension: run and merge (Addendum 1, items 1 and 2; 2026-11-19)
+
+* **Run:** `flyw1_run --extend .../seed_rule.json` (jobq 68, `results/flyw1_part1ext_20261119`). It runs A and B on
+  seeds 67…S in the four cells whose blind DE1 S is above 66:
+
+  | construction | flip | S |
+  |---|---|---:|
+  | `align` | 0.05 | 71 |
+  | `align` | 0.10 | 119 |
+  | `cat17` | 0.05 | 465 |
+  | `cat17` | 0.10 | 787 |
+
+  The jobs use Part 1's job ids. Regenerated seed-41 jobs equal the stored ones. Projected 0.73 h on 6 workers.
+* **Merge:** `analyze_flyw1 --part1-ext <dir> --seed-rule <seed_rule.json>`.
+  * In each extended cell, DE1(a) and DE1(c) are pooled over seeds 1…S, and the SE is taken at S seeds. The
+    registered 66-seed entry is kept under `primary_protocol`.
+  * A cell missing any seed is marked `INCOMPLETE` and keeps its 66-seed score.
+  * The extension may hold only A and B jobs, none overlapping the registered run (asserted).
+* **Item 1:** `DE1.INCONCLUSIVE` is set when no DE1 entry fails and at least one is inconclusive. The decision
+  then reads "B is not recommended; more seeds are needed".
+* **Test** (blind; only equality was printed). The 5-seed smoke was split into seeds 1–3 plus an "extension" of
+  seeds 4–5. The merged cells equal the full 5-seed scores, and `primary_protocol` equals the 3-seed run. A cell
+  without its B extension is flagged `INCOMPLETE` and left unchanged. No other result changes.
+
+```bash
+PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1 --part1 .../flyw1_part1_20261118 --part1-ext .../flyw1_part1ext_20261119 --part2 .../flyw1_part2_20261118 --gate .../flyw1_gate_20261118/gate.json --seed-rule .../flyw1_smoke_20261118/seed_rule.json --out .../flyw1_analysis_20261119.json
+```
