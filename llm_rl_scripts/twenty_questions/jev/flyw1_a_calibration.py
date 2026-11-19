@@ -104,7 +104,9 @@ def spearman(x: Sequence[float], y: Sequence[float]) -> float:
 
 def bases(rows: Sequence[dict]) -> dict:
     """The prereg's noise-free bases over a set of maps (``rows`` = index rows with
-    the A columns merged in)."""
+    the A columns merged in). B's cost is ``p0a_pure_cost``: P0a's own question tree
+    (class maps generator v3), since B asks P0a's questions."""
+    rows = [dict(r, pure_cost=r["p0a_pure_cost"]) for r in rows]
     def by(c):
         return [r for r in rows if r["alignment_construction"] == c]
 
@@ -166,10 +168,11 @@ def main() -> None:
                               for o in sorted({g["outcome"] for g in games})},
                "a_strict_mean_probes": round(statistics.mean(g["n_probes"] for g in games), 4),
                "bases_full": bases(rows), "bases_trimmed": bases(trimmed),
-               "per_map": [{k: r[k] for k in ("map_id", "alignment", "a_probes",
-                                              "a_wrong_per_game", "a_decided",
-                                              "a_strict_probes", "pure_cost", "class_cost",
-                                              "ec2_cost")} for r in rows]}
+               "per_map": [{k: r[k] for k in ("map_id", "alignment", "alignment_bintree",
+                                              "a_probes", "a_wrong_per_game", "a_decided",
+                                              "a_strict_probes", "p0a_pure_cost",
+                                              "pure_cost", "class_cost", "ec2_cost")}
+                           for r in rows]}
     with open(os.path.join(a.out, "summary.json"), "w") as f:
         json.dump(summary, f, indent=1)
         f.write("\n")

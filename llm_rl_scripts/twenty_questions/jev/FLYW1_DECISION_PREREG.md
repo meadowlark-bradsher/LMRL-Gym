@@ -1,9 +1,14 @@
 # Aim at a decision, not an identity — pre-registration (Flywheel experiment 1)
 
-**Status (2026-11-18): DRAFT, not registered.** Revised the same day after the user's calls on the four
-open choices (Jira FLYW-1, comment 10584) and a disclosed calibration run of the control arm (§Basis). No
-arm except A at flip 0 has been run, and B, C and D are not built. The class maps are built
-(`FLYW1_CLASS_MAPS.md`).
+**Status (2026-11-18): DRAFT, not registered.** Revised twice the same day:
+
+* after the user's calls on the four open choices (Jira FLYW-1, comment 10584) and a disclosed calibration run
+  of the control arm (§Basis);
+* during the build, after two design problems surfaced (§Build amendments): the maps were rebuilt on P0a's
+  own question tree (generator version 3), the bars were rescaled to the new basis, and ET2 was redefined.
+
+The arms, runner, analyzer and DE0 gate are built (`FLYW1_BUILD.md`). Nothing has been run beyond the A
+calibration, the gate, the smoke, and one unplanned look at B that is disclosed below.
 
 Jira: epic FLYW-1. Part 1 is FLYW-4, Part 2 is FLYW-5, and FLYW-6 (whether fault-graph needs a remediation
 label) is decided from the result. Design source: sre-flywheel README, "First experiments", branch
@@ -26,13 +31,13 @@ hypothesis all depend on it.
 
 | term | meaning |
 |---|---|
-| **class** | A group of secrets that share a remediation. Taken from a class map (`results/flyw1_class_maps_20261118/maps/`, generator version 2) |
+| **class** | A group of secrets that share a remediation. Taken from a class map (`results/flyw1_class_maps_20261118/maps/`, generator version 3) |
 | **question** | A category or attribute question. Attribute answers can be noisy; category answers are always exact |
 | **action** | Applying the remediation for a class. Its outcome is exact: it works if and only if the secret is in that class. A by-name guess is the action for the guessed object's class |
 | **right action / wrong action** | An action on the secret's class / on any other class |
 | **probe** | A question or an action. **Probes to decide** = probes used until the first right action, or until the game ends without one |
 | **expert call** | The loop gives up and asks a human (P0a's escalation) |
-| **alignment** | The class-map index from `FLYW1_CLASS_MAPS.md`: the share of the identity tree's questions that stopping at the class saves. Constructions: `align` (high), `mix05`, `mix15`, `rand` (near 0), and `cat17` |
+| **alignment** | The class-map index from `FLYW1_CLASS_MAPS.md`: the share of *P0a's own* questions that stopping at the class saves, on the question tree P0a follows at flip 0. Constructions: `align` (highest), `mix05`, `mix15`, `rand` (near 0), and `cat17` |
 | **construction × flip** | The scoring unit: all maps of one construction at one flip level, pooled |
 
 ## Arms
@@ -75,34 +80,41 @@ rule change.
 
 ## Basis: where the thresholds come from
 
-* **B, C and D: the class maps' noise-free trees.** These are built from the answer table alone and never from
-  an arm's output. Each arm's cost is `pure_cost`, `class_cost` or `ec2_cost`: questions plus actions,
-  including the failed actions an arm takes on unresolvable objects.
+* **B: P0a's own question tree.** B asks P0a's questions, so its noise-free cost is read off the tree those
+  questions form in the control arm's flip-0 run: questions until the object's branch holds one class, plus
+  the actions (`p0a_pure_cost`). Objects that A told apart only by guessing are taken in the plurality order.
+* **C and D: the class maps' noise-free trees** on the binarized answer table (`class_cost`, `ec2_cost`),
+  questions plus actions, including failed actions on unresolvable objects. These model C's and D's own
+  question choice. They do not model the graded likelihood's preference for exact category questions, which
+  C shares with P0a; C-bin is reported to separate the two.
 * **A: a disclosed calibration run.** The identity tree assumes A narrows to one object before it guesses, but
   P0a does not do that. So A's cost was measured: the 158 deterministic games of arm A at flip 0
   (`flyw1_a_calibration.py`, `results/flyw1_a_calibration_20261118/`). Only the control arm was played, and
   nothing was learned about B, C or D. All 158 games were won. At flip 0, A:
   * asks about 6.1 questions and then makes about 4.1 by-name guesses (up to 11), the first at probe 7.1 on
     average;
-  * takes 10.16 probes to confirm the name (A-strict) and 8.15 probes to decide, averaged over the maps;
+  * takes 10.16 probes to confirm the name (A-strict) and 7.76 probes to decide, averaged over the v3 maps (8.15 on the first draft's maps);
   * makes 0 to 2.6 wrong actions per game, depending on the map. On `cat17` it makes none, because its wrong
     guesses always fall in the right category.
 
-The table gives the bases, for the full run and for the trimmed run (seed-1 maps plus `align` and `cat17`,
-33 maps), both registered now.
+The table gives the bases on the v3 maps, for the full run and for the trimmed run (seed-1 maps plus `align`
+and `cat17`, 33 maps), both registered now. A's numbers are the same 158 games scored on the v3 maps.
 
 | basis | full (57 maps) | trimmed (33 maps) | bar |
 |---|---:|---:|---:|
-| DE1(a): B's saving over A, `rand` maps pooled (lowest single map) | 0.48 (−0.11) | 0.51 (−0.01) | ≥ −0.1 pooled |
-| DE1(b): B's saving over A, `align` (lowest map) | 3.32 (1.94) | 3.32 (1.94) | ≥ 1.0 |
-| DE1(b): B's saving over A, `mix05` (lowest map) | 1.98 (1.35) | 1.88 (1.35) | ≥ 1.0 |
-| DE2: Spearman, alignment vs B's saving | 0.86 | 0.88 | ≥ 0.8 |
-| DE3(a): C − B on `rand` (lowest map) | 2.82 (1.18) | 3.21 (1.18) | ≥ 1.0 |
-| DE4(a): B − D, `mix15` + `rand` | 0.30 | 0.28 | ≥ `align` + 0.2 |
-| DE4(a): B − D, `align` | −0.10 | −0.10 | |
+| DE1(a): B's saving over A, smallest single map | 0.27 | 0.28 | ≥ −0.1 pooled |
+| DE1(b): B's saving over A, `align` (lowest map) | 1.09 (0.38) | 1.09 (0.38) | ≥ 0.5 |
+| DE1(b): B's saving over A, `mix05` (lowest map) | 0.68 (0.30) | 0.66 (0.39) | ≥ 0.3 |
+| DE2: Spearman, alignment vs B's saving | 0.55 | 0.58 | ≥ 0.5 |
+| DE3(a): C − B on `rand` (lowest map) | 2.87 (0.33) | 3.26 (0.33) | ≥ 1.0 |
+| DE4(a), reported: B − D on `mix15` + `rand`, against `align` | 0.20 against 0.17 | 0.17 against 0.17 | none |
 | DE4(b): `rand` maps with D ≤ C | 16 of 16 | 8 of 8 | all |
-| DE5: B − D pooled (B − C) | 0.30 (−0.82) | 0.25 (−0.73) | < 0.5 |
-| (reported) DE5 ratio, (A − B) ÷ (A − best of B, C, D per map) | 0.81 | 0.83 | none |
+| DE5: D's saving over B pooled (C's) | 0.19 (−1.42) | 0.18 (−1.32) | < 0.5 |
+| (reported) DE5 ratio, (A − B) ÷ (A − best of B, C, D per map) | 0.72 | 0.73 | none |
+
+The first draft's bases, on the binarized identity tree, were 2–3 times larger (B saved 3.3 probes on aligned
+maps). P0a does not follow that tree: it asks the exact category questions one at a time (602 category and
+363 attribute questions over A's 158 games), so class-pure branches come late.
 
 ## Part 1: probes, accuracy and expert calls (FLYW-4)
 
@@ -122,9 +134,31 @@ The table gives the bases, for the full run and for the trimmed run (seed-1 maps
   trimmed bases in the table apply.
 * **Checkpointing.** The runner writes each (map, arm, flip) cell to disk as it finishes and resumes from
   those files after a stop, as the ST and Split Deal runners do.
-* **Seeds.** The smoke run also measures the standard error of the paired A − B difference per construction ×
-  flip. If any SE is above a third of that unit's margin (0.1 for DE1(a), 0.02 for DE1(c)), raise the noise
-  seeds from 5 until it is not, before the main run. The seed count actually used is recorded.
+* **Seeds (rule set 2026-11-18, user).** The quantity each cell measures is the mean arm difference over this
+  fixed pool of 158 secrets, so the only randomness is the answer noise. Its standard error is estimated
+  within secrets, which is a one-way ANOVA within-secret mean square:
+  * for each secret, take the variance of the paired difference across its seeds, and pool over the secrets
+    (158 × (S − 1) degrees of freedom);
+  * SE of a pooled mean over N (map, secret) pairs = √(Σ σᵢ²) ÷ (N √S);
+  * flip-0 cells are deterministic, with SE 0.
+
+  The per-game SE of the first draft counted the spread *between* secrets as sampling error, and it asked for
+  40–512 seeds that could not reduce that spread.
+
+  **The rule.**
+  * For each pooled Part 1 test at a noisy flip (DE1(a), (b), (c), DE3(b), DE5),
+    S = max(5, ⌈5 × (SE₅ ÷ (margin ÷ 3))²⌉). SE₅ comes from a 5-seed smoke: one map per construction, whose
+    within-secret variance stands in for its construction's maps.
+  * The run uses the largest S over the tests, **capped at 8 hours on 6 workers**.
+  * If the cap binds, the analyzer reports SE for every scored test and calls a result within 2 SE of its bar
+    **inconclusive** rather than pass or fail.
+  * Part 2 uses the same seed count, unless that projects past its 4-hour budget; in that case it uses
+    5 seeds, and SE is reported.
+
+  **Blind.** SE₅ is computed by `flyw1_seed_rule.py`, which forms and prints only variances, standard errors and
+  seed counts, never the arms' mean differences. This step used the smoke's spread and nothing else. The
+  first smoke's summary file did contain the paired means, written by the code; they were never read, and the
+  code no longer writes them.
 
 **Per-game record:** map, arm, flip, noise seed, secret, secret's class, probes to decide, questions,
 actions, wrong actions, outcome (`right` / `expert`), reinstates used, and the live-set size and class count
@@ -142,30 +176,31 @@ share of games ending with an expert call, and the share decided (ending in a ri
     in every game.
   * (c) At flip 0, B, C and D never take a wrong action, except on unresolvable objects.
   * (d) Every map loaded matches its registered `assignment_sha256_12`, and the map files are generator
-    version 2.
+    version 3.
 * **DE1: B beats A cheaply and almost everywhere.** Scored per construction × flip.
-  * (a) In every construction × flip, B's mean probes to decide ≤ A's + 0.1. Basis: the smallest pooled saving
-    is `rand` at 0.48. Two single `rand` maps sit just past the margin (−0.11), which is why this is pooled.
-  * (b) For `align` and for `mix05`, at flip 0 and at 0.05, B saves **≥ 1.0 probe** on average. Basis: 3.32 and
-    1.98, smallest single map 1.35.
+  * (a) In every construction × flip, B's mean probes to decide ≤ A's + 0.1. Basis: B saves at least 0.27 on
+    every single map.
+  * (b) At flip 0 and at 0.05, B saves **≥ 0.5 probe** on `align` maps and **≥ 0.3** on `mix05` maps, on
+    average. Basis: 1.09 and 0.68. The bars keep the drafted share of their basis.
   * (c) In every noisy construction × flip, B's wrong actions per game ≤ A's + 0.02. Basis: at flip 0, A makes
     0–2.6 wrong actions per game and B none, so this is expected to pass with room to spare. It is kept because
     noise is where B, acting while several objects are still live, can follow a flip-struck secret to a wrong
     class.
 * **DE2: the gain follows alignment.** Over the synthetic maps at flip 0, the Spearman correlation between
-  alignment and B's saving (A − B probes) is **≥ 0.8**. Basis: 0.86.
+  alignment and B's saving (A − B probes) is **≥ 0.5**. Basis: 0.55. A's own savings vary by map, because its
+  first right-class guess comes earlier on some maps than others, which weakens the correlation.
 * **DE3: C can do badly.**
-  * (a) On `rand` maps at flip 0, C needs **≥ 1.0 more probe** than B. Basis: 2.82, smallest single map 1.18.
+  * (a) On `rand` maps at flip 0, C needs **≥ 1.0 more probe** than B. Basis: 2.87, smallest single map 0.33.
     This is the myopia that motivated EC²: a question can say nothing about the class on its own and still be
     needed to get there.
   * (b) On `rand` maps at flip 0.10, C's wrong actions per game ≥ B's + 0.02. Weak basis: the design text expects
     C to suffer under noise, but no calibration predicts the size.
-* **DE4: EC² matters most when classes cut across the natural splits.**
-  * (a) At flip 0, B − D (the probes D saves over B) averaged over `mix15` and `rand` maps is **≥ 0.2 above** its
-    average over `align` maps. Basis: +0.30 against −0.10.
-  * (b) At flip 0, D ≤ C on every `rand` map. Basis: 16 of 16.
+* **DE4: EC² beats greedy class information where classes cut across the natural splits.**
+  * (a) Reported, not scored: B − D (the probes D saves over B), averaged over `mix15` and `rand` maps against
+    `align` maps, at flip 0. Its basis on P0a's tree is 0.20 against 0.17, a difference inside the noise.
+  * (b) At flip 0, D ≤ C on every `rand` map. Basis: 16 of 16. DE4 is scored on (b).
 * **DE5: changing the question score is not worth it.** At flip 0.05, pooled over all maps, neither C nor D
-  saves **0.5 probe or more** over B. Basis: D saves 0.30 and C costs 0.82 more. The bar is set by what a new
+  saves **0.5 probe or more** over B. Basis: D saves 0.19 and C costs 1.42 more. The bar is set by what a new
   question score is worth, not by a ratio; the ratio is reported only.
 
 ### Scoring and decision rule
@@ -182,8 +217,8 @@ share of games ending with an expert call, and the share decided (ending in a ri
 **Reported, not scored:**
 
 * every cell's measures by K, profile and alignment, including the per-map DE1(a) and DE1(c) differences;
-* `cat17` on its own: category questions test the class exactly, and at flip 0 A already decides there as
-  cheaply as B (7.06 against 7.09 probes);
+* `cat17` on its own: category questions test the class exactly and P0a asks them first. At flip 0 the basis
+  has A at 7.06 probes and B at 6.55;
 * A-strict;
 * a total cost per game that charges wrong actions (1 per probe plus c_wrong per wrong action, at Part 2's
   ratios). A's early guessing has a cost that probes alone do not show;
@@ -243,8 +278,15 @@ run out. Under a decision goal an unknown secret matters only if it would change
 **Measures**
 
 * **Spurious call:** an expert call on an in-pool game or a same-class novel.
-* **Missed call:** a new-class novel game with at least one wrong action before the expert is called, or with
-  no expert call at all.
+* **Missed call:** T-loss *acting* at the trigger point on a new-class novel. Such an action is always wrong,
+  because no known class contains the secret. T-mass never acts there, so its rate is 0 by construction.
+* **Wrong actions before the trigger point** on new-class novels are the stopping rule's, not the trigger's,
+  and are the same under both triggers. They are reported per arm.
+* **The original missed-call measure,** reported and not scored: a new-class novel game with any wrong action
+  before the expert, or no expert call. It is kept as a finding for SRE. A novel incident costs wrong actions
+  before the escalation logic is even consulted, because both triggers fire only when the live set empties
+  or the probes run out. That points to a gap in the design: escalation should probably be considered at every
+  action, not only at those points.
 * **Total cost per game:** 1 per probe, c_expert = 10 per expert call, and c_wrong = 10 ÷ ratio per wrong
   action.
 
@@ -256,10 +298,12 @@ All three are pooled over each map's rotations.
   by **≥ 30% relative to T-mass**, for both B and D. Basis: under noise, P0a's in-pool calls come from
   flip-struck secrets. When classes are aligned, the struck secret's classmates still fit the answers, so its
   class keeps most of the belief.
-* **ET2:** at ratio 0.2, on every map, T-loss's missed-call rate is **≤ 0.10** for both B and D. Basis: a
-  new-class novel should fit the background better than any class average. This is the prediction most at risk
+* **ET2:** at ratio 0.2, pooled over flips 0.05 and 0.10, on every map, T-loss's missed-call rate is
+  **≤ 0.10** for both B and D. Basis: a new-class novel should fit the background better than any class
+  average. This is the prediction most at risk
   on `rand` maps, where classes carry no answer signal, so every class average looks like the background.
-* **ET3:** at ratio 0.2, on `rand` maps, T-loss's spurious-call rate is within **0.02** of T-mass's. When classes
+* **ET3:** at ratio 0.2, pooled over flips 0.05 and 0.10, on `rand` maps, T-loss's spurious-call rate is within
+  **0.02** of T-mass's. When classes
   carry no answer signal, the class belief should stay spread, so T-loss calls the expert just as often.
 
 **Decision rule.** Adopt T-loss as the escalation rule for the chosen arm if ET1 and ET2 both pass and T-loss's
@@ -285,6 +329,9 @@ is adopted only together with an alignment check on the class map; the note says
 * **Classes are synthetic stand-ins for remediations.** Except for `cat17`, they are not meaningful groups of
   objects. What carries over to SRE is the alignment measure, not a particular map.
 * **One cause per game.** Two-cause games are Experiment 2 (FLYW-2).
+* **Scope: this pool.** The secrets are treated as fixed: they are the whole pool, not a sample, and the only
+  randomness modelled is the answer noise. So the conclusions hold for this 158-object pool. Generalisation
+  comes from the variation across maps (alignment, K, size profile), not from sampling secrets.
 * **Compute** goes through `jobq` with `OMP/OPENBLAS/MKL/VECLIB_MAXIMUM_THREADS=1` per worker. BLAS pinning was
   the whole speed fix in ST-1.
 
@@ -307,5 +354,60 @@ is adopted only together with an alignment check on the class map; the note says
    * Each reduced pool's alignment is recomputed.
    * A p_U sensitivity run is reported.
 
-**Before registering:** this draft merges, then the arms, the keyed oracle and the analyzer are built and gated
-(DE0 and the smoke run). After that the prereg is tagged, as the ST studies were.
+## Build amendments (2026-11-18, user)
+
+Two design problems surfaced while the analyzer was being tested on a two-map trial run, before the smoke.
+
+**1. The maps did not follow P0a's questions.** The aligned maps had been cut from a balanced tree on the
+binarized answers. P0a's graded EIG prefers the exact category questions and asks them one at a time, so it
+never follows that tree.
+
+* **The unplanned look.** The trial run played B, C and D at flip 0 and 0.05 on the old `k4_bal_align` and
+  `k4_bal_rand_s1` maps; it was meant only to exercise the analyzer. On old `k4_bal_align` at flip 0, B took
+  9.0 probes against a basis of 4.5 and A's 8.0. That is what exposed the problem. Those maps no longer exist
+  in this form, but the look is disclosed because it informed the change below.
+* **The change (user: "Rebuild on P0a's tree").** The `align` and `mix` maps are cut from P0a's own question
+  tree, read off the control arm's flip-0 run. `rand` and `cat17` keep their assignments. Alignment and B's
+  basis are measured on that tree (generator version 3).
+* **Bars (user: "Rescale by the drafted rule").** Each bar keeps the share of its basis it had in the draft:
+  DE1(b) 1.0 → 0.5 (`align`) and 0.3 (`mix05`); DE2 0.8 → 0.5. DE4(a)'s new basis difference, 0.04, is inside
+  the noise, so it is reported only. DE1(a), DE1(c), DE3, DE4(b) and DE5 are unchanged.
+* **What this does to the test.** B's flip-0 basis is now read off the same questions B asks, so the flip-0
+  predictions for B are close to mechanical. The noisy predictions (DE1(b) at 0.05, DE1(c), DE5) carry the
+  test.
+
+**2. ET2 counted wrong actions the trigger cannot affect.** In a trial rotation, every new-class novel took a
+wrong action before any trigger point, under every arm (A 7.1 per game, B 2.7, D 3.0). So no trigger could
+meet a 0.10 bar.
+
+* **The look, disclosed.** The change followed a look at Part 2 output from the same trial run: one rotation of
+  `k4_bal_align` (the old, version-2 map) at flip 0.10, seed 1, for arms A, B and D. The analyzer's printout
+  showed, for that one rotation:
+  * spurious-call rates (B 0.000 under both triggers, D 0.009 under both);
+  * per-game costs, also equal under both triggers;
+  * the old missed-call rate of 1.0;
+  * a follow-up count showing that every new-class game had a wrong action before any trigger point, under
+    every arm.
+
+  No other Part 2 output was looked at.
+* **Why the change is not outcome-driven.** The reason is structural. Wrong actions before the trigger point
+  happen before either trigger is consulted, so they are identical under T-mass and T-loss, and the original
+  ET2 could not tell the triggers apart, whatever the results. That holds by construction of the arms, not
+  because of the trial's numbers.
+* **The change (user: "Score T-loss's own acts").** A missed call is T-loss acting at the trigger point on a
+  new-class novel. Wrong actions before the trigger point are reported per arm. ET2 and ET3 pool flips 0.05
+  and 0.10, as ET1 does. The original measure is kept as reported (Part 2, Measures).
+
+**3. The seed rule** was set by the user after the first smoke (Part 1, "Seeds"). It replaced a per-game SE
+rule that treated the spread between secrets as noise.
+
+**The seed count.** The 5-seed smoke (jobq 58, `results/flyw1_smoke_20261118/seed_rule.json`) gives:
+
+* DE1(c) on `cat17` needs 787 seeds, and DE1(c) on the synthetic constructions needs 20–119;
+* every other test needs 5–28.
+
+The 8-hour cap allows 66, so **the cap binds**. Part 1 runs **66 noise seeds** at each noisy flip (7.98 h on 6
+workers), and the 2-SE inconclusive band applies. Part 2 at 66 seeds would pass its 4-hour budget, so **Part 2
+runs 5 seeds** with SE reported.
+
+**Before registering:** this draft merges and the prereg is tagged, as the ST studies were.

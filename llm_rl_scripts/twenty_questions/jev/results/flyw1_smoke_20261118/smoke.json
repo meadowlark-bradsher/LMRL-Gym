@@ -1,0 +1,56 @@
+{
+ "secs_per_job": {
+  "p1A": 5.38,
+  "p1": 5.42,
+  "p2": 13.88
+ },
+ "paired": {
+  "cat17": {
+   "construction": "category",
+   "sd_probes": 2.0562,
+   "sd_wrong": 2.1299
+  },
+  "k4_bal_align": {
+   "construction": "align",
+   "sd_probes": 2.9208,
+   "sd_wrong": 2.3507
+  },
+  "k8_skew_mix05_s1": {
+   "construction": "mix05",
+   "sd_probes": 2.6811,
+   "sd_wrong": 2.1874
+  },
+  "k4_bal_mix15_s1": {
+   "construction": "mix15",
+   "sd_probes": 2.5189,
+   "sd_wrong": 2.1376
+  },
+  "k8_bal_rand_s1": {
+   "construction": "rand",
+   "sd_probes": 2.4862,
+   "sd_wrong": 2.3727
+  }
+ },
+ "seeds_needed_for_se_le_margin_over_3": {
+  "cat17:sd_probes": 24.08,
+  "cat17:sd_wrong": 646.02,
+  "k4_bal_align:sd_probes": 6.07,
+  "k4_bal_align:sd_wrong": 98.36,
+  "k8_skew_mix05_s1:sd_probes": 2.56,
+  "k8_skew_mix05_s1:sd_wrong": 42.59,
+  "k4_bal_mix15_s1:sd_probes": 2.26,
+  "k4_bal_mix15_s1:sd_wrong": 40.67,
+  "k8_bal_rand_s1:sd_probes": 2.2,
+  "k8_bal_rand_s1:sd_wrong": 50.11
+ },
+ "projection": {
+  "part1_seeds5_hours_on_6": 0.63,
+  "part1_trimmed_seeds5_hours_on_6": 0.37,
+  "part1_seeds10_hours_on_6": 1.21,
+  "part1_trimmed_seeds10_hours_on_6": 0.71,
+  "part1_seeds20_hours_on_6": 2.36,
+  "part1_trimmed_seeds20_hours_on_6": 1.38,
+  "part2_reps4_seeds5_hours_on_6": 0.58,
+  "part2_reps2_seeds5_hours_on_6": 0.32
+ }
+}
