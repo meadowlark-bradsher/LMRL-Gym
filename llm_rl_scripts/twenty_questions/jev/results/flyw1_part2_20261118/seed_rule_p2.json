@@ -1,0 +1,241 @@
+{
+ "rule": "S = max(5, ceil(5 (SE5 / (margin/3))^2)) per test (Addendum 1, item 3)",
+ "part2": "llm_rl_scripts/twenty_questions/jev/results/flyw1_part2_20261118",
+ "smoke_seeds": 5,
+ "trigger": "mean_r0.2_pu1.0",
+ "flips": [
+  0.05,
+  0.1
+ ],
+ "tests": [
+  {
+   "test": "ET1",
+   "arm": "B",
+   "unit": "align+cat17",
+   "scale": "ratio",
+   "margin": 0.3,
+   "n_units": 16624,
+   "se5": 0.00589,
+   "seeds": 5
+  },
+  {
+   "test": "ET3",
+   "arm": "B",
+   "unit": "rand",
+   "scale": "difference",
+   "margin": 0.02,
+   "n_units": 13352,
+   "se5": 9e-05,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "cat17",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 58,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k4_bal_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k4_bal_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.002,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k4_skew_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k4_skew_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.00253,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k8_bal_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 120,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k8_bal_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 120,
+   "se5": 0.00726,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k8_skew_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 64,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "B",
+   "unit": "k8_skew_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 64,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET1",
+   "arm": "D",
+   "unit": "align+cat17",
+   "scale": "ratio",
+   "margin": 0.3,
+   "n_units": 16624,
+   "se5": 0.00452,
+   "seeds": 5
+  },
+  {
+   "test": "ET3",
+   "arm": "D",
+   "unit": "rand",
+   "scale": "difference",
+   "margin": 0.02,
+   "n_units": 13352,
+   "se5": 0.00013,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "cat17",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 58,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k4_bal_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.00142,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k4_bal_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.00297,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k4_skew_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k4_skew_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 316,
+   "se5": 0.001,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k8_bal_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 120,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k8_bal_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 120,
+   "se5": 0.00441,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k8_skew_align",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 64,
+   "se5": 0.0,
+   "seeds": 5
+  },
+  {
+   "test": "ET2",
+   "arm": "D",
+   "unit": "k8_skew_rand_s1",
+   "scale": "rate",
+   "margin": 0.1,
+   "n_units": 64,
+   "se5": 0.0121,
+   "seeds": 5
+  }
+ ],
+ "seeds_needed": 5,
+ "extension_hours_on_6": 0.0,
+ "part2_total_hours_on_6": 0.5,
+ "budget_hours": 4.0,
+ "seeds_cap_in_budget": 64,
+ "fits_budget": true,
+ "hours_per_extra_seed_BD": 0.059,
+ "wall_efficiency": 1.005,
+ "note": "variances, SEs, seed counts and hours only; ET1's T-mass level is formed internally to scale its ratio SE and is not printed"
+}

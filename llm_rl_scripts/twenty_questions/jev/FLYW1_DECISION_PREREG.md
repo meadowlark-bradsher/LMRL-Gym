@@ -1,6 +1,12 @@
 # Aim at a decision, not an identity — pre-registration (Flywheel experiment 1)
 
-**Status (2026-11-18): DRAFT, not registered.** Revised twice the same day:
+**Status (2026-11-18): REGISTERED** at tag `prereg-flyw1-decision-20261118` (commit 1762523, the merge of PR #100;
+user: "Tag, and queue both parts"). Thresholds, seed counts and rules are as written below; nothing has
+changed since the tag except **Addendum 1** (end of this file; tag `prereg-flyw1-addendum1-20261119`, Jira
+FLYW-1 comment 10593), which was tagged while Part 1 was still running, before any Part 1 or Part 2 outcome was
+read. **Run and scored 2026-11-19**: DE1 fails, so the registered decision is "class targeting does not pay on
+P0a"; T-loss is not adopted. Results in `FLYW1_DECISION_RESULTS.md`. Before registration it was revised twice
+the same day:
 
 * after the user's calls on the four open choices (Jira FLYW-1, comment 10584) and a disclosed calibration run
   of the control arm (§Basis);
@@ -411,3 +417,59 @@ workers), and the 2-SE inconclusive band applies. Part 2 at 66 seeds would pass 
 runs 5 seeds** with SE reported.
 
 **Before registering:** this draft merges and the prereg is tagged, as the ST studies were.
+
+## Addendum 1: seed allocation (2026-11-19, user, Jira FLYW-1 comment 10593)
+
+**When.** This addendum was written and tagged (`prereg-flyw1-addendum1-20261119`) on 2026-11-19 at about 05:45
+PST. Part 1 (jobq 65) was still running, at 21,050 of 30,590 jobs. It was paused while the Mac slept overnight,
+which is why it ran past the 01:00 estimate. Part 2 (jobq 64) had finished on 2026-11-18. **No Part 1 or Part 2
+outcome had been read.** The addendum rests only on the smoke's variances
+(`results/flyw1_smoke_20261118/seed_rule.json`), never on an arm-against-arm mean. jobq 65 finishes as
+registered.
+
+**Why it is needed.** At 66 seeds, DE1(c) cannot be decided on `cat17` (it needs 465–787 seeds), nor on the
+synthetic cells that need more than 66 (up to 119). The registered decision rule says each of DE1–DE5 passes or
+fails, but never says what an inconclusive DE1 means. The 0.02 margin cannot be loosened instead. At Part 2's
+primary ratio a wrong action costs 50 probes, and B saves 0.5–1.1 probes, so break-even is 0.01–0.022 wrong
+actions per game. The margin sits at break-even, so the precision is needed.
+
+**1. An inconclusive DE1 counts as not passed.** If DE1 is inconclusive (within the registered 2-SE band), B is
+not recommended. The report gives the SEs and says that more seeds are needed. This only connects the
+registered 2-SE band to the decision rule (§Scoring and decision rule).
+
+**2. A DE1 extension, for arms A and B only.** Only DE1 needs high precision, and DE1 compares A with B. C needs
+16 seeds (DE3(b) on `rand`) and D needs 5 (DE5), so 66 already covers them.
+
+* **Which cells.** Every construction × flip whose blind-tool S is above 66 runs A and B on seeds 67…S. The
+  cells are chosen by S alone, whatever Part 1 shows. From `seed_rule.json`, the cells are:
+
+  | construction | flip | S (DE1(c)) | B runs | A runs |
+  |---|---|---:|---|---|
+  | `align` (8 maps) | 0.05 | 71 | seeds 67–71 on 8 maps | seeds 67–71 |
+  | `align` (8 maps) | 0.10 | 119 | seeds 67–119 on 8 maps | seeds 67–119 |
+  | `category` (`cat17`) | 0.05 | 465 | seeds 67–465 | seeds 67–465 |
+  | `category` (`cat17`) | 0.10 | 787 | seeds 67–787 | seeds 67–787 |
+
+  DE1(a) needs at most 28 seeds anywhere, so it adds no cells.
+* **The streams are paired.** The noise is keyed on (seed, secret, question), so seeds 67…S extend the same
+  paired streams, and nothing already run changes. A's play does not depend on the map, so one A game per
+  (flip, seed) serves every map.
+* **Scoring.** In those cells, DE1(a) and DE1(c) are scored on seeds 1…S. The registered 66-seed result is
+  reported beside it as the primary-protocol result. DE1's verdict uses the extended cells, and the
+  inconclusive band applies to their SE at S seeds.
+* **Cost**, in arm × map × seed units:
+  * B: 8 × (5 + 53) + (399 + 721) = 1,584;
+  * A: 1,120;
+  * total: 2,704 against Part 1's ≈ 11,286, about 24%, or roughly 2 h on 6 workers if cost per game is equal.
+  The comment's upper bound was ≤ 39% (≤ 3 h). The blind tool projects hours before anything is queued, and
+  the runs go through jobq.
+
+**3. Part 2's own seed count.** Part 2 inherited Part 1's maximum and fell back to 5 seeds.
+* **Run the blind tool on ET1–ET3** directly, computing only variances and SEs, to get Part 2's own S.
+* **If S is above 5** and the extension fits the 4-hour budget, Part 2 extends on seeds 6…S, the same way.
+* **Otherwise** the 2-SE inconclusive band applies to ET1–ET3 as well.
+* **This holds only while Part 2's ET results are unread.** At this tag they are unread. If they are read before
+  the extension, any extension is reported as exploratory.
+
+**Disclosure.** The addendum was made after registration and after the smoke, from variances only, before any
+Part 1 or Part 2 outcome was read.

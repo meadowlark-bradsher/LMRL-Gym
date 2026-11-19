@@ -21,6 +21,7 @@ by rerunning the same command. Pin BLAS threads to 1 per worker and submit throu
 from __future__ import annotations
 
 import argparse
+import glob
 import gzip
 import json
 import os
@@ -109,6 +110,67 @@ def part1_jobs(n_seeds: int, map_ids: Optional[Sequence[str]] = None,
             jobs.append({"part": 1, "arm": "B", "map_id": "identity", "flip": flip,
                          "seed": s, "job_id": "p1_B_identity_f{}_s{}".format(flip, s)})
     return jobs
+
+
+def extension_cells(seed_rule: str, registered: int = 66) -> List[dict]:
+    """Addendum 1, item 2: the construction x flip cells whose blind DE1 seed count is
+    above the registered 66. Chosen from ``seed_rule.json`` alone (variances only)."""
+    with open(seed_rule) as f:
+        rule = json.load(f)
+    need: Dict[tuple, int] = {}
+    for r in rule["tests"]:
+        if r["test"] in ("DE1(a)", "DE1(c)"):
+            k = (r["unit"], r["flip"])
+            need[k] = max(need.get(k, 0), r["seeds_full"])
+    return [{"construction": c, "flip": f, "seeds": s}
+            for (c, f), s in sorted(need.items()) if s > registered]
+
+
+def extension_jobs(seed_rule: str, registered: int = 66) -> List[dict]:
+    """Arms A and B on seeds registered+1..S in each extension cell. Job ids are Part 1's,
+    so the keyed noise extends the same paired streams. A's play does not depend on the
+    map, so A runs once per (flip, seed) up to the largest S at that flip."""
+    _, _, maps = load_inputs()
+    cells = extension_cells(seed_rule, registered)
+    jobs = []
+    for flip in sorted({c["flip"] for c in cells}):
+        s_max = max(c["seeds"] for c in cells if c["flip"] == flip)
+        for s in range(registered + 1, s_max + 1):
+            jobs.append({"part": 1, "arm": "A", "map_id": None, "flip": flip, "seed": s,
+                         "job_id": "p1_A_f{}_s{}".format(flip, s)})
+    for c in cells:
+        ids = sorted(m for m, mp in maps.items()
+                     if mp["alignment_construction"] == c["construction"])
+        for s in range(registered + 1, c["seeds"] + 1):
+            for m in ids:
+                jobs.append({"part": 1, "arm": "B", "map_id": m, "flip": c["flip"],
+                             "seed": s,
+                             "job_id": "p1_B_{}_f{}_s{}".format(m, c["flip"], s)})
+    return jobs
+
+
+def project_extension(jobs: List[dict], part1_dir: str, workers: int = 6,
+                      wall_efficiency: float = 1.0) -> dict:
+    """Hours for ``jobs`` from the registered Part 1 run's own per-job seconds (the
+    ``secs`` field only), by arm and map, at the noisy flips."""
+    secs: Dict[tuple, List[float]] = {}
+    keys = {(j["arm"], j["map_id"], j["flip"]) for j in jobs}
+    for arm, m, flip in keys:
+        pat = ("p1_A_f{}_s*.json.gz".format(flip) if arm == "A"
+               else "p1_B_{}_f{}_s*.json.gz".format(m, flip))
+        v = []
+        for p in sorted(glob.glob(os.path.join(part1_dir, "jobs", pat)))[:20]:
+            with gzip.open(p, "rt") as f:
+                v.append(json.load(f)["secs"])
+        if not v:
+            raise SystemExit("no Part 1 timings for {}".format((arm, m, flip)))
+        secs[(arm, m, flip)] = v
+    cpu = sum(sum(secs[(j["arm"], j["map_id"], j["flip"])])
+              / len(secs[(j["arm"], j["map_id"], j["flip"])]) for j in jobs)
+    by_arm = {a: sum(1 for j in jobs if j["arm"] == a) for a in ("A", "B")}
+    return {"n_jobs": len(jobs), "jobs_by_arm": by_arm, "cpu_hours": round(cpu / 3600, 2),
+            "wall_hours_on_{}".format(workers): round(cpu / workers / 3600 * wall_efficiency, 2),
+            "wall_efficiency": wall_efficiency}
 
 
 def rotations(map_ids: Sequence[str] = PART2_MAPS) -> List[dict]:
@@ -453,6 +515,11 @@ def main() -> None:
     ap.add_argument("--in-pool-reps", type=int, default=4)
     ap.add_argument("--smoke-seeds", action="store_true",
                     help="smoke: use --seeds (the seed-rule smoke uses --seeds 5)")
+    ap.add_argument("--extend", metavar="SEED_RULE_JSON",
+                    help="Addendum 1: A/B extension on the cells whose blind DE1 S > 66")
+    ap.add_argument("--project", metavar="PART1_DIR",
+                    help="with --extend: print projected hours from Part 1's job timings")
+    ap.add_argument("--wall-efficiency", type=float, default=1.0)
     ap.add_argument("--trim", action="store_true",
                     help="Part 1: seed-1 maps plus align and cat17 (the prereg's trim)")
     a = ap.parse_args()
@@ -465,6 +532,18 @@ def main() -> None:
         out = smoke(a.out, a.workers, a.seeds if a.smoke_seeds else 2)
         # The smoke's own summary includes paired means; print only cost and spread.
         print(json.dumps({k: out[k] for k in ("secs_per_job", "projection")}, indent=1))
+        return
+    if a.extend:
+        jobs = extension_jobs(a.extend)
+        print(json.dumps({"cells": extension_cells(a.extend)}))
+        if a.project:
+            print(json.dumps(project_extension(jobs, a.project, a.workers,
+                                               a.wall_efficiency), indent=1))
+            return
+        run(a.out, jobs, a.workers, {"part": 1, "extension": "addendum1",
+                                     "seed_rule": a.extend,
+                                     "cells": extension_cells(a.extend),
+                                     "pythonhashseed": hs, "p0a": P0A, "flips": FLIPS})
         return
     if a.part == 1:
         _, _, maps = load_inputs()

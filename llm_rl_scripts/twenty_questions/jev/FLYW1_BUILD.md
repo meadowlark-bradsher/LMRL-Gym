@@ -123,3 +123,76 @@ jobq -N 6 -L lmrl-flyw1-part2 ... --part 2 --seeds 5 --workers 6 --out .../flyw1
 # analysis
 PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1 --part1 .../flyw1_part1_<date> --part2 .../flyw1_part2_<date> --gate .../flyw1_gate_20261118/gate.json --out .../flyw1_analysis_<date>.json
 ```
+
+## Part 2's own seed count (Addendum 1, item 3; 2026-11-19)
+
+`flyw1_seed_rule_p2.py` applies the within-secret rule to Part 2's own 5 seeds (jobq 64). It was run on
+2026-11-19 at about 06:00, after the addendum's tag and before any ET result was read. It writes
+`results/flyw1_part2_20261118/seed_rule_p2.json`.
+
+* **Unit:** one game, meaning (map, rotation, flip, secret, repeat, kind). It pools the noisy flips at ratio 0.2
+  with the true p_U.
+* **Margins:**
+  * ET3: 0.02 on the difference T-loss − T-mass.
+  * ET2: 0.10 on the per-map missed-call rate.
+  * ET1: 0.3 on the ratio T-loss ÷ T-mass. Its SE comes from the delta method at the bar (R = 0.7). That
+    needs T-mass's pooled spurious rate, which the tool forms internally and does not print.
+
+**Result: every test needs 5 seeds, so Part 2 is not extended.**
+
+| test | SE at 5 seeds, B | SE at 5 seeds, D | margin ÷ 3 |
+|---|---:|---:|---:|
+| ET1 (ratio) | 0.0059 | 0.0045 | 0.10 |
+| ET3 | 0.0001 | 0.0001 | 0.0067 |
+| ET2, largest of 9 maps | 0.0073 | 0.0121 | 0.033 |
+
+An extension would have fitted: 0.059 h per extra seed for B and D, up to 64 seeds within the 4-hour budget.
+Several ET2 maps have SE 0: on those, every novel game's act-or-call is the same under all 5 seeds. The 2-SE band
+applies as registered, and it cannot make a zero-SE result inconclusive.
+
+**Disclosure.** ET1's SE is scaled by T-mass's level, so a reader who knew the variance could infer that level
+roughly. The level itself was not printed or read.
+
+## DE1 extension: run and merge (Addendum 1, items 1 and 2; 2026-11-19)
+
+* **Run:** `flyw1_run --extend .../seed_rule.json` (jobq 68, `results/flyw1_part1ext_20261119`). It runs A and B on
+  seeds 67…S in the four cells whose blind DE1 S is above 66:
+
+  | construction | flip | S |
+  |---|---|---:|
+  | `align` | 0.05 | 71 |
+  | `align` | 0.10 | 119 |
+  | `cat17` | 0.05 | 465 |
+  | `cat17` | 0.10 | 787 |
+
+  The jobs use Part 1's job ids. Regenerated seed-41 jobs equal the stored ones. Projected 0.73 h on 6 workers.
+* **Merge:** `analyze_flyw1 --part1-ext <dir> --seed-rule <seed_rule.json>`.
+  * In each extended cell, DE1(a) and DE1(c) are pooled over seeds 1…S, and the SE is taken at S seeds. The
+    registered 66-seed entry is kept under `primary_protocol`.
+  * A cell missing any seed is marked `INCOMPLETE` and keeps its 66-seed score.
+  * The extension may hold only A and B jobs, none overlapping the registered run (asserted).
+* **Item 1:** `DE1.INCONCLUSIVE` is set when no DE1 entry fails and at least one is inconclusive. The decision
+  then reads "B is not recommended; more seeds are needed".
+* **Test** (blind; only equality was printed). The 5-seed smoke was split into seeds 1–3 plus an "extension" of
+  seeds 4–5. The merged cells equal the full 5-seed scores, and `primary_protocol` equals the 3-seed run. A cell
+  without its B extension is flagged `INCOMPLETE` and left unchanged. No other result changes.
+
+```bash
+PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1 --part1 .../flyw1_part1_20261118 --part1-ext .../flyw1_part1ext_20261119 --part2 .../flyw1_part2_20261118 --gate .../flyw1_gate_20261118/gate.json --seed-rule .../flyw1_smoke_20261118/seed_rule.json --out .../flyw1_analysis_20261119.json
+```
+
+## Reported tables (`flyw1_report.py`, after scoring)
+
+`flyw1_report.py` writes the numbers `FLYW1_DECISION_RESULTS.md` quotes beyond the verdicts. It reads the
+analyzer's output and the Part 2 jobs, and scores nothing:
+
+* Part 1 cells pooled per construction with the analyzer's own pooling, plus the class-map basis beside B's
+  observed flip-0 probes;
+* how often T-loss acts at Part 2's trigger points, and P(X\*) there;
+* T-mass against T-loss costed at the *same* ratio. The analyzer's `part2.reported` block costs T-mass at 0.2
+  only, so its T-loss costs at 0.5 and 0.05 are not comparable with the T-mass cost beside them. No verdict uses
+  that block.
+
+```bash
+PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.flyw1_report --analysis .../flyw1_analysis_20261119.json --part2 .../flyw1_part2_20261118 --out .../flyw1_report_20261119.json
+```
