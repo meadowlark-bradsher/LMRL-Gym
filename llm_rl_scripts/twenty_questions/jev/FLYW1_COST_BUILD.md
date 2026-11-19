@@ -84,10 +84,8 @@ jobq -N 6 -L lmrl-flyw1-cost taskpolicy -c utility /usr/bin/env PYTHONHASHSEED=0
 PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1_cost --run .../flyw1_cost_<date> --maps .../flyw1_cost_maps_<date> --flyw1-analysis .../flyw1_analysis_20261119.json --out .../flyw1_cost_analysis_<date>.json
 ```
 
-## Open before registration (the user's call)
+## Decisions (user, 2026-11-19)
 
-1. The P1 margin (2).
-2. P2's cheap wrong action (c_wrong = 5).
-3. Dropping C.
-4. Whether one fresh map going the wrong way (P4) should block adopting the label.
-Settled: the SE unit is the secret (user, 2026-11-19).
+All five open choices are settled and recorded in the prereg's "Decisions" section: P1 margin 2, P2 c_wrong 5, C
+dropped, P4 strict, SE per secret. The analyzer's constants already match. What remains is registration: merge,
+tag, generate the fresh maps, then queue the run.

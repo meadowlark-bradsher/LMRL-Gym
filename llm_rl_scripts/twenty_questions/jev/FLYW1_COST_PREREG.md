@@ -1,11 +1,25 @@
 # Does a class stopping rule pay in total cost? — pre-registration (FLYW-1, follow-up)
 
-**Status: DRAFT, not registered.** Nothing in this document has been run. It follows FLYW-1
+**Status: DRAFT, not registered; every open choice is decided (see "Decisions", 2026-11-19).** Nothing in this
+document has been run beyond the build gate and a projection (`FLYW1_COST_BUILD.md`). It follows FLYW-1
 (`FLYW1_DECISION_PREREG.md`, tags `prereg-flyw1-decision-20261118` and `prereg-flyw1-addendum1-20261119`;
 results in `FLYW1_DECISION_RESULTS.md`), whose results doc names this prereg as "the clean route" to settling
 FLYW-6.
 
 Jira: epic FLYW-1. Decides FLYW-6 (whether fault-graph's failure modes get a remediation label).
+
+## Decisions (2026-11-19, user, before registration)
+
+The draft left five choices open. All five are settled; the text below already reflects them, and so do the
+analyzer's named constants (`analyze_flyw1_cost.py`).
+
+| choice | decision | where it acts |
+|---|---|---|
+| P1 margin | **2** probe-equivalents per game, as drafted | `P1_MARGIN = 2.0` |
+| P2's cheap wrong action | **c_wrong = 5**, as drafted | `P2_C_WRONG = 5.0` |
+| Arm C (and C-bin) | **dropped**, as drafted: arms A, B and D only | `ARMS`; runner `--arms A,B,D` |
+| P4 | **strict**, as drafted: one fresh map × flip where B is not cheaper than A fails P4, and the label is then not adopted on this run | `P4` in the analyzer; decision rule below |
+| SE unit | **the secret** (amended from FLYW-1's (map, secret); see "SE unit" under Seed count) | `SE_UNIT = "secret"` |
 
 ## Why this prereg exists
 
