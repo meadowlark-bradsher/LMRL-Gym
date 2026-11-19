@@ -57,9 +57,16 @@ _CACHE: dict = {}
 # Inputs                                                                       #
 # --------------------------------------------------------------------------- #
 
+def resolve_maps(maps_dir: Optional[str]) -> str:
+    """A job's ``maps_dir`` is stored relative to this directory (no home paths in the
+    result files); None means FLYW-1's registered map set."""
+    return MAPS if maps_dir is None else os.path.normpath(os.path.join(HERE, maps_dir))
+
+
 def load_inputs(maps_dir: str = MAPS):
-    if "inputs" in _CACHE:
-        return _CACHE["inputs"]
+    key = ("inputs", os.path.normpath(maps_dir))
+    if key in _CACHE:
+        return _CACHE[key]
     with open(MATRIX) as f:
         matrix = json.load(f)["matrix"]
     hyps = load_hypotheses()
@@ -75,8 +82,8 @@ def load_inputs(maps_dir: str = MAPS):
             raise SystemExit("map {} does not match its registered hash/version"
                              .format(row["map_id"]))
         maps[row["map_id"]] = mp
-    _CACHE["inputs"] = (matrix, hyps, maps)
-    return _CACHE["inputs"]
+    _CACHE[key] = (matrix, hyps, maps)
+    return _CACHE[key]
 
 
 def by_names(hyps: Sequence[Hypothesis], names: Sequence[str]) -> List[Hypothesis]:
@@ -88,27 +95,39 @@ def by_names(hyps: Sequence[Hypothesis], names: Sequence[str]) -> List[Hypothesi
 # Jobs                                                                         #
 # --------------------------------------------------------------------------- #
 
-def seeds_for(flip: float, n_seeds: int) -> List[int]:
-    return [0] if flip == 0.0 else list(range(1, n_seeds + 1))
+def seeds_for(flip: float, n_seeds: int, start: int = 1) -> List[int]:
+    return [0] if flip == 0.0 else list(range(start, start + n_seeds))
 
 
 def part1_jobs(n_seeds: int, map_ids: Optional[Sequence[str]] = None,
-               flips: Sequence[float] = FLIPS) -> List[dict]:
-    _, _, maps = load_inputs()
+               flips: Sequence[float] = FLIPS, arms: Optional[Sequence[str]] = None,
+               seed_start: int = 1, maps_dir: Optional[str] = None) -> List[dict]:
+    """FLYW-1 Part 1 when ``arms`` is None: A, ``PART1_ARMS`` and B on the identity map.
+    With ``arms`` (the total-cost follow-up: A, B, D), exactly those arms and no identity
+    job. ``maps_dir`` (relative to this directory) is written into each job so the
+    workers load the same map set; FLYW-1's jobs carry no such key."""
+    _, _, maps = load_inputs(resolve_maps(maps_dir))
     ids = list(map_ids) if map_ids else list(maps)
+    map_arms = PART1_ARMS if arms is None else tuple(a for a in arms if a != "A")
+    with_a = arms is None or "A" in arms
+    extra = {} if maps_dir is None else {"maps_dir": maps_dir}
     jobs = []
     for flip in flips:
-        for s in seeds_for(flip, n_seeds):
-            jobs.append({"part": 1, "arm": "A", "map_id": None, "flip": flip, "seed": s,
-                         "job_id": "p1_A_f{}_s{}".format(flip, s)})
+        for s in seeds_for(flip, n_seeds, seed_start):
+            if with_a:
+                jobs.append(dict({"part": 1, "arm": "A", "map_id": None, "flip": flip,
+                                  "seed": s, "job_id": "p1_A_f{}_s{}".format(flip, s)},
+                                 **extra))
             for m in ids:
-                for arm in PART1_ARMS:
-                    jobs.append({"part": 1, "arm": arm, "map_id": m, "flip": flip,
-                                 "seed": s,
-                                 "job_id": "p1_{}_{}_f{}_s{}".format(arm, m, flip, s)})
-            # Reported only: B on the identity map (every object its own class).
-            jobs.append({"part": 1, "arm": "B", "map_id": "identity", "flip": flip,
-                         "seed": s, "job_id": "p1_B_identity_f{}_s{}".format(flip, s)})
+                for arm in map_arms:
+                    jobs.append(dict({"part": 1, "arm": arm, "map_id": m, "flip": flip,
+                                      "seed": s,
+                                      "job_id": "p1_{}_{}_f{}_s{}".format(arm, m, flip, s)},
+                                     **extra))
+            if arms is None:
+                # Reported only: B on the identity map (every object its own class).
+                jobs.append({"part": 1, "arm": "B", "map_id": "identity", "flip": flip,
+                             "seed": s, "job_id": "p1_B_identity_f{}_s{}".format(flip, s)})
     return jobs
 
 
@@ -149,15 +168,27 @@ def extension_jobs(seed_rule: str, registered: int = 66) -> List[dict]:
     return jobs
 
 
+def timing_map_id(m: Optional[str]) -> Optional[str]:
+    """The FLYW-1 map whose Part 1 timings stand in for ``m``: a fresh generator-seed-3/4
+    map (the total-cost follow-up) borrows those of the same K, profile and construction
+    at seed 1/2."""
+    if m is None:
+        return None
+    for new, old in (("_s3", "_s1"), ("_s4", "_s2")):
+        if m.endswith(new):
+            return m[: -len(new)] + old
+    return m
+
+
 def project_extension(jobs: List[dict], part1_dir: str, workers: int = 6,
                       wall_efficiency: float = 1.0) -> dict:
     """Hours for ``jobs`` from the registered Part 1 run's own per-job seconds (the
-    ``secs`` field only), by arm and map, at the noisy flips."""
+    ``secs`` field only), by arm and map; up to 20 timings per (arm, map, flip)."""
     secs: Dict[tuple, List[float]] = {}
     keys = {(j["arm"], j["map_id"], j["flip"]) for j in jobs}
     for arm, m, flip in keys:
         pat = ("p1_A_f{}_s*.json.gz".format(flip) if arm == "A"
-               else "p1_B_{}_f{}_s*.json.gz".format(m, flip))
+               else "p1_{}_{}_f{}_s*.json.gz".format(arm, timing_map_id(m), flip))
         v = []
         for p in sorted(glob.glob(os.path.join(part1_dir, "jobs", pat)))[:20]:
             with gzip.open(p, "rt") as f:
@@ -167,7 +198,8 @@ def project_extension(jobs: List[dict], part1_dir: str, workers: int = 6,
         secs[(arm, m, flip)] = v
     cpu = sum(sum(secs[(j["arm"], j["map_id"], j["flip"])])
               / len(secs[(j["arm"], j["map_id"], j["flip"])]) for j in jobs)
-    by_arm = {a: sum(1 for j in jobs if j["arm"] == a) for a in ("A", "B")}
+    by_arm = {a: sum(1 for j in jobs if j["arm"] == a)
+              for a in sorted({j["arm"] for j in jobs})}
     return {"n_jobs": len(jobs), "jobs_by_arm": by_arm, "cpu_hours": round(cpu / 3600, 2),
             "wall_hours_on_{}".format(workers): round(cpu / workers / 3600 * wall_efficiency, 2),
             "wall_efficiency": wall_efficiency}
@@ -205,7 +237,7 @@ def part2_jobs(n_seeds: int, in_pool_reps: int,
 # --------------------------------------------------------------------------- #
 
 def play_part1(job: dict) -> List[dict]:
-    matrix, hyps, maps = load_inputs()
+    matrix, hyps, maps = load_inputs(resolve_maps(job.get("maps_dir")))
     oracle = KeyedOracle(matrix, job["flip"], job["seed"])
     out = []
     for h in hyps:
@@ -522,7 +554,17 @@ def main() -> None:
     ap.add_argument("--wall-efficiency", type=float, default=1.0)
     ap.add_argument("--trim", action="store_true",
                     help="Part 1: seed-1 maps plus align and cat17 (the prereg's trim)")
+    ap.add_argument("--seed-start", type=int, default=1,
+                    help="Part 1: first noise seed (the total-cost follow-up: 1001)")
+    ap.add_argument("--arms", help="Part 1: comma-separated arms, e.g. A,B,D (default: "
+                                   "FLYW-1's A, B, C, D, Cbin and the identity job)")
+    ap.add_argument("--maps-dir", help="Part 1: map set (default: FLYW-1's registered set)")
+    ap.add_argument("--project-only", metavar="PART1_DIR",
+                    help="Part 1: print the projected hours from FLYW-1 Part 1's job "
+                         "timings and exit; nothing is run")
     a = ap.parse_args()
+    if (a.seed_start != 1 or a.arms or a.maps_dir or a.project_only) and a.part != 1:
+        ap.error("--seed-start, --arms, --maps-dir and --project-only go with --part 1")
     hs = require_hash_seed()
     if a.gate:
         res = gate(a.out)
@@ -546,14 +588,27 @@ def main() -> None:
                                      "pythonhashseed": hs, "p0a": P0A, "flips": FLIPS})
         return
     if a.part == 1:
-        _, _, maps = load_inputs()
+        maps_rel = (None if a.maps_dir is None
+                    else os.path.relpath(os.path.abspath(a.maps_dir), HERE))
+        arms = None if a.arms is None else tuple(x.strip() for x in a.arms.split(","))
+        if arms is not None and not set(arms) <= {"A"} | set(PART1_ARMS):
+            ap.error("unknown arm in --arms {}".format(a.arms))
+        _, _, maps = load_inputs(resolve_maps(maps_rel))
         ids = [m for m, mp in maps.items() if not a.trim or mp["seed"] in (None, 1)]
-        jobs = part1_jobs(a.seeds, ids)
+        jobs = part1_jobs(a.seeds, ids, arms=arms, seed_start=a.seed_start,
+                          maps_dir=maps_rel)
+        if a.project_only:
+            print(json.dumps(project_extension(jobs, a.project_only, a.workers,
+                                               a.wall_efficiency), indent=1))
+            return
     elif a.part == 2:
         jobs = part2_jobs(a.seeds, a.in_pool_reps)
     else:
         ap.error("--part, --gate or --smoke")
     run(a.out, jobs, a.workers, {"part": a.part, "seeds": a.seeds, "trim": a.trim,
+                                 "seed_start": a.seed_start, "arms": a.arms,
+                                 "maps_dir": a.maps_dir and os.path.relpath(
+                                     os.path.abspath(a.maps_dir), HERE),
                                  "in_pool_reps": a.in_pool_reps, "pythonhashseed": hs,
                                  "p0a": P0A, "flips": FLIPS, "ratios": RATIOS,
                                  "pu_scales": PU_SCALES})
