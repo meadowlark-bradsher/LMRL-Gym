@@ -123,3 +123,32 @@ jobq -N 6 -L lmrl-flyw1-part2 ... --part 2 --seeds 5 --workers 6 --out .../flyw1
 # analysis
 PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1 --part1 .../flyw1_part1_<date> --part2 .../flyw1_part2_<date> --gate .../flyw1_gate_20261118/gate.json --out .../flyw1_analysis_<date>.json
 ```
+
+## Part 2's own seed count (Addendum 1, item 3; 2026-11-19)
+
+`flyw1_seed_rule_p2.py` applies the within-secret rule to Part 2's own 5 seeds (jobq 64). It was run on
+2026-11-19 at about 06:00, after the addendum's tag and before any ET result was read. It writes
+`results/flyw1_part2_20261118/seed_rule_p2.json`.
+
+* **Unit:** one game, meaning (map, rotation, flip, secret, repeat, kind). It pools the noisy flips at ratio 0.2
+  with the true p_U.
+* **Margins:**
+  * ET3: 0.02 on the difference T-loss − T-mass.
+  * ET2: 0.10 on the per-map missed-call rate.
+  * ET1: 0.3 on the ratio T-loss ÷ T-mass. Its SE comes from the delta method at the bar (R = 0.7). That
+    needs T-mass's pooled spurious rate, which the tool forms internally and does not print.
+
+**Result: every test needs 5 seeds, so Part 2 is not extended.**
+
+| test | SE at 5 seeds, B | SE at 5 seeds, D | margin ÷ 3 |
+|---|---:|---:|---:|
+| ET1 (ratio) | 0.0059 | 0.0045 | 0.10 |
+| ET3 | 0.0001 | 0.0001 | 0.0067 |
+| ET2, largest of 9 maps | 0.0073 | 0.0121 | 0.033 |
+
+An extension would have fitted: 0.059 h per extra seed for B and D, up to 64 seeds within the 4-hour budget.
+Several ET2 maps have SE 0: on those, every novel game's act-or-call is the same under all 5 seeds. The 2-SE band
+applies as registered, and it cannot make a zero-SE result inconclusive.
+
+**Disclosure.** ET1's SE is scaled by T-mass's level, so a reader who knew the variance could infer that level
+roughly. The level itself was not printed or read.
