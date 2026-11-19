@@ -92,7 +92,24 @@ the whole pool, so the only randomness is the answer noise. The rule registered 
 * **Blind:** `flyw1_seed_rule.py` forms only variances and SEs. The smoke code no longer writes paired means.
   The first smoke's summary did contain them; they were never read.
 
-SEEDRULE_RESULT
+**Result** (`results/flyw1_smoke_20261118/seed_rule.json`; 5-seed smoke, jobq 58). The cap binds:
+
+| test | units | seeds needed |
+|---|---|---:|
+| DE1(a) probes, margin 0.1 | synthetic constructions | 5–6 |
+| DE1(a) probes, margin 0.1 | `cat17` | 17–28 |
+| DE1(c) wrong actions, margin 0.02 | synthetic constructions | 20–119 |
+| DE1(c) wrong actions, margin 0.02 | `cat17` | 465–787 |
+| DE3(b), margin 0.02 | `rand` | 16 |
+| DE1(b), DE5 | all | 5 |
+
+* **The largest need is 787 seeds** (DE1(c) on `cat17`, a single map at flip 0.10). The 8-hour cap allows 66,
+  so Part 1 runs **66 seeds: 7.98 h on 6 workers**. Tests whose SE at 66 seeds leaves the result within 2 SE of
+  the bar are scored inconclusive.
+* **What drives the need.** Wrong actions vary a lot from seed to seed within a secret: the within-secret
+  variance of the B − A difference is 2.2–6.6. DE1(c)'s margin is small (0.02 per game).
+* **Part 2 at 66 seeds** would take about 7 h, past its 4-hour budget. So **Part 2 runs 5 seeds** (0.58 h), with
+  SE reported.
 
 ## Commands
 
@@ -101,7 +118,7 @@ SEEDRULE_RESULT
 PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.flyw1_run --gate --out llm_rl_scripts/twenty_questions/jev/results/flyw1_gate_20261118
 jobq -N 6 -L lmrl-flyw1-smoke taskpolicy -c utility /usr/bin/env PYTHONHASHSEED=0 PYTHONPATH=$PWD OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 /opt/miniconda3/envs/LLM_RL/bin/python -m llm_rl_scripts.twenty_questions.jev.flyw1_run --smoke --workers 6 --out $PWD/llm_rl_scripts/twenty_questions/jev/results/flyw1_smoke_20261118
 # full runs (after registration; same command resumes)
-jobq -N 6 -L lmrl-flyw1-part1 taskpolicy -c utility /usr/bin/env PYTHONHASHSEED=0 PYTHONPATH=$PWD OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 /opt/miniconda3/envs/LLM_RL/bin/python -m llm_rl_scripts.twenty_questions.jev.flyw1_run --part 1 --seeds 5 --workers 6 --out $PWD/llm_rl_scripts/twenty_questions/jev/results/flyw1_part1_<date>
+jobq -N 6 -L lmrl-flyw1-part1 taskpolicy -c utility /usr/bin/env PYTHONHASHSEED=0 PYTHONPATH=$PWD OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 /opt/miniconda3/envs/LLM_RL/bin/python -m llm_rl_scripts.twenty_questions.jev.flyw1_run --part 1 --seeds 66 --workers 6 --out $PWD/llm_rl_scripts/twenty_questions/jev/results/flyw1_part1_<date>
 jobq -N 6 -L lmrl-flyw1-part2 ... --part 2 --seeds 5 --workers 6 --out .../flyw1_part2_<date>
 # analysis
 PYTHONHASHSEED=0 PYTHONPATH=. python -m llm_rl_scripts.twenty_questions.jev.analyze_flyw1 --part1 .../flyw1_part1_<date> --part2 .../flyw1_part2_<date> --gate .../flyw1_gate_20261118/gate.json --out .../flyw1_analysis_<date>.json

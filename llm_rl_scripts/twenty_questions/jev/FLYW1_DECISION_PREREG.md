@@ -401,5 +401,13 @@ meet a 0.10 bar.
 **3. The seed rule** was set by the user after the first smoke (Part 1, "Seeds"). It replaced a per-game SE
 rule that treated the spread between secrets as noise.
 
-**Before registering:** the 5-seed smoke sets the seed count (`flyw1_seed_rule.py`, `seed_rule.json`), this
-draft merges, and the prereg is tagged, as the ST studies were.
+**The seed count.** The 5-seed smoke (jobq 58, `results/flyw1_smoke_20261118/seed_rule.json`) gives:
+
+* DE1(c) on `cat17` needs 787 seeds, and DE1(c) on the synthetic constructions needs 20–119;
+* every other test needs 5–28.
+
+The 8-hour cap allows 66, so **the cap binds**. Part 1 runs **66 noise seeds** at each noisy flip (7.98 h on 6
+workers), and the 2-SE inconclusive band applies. Part 2 at 66 seeds would pass its 4-hour budget, so **Part 2
+runs 5 seeds** with SE reported.
+
+**Before registering:** this draft merges and the prereg is tagged, as the ST studies were.
