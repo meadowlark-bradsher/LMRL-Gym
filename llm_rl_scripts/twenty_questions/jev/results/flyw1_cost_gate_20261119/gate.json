@@ -1,0 +1,86 @@
+{
+ "pythonhashseed": "0",
+ "maps": {
+  "seed1": {
+   "maps": 33,
+   "byte_identical": 33,
+   "differ": []
+  },
+  "seed2": {
+   "maps": 33,
+   "byte_identical": 33,
+   "differ": []
+  },
+  "PASS": true
+ },
+ "flip0": {
+  "jobs": 19,
+  "maps": [
+   "cat17",
+   "k16_bal_align",
+   "k16_skew_align",
+   "k2_bal_align",
+   "k2_skew_align",
+   "k4_bal_align",
+   "k4_skew_align",
+   "k8_bal_align",
+   "k8_skew_align"
+  ],
+  "identical": 19,
+  "per_job": {
+   "p1_A_f0.0_s0": true,
+   "p1_B_cat17_f0.0_s0": true,
+   "p1_D_cat17_f0.0_s0": true,
+   "p1_B_k16_bal_align_f0.0_s0": true,
+   "p1_D_k16_bal_align_f0.0_s0": true,
+   "p1_B_k16_skew_align_f0.0_s0": true,
+   "p1_D_k16_skew_align_f0.0_s0": true,
+   "p1_B_k2_bal_align_f0.0_s0": true,
+   "p1_D_k2_bal_align_f0.0_s0": true,
+   "p1_B_k2_skew_align_f0.0_s0": true,
+   "p1_D_k2_skew_align_f0.0_s0": true,
+   "p1_B_k4_bal_align_f0.0_s0": true,
+   "p1_D_k4_bal_align_f0.0_s0": true,
+   "p1_B_k4_skew_align_f0.0_s0": true,
+   "p1_D_k4_skew_align_f0.0_s0": true,
+   "p1_B_k8_bal_align_f0.0_s0": true,
+   "p1_D_k8_bal_align_f0.0_s0": true,
+   "p1_B_k8_skew_align_f0.0_s0": true,
+   "p1_D_k8_skew_align_f0.0_s0": true
+  },
+  "PASS": true
+ },
+ "jobs": {
+  "default_part1_jobs_unchanged": true,
+  "flyw1_part1_jobs": 30590,
+  "cost_jobs": 4715,
+  "cost_jobs_unique": true,
+  "noisy_overlap_with_flyw1_ids": 0,
+  "flip0_ids_shared_with_flyw1": 115,
+  "cost_seeds": [
+   0,
+   1001,
+   1020
+  ],
+  "all_carry_maps_dir": true,
+  "arms": [
+   "A",
+   "B",
+   "D"
+  ],
+  "PASS": true
+ },
+ "projection": {
+  "n_jobs": 4715,
+  "jobs_by_arm": {
+   "A": 41,
+   "B": 2337,
+   "D": 2337
+  },
+  "cpu_hours": 5.72,
+  "wall_hours_on_6": 0.95,
+  "wall_efficiency": 1.0,
+  "note": "FLYW-1 Part 1 per-job secs, up to 20 timings per (arm, map, flip); wall = CPU / workers (efficiency 1.0)"
+ },
+ "PASS": true
+}

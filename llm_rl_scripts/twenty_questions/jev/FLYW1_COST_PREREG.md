@@ -1,11 +1,25 @@
 # Does a class stopping rule pay in total cost? — pre-registration (FLYW-1, follow-up)
 
-**Status: DRAFT, not registered.** Nothing in this document has been run. It follows FLYW-1
+**Status: DRAFT, not registered; every open choice is decided (see "Decisions", 2026-11-19).** Nothing in this
+document has been run beyond the build gate and a projection (`FLYW1_COST_BUILD.md`). It follows FLYW-1
 (`FLYW1_DECISION_PREREG.md`, tags `prereg-flyw1-decision-20261118` and `prereg-flyw1-addendum1-20261119`;
 results in `FLYW1_DECISION_RESULTS.md`), whose results doc names this prereg as "the clean route" to settling
 FLYW-6.
 
 Jira: epic FLYW-1. Decides FLYW-6 (whether fault-graph's failure modes get a remediation label).
+
+## Decisions (2026-11-19, user, before registration)
+
+The draft left five choices open. All five are settled; the text below already reflects them, and so do the
+analyzer's named constants (`analyze_flyw1_cost.py`).
+
+| choice | decision | where it acts |
+|---|---|---|
+| P1 margin | **2** probe-equivalents per game, as drafted | `P1_MARGIN = 2.0` |
+| P2's cheap wrong action | **c_wrong = 5**, as drafted | `P2_C_WRONG = 5.0` |
+| Arm C (and C-bin) | **dropped**, as drafted: arms A, B and D only | `ARMS`; runner `--arms A,B,D` |
+| P4 | **strict**, as drafted: one fresh map × flip where B is not cheaper than A fails P4, and the label is then not adopted on this run | `P4` in the analyzer; decision rule below |
+| SE unit | **the secret** (amended from FLYW-1's (map, secret); see "SE unit" under Seed count) | `SE_UNIT = "secret"` |
 
 ## Why this prereg exists
 
@@ -43,7 +57,7 @@ Unchanged from FLYW-1 except where noted.
 | **total cost** | Per game: 1 per probe + c_expert per expert call + c_wrong per wrong action. c_expert = 10 throughout |
 | **c_wrong** | 50 (FLYW-1's primary ratio 0.2), **primary**. Also 5 (P2), and 20 and 200 (FLYW-1's ratios 0.5 and 0.05, reported) |
 | **cell** | One construction × flip, pooled over its maps with FLYW-1's game-weighted pooling |
-| **SE** | FLYW-1's within-secret SE: per (map, secret) unit, the variance of the paired difference across noise seeds, pooled; SE of a cell mean = √(Σ σᵢ²) ÷ (N · √S). Flip-0 cells are deterministic (SE 0) |
+| **SE** | Within-secret SE with the **secret** as the unit (amended 2026-11-19, user; see "SE unit" below): for each secret, average its paired difference over the cell's maps at each noise seed, and take the variance of those averages across seeds, σᵢ²; SE of a cell mean = √(Σ σᵢ²) ÷ (N · √S) over the N secrets. S1 pools two flips, so its units are (flip, secret). Flip-0 cells are deterministic (SE 0) |
 
 C and C-bin are not run. Neither is a candidate policy: C is myopic (FLYW-1 DE3(a)), and C-bin was a diagnostic.
 
@@ -81,10 +95,18 @@ The two unscored flip-0 cells are reported.
 
 S = 20 per noisy flip, fixed now. Rule: FLYW-1's, S = max(5, ⌈5 × (SE₅ ÷ ((G − m) ÷ 3))²⌉), where G is the basis gap
 and m the margin (below). With SE₅ computed from FLYW-1 Part 1's seeds 1–10
-(`results/flyw1_cost_basis_20261119/cost_var.json`, from `flyw1_cost_basis.py`, disclosed below), it asks for 5
-seeds in every scored noisy cell, for P1 and P2 alike. The tightest are both on `cat17`: P1 at flip 0.10, SE₅ 4.17
-against a basis gap of 43.0; P2 at flip 0.05, SE₅ 0.36 against 3.02.
+(`results/flyw1_cost_basis_20261119/cost_var.json`, from `flyw1_cost_basis.py`, disclosed below; the per-secret SE
+is its `se_secret_at_5`), it asks for 5 seeds in every scored noisy cell, for P1 and P2 alike. The tightest are
+both on `cat17` at flip 0.05: P1, SE₅ 3.02 against G − m = 19.4; P2, SE₅ 0.36 against 3.02. On `cat17` (one map)
+the two SE units coincide; on the multi-map cells the per-secret SE₅ is 2.1–3.5× FLYW-1's, and still asks for 5.
 S = 20 is four times that, to cover the shift to fresh maps, where Part 1's variances are only an estimate.
+
+**SE unit (amendment, 2026-11-19, before registration, user).** The draft used FLYW-1's (map, secret) unit. The build
+(`FLYW1_COST_BUILD.md`) found that it understates the seed-to-seed SE of a multi-map cell: A plays each
+(secret, seed) game once and is scored on every map, and the keyed noise is shared by every arm's game of that
+secret and seed, so a cell's maps move together. On FLYW-1 Part 1, `align` at flip 0.05, A − B at c_wrong 50,
+20 seeds: 0.53 per (map, secret), 1.42 per secret, 1.60 as the SD of per-seed cell means ÷ √S. The user chose the
+secret unit. FLYW-1's (map, secret) SE is reported beside it (`se_map_secret`).
 
 **Budget:** about 2 × 20 × (2 arms × 57 maps + A) ≈ 4,600 noisy jobs plus flip 0, roughly 15% of FLYW-1 Part 1's
 job count, without C's long games. Project hours from Part 1's per-job `secs` before queueing; expected well
@@ -94,20 +116,20 @@ under 2 h on 6 workers through `jobq`.
 
 The basis for every prediction is FLYW-1 Part 1 (66 seeds, the analyzer's cells, game-weighted per construction).
 
-| construction | flip | A − B at c_wrong 50 | A − B at c_wrong 5 | wrong actions A → B | D − B at 50 | SE₅ of A − B at 50 |
+| construction | flip | A − B at c_wrong 50 | A − B at c_wrong 5 | wrong actions A → B | D − B at 50 | SE₅ of A − B at 50 (per secret) |
 |---|---|---:|---:|---|---:|---:|
 | `align` | 0 | 7.5 | 1.40 | 0.15 → 0.01 | −0.5 | 0 |
-| | 0.05 | 26.0 | 3.77 | 0.66 → 0.16 | +5.5 | 1.07 |
-| | 0.10 | 45.5 | 6.25 | 1.19 → 0.32 | +9.0 | 1.47 |
+| | 0.05 | 26.0 | 3.77 | 0.66 → 0.16 | +5.5 | 2.87 |
+| | 0.10 | 45.5 | 6.25 | 1.19 → 0.32 | +9.0 | 3.98 |
 | `mix05` | 0 | 14.7 | 1.30 | 0.32 → 0.02 | −1.0 | 0 |
-| | 0.05 | 29.8 | 3.25 | 0.78 → 0.19 | +5.0 | 0.71 |
-| | 0.10 | 46.0 | 5.31 | 1.26 → 0.35 | +8.5 | 0.99 |
+| | 0.05 | 29.8 | 3.25 | 0.78 → 0.19 | +5.0 | 2.48 |
+| | 0.10 | 46.0 | 5.31 | 1.26 → 0.35 | +8.5 | 3.47 |
 | `mix15` | 0 | 28.7 | 1.91 | 0.63 → 0.04 | −1.7 | 0 |
-| | 0.05 | 34.5 | 2.76 | 0.94 → 0.24 | +4.3 | 0.56 |
-| | 0.10 | 41.3 | 3.69 | 1.25 → 0.42 | +7.8 | 0.76 |
+| | 0.05 | 34.5 | 2.76 | 0.94 → 0.24 | +4.3 | 1.42 |
+| | 0.10 | 41.3 | 3.69 | 1.25 → 0.42 | +7.8 | 1.95 |
 | `rand` | 0 | 66.3 | 5.47 | 1.43 → 0.08 | −1.9 | 0 |
-| | 0.05 | 59.2 | 4.73 | 1.58 → 0.37 | +4.5 | 0.47 |
-| | 0.10 | 54.4 | 4.25 | 1.73 → 0.61 | +7.7 | 0.61 |
+| | 0.05 | 59.2 | 4.73 | 1.58 → 0.37 | +4.5 | 1.00 |
+| | 0.10 | 54.4 | 4.25 | 1.73 → 0.61 | +7.7 | 1.27 |
 | `cat17` | 0 | 0.5 | 0.51 | 0.00 → 0.00 | −0.1 | 0 |
 | | 0.05 | 21.4 | 3.02 | 0.67 → 0.27 | +12.8 | 3.02 |
 | | 0.10 | 43.0 | 5.60 | 1.36 → 0.53 | +21.8 | 4.17 |
@@ -171,8 +193,9 @@ the bar. **An inconclusive test counts as not passed.**
 * FLYW-1's Part 1, its DE1 extension, Part 2, the analysis and `FLYW1_DECISION_RESULTS.md` have all been read.
   Every basis number above comes from them.
 * `cost_var.json` (Part 1 seeds 1–10, arms A, B and D at flips 0.05 and 0.10, c_wrong 5, 20, 50 and 200) was
-  computed while drafting this document, to size S. It holds means and SEs of the paired cost differences. No
-  fresh map or fresh seed has been generated or played.
+  computed while drafting this document, to size S. It holds means and SEs of the paired cost differences. The
+  per-secret SEs (`se_secret_*`) were added to it on 2026-11-19 with the SE-unit amendment; the earlier fields are
+  unchanged. No fresh map or fresh seed has been generated or played.
 * The margins, c_wrong values and S were chosen after seeing FLYW-1. P2's c_wrong = 5 stands for a cheap
   remediation, a tenth of the primary cost. On the basis, B still wins every cell and every map there, but by as
   little as 0.03 on one map, so it is the bar most likely to fail on fresh maps.
@@ -197,7 +220,7 @@ the bar. **An inconclusive test counts as not passed.**
    (`results/flyw1_cost_maps_<date>/`) without touching FLYW-1's.
 2. `flyw1_run.py`: `--seed-start` (noise seeds 1001–1020), `--arms A,B,D`, and `--maps-dir`.
 3. An analyzer, `analyze_flyw1_cost.py`, reusing `analyze_flyw1`'s loaders, `score_a_record` and pooling, that
-   scores P1–P4 and S1 with the within-secret SE and the 2-SE inconclusive rule.
+   scores P1–P4 and S1 with the within-secret SE (per secret) and the 2-SE inconclusive rule.
 4. **Gate**, before the run: B, D and A on `align` and `cat17` at flip 0 reproduce FLYW-1's cells exactly, and a
    regenerated seed-1 map from the new `--seeds` path matches FLYW-1's file byte for byte.
 5. Projection from Part 1's per-job timings, then `jobq -N 6`.

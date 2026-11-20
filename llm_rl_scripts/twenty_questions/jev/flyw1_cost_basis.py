@@ -1,6 +1,9 @@
 """Within-secret variance of total-cost differences in FLYW-1 Part 1 (seeds 1..N).
 
-Sizes the noise-seed count for FLYW1_COST_PREREG.md. Prints means too: Part 1 is already
+Sizes the noise-seed count for FLYW1_COST_PREREG.md. Two SEs are written: ``se_*`` with
+FLYW-1's (map, secret) unit, and ``se_secret_*`` with the secret as the unit (the paired
+difference averaged over the construction's maps at each seed, then its variance across
+seeds), which is the registered one: a cell's maps share A's games and the keyed noise. Prints means too: Part 1 is already
 read, and these are part of that prereg's disclosed basis. Ratio r means c_expert = 10 and
 c_wrong = 10 / r, so r = 2.0 is c_wrong = 5.
 
@@ -33,6 +36,7 @@ for flip in (0.05, 0.1):
     for pair in (("B", "A"), ("D", "B")):
       for ratio in (2.0, 0.5, 0.2, 0.05):
         sum_var = 0.0; n_units = 0; diffs_all = []
+        by_sec = defaultdict(lambda: defaultdict(list))   # secret -> seed -> diffs over maps
         for m in ms:
             cls = maps[m]["classes"]
             per = defaultdict(list)
@@ -45,11 +49,17 @@ for flip in (0.05, 0.1):
                 for sec in x:
                     d = cost(x[sec], ratio) - cost(y[sec], ratio)
                     per[sec].append(d); diffs_all.append(d)
+                    by_sec[sec][s].append(d)
             for sec, v in per.items():
                 sum_var += statistics.variance(v); n_units += 1
         se = math.sqrt(sum_var) / n_units / math.sqrt(NS)
+        var_sec = sum(statistics.variance([statistics.mean(v) for v in per_seed.values()])
+                      for per_seed in by_sec.values())
+        se_sec = math.sqrt(var_sec) / len(by_sec) / math.sqrt(NS)
         out["{}|{}|{}-{}|r{}".format(c, flip, pair[0], pair[1], ratio)] = {
             "mean_diff": round(statistics.mean(diffs_all), 3), "se_at_N": round(se, 4),
-            "se_at_5": round(se * math.sqrt(NS / 5), 4), "units": n_units}
+            "se_at_5": round(se * math.sqrt(NS / 5), 4), "units": n_units,
+            "se_secret_at_N": round(se_sec, 4),
+            "se_secret_at_5": round(se_sec * math.sqrt(NS / 5), 4), "secrets": len(by_sec)}
 json.dump(out, open(OUT, "w"), indent=1)
 for k, v in out.items(): print(k, v)

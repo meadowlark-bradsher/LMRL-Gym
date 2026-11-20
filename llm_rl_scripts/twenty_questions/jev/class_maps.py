@@ -376,7 +376,13 @@ def measures(objs: Sequence[str], qids: Sequence[str], table: Table,
     return out
 
 
-def build_all(matrix_path: str = MATRIX_FILE) -> Tuple[List[dict], dict]:
+def build_all(matrix_path: str = MATRIX_FILE,
+              seeds: Sequence[int] = SEEDS) -> Tuple[List[dict], dict]:
+    """Every map: ``cat17``, the ``align`` maps, and the ``mix05``/``mix15``/``rand`` maps at
+    each generator seed in ``seeds``. FLYW-1 used seeds (1, 2); the total-cost follow-up
+    (``FLYW1_COST_PREREG.md``) uses (3, 4). ``cat17`` and ``align`` do not depend on the seed,
+    and a seed's maps do not depend on which other seeds are built, so any map is the same
+    byte for byte whichever ``seeds`` produced it."""
     objs, qids, table, prov = load_table(matrix_path)
     _, paths = identity_tree(objs, qids, table)
     order, seqs, a_sha = p0a_paths(objs)
@@ -410,16 +416,17 @@ def build_all(matrix_path: str = MATRIX_FILE) -> Tuple[List[dict], dict]:
             aligned = blocks(order, sizes)
             add("k{}_{}_align".format(k, prof), "synthetic", k, prof, "align", None, aligned)
             for tag, share in MIXES:
-                for s in SEEDS:
+                for s in seeds:
                     add("k{}_{}_{}_s{}".format(k, prof, tag, s), "synthetic", k, prof, tag,
                         s, mix(aligned, objs, share, seed=1000 * k + 10 * s + int(100 * share)))
-            for s in SEEDS:
+            for s in seeds:
                 add("k{}_{}_rand_s{}".format(k, prof, s), "synthetic", k, prof, "rand", s,
                     shuffled(objs, sizes, seed=1000 * k + s))
     return maps, prov
 
 
-def write_all(out: str, maps: Sequence[dict], prov: dict) -> None:
+def write_all(out: str, maps: Sequence[dict], prov: dict,
+              seeds: Sequence[int] = SEEDS) -> None:
     os.makedirs(os.path.join(out, "maps"), exist_ok=True)
     rows = []
     for mp in maps:
@@ -432,6 +439,8 @@ def write_all(out: str, maps: Sequence[dict], prov: dict) -> None:
                      "assignment_sha256_12": mp["assignment_sha256_12"], **mp["measures"]})
     index = {"generator": "class_maps.py", "generator_version": GENERATOR_VERSION,
              "provenance": prov, "n_maps": len(rows), "maps": rows}
+    if tuple(seeds) != SEEDS:
+        index["generator_seeds"] = list(seeds)
     with open(os.path.join(out, "index.json"), "w") as f:
         json.dump(index, f, indent=1)
         f.write("\n")
@@ -488,14 +497,20 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--out", help="output directory")
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--seeds", type=int, nargs="+", default=list(SEEDS),
+                    help="generator seeds for the mix05/mix15/rand maps (FLYW-1: 1 2; the "
+                         "total-cost follow-up: 3 4). cat17 and align are always written")
     a = ap.parse_args()
     if a.self_test:
         self_test()
         return
     if not a.out:
         ap.error("--out is required")
-    maps, prov = build_all()
-    write_all(a.out, maps, prov)
+    if os.path.exists(os.path.join(a.out, "index.json")):
+        ap.error("{} already holds a map set; write a new one to a fresh directory"
+                 .format(a.out))
+    maps, prov = build_all(seeds=a.seeds)
+    write_all(a.out, maps, prov, a.seeds)
     print("wrote {} maps to {}".format(len(maps), a.out))
     for mp in maps:
         m = mp["measures"]
