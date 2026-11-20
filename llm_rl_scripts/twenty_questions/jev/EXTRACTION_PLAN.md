@@ -192,7 +192,7 @@ rebuild its item set the Phase 3 way. That is a separate change in those repos.
 
 ## 8. Roadmap integration (sre-flywheel E1)
 
-These come from the sre-flywheel integrator session (2026-11-20) and don't change any decision in §2.
+These come from the integrator, the session titled `FLYW integrator (sre-flywheel)` (2026-11-20), and don't change any decision in §2. It coordinates the experiment sessions and E1. In the ROADMAP owner table, this plan's owner is the session `20q extraction and elimination framing`.
 
 - **Timing.** Phases 0–1 are *Now*. Phase 2 is *Next*: it is the first bet of the roadmap's O4, whose
   export from fault-graph targets `core/`. Phase 3 is *Later* and optional.
