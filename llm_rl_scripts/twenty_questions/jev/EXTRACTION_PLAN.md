@@ -1,6 +1,13 @@
 # Moving the 20Q work into its own elimination repo — plan
 
-**Status (2026-11-20): DRAFT.** Nothing has been moved or created. The decisions in §2 are open.
+**Status (2026-11-20): DECIDED.** D1–D6 in §2 take the recommended option. User, 2026-11-20: "Go with
+your recommended options for D1–D6". The name `meadowlark-bradsher/elimination` was checked and is free.
+Nothing has been moved or created yet. The new repo's own license is **deferred** (user, 2026-11-20:
+"lets leave the license out for now"). The repo starts private with no LICENSE file, and one is added
+before it is shared or made public.
+
+**Roadmap.** This plan is enabler **E1** on the `sre-flywheel` ROADMAP. The sre-flywheel session is the
+integrator, and this plan's owner owns E1. §8 lists what the roadmap adds.
 
 ## The question in plain words
 
@@ -42,11 +49,12 @@ anyway because it costs little, except for the last phase (§5, Phase 3).
 | Links into this path from elsewhere | FINDINGS.md cites `twenty_questions/jev/` 5 times. `sre-flywheel` README links here once | Add pointers. Don't rewrite history |
 | Tests | No pytest suite. The safety net is the gate scripts (`stress_regression`, ST-0, `stress_guard_gate`, `flyw1_cost_gate`, `stress_fastguess_gate`) | These gates are the acceptance tests for the move |
 
-## 2. Decisions for you
+## 2. Decisions
 
-Each has a recommendation. The plan below assumes the recommended option.
+**Decided 2026-11-20: every row takes the "Recommended" option.** The alternatives are kept for the
+record.
 
-| # | Decision | Recommended | Alternatives |
+| # | Decision | Decided (was: recommended) | Alternatives not taken |
 |---|---|---|---|
 | D1 | Repo name | `elimination` | `elim`, `bed-elimination`, or a name of yours |
 | D2 | How the 20Q domain gets the 158 objects and `matrix_jev.json` | **Bring your own checkout.** A loader reads them from a local LMRL-Gym at the archive tag, given by `LMRL_GYM_PATH`, and checks a SHA-256 recorded in the new repo. A hash is not a copy | (b) Copy them and add the MIT notice. You asked not to. (c) Switch now to a new item set. That breaks byte-identical regression, so it is Phase 3 instead |
@@ -59,7 +67,7 @@ Each has a recommendation. The plan below assumes the recommended option.
 
 ```
 elimination/                     # D1
-  LICENSE                        # yours (pick one); no LMRL-Gym notice
+  (no LICENSE yet)               # deferred; never the LMRL-Gym notice
   README.md                      # what elimination is; links to the archive and the 11 prereg tags
   elimination/
     core/                        # Phase 2: domain-neutral
@@ -105,7 +113,10 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
 ### Phase 0: decide and freeze (in LMRL-Gym)
 
 1. Settle D1–D6.
-2. Tag fork `main` as `twentyq-archive-<date>` and record the SHA. That is the archive tag the loader and
+2. **Precondition (roadmap):** FLYW-7's rule, "verify after every remediation; if the incident has not
+   cleared, escalate" (FINDINGS §3.16), is merged into `PRODUCTION_RECOMMENDATIONS.md`. Don't tag before
+   that.
+   Then tag fork `main` as `twentyq-archive-<date>` and record the SHA. That is the archive tag the loader and
    all citations use.
 3. Compute the SHA-256 of the canonicalized `DEFAULT_OBJECT_DICT` and of `matrix_jev.json` at that tag.
 
@@ -122,7 +133,7 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
    `LLM_RL.jev.client`, so step 4's rewrite covers it.
 2. Run G1 on the filtered history **before** pushing anywhere. If a blob fails, add it to the
    invert-paths list and rerun.
-3. Create the private repo (D5), push, add your LICENSE.
+3. Create the private repo (D5) and push. No LICENSE file yet (deferred, see Status).
 4. In one commit:
    - replace `from llm_rl_scripts.twenty_questions.env.data import DEFAULT_OBJECT_DICT` with
      `domains/lmrl20q.load_object_dict()`, hash-checked
@@ -130,12 +141,13 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
    - rewrite `llm_rl_scripts.twenty_questions.jev.` → `elimination.twentyq.` and
      `LLM_RL.jev.client` → `elimination.clients.jev.client` in code and in the `python -m` lines of the docs
    - add `pyproject.toml` with numpy, scipy and matplotlib only
-5. Run G2, G3 and G4.
+5. Run G2, G3 and G4. Paste the output of G1–G4 into the Phase 1 PR; that's the roadmap's exit test for Phase 1.
 6. Add pointers back:
    - a `MOVED.md` in this directory naming the new repo and the commit (the directory stays frozen;
      LMRL-Gym history is not rewritten)
    - a FINDINGS §8 provenance row
-   - an update to the `sre-flywheel` README component row
+   - the new text for the `sre-flywheel` README component-1 row, **sent to the sre-flywheel
+     (integrator) session**, which makes the edit. That README has one writer.
 
 ### Phase 2: generalize (one PR per lift, each passing G2–G4)
 
@@ -149,7 +161,8 @@ registered wording.
 Move studies into `studies/` with their prereg, build and results docs. The prereg docs keep citing
 their LMRL-Gym tags.
 
-Then decide D4 (CMBS).
+Then make the CMBS choice that D4 deferred (the jev reducer or CMBS's `MaskMeetTombstoneReducer`).
+Make it with the roadmap's O8 (bitmask or graph) and cmbs ADR-001 in view.
 
 ### Phase 3: a default domain with no LMRL ancestry (optional; the only expensive phase)
 
@@ -176,3 +189,22 @@ rebuild its item set the Phase 3 way. That is a separate change in those repos.
 - LMRL-Gym history, tags and `results/`. Nothing is rewritten or deleted.
 - Car Dealer, Split Deal, Wordle and the shared `FINDINGS.md`.
 - The running SD3-E job, which lives in another worktree and branch.
+
+## 8. Roadmap integration (sre-flywheel E1)
+
+These come from the integrator, the session titled `FLYW integrator (sre-flywheel)` (2026-11-20), and don't change any decision in §2. It coordinates the experiment sessions and E1. In the ROADMAP owner table, this plan's owner is the session `20q extraction and elimination framing`.
+
+- **Timing.** Phases 0–1 are *Now*. Phase 2 is *Next*: it is the first bet of the roadmap's O4, whose
+  export from fault-graph targets `core/`. Phase 3 is *Later* and optional.
+- **Freeze.** From the archive tag on, no new study starts in `twenty_questions/jev/`. Later studies
+  (FLYW-8 arm DP, a FLYW-9 likelihood study) start in the new repo once Phase 1's gates pass. The freeze
+  covers this directory only, not `LLM_RL/jev/`, whose client Wordle and Car Dealer still use.
+- **Before the tag:** the FLYW-7 remediation rule goes into `PRODUCTION_RECOMMENDATIONS.md` (Phase 0
+  step 2). The FLYW-2 prereg session, which owns FLYW-7's finding, writes it and reports when it merges.
+  E1 doesn't edit that file.
+- **D4:** the CMBS choice is made in Phase 2 with O8 and cmbs ADR-001 in view.
+- **Phase 1 step 6:** the sre-flywheel README row goes through the integrator.
+- **§6** (item-list provenance in 20q-env and belief-trajectory) is listed under E1 as unassigned.
+- **Decision rights** (ROADMAP "Roles and decision rights"): merging PRs and anything outside the repos in
+  the owner's name are reserved to the research lead. This plan also asks the research lead before
+  pushing the archive tag and before creating the new GitHub repo.
