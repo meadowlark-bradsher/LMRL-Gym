@@ -1,0 +1,19 @@
+{
+ "python_hash_seed": "0",
+ "settings": {
+  "max_probes": 20,
+  "confidence": 0.9,
+  "eps": 0.05,
+  "tolerance": 3,
+  "p_unknown": 0.1
+ },
+ "mode": "smoke",
+ "seeds": 5,
+ "segments": [
+  {
+   "started": "2026-11-19 14:27:33",
+   "n_jobs": 140,
+   "workers": 6
+  }
+ ]
+}

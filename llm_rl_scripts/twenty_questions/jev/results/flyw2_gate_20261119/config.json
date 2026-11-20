@@ -1,0 +1,10 @@
+{
+ "mode": "gate",
+ "segments": [
+  {
+   "started": "2026-11-19 14:24:08",
+   "n_jobs": 14,
+   "workers": 6
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "smoke_seeds": 5,
+ "tests": [
+  {
+   "test": "CX1(a)",
+   "flip": 0.05,
+   "se5": 0.010496,
+   "margin": 0.084,
+   "seeds": 5
+  },
+  {
+   "test": "CX1(b)",
+   "flip": 0.05,
+   "se5": 0.0,
+   "margin": 0.1,
+   "seeds": 5
+  },
+  {
+   "test": "CX3(a)",
+   "flip": 0.05,
+   "se5": 0.001237,
+   "margin": 0.185,
+   "seeds": 5
+  },
+  {
+   "test": "CX3(b)",
+   "flip": 0.05,
+   "se5": 0.001289,
+   "margin": 0.276,
+   "seeds": 5
+  },
+  {
+   "test": "CX1(a)",
+   "flip": 0.1,
+   "se5": 0.014453,
+   "margin": 0.084,
+   "seeds": 5
+  },
+  {
+   "test": "CX1(b)",
+   "flip": 0.1,
+   "se5": 0.0,
+   "margin": 0.1,
+   "seeds": 5
+  },
+  {
+   "test": "CX3(a)",
+   "flip": 0.1,
+   "se5": 0.001632,
+   "margin": 0.185,
+   "seeds": 5
+  },
+  {
+   "test": "CX3(b)",
+   "flip": 0.1,
+   "se5": 0.001692,
+   "margin": 0.276,
+   "seeds": 5
+  },
+  {
+   "test": "CX2",
+   "flip": "pooled",
+   "se5": 0.378838,
+   "margin": 15.0,
+   "seeds": 5
+  }
+ ],
+ "seeds_needed": 5,
+ "core_seconds_per_flip_seed": 429.2,
+ "cap_seeds_at_4.0h_6w": 100,
+ "seeds_run": 5,
+ "cap_binds": false,
+ "projected_wall_hours": 0.2
+}

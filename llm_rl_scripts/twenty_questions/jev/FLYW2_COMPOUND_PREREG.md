@@ -1,9 +1,12 @@
 # More than one cause — pre-registration (Flywheel experiment 2, FLYW-7)
 
-**Status (2026-11-19): DRAFT, not registered, not tagged.** Registration is the user's call. Before the tag:
-the user reviews this draft and decides the open choices (§Open choices); the runner, analyzer and blind seed
-tool are built; the CX0 gate passes; and the 5-seed smoke sets the seed count (§Seeds). Nothing has been run
-except the disclosed noise-free calibration (§Basis). No noisy game has been played.
+**Status (2026-11-19): REGISTERED** at tag `prereg-flyw2-compound-20261119` (commit 008e6da, the build commit on
+branch `claude/flyw2-compound-prereg`; user: "Tag at S = 5"). PR #104 had merged only the first draft commit, so
+the tag is on the branch commit, not the merge. Thresholds, seed counts and rules are as written below.
+The open choices are decided (§Decisions; the recommended option on each). The runner, analyzer and blind seed
+tool are built (`FLYW2_BUILD.md`), and the CX0 gate passes (jobq 77). The 5-seed smoke (jobq 78) was read only by
+the blind seed tool, which sets **S = 5** (§Seeds). Apart from the disclosed noise-free calibration (§Basis), no
+outcome has been read. The smoke's noisy games were played, and only their within-unit variances were computed.
 
 Jira: epic FLYW-2. This is FLYW-7 (the two-secret oracle). FLYW-8 (fixes) and FLYW-9 (the two-fault composition
 study in fault-graph) are decided from it. Design source: sre-flywheel README, "Experiment 2: more than one cause",
@@ -213,7 +216,7 @@ w = 0.5); the rest are novels. Under noise, flip-struck singles will add "error"
 **The cost scale, disclosed.** At the primary costs an autonomous single game costs 145.9 and an expert call 10.
 So calling the expert at turn 0 would be cheaper than P0a in every kind of game. This comes from FLYW-1's
 convention, that each by-name guess is a remediation, combined with P0a's habit of guessing names. It is why the
-penalty, not the raw cost, is the primary measure. It is also open choice 1.
+penalty, not the raw cost, is the primary measure (decided: §Decisions, 1).
 
 ## Predictions
 
@@ -307,8 +310,28 @@ the pair, with its members' single games from the same seed.
   seeds.
 * **Blind.** `flyw2_seed_rule.py`, to be built, reads the smoke and prints only variances, standard errors and
   seed counts, never a rate, a cost or a difference. The smoke's games are not otherwise read.
-* **Cost estimate.** At flip 0 a full set of games takes 243 s on one core. If noisy games take up to twice as
-  long, one (flip, seed) is ≤ 8 core-minutes, and the 4-hour cap allows about 90 seeds per flip on 6 workers.
+* **Cost estimate.** At flip 0 a full set of games takes 243 s on one core. The smoke measured 429 core-seconds
+  per noisy (flip, seed), so the 4-hour cap allows 100 seeds per flip on 6 workers.
+
+**The seed count (smoke jobq 78, 2026-11-19, `results/flyw2_smoke_20261119/seed_rule.json`).**
+
+| test | flip | SE₅ | margin | S |
+|---|---|---:|---:|---:|
+| CX1(a) | 0.05 / 0.10 | 0.0105 / 0.0145 | 0.084 | 5 / 5 |
+| CX1(b) | 0.05 / 0.10 | 0 / 0 | 0.10 | 5 / 5 |
+| CX2 | pooled | 0.379 | 15.0 | 5 |
+| CX3(a) | 0.05 / 0.10 | 0.0012 / 0.0016 | 0.185 | 5 / 5 |
+| CX3(b) | 0.05 / 0.10 | 0.0013 / 0.0017 | 0.276 | 5 / 5 |
+
+* **Every test needs only the rule's floor, so the run uses S = 5 seeds** per noisy flip. That is about 12 minutes
+  on 6 workers. The cap does not bind.
+* **Disclosed:** CX1(b)'s within-unit variance is exactly 0 at both flips. For every pair and every single, the
+  catch-all-firing indicator was the same on all five seeds. The tool computes no rate, so whether it was always
+  0 or always 1 for a given unit was not read. The smoke's seeds 1–5 are the run's seeds 1–5, under the same keyed
+  noise.
+* **TW1 and TW2 have no seed rule** (as drafted). At S = 5 they rest on about 85 novel games per flip, so their
+  bootstrap SE over 5 seeds will be coarse. Running more seeds would cost about 2.4 minutes of wall time per extra
+  seed. That would be a change to the rule, and so the user's call before the tag.
 
 ## FLYW-8: the fixes (listed, not in this prereg)
 
@@ -326,7 +349,7 @@ them. Each is scored on this prereg's measures and against S on the compound pen
 **Why none is folded in here.** EA and DP are cheap enough, but each adds an arm with its own bars to a draft whose
 calibration already changes the expected picture: the failure looks like a cheap partial answer, not
 exhaustion. The kill criterion may close FLYW-8's modelling arms outright, so they wait for the result. If the user
-prefers, EA can be added to this prereg as a reported arm at little cost (open choice 4).
+prefers, EA can be added to this prereg as a reported arm at little cost. The user chose not to (§Decisions, 4).
 
 ## What stays fixed, and what this is not
 
@@ -342,27 +365,28 @@ prefers, EA can be added to this prereg as a reported arm at little cost (open c
 * **Compute** goes through `jobq`, with `-N` equal to the workers and every BLAS thread variable set to 1 per
   worker, under `taskpolicy -c utility`, as in FLYW-1.
 
-## Open choices for the user
+## Decisions taken 2026-11-19 (user, in session; Jira FLYW-7)
 
-1. **The cost scale.** FLYW-1's convention (each by-name guess is a remediation, c_expert 10, c_wrong 50) makes
-   escalating at turn 0 cheaper than any autonomous game (§Basis). **Recommended: keep it as primary** for
-   comparability with FLYW-1 and its cost follow-up. The scored quantity is a penalty, which is close to one
-   expert call in all three readings (+20.0, +9.2, +9.9). The cat17 and diagnostic readings are reported. The
-   alternative is to make cat17 decisions primary, at the cost of comparability.
-2. **Verification.** **Recommended: verified as primary** (in SRE the alert either clears or it does not),
-   unverified as the sensitivity. If production cannot assume the check, CX2 should be scored unverified
-   (basis +59.4, so the bar would need resetting).
-3. **The bars.** CX1's "routinely" at 0.10, CX2 at c_expert + 0.5 c_wrong = 35, CX3 at 0.80 and 0.70, TW1 at 0.85,
-   TW2 at 0.60.
-4. **Fold EA into FLYW-7** as a reported arm? Recommended: no (above).
-5. **The novel hold-out and p_U = 0.10.** Fixed by seed (`flyw2-novels`). The 17 novels are listed in
-   `summary.json`.
+The user reviewed the draft's open choices and took the recommended option on each of the first four. The fifth
+was not raised and stays as drafted. Nothing in the design changed.
+
+1. **Cost scale: FLYW-1's convention is primary.** Each by-name guess is a remediation, with c_expert 10 and
+   c_wrong 50, for comparability with FLYW-1 and its cost follow-up. The cat17 and diagnostic readings are
+   reported. The turn-0 escalation problem (§Basis) is why the scored quantity is the penalty, which is close to
+   one expert call in all three readings at flip 0 (+20.0, +9.2, +9.9).
+2. **Verification: verified is primary.** A partial answer costs one expert call. The unverified reading (+59.4 at
+   flip 0) is reported as a sensitivity.
+3. **The bars: kept as drafted.** CX1 < 0.10, CX2 ≤ 35, CX3 ≥ 0.80 and ≥ 0.70, TW1 ≥ 0.85, TW2 ≥ 0.60.
+4. **Explain-away: left to FLYW-8.** FLYW-7 stays a measurement of the failure only.
+5. **Novel hold-out and p_U = 0.10: as drafted** (seed `flyw2-novels`; the 17 novels are listed in
+   `summary.json`).
 
 ## Before registering
 
-1. The user decides the open choices; this draft is revised and merged.
-2. Build `flyw2_run.py` (resumable, one job per flip × seed × kind block, checkpointed), `analyze_flyw2.py` and
-   `flyw2_seed_rule.py`, with a build note.
-3. Run the CX0 gate.
-4. Run the 5-seed smoke and the blind seed tool; record S here.
-5. Tag `prereg-flyw2-compound-<date>`, then queue the run.
+1. ~~The user decides the open choices~~ (done, §Decisions); this draft merges.
+2. ~~Build `flyw2_run.py`, `analyze_flyw2.py` and `flyw2_seed_rule.py`, with a build note~~ (done:
+   `FLYW2_BUILD.md`).
+3. ~~Run the CX0 gate~~ (PASS, jobq 77).
+4. ~~Run the 5-seed smoke and the blind seed tool~~ (S = 5, jobq 78; §Seeds).
+5. ~~The draft merges. Tag `prereg-flyw2-compound-<date>`~~ (tag `prereg-flyw2-compound-20261119`), then queue
+   `flyw2_run --run --seeds 5` through `jobq -N 6`.
