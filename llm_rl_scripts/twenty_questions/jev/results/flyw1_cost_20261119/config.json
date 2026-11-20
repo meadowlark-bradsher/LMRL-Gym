@@ -1,0 +1,38 @@
+{
+ "part": 1,
+ "seeds": 20,
+ "trim": false,
+ "seed_start": 1001,
+ "arms": "A,B,D",
+ "maps_dir": "results/flyw1_cost_maps_20261119",
+ "in_pool_reps": 4,
+ "pythonhashseed": "0",
+ "p0a": {
+  "max_probes": 20,
+  "confidence": 0.9,
+  "eps": 0.05,
+  "tolerance": 3
+ },
+ "flips": [
+  0.0,
+  0.05,
+  0.1
+ ],
+ "ratios": [
+  0.5,
+  0.2,
+  0.05
+ ],
+ "pu_scales": [
+  1.0,
+  0.5,
+  2.0
+ ],
+ "segments": [
+  {
+   "started": "2026-11-19 18:52:34",
+   "n_jobs": 4715,
+   "workers": 6
+  }
+ ]
+}
