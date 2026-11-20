@@ -200,7 +200,8 @@ These come from the sre-flywheel integrator session (2026-11-20) and don't chang
   (FLYW-8 arm DP, a FLYW-9 likelihood study) start in the new repo once Phase 1's gates pass. The freeze
   covers this directory only, not `LLM_RL/jev/`, whose client Wordle and Car Dealer still use.
 - **Before the tag:** the FLYW-7 remediation rule goes into `PRODUCTION_RECOMMENDATIONS.md` (Phase 0
-  step 2).
+  step 2). The FLYW-2 prereg session, which owns FLYW-7's finding, writes it and reports when it merges.
+  E1 doesn't edit that file.
 - **D4:** the CMBS choice is made in Phase 2 with O8 and cmbs ADR-001 in view.
 - **Phase 1 step 6:** the sre-flywheel README row goes through the integrator.
 - **§6** (item-list provenance in 20q-env and belief-trajectory) is listed under E1 as unassigned.
