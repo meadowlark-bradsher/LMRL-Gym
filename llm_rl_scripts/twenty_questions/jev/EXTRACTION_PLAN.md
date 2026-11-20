@@ -6,6 +6,9 @@ Nothing has been moved or created yet. The new repo's own license is **deferred*
 "lets leave the license out for now"). The repo starts private with no LICENSE file, and one is added
 before it is shared or made public.
 
+**Roadmap.** This plan is enabler **E1** on the `sre-flywheel` ROADMAP. The sre-flywheel session is the
+integrator, and this plan's owner owns E1. §8 lists what the roadmap adds.
+
 ## The question in plain words
 
 The Twenty Questions work in this directory has stopped being about LMRL-Gym. It is a general method
@@ -110,7 +113,10 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
 ### Phase 0: decide and freeze (in LMRL-Gym)
 
 1. Settle D1–D6.
-2. Tag fork `main` as `twentyq-archive-<date>` and record the SHA. That is the archive tag the loader and
+2. **Precondition (roadmap):** FLYW-7's rule, "verify after every remediation; if the incident has not
+   cleared, escalate" (FINDINGS §3.16), is merged into `PRODUCTION_RECOMMENDATIONS.md`. Don't tag before
+   that.
+   Then tag fork `main` as `twentyq-archive-<date>` and record the SHA. That is the archive tag the loader and
    all citations use.
 3. Compute the SHA-256 of the canonicalized `DEFAULT_OBJECT_DICT` and of `matrix_jev.json` at that tag.
 
@@ -140,7 +146,8 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
    - a `MOVED.md` in this directory naming the new repo and the commit (the directory stays frozen;
      LMRL-Gym history is not rewritten)
    - a FINDINGS §8 provenance row
-   - an update to the `sre-flywheel` README component row
+   - the new text for the `sre-flywheel` README component-1 row, **sent to the sre-flywheel
+     (integrator) session**, which makes the edit. That README has one writer.
 
 ### Phase 2: generalize (one PR per lift, each passing G2–G4)
 
@@ -154,7 +161,8 @@ registered wording.
 Move studies into `studies/` with their prereg, build and results docs. The prereg docs keep citing
 their LMRL-Gym tags.
 
-Then decide D4 (CMBS).
+Then make the CMBS choice that D4 deferred (the jev reducer or CMBS's `MaskMeetTombstoneReducer`).
+Make it with the roadmap's O8 (bitmask or graph) and cmbs ADR-001 in view.
 
 ### Phase 3: a default domain with no LMRL ancestry (optional; the only expensive phase)
 
@@ -181,3 +189,18 @@ rebuild its item set the Phase 3 way. That is a separate change in those repos.
 - LMRL-Gym history, tags and `results/`. Nothing is rewritten or deleted.
 - Car Dealer, Split Deal, Wordle and the shared `FINDINGS.md`.
 - The running SD3-E job, which lives in another worktree and branch.
+
+## 8. Roadmap integration (sre-flywheel E1)
+
+These come from the sre-flywheel integrator session (2026-11-20) and don't change any decision in §2.
+
+- **Timing.** Phases 0–1 are *Now*. Phase 2 is *Next*: it is the first bet of the roadmap's O4, whose
+  export from fault-graph targets `core/`. Phase 3 is *Later* and optional.
+- **Freeze.** From the archive tag on, no new study starts in `twenty_questions/jev/`. Later studies
+  (FLYW-8 arm DP, a FLYW-9 likelihood study) start in the new repo once Phase 1's gates pass. The freeze
+  covers this directory only, not `LLM_RL/jev/`, whose client Wordle and Car Dealer still use.
+- **Before the tag:** the FLYW-7 remediation rule goes into `PRODUCTION_RECOMMENDATIONS.md` (Phase 0
+  step 2).
+- **D4:** the CMBS choice is made in Phase 2 with O8 and cmbs ADR-001 in view.
+- **Phase 1 step 6:** the sre-flywheel README row goes through the integrator.
+- **§6** (item-list provenance in 20q-env and belief-trajectory) is listed under E1 as unassigned.
