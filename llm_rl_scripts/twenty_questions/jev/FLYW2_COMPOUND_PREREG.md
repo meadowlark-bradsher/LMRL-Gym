@@ -1,6 +1,8 @@
 # More than one cause — pre-registration (Flywheel experiment 2, FLYW-7)
 
-**Status (2026-11-19): DRAFT, built and gated, not registered, not tagged.** Registration is the user's call.
+**Status (2026-11-19): REGISTERED** at tag `prereg-flyw2-compound-20261119` (commit 008e6da, the build commit on
+branch `claude/flyw2-compound-prereg`; user: "Tag at S = 5"). PR #104 had merged only the first draft commit, so
+the tag is on the branch commit, not the merge. Thresholds, seed counts and rules are as written below.
 The open choices are decided (§Decisions; the recommended option on each). The runner, analyzer and blind seed
 tool are built (`FLYW2_BUILD.md`), and the CX0 gate passes (jobq 77). The 5-seed smoke (jobq 78) was read only by
 the blind seed tool, which sets **S = 5** (§Seeds). Apart from the disclosed noise-free calibration (§Basis), no
@@ -386,5 +388,5 @@ was not raised and stays as drafted. Nothing in the design changed.
    `FLYW2_BUILD.md`).
 3. ~~Run the CX0 gate~~ (PASS, jobq 77).
 4. ~~Run the 5-seed smoke and the blind seed tool~~ (S = 5, jobq 78; §Seeds).
-5. The draft merges. Tag `prereg-flyw2-compound-<date>`, then queue
+5. ~~The draft merges. Tag `prereg-flyw2-compound-<date>`~~ (tag `prereg-flyw2-compound-20261119`), then queue
    `flyw2_run --run --seeds 5` through `jobq -N 6`.
