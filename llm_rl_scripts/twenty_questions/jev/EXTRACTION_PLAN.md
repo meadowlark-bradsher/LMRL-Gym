@@ -1,6 +1,9 @@
 # Moving the 20Q work into its own elimination repo — plan
 
-**Status (2026-11-20): DRAFT.** Nothing has been moved or created. The decisions in §2 are open.
+**Status (2026-11-20): DECIDED.** D1–D6 in §2 take the recommended option. User, 2026-11-20: "Go with
+your recommended options for D1–D6". The name `meadowlark-bradsher/elimination` was checked and is free.
+Nothing has been moved or created yet. One choice is left before Phase 1 step 3: the new repo's own
+license.
 
 ## The question in plain words
 
@@ -42,11 +45,12 @@ anyway because it costs little, except for the last phase (§5, Phase 3).
 | Links into this path from elsewhere | FINDINGS.md cites `twenty_questions/jev/` 5 times. `sre-flywheel` README links here once | Add pointers. Don't rewrite history |
 | Tests | No pytest suite. The safety net is the gate scripts (`stress_regression`, ST-0, `stress_guard_gate`, `flyw1_cost_gate`, `stress_fastguess_gate`) | These gates are the acceptance tests for the move |
 
-## 2. Decisions for you
+## 2. Decisions
 
-Each has a recommendation. The plan below assumes the recommended option.
+**Decided 2026-11-20: every row takes the "Recommended" option.** The alternatives are kept for the
+record.
 
-| # | Decision | Recommended | Alternatives |
+| # | Decision | Decided (was: recommended) | Alternatives not taken |
 |---|---|---|---|
 | D1 | Repo name | `elimination` | `elim`, `bed-elimination`, or a name of yours |
 | D2 | How the 20Q domain gets the 158 objects and `matrix_jev.json` | **Bring your own checkout.** A loader reads them from a local LMRL-Gym at the archive tag, given by `LMRL_GYM_PATH`, and checks a SHA-256 recorded in the new repo. A hash is not a copy | (b) Copy them and add the MIT notice. You asked not to. (c) Switch now to a new item set. That breaks byte-identical regression, so it is Phase 3 instead |
