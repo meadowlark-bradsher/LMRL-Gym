@@ -3,6 +3,9 @@
 **Status (2026-11-19): REGISTERED** at tag `prereg-flyw2-compound-20261119` (commit 008e6da, the build commit on
 branch `claude/flyw2-compound-prereg`; user: "Tag at S = 5"). PR #104 had merged only the first draft commit, so
 the tag is on the branch commit, not the merge. Thresholds, seed counts and rules are as written below.
+**Run and scored 2026-11-19** (jobq 80 and 81): CX1, CX2 and CX3 pass at both flips, so the kill criterion
+applies (FLYW-8's modelling fixes are not built; carry "verify after every remediation; escalate if not
+cleared"). TW1 and TW2 fail. Results: `FLYW2_COMPOUND_RESULTS.md`.
 The open choices are decided (§Decisions; the recommended option on each). The runner, analyzer and blind seed
 tool are built (`FLYW2_BUILD.md`), and the CX0 gate passes (jobq 77). The 5-seed smoke (jobq 78) was read only by
 the blind seed tool, which sets **S = 5** (§Seeds). Apart from the disclosed noise-free calibration (§Basis), no
