@@ -2,8 +2,9 @@
 
 **Status (2026-11-20): DECIDED.** D1–D6 in §2 take the recommended option. User, 2026-11-20: "Go with
 your recommended options for D1–D6". The name `meadowlark-bradsher/elimination` was checked and is free.
-Nothing has been moved or created yet. One choice is left before Phase 1 step 3: the new repo's own
-license.
+Nothing has been moved or created yet. The new repo's own license is **deferred** (user, 2026-11-20:
+"lets leave the license out for now"). The repo starts private with no LICENSE file, and one is added
+before it is shared or made public.
 
 ## The question in plain words
 
@@ -63,7 +64,7 @@ record.
 
 ```
 elimination/                     # D1
-  LICENSE                        # yours (pick one); no LMRL-Gym notice
+  (no LICENSE yet)               # deferred; never the LMRL-Gym notice
   README.md                      # what elimination is; links to the archive and the 11 prereg tags
   elimination/
     core/                        # Phase 2: domain-neutral
@@ -126,7 +127,7 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
    `LLM_RL.jev.client`, so step 4's rewrite covers it.
 2. Run G1 on the filtered history **before** pushing anywhere. If a blob fails, add it to the
    invert-paths list and rerun.
-3. Create the private repo (D5), push, add your LICENSE.
+3. Create the private repo (D5) and push. No LICENSE file yet (deferred, see Status).
 4. In one commit:
    - replace `from llm_rl_scripts.twenty_questions.env.data import DEFAULT_OBJECT_DICT` with
      `domains/lmrl20q.load_object_dict()`, hash-checked
