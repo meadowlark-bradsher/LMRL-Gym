@@ -141,7 +141,7 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
    - rewrite `llm_rl_scripts.twenty_questions.jev.` → `elimination.twentyq.` and
      `LLM_RL.jev.client` → `elimination.clients.jev.client` in code and in the `python -m` lines of the docs
    - add `pyproject.toml` with numpy, scipy and matplotlib only
-5. Run G2, G3 and G4.
+5. Run G2, G3 and G4. Paste the output of G1–G4 into the Phase 1 PR; that's the roadmap's exit test for Phase 1.
 6. Add pointers back:
    - a `MOVED.md` in this directory naming the new repo and the commit (the directory stays frozen;
      LMRL-Gym history is not rewritten)
@@ -205,3 +205,6 @@ These come from the sre-flywheel integrator session (2026-11-20) and don't chang
 - **D4:** the CMBS choice is made in Phase 2 with O8 and cmbs ADR-001 in view.
 - **Phase 1 step 6:** the sre-flywheel README row goes through the integrator.
 - **§6** (item-list provenance in 20q-env and belief-trajectory) is listed under E1 as unassigned.
+- **Decision rights** (ROADMAP "Roles and decision rights"): merging PRs and anything outside the repos in
+  the owner's name are reserved to the research lead. This plan also asks the research lead before
+  pushing the archive tag and before creating the new GitHub repo.
