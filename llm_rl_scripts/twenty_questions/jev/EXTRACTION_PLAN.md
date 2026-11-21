@@ -2,7 +2,9 @@
 
 **Status (2026-11-20): DECIDED.** D1–D6 in §2 take the recommended option. User, 2026-11-20: "Go with
 your recommended options for D1–D6". The name `meadowlark-bradsher/elimination` was checked and is free.
-Nothing has been moved or created yet. The new repo's own license is **deferred** (user, 2026-11-20:
+**Phase 0 DONE (2026-11-21):** archive tag `twentyq-archive-20261121` pushed and hashes recorded (see
+the Phase 0 record in §5). `twenty_questions/jev/` is frozen to new studies from that tag on. Nothing has
+been moved and the new repo hasn't been created yet. The new repo's own license is **deferred** (user, 2026-11-20:
 "lets leave the license out for now"). The repo starts private with no LICENSE file, and one is added
 before it is shared or made public.
 
@@ -119,6 +121,24 @@ These must pass before Phase 1 counts as done. Every Phase 2 PR must keep G2–G
    Then tag fork `main` as `twentyq-archive-<date>` and record the SHA. That is the archive tag the loader and
    all citations use.
 3. Compute the SHA-256 of the canonicalized `DEFAULT_OBJECT_DICT` and of `matrix_jev.json` at that tag.
+
+**Phase 0 record (2026-11-21).** User: "Keep the freeze, start Phase 0".
+
+| Item | Value |
+| --- | --- |
+| Archive tag | `twentyq-archive-20261121` (annotated; tag object `811a4ad14e2ce3b3730bf0bedd5f3fda5d9ae8bd`) |
+| Tagged commit | fork `main` `55713751d21db46e174db30b2d4a54229189333b` (merge of PR #112, FLYW-7's P0a′ rule) |
+| `DEFAULT_OBJECT_DICT` | 17 categories, 158 objects; canonical SHA-256 `f14f16acf65221832d3a3a48b60ade8188440660dbe9ff03442ff59c2728dc9f` |
+| `env/data.py` at the tag | git blob `706ac4376d78ab64343db33170912e8bd8b2b882` |
+| `jev/matrix_jev.json` | 163,529 bytes; file SHA-256 `9a1cc695b0265da658ae88c8d5e93a73e78cb6f2e1d4cf173009820ec9881d37`; git blob `957a64bc969f3d80e69d0239e467aa1edaff6f52` |
+
+Canonical form of `DEFAULT_OBJECT_DICT`, which the Phase 1 loader must reproduce exactly: take the dict
+literal from `env/data.py` with `ast.literal_eval` (no import, so no nltk or `LLM_RL` needed), then
+`json.dumps(d, ensure_ascii=False, separators=(",", ":")).encode("utf-8")`. Keys are **not** sorted,
+because `load_hypotheses()` follows dictionary order and G2's byte-identical regression depends on it.
+`matrix_jev.json` is hashed as raw file bytes.
+
+Phase 1 cuts its filtered history from this tag.
 
 ### Phase 1: license-clean move (a pure move, no behaviour change)
 
