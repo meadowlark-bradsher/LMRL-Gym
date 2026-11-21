@@ -46,6 +46,39 @@ downstream.
 * **Source:** ENV-702 (`OPENWORLD_RETRACTION_RESULTS.md`); guard: `STRESS_REINSTATE_GUARD.md`
   (run `results/stress_reinstate_guard_20261112/`, gates G1–G3 all pass).
 
+### P0a′ — Verify after every remediation; if the incident has not cleared, escalate
+*(safety-critical, cheap; the condition that keeps P0a safe when there is more than one cause)*
+
+The gated loop assumes one hidden cause. It stops at the first one it can confirm, and it
+never confirms a wrong one. When two causes are present, the usual result is a **silent
+partial answer**: one cause is fixed, the other is never mentioned, and nothing in the loop
+signals it. So after acting on the confirmed hypothesis, check whether the incident has
+actually cleared. If it hasn't, escalate to the expert. Do not resume elimination on your
+own (explain-away and pairs as hypotheses were not built; FLYW-8 is not needed).
+
+* **Prevents:** an incident left half-fixed because the loop's answer explained only some
+  of the symptoms. Without the check, the missed second cause becomes a wrong action.
+* **Evidence (FLYW-7, registered):** P0a against a two-secret OR oracle, all 9,870 pairs of
+  known objects, at 5% and 10% answer noise.
+  * It named exactly one of the two causes in 0.90 and 0.83 of games, never both, and never
+    an object outside the pair. 0.89 and 0.80 ended as silent partials.
+  * Two causes emptied the survivor set about as often as one did (excess +0.012 and
+    −0.007), and the catch-all never fired on them. The second cause added almost no wrong
+    guesses (+0.16 and +0.00 per incident).
+  * With the check, the second cause costs about one expert call: a compound penalty of
+    +12.4 at 1 per probe, 10 per expert call and 50 per wrong action. Without it, the
+    penalty is +53 and +41, about one wrong action per incident.
+* **Caveats:**
+  * **Verification was assumed perfect.** A check that sometimes reports "cleared" when the
+    incident hasn't cleared moves the cost toward the unverified figure.
+  * **The cost bar holds at the primary costs only.** At (30, 150) and (100, 500) the
+    verified penalty is about 1.7 expert calls at 5% noise, not one.
+  * **An empty survivor set still escalates, but it isn't evidence of a new cause by
+    itself.** Under noise, the loop's own answers can't tell a new cause from two known
+    ones or from an answer error (P2).
+* **Source:** FLYW-7 (`FLYW2_COMPOUND_PREREG.md`, tag `prereg-flyw2-compound-20261119`;
+  `FLYW2_COMPOUND_RESULTS.md`, run `results/flyw2_run_20261119/`); FINDINGS §3.16.
+
 ### P0b — Keep an append-only, hash-chained op-log
 *(free with the gate)*
 
@@ -81,7 +114,15 @@ recovery blinds it, so it earns its place **on top of** the gated backend, not i
 it.
 
 * **Prevents:** silently forcing an out-of-catalog secret onto a wrong in-pool guess.
-* **Source:** open-world extension (`OPENWORLD_RESULTS.md`).
+* **Don't admit from exhaustion alone.** An empty survivor set is a reason to escalate, not
+  proof of a new cause. In FLYW-7, with a quarter of incidents having two causes, only
+  33–50% of exhaustion escalations came from a truly new cause; the rest were answer errors
+  and compounds. A classifier on the loop's own answers could not separate the three (AUC
+  0.41, macro recall 0.30). A new cause can also hide behind a known one: in 40–44% of
+  incidents with one known and one new cause, the loop fixed the known cause and stopped.
+  Only P0a′'s check sends the new one to the expert.
+* **Source:** open-world extension (`OPENWORLD_RESULTS.md`); exhaustion and compounds:
+  FLYW-7 (`FLYW2_COMPOUND_RESULTS.md`).
 
 ### × — Skip up-front attribute onboarding
 *(don't build)*
@@ -109,10 +150,15 @@ save the engineering time. Revisit only if your budget/pool ratio is genuinely t
 * **P0 is not regime-dependent.** Unlike the cost findings, the hard-gate and op-log
   recommendations are architectural invariants — they hold regardless of budget, pool size,
   or noise.
+* **P0a′'s cost is regime-dependent.** What holds at every price tested: the loop never
+  confirmed a cause outside the pair, and a second cause added almost no wrong guesses. How
+  much the second cause costs depends on the price of an expert call and a wrong action, and
+  on the check being reliable.
 
 ## Bottom line
 
 Ship the discrete, hard-gated backend with the append-only op-log — safe and auditable in
-one move. Spend your expensive-oracle budget early and sparingly. Add a catch-all if your
+one move. Verify after every remediation, and escalate if the incident hasn't
+cleared. Spend your expensive-oracle budget early and sparingly. Add a catch-all if your
 catalog is incomplete. Don't build onboarding. And confirm your budget-to-pool ratio matches
 the studies before trusting the cost knobs.
