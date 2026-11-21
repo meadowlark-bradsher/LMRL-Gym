@@ -3,8 +3,11 @@
 **Status (2026-11-20): DECIDED.** D1–D6 in §2 take the recommended option. User, 2026-11-20: "Go with
 your recommended options for D1–D6". The name `meadowlark-bradsher/elimination` was checked and is free.
 **Phase 0 DONE (2026-11-21):** archive tag `twentyq-archive-20261121` pushed and hashes recorded (see
-the Phase 0 record in §5). `twenty_questions/jev/` is frozen to new studies from that tag on. Nothing has
-been moved and the new repo hasn't been created yet. The new repo's own license is **deferred** (user, 2026-11-20:
+the Phase 0 record in §5). `twenty_questions/jev/` is frozen to new studies from that tag on.
+**Phase 1 IN REVIEW (2026-11-21):** private repo `meadowlark-bradsher/elimination` created with the filtered
+history cut from the tag (120 commits; `EXTRACTION_PLAN.md` filtered out too, because it quotes the
+LMRL-Gym copyright line); the standalone commit is `meadowlark-bradsher/elimination#1`, with G1–G4
+passing. See `MOVED.md`. The new repo's own license is **deferred** (user, 2026-11-20:
 "lets leave the license out for now"). The repo starts private with no LICENSE file, and one is added
 before it is shared or made public.
 
