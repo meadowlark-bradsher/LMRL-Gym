@@ -416,6 +416,7 @@ def test_regenerate_small_cell_ladder():
     stored = _stored()
     fresh = se._jsonable(se.ladder_job(stored["config"], "game:none/none"))
     old = dict(stored["ladder"]["game:none/none"])
+    old.pop("kept_from", None)  # provenance the runner adds to a result kept from an earlier sweep version
     for d in (fresh, old):
         d["seconds"] = d["cpu"] = 0
     assert json.loads(json.dumps(fresh)) == old
